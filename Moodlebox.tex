@@ -11,9 +11,9 @@
 \setdefaultlanguage{french}
 \setotherlanguage{english}
 \usepackage{xcolor}
+\usepackage[hyphens]{url}
 \usepackage[unicode,bookmarks,colorlinks,breaklinks]{hyperref}
 \hypersetup{linkcolor=blue,citecolor=blue,filecolor=blue,urlcolor=blue}
-%\usepackage{breakurl}
 \urlstyle{same}
 \usepackage[shortlabels]{enumitem}
 \setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
@@ -85,7 +85,7 @@ frametitlebackgroundcolor=yellow!50!white
 
 L'idée d'une MoodleBox est issue d'une discussion survenue au printemps 2016 dans les forums de la communauté francophone de Moodle\footnote{\url{https://moodle.org/course/view.php?id=20}.} autour de la mise à disposition d'une plateforme Moodle depuis un ordinateur local\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=318719}.}, afin de fournir un environnement d'apprentissage même dans des régions éloignées de toute infrastructure réseau. L'idée a rapidement bourgeonné de construire une telle configuration avec un Raspberry Pi 3, et de la rendre accessible directement par Wi-Fi\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=330291}}.
 
-Grâce à la persévérance d'un membre de la communauté\footnote{Christian W, \url{https://moodle.org/user/view.php?id=1378197&course=20}, qu'il en soit ici remercié}, une première version de la méthode de construction d'une MoodleBox a été créée\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=331170}}. Le présent document se fonde sur cette première version. Il décrit comment construire une MoodleBox à base d'une Raspberry Pi 3.
+Grâce à la persévérance d'un membre de la communauté\footnote{Christian W, \url{https://moodle.org/user/view.php?id=1378197&course=20}, qu'il en soit ici remercié}, une méthode de construction d'une MoodleBox a été proposée\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=331170}}. Reprenant certaines idées de cette première version, ce document décrit comment construire une MoodleBox à base d'une Raspberry Pi 3.
 
 \section{Fonctionnalités de la MoodleBox}
 
@@ -507,12 +507,12 @@ On se connecte à Moodle avec le compte administrateur (créé plus haut), puis 
 \begin{figure}[!ht]
 \begin{minipage}[b]{0.45\linewidth} % A minipage that covers half the page
 \centering
-\includegraphics[width=7.5cm]{cache-application.png}
+\includegraphics[width=7.3cm]{cache-application.png}
 \end{minipage}
-\hspace{0.25cm} % To get a little bit of space between the figures
+\hspace{\fill} % To get a little bit of space between the figures
 \begin{minipage}[b]{0.45\linewidth}
 \centering
-\includegraphics[width=7.5cm]{cache-sessions.png}
+\includegraphics[width=7.3cm]{cache-sessions.png}
 \end{minipage}
 \end{figure}
 
@@ -594,7 +594,7 @@ $ sudo rm -r /var/tmp/*
 $ cat /dev/null > ~/.bash_history && history -c && sudo shutdown -r now
 \end{lstlisting}
 
-Si tout s'est bien passé, la totalité ne doit pas dépasser la taille de 1.8~Go. L'image-disque, une fois tronquée, a une taille d'un peut plus de 2~Go. Compressée, elle tient dans un peu plus de 900~Mo. 
+Si tout s'est bien passé, la totalité ne doit pas dépasser la taille de 1.8~Go. L'image-disque, une fois tronquée, a une taille d'un peu plus de 2~Go. Compressée, elle tient dans un peu plus de 900~Mo. 
 
 
 \end{document}
