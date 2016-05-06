@@ -1,3 +1,9 @@
+## Files specific to this project
+doc/*
+
+# Mac finder files and hidden folders
+.DS_Store
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
