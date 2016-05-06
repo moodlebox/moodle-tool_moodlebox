@@ -1,0 +1,601 @@
+%!TEX encoding = UTF-8 Unicode
+%!TEX TS-program = xelatex
+\documentclass[11pt]{article}
+%% Polices OTF
+\usepackage{fontspec,xltxtra,xunicode}
+\usepackage{libertine}
+%\setmainfont{Lucida Grande}
+%% Gestion des langues
+\usepackage{csquotes}
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+\setotherlanguage{english}
+\usepackage{xcolor}
+\usepackage[unicode,bookmarks,colorlinks,breaklinks]{hyperref}
+\hypersetup{linkcolor=blue,citecolor=blue,filecolor=blue,urlcolor=blue}
+%\usepackage{breakurl}
+\urlstyle{same}
+\usepackage[shortlabels]{enumitem}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[itemize,1]{label=--,topsep=0pt,itemsep=0pt,leftmargin=*}
+%% Framed boxes
+\usepackage[framemethod=tikz]{mdframed}
+\global\mdfdefinestyle{verif}{%
+%linecolor=blue,middlelinewidth=2pt,
+roundcorner=5pt,
+frametitlebackgroundcolor=yellow!50!white
+}
+\newmdenv[style=verif,frametitle=Vérification]{verification}
+%% Format de page
+\usepackage{geometry}
+\geometry{a4paper}
+\geometry{top=25mm, bottom=30mm}
+\geometry{outer=22.5mm, inner=25mm}
+\geometry{foot=15mm, head=15pt}
+%% Paragraphes sans indentation, légèrement espacés
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus1pt minus1pt}
+%%
+\setcounter{tocdepth}{1}
+\setcounter{secnumdepth}{1}
+\gappto\captionsfrench{\renewcommand{\contentsname}{Sommaire}}
+%%
+\makeatletter
+\newcommand{\nospace}[1]{\nofrench@punctuation#1\french@punctuation}
+\makeatother
+%%
+\usepackage{listings}
+\lstset{%
+  basicstyle=\footnotesize\ttfamily\nospace,breaklines=true,
+  showstringspaces=false,
+  commentstyle=\color{gray},
+  keywordstyle=\color[HTML]{000000},
+  backgroundcolor=\color[HTML]{eeeeee},
+  tabsize=4,
+  xleftmargin=1em,
+  framextopmargin=3pt,
+  framexleftmargin=1em,
+  %framexrightmargin=1em,
+  framexbottommargin=2pt,
+  frame=bt,
+  rulecolor=\color[HTML]{eeeeee},
+}
+%%
+%% Illustrations
+\usepackage{graphicx}
+\graphicspath{{img/}}
+
+\begin{document}
+
+\title{Moodle on Raspberry Pi 3\\ ou la construction d'une MoodleBox\footnote{Le présent document est mis à disposition selon les termes de la \href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{Licence Creative Commons Attribution - Pas d'Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International}.}}
+\date{13 avril 2016}
+\author{Nicolas Martignoni}
+\maketitle
+
+\begingroup
+\setlength{\parskip}{0pt}
+\tableofcontents
+\endgroup
+
+\section{Pourquoi une MoodleBox ?}
+
+\begin{quote}
+\noindent « \emph{Et l'idée d'un petit boîtier à poser sur la table qui va déployer Moodle à toute la classe a quelque chose de magique qui me motive beaucoup plus.}»\footnote{Daniel Méthot, \url{https://moodle.org/mod/forum/discuss.php?d=330291\#p1332370}.}
+\end{quote}
+
+L'idée d'une MoodleBox est issue d'une discussion survenue au printemps 2016 dans les forums de la communauté francophone de Moodle\footnote{\url{https://moodle.org/course/view.php?id=20}.} autour de la mise à disposition d'une plateforme Moodle depuis un ordinateur local\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=318719}.}, afin de fournir un environnement d'apprentissage même dans des régions éloignées de toute infrastructure réseau. L'idée a rapidement bourgeonné de construire une telle configuration avec un Raspberry Pi 3, et de la rendre accessible directement par Wi-Fi\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=330291}}.
+
+Grâce à la persévérance d'un membre de la communauté\footnote{Christian W, \url{https://moodle.org/user/view.php?id=1378197&course=20}, qu'il en soit ici remercié}, une première version de la méthode de construction d'une MoodleBox a été créée\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=331170}}. Le présent document se fonde sur cette première version. Il décrit comment construire une MoodleBox à base d'une Raspberry Pi 3.
+
+\section{Fonctionnalités de la MoodleBox}
+
+\subsection{Ce que fait la MoodleBox}
+
+\begin{itemize}
+\item Point d'accès sans fil. Le nom du réseau Wi-Fi fourni est \emph{MoodleBox} ; le mot de passe de connexion est \emph{moodlebox}.
+\item Plateforme Moodle 3.0.x accessible via Wi-Fi (\url{http://moodlebox.local/}), dans sa configuration de base vierge de toute personnalisation. L'unique compte utilisateur du Moodle est un compte administrateur, nom d'utilisateur : \emph{admin}, mot de passe : \emph{Moodlebox4\$}. La taille maximale des dépôts de fichiers est fixée à 50~Mo. Le cron est lancé toutes les 3 minutes.
+\item Accès à Internet : si la MoodleBox est connectée par câble à un réseau relié à Internet, elle agit comme routeur et les clients Wi-Fi ont accès à Internet.
+\item PhpMyAdmin installé (\url{http://moodlebox.local/phpmyadmin}), avec un compte administrateur, nom d'utilisateur : \emph{root}, mot de passe : \emph{Moodlebox4\$}.
+\item Accès à la MoodleBox via SFTP. Nom d'utilisateur : \emph{pi}, mot de passe : \emph{Moodlebox4\$}.
+\end{itemize}
+
+\subsection{Ce que la MoodleBox ne fait pas}
+
+\begin{itemize}
+\item Serveur de courriel : la MoodleBox est prévue pour être utilisée «en campagne», indépendamment d'une infrastructure réseau ; la fonctionnalité de serveur de courriel n'a donc pas d'intérêt pour cet usage.
+\item Machine à café : cette fonctionnalité sera implémentée ultérieurement.
+\end{itemize}
+
+
+\section{Installation initiale de la Raspberry}
+
+\subsection{Préparation de la carte SD}
+
+Télécharger l'image \emph{Raspbian Jessie Lite} depuis le site de Raspberry Pi\footnote{\url{https://www.raspberrypi.org/downloads/raspbian/}}, puis la copier sur une carte SD. Les procédures détaillées, qui varient suivant le système d'exploitation, sont disponibles sur le site de Raspberry Pi\footnote{\url{https://www.raspberrypi.org/documentation/installation/installing-images/}}.
+
+\subsection{Démarrage de la Raspberry et connexion}
+
+Éjecter la carte SD et l'insérer dans la Raspberry Pi, puis brancher l'alimentation de la Raspberry.
+
+\begin{verification}
+La diode rouge s'allume, la verte clignote après 1 à 2 secondes.
+\end{verification}
+
+
+Dès maintenant, toutes les manipulations se font en ligne de commande, par \lstinline{ssh} (\lstinline{Putty} sur Windows, terminal sur OS X ou Linux).
+
+Connecter la Raspberry au moyen d'un câble Ethernet sur un réseau avec un serveur DHCP. La Raspberry sera dès lors accessible sur le réseau au moyen de l'adresse \lstinline{raspberrypi.local}\footnote{Cette adresse sera changée ultérieurement en \lstinline{moodlebox.local}}.
+\iffalse
+Le serveur DHCP (la box par exemple) indique l'adresse IP de la Raspberry. Dans la suite du document, on suppose que l'adresse IP de la Raspberry est \lstinline{192.168.1.212}.
+\fi
+
+\begin{verification}
+Depuis votre ordinateur, taper la commande \lstinline{ping -c3 raspberrypi.local}. La réponse doit être quelque chose comme ci-dessous.
+
+\begin{lstlisting}[language=bash]
+$ ping -c3 raspberrypi.local
+PING raspberrypi.local (192.168.1.212): 56 data bytes
+64 bytes from 192.168.1.212: icmp_seq=0 ttl=64 time=0.452 ms
+64 bytes from 192.168.1.212: icmp_seq=1 ttl=64 time=0.251 ms
+64 bytes from 192.168.1.212: icmp_seq=2 ttl=64 time=0.222 ms
+
+--- raspberrypi.local ping statistics ---
+3 packets transmitted, 3 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 0.222/0.308/0.452/0.102 ms
+\end{lstlisting}
+\end{verification}
+
+Se connecter à la Raspberry. L'utilisateur est \emph{pi} et le mot de passe est \emph{raspberry} (le mot de passe sera changé plus tard).
+
+\begin{lstlisting}[language=bash]
+$ ssh pi@raspberrypi.local
+$ pi@raspberrypi.local's password: 
+\end{lstlisting}
+
+\begin{verification}
+Si tout ce passe correctement, vous êtes connecté à la MoodleBox et la console affiche
+
+\begin{lstlisting}[language=bash]
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+pi@raspberrypi:~ $
+\end{lstlisting}
+\end{verification}
+
+\subsection{Configuration initiale de la Raspberry}
+
+Mettre à jour le système d'exploitation de la Raspberry, puis lancer l'utilitaire \emph{raspi-config}.
+
+\begin{lstlisting}[language=bash]
+$ sudo apt-get update -y
+$ sudo apt-get upgrade -y
+$ sudo apt-get dist-upgrade -y
+$ sudo raspi-config
+\end{lstlisting}
+
+Avec l'utilitaire \emph{raspi-config}, effectuer les tâches suivantes\footnote{Cette partie est inspirée de \url{https://moodle.org/mod/forum/discuss.php?d=331170}.}:
+\begin{itemize}
+\item agrandir la partition à la taille maximale de la carte SD;
+\item modifier le mot de passe de l'utilisateur \lstinline{pi} (mot de passe fort\footnote{\url{https://xkcd.com/936/}}). Pour cette image destinée à être distribuée, on choisira le mot de passe à \emph{Moodlebox4\$}.
+\item régler les \emph{locales} à \lstinline{fr_FR.UTF-8};
+\item régler le fuseau horaire et le pays pour le Wi-Fi;
+\item changer le hostname de la Raspberry en \emph{moodlebox} ;
+\end{itemize}
+
+Rebooter la Raspberry:
+\begin{lstlisting}[language=bash]
+$ sudo reboot
+\end{lstlisting}
+
+Dès maintenant, pour se connecter à la Raspberry, par SSH ou par SFTP, on utilisera l'adresse \lstinline{moodlebox.local}, le nom d'utilisateur \emph{pi} et le mot de passe \emph{Moodlebox4\$}.
+
+\subsection{Mettre à jour le microcode de Raspbian}
+
+La mise à jour du microcode de Raspbian corrige un bogue\footnote{\url{https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=44044&start=425}} qui gèle la Raspberry dès connexion à un point d'accès Wi-Fi.\footnote{Le bogue est présent dans l'image du 18 mars 2016. Il sera corrigé dans une prochaine image.}
+
+\begin{lstlisting}[language=bash]
+$ sudo apt-get install rpi-update
+$ sudo rpi-update
+$ sudo reboot
+\end{lstlisting}
+
+\section{Configuration de la MoodleBox en point d'accès Wi-Fi}
+
+\subsection{Installer les paquetages nécessaires}
+
+\begin{lstlisting}[language=bash]
+$ sudo apt-get install hostapd dnsmasq iptables
+\end{lstlisting}
+
+Il n'est pas nécessaire d'installer le pilote de la carte Wi-Fi intégrée, qui est pré-installé dans Raspbian Jessie.
+
+\subsubsection[Configurer le point d'accès (\lstinline{hostapd})]{Configurer le point d'accès (\lstinline{hostapd})\footnote{Les configurations décrites dans cette section et la suivante sont inspirées de \url{https://frillip.com/using-your-raspberry-pi-3-as-a-wifi-access-point-with-hostapd/}}}
+
+Modifier le contenu du fichier \lstinline{hostapd.conf}. C'est ici que l'on définit le nom du réseau Wi-Fi (SSID) et le mot de passe pour y accéder\footnote{On peut aussi y définir d'autres options, comme le canal de diffusion.}. Le nom du réseau choisi est \emph{MoodleBox} et le mot de passe \emph{moodlebox}.
+
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/hostapd/hostapd.conf
+\end{lstlisting}
+
+Contenu du fichier \lstinline{/etc/hostapd/hostapd.conf} :
+
+\lstinputlisting[language=bash]{files/hostapd.conf}
+
+\begin{verification}
+démarrer hostapd
+\begin{lstlisting}[language=bash]
+$ sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
+\end{lstlisting}
+
+Une erreur
+\begin{lstlisting}[language=bash]
+Failed to create interface mon.wlan0: -95 (Operation not supported)
+\end{lstlisting}
+est normale, mais il faut que l'affichage se termine par \lstinline{wlan0: AP-ENABLED}. Un client Wi-Fi doit pouvoir détecter le réseau Wi-Fi \emph{MoodleBox}.
+\end{verification}
+
+
+Il reste maintenant à définir où \lstinline{hostapd} doit chercher sa configuration au démarrage. Pour ce faire, on modifie le fichier \lstinline{/etc/default/hostapd} en remplaçant la ligne \lstinline{#DAEMON_CONF=""} par \lstinline{DAEMON_CONF="/etc/hostapd/hostapd.conf"}.
+
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/default/hostapd
+\end{lstlisting}
+
+Contenu du fichier \lstinline{/etc/default/hostapd} :
+
+\lstinputlisting[language=bash]{files/hostapd}
+
+\subsection{Configurer le serveur DHCP}
+
+Modifier le contenu du fichier \lstinline{dnsmasq.conf}.
+
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/dnsmasq.conf
+\end{lstlisting}
+
+Contenu du fichier \lstinline{/etc/dnsmasq.conf}
+
+\lstinputlisting[language=bash]{files/dnsmasq.conf}
+
+Modifier ensuite le contenu du fichier \lstinline{dhcpcd.conf} afin de fixer l'adresse IP de la MoodleBox. On ajoute simplement les lignes
+\begin{lstlisting}[language=bash]
+interface wlan0
+    static ip_address=10.0.0.1/24
+\end{lstlisting}
+à la fin du fichier existant.
+
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/dhcpcd.conf
+\end{lstlisting}
+
+Contenu du fichier \lstinline{/etc/dhcpcd.conf}
+
+\lstinputlisting[language=bash]{files/dhcpcd.conf}
+
+
+\subsection{Configurer les interfaces réseau}
+
+Il s'agit d'éviter que la Raspberry récupère une adresse dynamique sur son interface Wi-Fi, risquant d'entrer en conflit avec son adresse fixe. On commente pour cela la ligne
+\begin{lstlisting}[language=bash]
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+\end{lstlisting}
+dans le fichier \lstinline{/etc/network/interfaces}, sous la ligne \lstinline{iface wlan0 inet manual}.
+
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/network/interfaces
+\end{lstlisting}
+
+Le contenu du fichier \lstinline{/etc/network/interfaces} devient alors
+
+\lstinputlisting[language=bash]{files/interfaces}
+
+\subsection{Configurer le routage}
+
+Dé-commenter la ligne 
+\begin{lstlisting}[language=bash]
+# net.ipv4.ip_forward=1
+\end{lstlisting}
+dans le fichier \lstinline{/etc/sysctl.conf}.
+
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/sysctl.conf
+\end{lstlisting}
+
+La ligne devient
+\begin{lstlisting}[language=bash]
+net.ipv4.ip_forward=1
+\end{lstlisting}
+
+\iffalse
+\lstinputlisting[language=bash]{files/sysctl.conf}
+\fi
+
+Taper les lignes suivantes dans l'interface.
+
+\begin{lstlisting}[language=bash]
+$ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+$ sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+$ sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
+$ sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+$ sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+\end{lstlisting}
+
+Créer ensuite le fichier {/lib/dhcpcd/dhcpcd-hooks/70-ipv4-nat}.
+\begin{lstlisting}[language=bash]
+$ sudo nano /lib/dhcpcd/dhcpcd-hooks/70-ipv4-nat
+\end{lstlisting}
+
+Son contenu doit être le suivant.
+
+\lstinputlisting[language=bash]{files/70-ipv4-nat}
+
+\subsection{Tester le point d'accès sans fil}
+
+\iffalse
+\begin{lstlisting}[language=bash]
+$ sudo service hostapd start
+$ sudo service dnsmasq start
+\end{lstlisting}
+\fi
+
+Redémarrer la Raspberry
+
+\begin{lstlisting}[language=bash]
+$ sudo reboot
+\end{lstlisting}
+
+\begin{verification}
+Au terme du démarrage, un client doit pouvoir surfer sur Internet après s'être connecté au réseau Wi-Fi \emph{MoodleBox} au moyen du mot de passe \emph{moodlebox}.
+\end{verification}
+
+\section{Installation du serveur web}
+
+On va installer le serveur web nginx avec PHP et MySQL.
+
+\subsection{Installer et configurer nginx et PHP}
+
+Installer les paquetage nécessaires.
+
+\begin{lstlisting}[language=bash]
+$ sudo apt-get install nginx php5-fpm php5-cli php5-xmlrpc php5-curl php5-gd php5-intl
+\end{lstlisting}
+
+\begin{verification}
+Depuis un ordinateur connecté sur la MoodleBox via Wi-Fi, charger dans un navigateur l'URL \url{http://moodlebox.local/}. Une page web «Welcome to nginx on Debian!» doit s'afficher.
+\end{verification}
+
+Configurer le serveur web en modifiant le fichier \lstinline{/etc/nginx/sites-available/default}.
+
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/nginx/sites-available/default
+\end{lstlisting}
+
+Contenu du fichier \lstinline{/etc/nginx/sites-available/default}
+
+\lstinputlisting[language=bash]{files/default}
+
+La dernière ligne \lstinline{fastcgi_param} et la ligne \lstinline{client_max_body_size} permettent d'augmenter la taille maximale autorisée pour les dépôts de fichiers. Elle a été fixée, sur cette installation, à 50~Mo.
+
+Relancer le serveur web
+\begin{lstlisting}[language=bash]
+$ sudo service nginx restart
+\end{lstlisting}
+
+\begin{verification}
+Taper la commande
+\begin{lstlisting}[language=bash]
+$ echo '<?php phpinfo(); ?>' | sudo tee -a /var/www/html/info.php
+\end{lstlisting}
+puis lancer dans un navigateur l'URL \url{http://moodlebox.local/info.php}. La longue page des réglages PHP doit s'afficher, avec les variables \lstinline{upload_max_filesize} et \lstinline{post_max_size} sont fixées à 50~Mo.
+\end{verification}
+
+\subsubsection[Installer et configurer MySql]{Installer et configurer MySql\footnote{Cette section est inspirée de \url{http://www.syndrega.ch/?p=108}.}}
+
+\begin{lstlisting}[language=bash]
+$ sudo apt-get install mysql-server php5-mysql
+\end{lstlisting}
+
+Au cours de l'installation, on définit le mot de passe de l'utilisateur principal de la base de données \emph{root}. Comme plus haut,  on définira un mot de passe fort. Pour cette installation, le mot de passe est défini à \emph{Moodlebox4\$}.
+
+\begin{verification}
+Recharger l'URL \url{http://moodlebox.local/info.php}. Une section \emph{MySQL} supplémentaire doit apparaître dans la page.
+\end{verification}
+
+Créer une nouvelle base de données pour Moodle.
+
+\begin{lstlisting}[language=bash]
+$ mysql -u root -p
+    > create database moodle;
+    > grant all on moodle.* to 'root'@'localhost' identified by 'Moodlebox4$';
+    > exit
+\end{lstlisting}
+
+\section{Installer Moodle (enfin!)}
+
+On installe Moodle à l'aide de Git, pour faciliter les mises à jour ultérieures. On commence donc par installer Git.
+
+\begin{lstlisting}[language=bash]
+$ sudo apt-get install git
+\end{lstlisting}
+
+\subsection{Téléchargement de Moodle}
+
+\begin{lstlisting}[language=bash]
+$ cd /var/www/
+$ sudo git clone git://git.moodle.org/moodle.git
+$ cd moodle
+$ sudo git checkout MOODLE_30_STABLE
+\end{lstlisting}
+La dernière commande ci-dessus détermine que la version installée par Git est la version 3.0.x stable actuelle.
+
+\subsection{Installation de Moodle}
+
+On règle maintenant les permissions et crée le dossier de données de Moodle.
+\begin{lstlisting}[language=bash]
+$ cd ..
+$ sudo rm -r html
+$ sudo mv moodle html
+$ sudo chown -R www-data:www-data html
+$ sudo mkdir /var/www/moodledata
+$ sudo chown -R www-data:www-data /var/www/moodledata
+\end{lstlisting}
+
+Pour terminer l'installation de Moodle, on lance dans un navigateur l'URL \url{http://moodlebox.local/} et l'on suit les indications données à l'écran. Cette phase dure plus de 10 minutes. Patience donc !
+
+Pour cette installation, le compte administrateur a été défini avec le nom d'utilisateur \emph{admin} et le mot de passe \emph{Moodlebox4\$}.
+
+\subsection[Configurer le cron de Moodle]{Configurer le cron de Moodle\footnote{Cette section est inspirée de \url{http://moopi.uk/}.}}
+
+On lance le cron de Moodle toutes les 3 minutes. Pour ce faire, lancer la commande
+
+\begin{lstlisting}[language=bash]
+$ sudo crontab -e
+\end{lstlisting}
+
+et ajouter à la table des crons la ligne
+\begin{lstlisting}[language=bash]
+*/3 * * * * nice -n 10 ionice -c2 /usr/bin/php /var/www/html/admin/cli/cron.php
+\end{lstlisting}
+
+\begin{verification}
+Dans Moodle, visiter l'administration sous \emph{Administration du site > Serveur > Tâches programmées}, vérifier que les tâches programmées se lancent régulièrement.
+\end{verification}
+
+\section{Configurer PhpMyAdmin (optionnel)}
+
+\begin{lstlisting}[language=bash]
+$ sudo apt-get install phpmyadmin
+$ sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+\end{lstlisting}
+Définir un mot de passe fort. Pour cette installation, le mot de passe choisi est \emph{Moodlebox4\$}.
+
+\begin{verification}
+Charger l'URL \url{http://moodlebox.local/phpmyadmin/}. L'interface de PhpMyAdmin doit s'afficher. Pour s'y connecter, utiliser le nom d'utilisateur \emph{root} et le mot de passe \emph{Moodlebox4\$}.
+\end{verification}
+
+\section{Optimisation (optionnel, mais presque indispensable)}
+
+\subsubsection[Utiliser un disque RAM pour le cache de Moodle]{Utiliser un disque RAM pour le cache de Moodle\footnote{Cette section est inspirée de \url{https://www.leading-interactive.de/e-learning/moodle-performance-tuning-mit-tmpfs/}.}}
+
+Créer un dossier comme point de montage pour le disque RAM.
+\begin{lstlisting}[language=bash]
+$ cd /var/cache/
+$ sudo mkdir moodle
+$ sudo chown www-data:www-data moodle/
+\end{lstlisting}
+
+On définit ensuite dans la table des partitions du Raspberry le disque RAM. Pour ce faire, on ajoute au fichier \lstinline{/etc/fstab}, la ligne suivante
+\begin{lstlisting}[language=bash]
+tmpfs /var/cache/moodle tmpfs size=64M,mode=775,uid=www-data,gid=www-data 0 0
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/fstab
+\end{lstlisting}
+
+Le contenu du fichier \lstinline{/etc/fstab} sera alors : 
+\lstinputlisting[language=bash]{files/fstab}
+
+Après un redémarrage de la Raspberry, le cache peut être configuré dans Moodle.
+
+On se connecte à Moodle avec le compte administrateur (créé plus haut), puis on dans le Moodle \emph{Administration du site > Plugins > Cache > Configuration}. On crée deux nouvelles instances de dépôt, en cliquant sur \emph{Ajouter une instance} dans la section \emph{Entrepôts de cache installés} (en haut de la page).
+
+\begin{figure}[!ht]
+\begin{minipage}[b]{0.45\linewidth} % A minipage that covers half the page
+\centering
+\includegraphics[width=7.5cm]{cache-application.png}
+\end{minipage}
+\hspace{0.25cm} % To get a little bit of space between the figures
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\includegraphics[width=7.5cm]{cache-sessions.png}
+\end{minipage}
+\end{figure}
+
+\begin{enumerate}
+\item Nom de l'entrepôt : \emph{TMPFS application}, chemin d'accès du cache : \emph{/var/cache/moodle/application}, cocher la case \emph{Auto-création de dossiers};
+\item Nom de l'entrepôt : \emph{TMPFS sessions}, chemin d'accès du cache : \emph{/var/cache/moodle/sessions}, cocher la case \emph{Auto-création de dossiers}.
+\end{enumerate}
+
+Pour terminer, il reste à associer ces nouvelles instances de cache à leur destination, en cliquant sur \emph{Modifier les correspondances} tout en bas de la page, dans le domaine \emph{Entrepôts utilisés en l'absence de correspondance}.
+
+\begin{figure}[!ht]
+\begin{minipage}[b]{\linewidth}
+\centering
+\includegraphics[width=\linewidth]{cache-association.png}
+\end{minipage}
+\end{figure}
+
+\subsubsection[Utiliser \emph{X-Sendfile}]{Utiliser \emph{X-Sendfile}\footnote{Cette section est inspirée de \url{https://moopi.uk/mod/page/view.php?id=81}.}}
+
+L'utilisation de \emph{X-Sendfile} permet d'accélérer l'envoi par le serveur web des fichiers du dossier de données de Moodle.
+
+Ajouter les lignes
+\begin{lstlisting}[language=bash]
+$CFG->xsendfile = 'X-Accel-Redirect';
+$CFG->xsendfilealiases = array(
+    '/dataroot/' => $CFG->dataroot
+);
+\end{lstlisting}
+après la ligne \lstinline{$CFG->admin = 'admin';} dans le fichier de configuration de Moodle \lstinline{/var/www/html/config.php}.
+
+\begin{lstlisting}[language=bash]
+$ sudo nano /var/www/html/config.php
+\end{lstlisting}
+
+Le contenu du fichier \lstinline{/var/www/html/config.php} sera alors : 
+\lstinputlisting[language=bash]{files/config.php}
+
+Ajouter ensuite les lignes ci-dessous dans le fichier \lstinline{/etc/nginx/sites-available/default}
+
+\begin{lstlisting}[language=bash]
+location /dataroot/ {
+    internal;
+    alias /var/www/moodledata/;
+}
+\end{lstlisting}
+
+Le contenu du fichier \lstinline{/etc/nginx/sites-available/default} devient alors : 
+\lstinputlisting[language=bash]{files/default2}
+
+\subsubsection{Optimiser MySQL}
+
+Augmenter la valeur de la variable \lstinline{open_table} dans le fichier \lstinline{/etc/mysql/my.cnf}. Pour ce faire, on ouvre le fichier en question
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/mysql/my.cnf
+\end{lstlisting}
+
+et on y modifie la ligne adéquate, de sorte qu'elle devienne:
+\begin{lstlisting}[language=bash]
+table_cache             = 512
+\end{lstlisting}
+
+\section{Nettoyer la distribution}
+
+Les commandes ci-dessous permettent de nettoyer la MoodleBox et de diminuer l'espace disque qui lui est nécessaire, avant de la cloner et de la distribuer.
+
+\begin{lstlisting}[language=bash]
+$ sudo rm -r /var/www/moodledata/cache/*
+$ sudo rm -r /var/www/moodledata/localcache/*
+$ sudo rm -r /var/www/moodledata/temp/*
+$ sudo rm -r /var/www/moodledata/trashdir/*
+$ sudo rm -r /var/www/moodledata/sessions/*
+$ sudo rm -r /var/cache/moodle/*
+$ mysql -u root -p'Moodlebox4$' moodle -e "truncate table moodle.mdl_logstore_standard_log"
+$ mysql -u root -p'Moodlebox4$' moodle -e "truncate table moodle.mdl_config_log"
+$ sudo apt-get clean
+$ sudo rm -r /var/cache/debconf/*
+$ sudo rm -r /tmp/*
+$ sudo rm -r /var/tmp/*
+$ cat /dev/null > ~/.bash_history && history -c && sudo shutdown -r now
+\end{lstlisting}
+
+Si tout s'est bien passé, la totalité ne doit pas dépasser la taille de 1.8~Go. L'image-disque, une fois tronquée, a une taille d'un peut plus de 2~Go. Compressée, elle tient dans un peu plus de 900~Mo. 
+
+
+\end{document}
+%%
