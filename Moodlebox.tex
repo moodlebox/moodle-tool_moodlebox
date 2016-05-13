@@ -195,7 +195,7 @@ Dès maintenant, pour se connecter à la Raspberry, par SSH ou par SFTP, on util
 
 \subsection{Mettre à jour le microcode de Raspbian}
 
-La mise à jour du microcode de Raspbian corrige un bogue\footnote{\url{https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=44044&start=425}} qui gèle la Raspberry dès connexion à un point d'accès Wi-Fi.\footnote{Le bogue est présent dans l'image du 18 mars 2016. Il sera corrigé dans une prochaine image.}
+Par précaution, on effectue la mise à jour du microcode de Raspbian, puis redémarre la MoodleBox.
 
 \begin{lstlisting}[language=bash]
 $ sudo apt-get install rpi-update
@@ -430,7 +430,7 @@ $ sudo git clone git://git.moodle.org/moodle.git
 $ cd moodle
 $ sudo git checkout MOODLE_30_STABLE
 \end{lstlisting}
-La dernière commande ci-dessus détermine la branche téléchargée par Git. Dans ce cas, il s'agit de la version 3.0.x stable actuelle. Lorsque la version 3.1 sera sortie, on choisira la branche \lstinline{MOODLE_31_STABLE}.
+La dernière commande ci-dessus détermine la branche installée par Git. Dans ce cas, il s'agit de la version 3.0.x stable actuelle. Lorsque la version 3.1 sera sortie, on choisira la branche \lstinline{MOODLE_31_STABLE}.
 
 \subsection{Installation de Moodle}
 
