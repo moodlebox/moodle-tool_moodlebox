@@ -549,7 +549,7 @@ L'utilisation de \emph{X-Sendfile} permet d'accélérer l'envoi par le serveur w
 Ajouter les lignes
 \begin{lstlisting}[language=bash]
 $CFG->xsendfile = 'X-Accel-Redirect';
-$CFG->xsendfilealiases = array(
+$CFG->xsendfilealiases = array (
     '/dataroot/' => $CFG->dataroot
 );
 \end{lstlisting}
