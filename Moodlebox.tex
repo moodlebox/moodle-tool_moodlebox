@@ -203,6 +203,15 @@ $ sudo rpi-update
 $ sudo reboot
 \end{lstlisting}
 
+\subsection{Correction d'un bogue dans Debian Jessie}
+
+On profite de corriger un bogue qui a pour conséquence de remplir certains fichiers d'historique de la MoodleBox\footnote{Voir \url{https://anonscm.debian.org/cgit/collab-maint/rsyslog.git/commit/?id=67bc8e5326b0d3564c7e2153dede25f9690e6839}.}.
+
+\begin{lstlisting}[language=bash]
+$ sudo sed -i '/# The named pipe \/dev\/xconsole/,$d' /etc/rsyslog.conf
+$ sudo service rsyslog restart
+\end{lstlisting}
+
 \section{Configuration de la MoodleBox en point d'accès Wi-Fi}
 
 \subsection{Installer les paquetages nécessaires}
