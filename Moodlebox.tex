@@ -95,9 +95,9 @@ Grâce à la persévérance d'un membre de la communauté\footnote{Christian W, 
 \item Point d'accès sans fil. Le nom du réseau Wi-Fi fourni est \emph{MoodleBox} ; le mot de passe de connexion est \emph{moodlebox}.
 \item Plateforme Moodle 3.0.x accessible via Wi-Fi (\url{http://moodlebox.local/}), dans sa configuration de base vierge de toute personnalisation. L'unique compte utilisateur du Moodle est un compte administrateur, nom d'utilisateur : \emph{admin}, mot de passe : \emph{Moodlebox4\$}. La taille maximale des dépôts de fichiers est fixée à 50~Mo. Le cron est lancé toutes les 3 minutes.
 \item Lorsqu'une clef USB est insérée dans la MoodleBox, les fichiers qu'elle contient sont accessibles pour les administrateurs et enseignants de la plateforme via le dépôt \emph{Système de fichiers} du Moodle.
+\item Possibilité de déposer des fichiers par SFTP directement sur la MoodleBox (nom d'utilisateur : \emph{pi}, mot de passe : \emph{Moodlebox4\$}); ces fichiers sont accessibles pour les administrateurs et enseignants de la plateforme via le dépôt \emph{Système de fichiers} du Moodle.
 \item Accès à Internet : si la MoodleBox est connectée par câble à un réseau relié à Internet, elle agit comme routeur et les clients Wi-Fi ont accès à Internet.
 \item PhpMyAdmin installé (\url{http://moodlebox.local/phpmyadmin}), avec un compte administrateur, nom d'utilisateur : \emph{root}, mot de passe : \emph{Moodlebox4\$}.
-\item Accès à la MoodleBox via SFTP. Nom d'utilisateur : \emph{pi}, mot de passe : \emph{Moodlebox4\$}.
 \end{itemize}
 
 \subsection{Ce que la MoodleBox ne fait pas}
@@ -194,7 +194,7 @@ $ sudo reboot
 
 Dès maintenant, pour se connecter à la Raspberry, par SSH ou par SFTP, on utilisera l'adresse \lstinline{moodlebox.local}, le nom d'utilisateur \emph{pi} et le mot de passe \emph{Moodlebox4\$}.
 
-\subsection{Mettre à jour le microcode de Raspbian}
+\subsection{Mise à jour le microcode de Raspbian}
 
 Par précaution, on effectue la mise à jour du microcode de Raspbian, puis redémarre la MoodleBox.
 
@@ -213,9 +213,9 @@ $ sudo sed -i '/# The named pipe \/dev\/xconsole/,$d' /etc/rsyslog.conf
 $ sudo service rsyslog restart
 \end{lstlisting}
 
-\section{Configuration de la MoodleBox en point d'accès Wi-Fi}
+\section{Configuration du point d'accès Wi-Fi}
 
-\subsection{Installer les paquetages nécessaires}
+\subsection{Installation des paquetages nécessaires}
 
 \begin{lstlisting}[language=bash]
 $ sudo apt-get install hostapd dnsmasq iptables
@@ -223,7 +223,7 @@ $ sudo apt-get install hostapd dnsmasq iptables
 
 Il n'est pas nécessaire d'installer le pilote de la carte Wi-Fi intégrée, qui est pré-installé dans Raspbian Jessie.
 
-\subsubsection[Configurer le point d'accès (\lstinline{hostapd})]{Configurer le point d'accès (\lstinline{hostapd})\footnote{Les configurations décrites dans cette section et la suivante sont inspirées de \url{https://frillip.com/using-your-raspberry-pi-3-as-a-wifi-access-point-with-hostapd/}}}
+\subsubsection[Configuration du point d'accès (\lstinline{hostapd})]{Configuration du point d'accès (\lstinline{hostapd})\footnote{Les configurations décrites dans cette section et la suivante sont inspirées de \url{https://frillip.com/using-your-raspberry-pi-3-as-a-wifi-access-point-with-hostapd/}}}
 
 Modifier le contenu du fichier \lstinline{hostapd.conf}. C'est ici que l'on définit le nom du réseau Wi-Fi (SSID) et le mot de passe pour y accéder\footnote{On peut aussi y définir d'autres options, comme le canal de diffusion.}. Le nom du réseau choisi est \emph{MoodleBox} et le mot de passe \emph{moodlebox}.
 
@@ -259,7 +259,7 @@ Contenu du fichier \lstinline{/etc/default/hostapd} :
 
 \lstinputlisting[language=bash]{files/hostapd}
 
-\subsection{Configurer le serveur DHCP}
+\subsection{Configuration du serveur DHCP}
 
 Modifier le contenu du fichier \lstinline{dnsmasq.conf}.
 
@@ -287,7 +287,7 @@ Contenu du fichier \lstinline{/etc/dhcpcd.conf}
 \lstinputlisting[language=bash]{files/dhcpcd.conf}
 
 
-\subsection{Configurer les interfaces réseau}
+\subsection{Configuration des interfaces réseau}
 
 Il s'agit d'éviter que la Raspberry récupère une adresse dynamique sur son interface Wi-Fi, risquant d'entrer en conflit avec son adresse fixe. On commente pour cela la ligne
 \begin{lstlisting}[language=bash]
@@ -303,7 +303,7 @@ Le contenu du fichier \lstinline{/etc/network/interfaces} devient alors
 
 \lstinputlisting[language=bash]{files/interfaces}
 
-\subsection{Configurer le routage}
+\subsection{Configuration du routage}
 
 Dé-commenter la ligne 
 \begin{lstlisting}[language=bash]
@@ -343,7 +343,7 @@ Son contenu doit être le suivant.
 
 \lstinputlisting[language=bash]{files/70-ipv4-nat}
 
-\subsection{Tester le point d'accès sans fil}
+\subsection{Test du point d'accès sans fil}
 
 \iffalse
 \begin{lstlisting}[language=bash]
@@ -366,7 +366,7 @@ Au terme du démarrage, un client doit pouvoir surfer sur Internet après s'êtr
 
 On va installer le serveur web nginx avec PHP et MySQL.
 
-\subsection{Installer et configurer nginx et PHP}
+\subsection{Installation et configuration de nginx et PHP}
 
 Installer les paquetage nécessaires.
 
@@ -403,7 +403,7 @@ $ echo '<?php phpinfo(); ?>' | sudo tee -a /var/www/html/info.php
 puis lancer dans un navigateur l'URL \url{http://moodlebox.local/info.php}. La longue page des réglages PHP doit s'afficher, avec les variables \lstinline{upload_max_filesize} et \lstinline{post_max_size} sont fixées à 50~Mo.
 \end{verification}
 
-\subsubsection[Installer et configurer MySql]{Installer et configurer MySql\footnote{Cette section est inspirée de \url{http://www.syndrega.ch/?p=108}.}}
+\subsubsection[Installation et configuration de MySql]{Installation et configuration de MySql\footnote{Cette section est inspirée de \url{http://www.syndrega.ch/?p=108}.}}
 
 \begin{lstlisting}[language=bash]
 $ sudo apt-get install mysql-server php5-mysql
@@ -424,7 +424,7 @@ $ mysql -u root -p
     > exit
 \end{lstlisting}
 
-\section{Installer Moodle (enfin!)}
+\section{Installation de Moodle (enfin!)}
 
 On installe Moodle à l'aide de Git, pour faciliter les mises à jour ultérieures. On commence donc par installer Git.
 
@@ -458,7 +458,7 @@ Pour terminer l'installation de Moodle, on lance dans un navigateur l'URL \url{h
 
 Pour cette installation, le compte administrateur a été défini avec le nom d'utilisateur \emph{admin} et le mot de passe \emph{Moodlebox4\$}.
 
-\subsection[Configurer le cron de Moodle]{Configurer le cron de Moodle\footnote{Cette section est inspirée de \url{http://moopi.uk/}.}}
+\subsection[Configuration du cron de Moodle]{Configuration du cron de Moodle\footnote{Cette section est inspirée de \url{http://moopi.uk/}.}}
 
 On lance le cron de Moodle toutes les 3 minutes. Pour ce faire, lancer la commande
 
@@ -475,7 +475,7 @@ et ajouter à la table des crons la ligne
 Dans Moodle, visiter l'administration sous \emph{Administration du site > Serveur > Tâches programmées}, vérifier que les tâches programmées se lancent régulièrement.
 \end{verification}
 
-\subsection{Corriger le format des tables MySQL}
+\subsection{Correction du format des tables MySQL}
 
 Pour corriger le format des tables éventuellement encore en format Antelope, on lance la commande
 
@@ -487,7 +487,9 @@ $ sudo php /var/www/html/admin/cli/mysql_compressed_rows.php -f
 La page \url{http://moodlebox.local/admin/environment.php} n'affiche plus l'avertissement sur la conversion des tables en format Barracuda.
 \end{verification}
 
-\section{Donner accès via Moodle au contenu d'une clef USB}
+\section{Accès depuis Moodle aux fichiers d'une clef USB ou déposés par SFTP}
+
+\subsection{Fichiers sur une clef USB}
 
 On configure le montage automatique de clefs USB (quel que soit leur format), ainsi que l'accès à tous les fichiers de clefs USB branchées via le dépôt \emph{Système de fichiers} de Moodle\footnote{Si plusieurs clefs USB sont branchées à la MoodleBox, seuls les fichiers de la première clef branchée sont accessibles via le dépôt de fichiers.}.
 
@@ -520,7 +522,20 @@ On clique ensuite sur \emph{Enregistrer}, puis sur \emph{Paramètres} (même lig
 \end{minipage}
 \end{figure}
 
-\section{Configurer PhpMyAdmin (optionnel)}
+\subsection{Fichiers déposés par SFTP}
+
+On crée un dossier dans lequel les fichiers devront être déposés pour être accessibles depuis Moodle, ainsi qu'un lien vers le dossier de données de Moodle.
+
+\begin{lstlisting}[language=bash]
+$ mkdir -p /home/pi/files
+$ sudo ln -s /home/pi/files /var/www/moodledata/repository
+\end{lstlisting}
+
+On effectue la configuration d'un dépôt \emph{Système de fichiers}, de façon similaire au dépôt « Clef USB » ci-dessus, en indiquant le dossier \emph{files} et en indiquant \emph{Fichiers SFTP} comme nom de dépôt.
+
+Pour déposer des fichiers, on se connecte au moyen d'un logiciel SFTP\footnote{Par exemple : \href{https://filezilla-project.org/}{FileZilla}, \href{https://cyberduck.io/}{Cyberduck}, \href{http://winscp.net/}{WinSCP}} sur la MoodleBox, avec le nom d'utilisateur \emph{pi} et le mot de passe \emph{Moodlebox4\$}. Les fichiers seront déposés dans le dossier \lstinline{files}.
+
+\section{Configuration de PhpMyAdmin (optionnel)}
 
 \begin{lstlisting}[language=bash]
 $ sudo apt-get install phpmyadmin
@@ -536,7 +551,7 @@ Charger l'URL \url{http://moodlebox.local/phpmyadmin/}. L'interface de PhpMyAdmi
 
 Pour que la MoodleBox soit utilisable en pratique, il est nécessaire de prendre soin à son optimisation. On configure ainsi le cache de Moodle, ainsi que sa gestion des dépôts et téléchargements de fichiers.
 
-\subsubsection[Utiliser un disque RAM pour le cache de Moodle]{Utiliser un disque RAM pour le cache de Moodle\footnote{Cette section est inspirée de \url{https://www.leading-interactive.de/e-learning/moodle-performance-tuning-mit-tmpfs/}.}}
+\subsubsection[Disque RAM pour le cache de Moodle]{Disque RAM pour le cache de Moodle\footnote{Cette section est inspirée de \url{https://www.leading-interactive.de/e-learning/moodle-performance-tuning-mit-tmpfs/}.}}
 
 Créer un dossier comme point de montage pour le disque RAM.
 \begin{lstlisting}[language=bash]
@@ -601,7 +616,7 @@ On ajoute à la table des crons les deux lignes suivantes pour effectuer la sauv
 @reboot cp -Rpf /var/cache/moodle-cache-backup/* /var/cache/moodle/
 \end{lstlisting}
 
-\subsubsection[Utiliser \emph{X-Sendfile}]{Utiliser \emph{X-Sendfile}\footnote{Cette section est inspirée de \url{https://moopi.uk/mod/page/view.php?id=81}.}}
+\subsubsection[Utilisation de \emph{X-Sendfile}]{Utilisation de \emph{X-Sendfile}\footnote{Cette section est inspirée de \url{https://moopi.uk/mod/page/view.php?id=81}.}}
 
 L'utilisation de \emph{X-Sendfile} permet d'accélérer l'envoi par le serveur web des fichiers du dossier de données de Moodle.
 
@@ -633,7 +648,7 @@ location /dataroot/ {
 Le contenu du fichier \lstinline{/etc/nginx/sites-available/default} devient alors : 
 \lstinputlisting[language=bash]{files/default2}
 
-\subsubsection{Optimiser MySQL}
+\subsubsection{Optimisation de MySQL}
 
 Augmenter la valeur de la variable \lstinline{open_table} dans le fichier \lstinline{/etc/mysql/my.cnf}. Pour ce faire, on ouvre le fichier en question
 \begin{lstlisting}[language=bash]
@@ -645,7 +660,7 @@ et on y modifie la ligne adéquate, de sorte qu'elle devienne:
 table_cache             = 512
 \end{lstlisting}
 
-\section{Nettoyer la distribution}
+\section{Nettoyage de la distribution}
 
 Les commandes ci-dessous permettent de nettoyer la MoodleBox et de diminuer l'espace disque qui lui est nécessaire, avant de la cloner et de la distribuer.
 
