@@ -60,6 +60,13 @@ frametitlebackgroundcolor=yellow!50!white
   frame=bt,
   rulecolor=\color[HTML]{eeeeee},
 }
+%% Change footnote format to english one (back to original article.cls definition)
+\makeatletter
+\renewcommand\@makefntext[1]{%
+    \parindent 1em%
+    \noindent
+    \hb@xt@1.8em{\hss\@makefnmark}#1}
+\makeatother
 %%
 %% Illustrations
 \usepackage{graphicx}
