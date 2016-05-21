@@ -104,7 +104,7 @@ Grâce à la persévérance d'un membre de la communauté\footnote{Christian W, 
 
 \begin{itemize}
 \item Serveur de courriel : la MoodleBox est prévue pour être utilisée «en campagne», indépendamment d'une infrastructure réseau ; la fonctionnalité de serveur de courriel n'a donc pas d'intérêt pour cet usage.
-\item Machine à café : cette fonctionnalité sera implémentée ultérieurement.
+\item Machine à café : cette fonctionnalité, ainsi que l'implémentation du protocole HTCPCP\footnote{\url{https://tools.ietf.org/html/rfc2324}}, sera mise en oeuvre ultérieurement. Il n'est en revanche pas prévu d'implémenter le protocole HTCPCP-TEA\footnote{\url{https://tools.ietf.org/html/rfc7168}}.
 \end{itemize}
 
 
@@ -533,7 +533,7 @@ $ sudo ln -s /home/pi/files /var/www/moodledata/repository
 
 On effectue la configuration d'un dépôt \emph{Système de fichiers}, de façon similaire au dépôt « Clef USB » ci-dessus, en indiquant le dossier \emph{files} et en indiquant \emph{Fichiers SFTP} comme nom de dépôt.
 
-Pour déposer des fichiers, on se connecte au moyen d'un logiciel SFTP\footnote{Par exemple : \href{https://filezilla-project.org/}{FileZilla}, \href{https://cyberduck.io/}{Cyberduck}, \href{http://winscp.net/}{WinSCP}} sur la MoodleBox, avec le nom d'utilisateur \emph{pi} et le mot de passe \emph{Moodlebox4\$}. Les fichiers seront déposés dans le dossier \lstinline{files}.
+Pour déposer des fichiers, on se connecte au moyen d'un logiciel SFTP\footnote{Par exemple : \href{https://filezilla-project.org/}{FileZilla}, \href{https://cyberduck.io/}{Cyberduck}, \href{http://winscp.net/}{WinSCP}.} sur la MoodleBox, avec le nom d'utilisateur \emph{pi} et le mot de passe \emph{Moodlebox4\$}. Les fichiers seront déposés dans le dossier \lstinline{files}.
 
 \section{Configuration de PhpMyAdmin (optionnel)}
 
