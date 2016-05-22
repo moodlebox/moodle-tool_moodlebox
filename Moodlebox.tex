@@ -90,9 +90,9 @@ frametitlebackgroundcolor=yellow!50!white
 \noindent « \emph{Et l'idée d'un petit boîtier à poser sur la table qui va déployer Moodle à toute la classe a quelque chose de magique (...)}»\footnote{Daniel Méthot, \url{https://moodle.org/mod/forum/discuss.php?d=330291\#p1332370}.}
 \end{quote}
 
-L'idée d'une MoodleBox est issue d'une discussion survenue au printemps 2016 dans les forums de la communauté francophone de Moodle\footnote{\url{https://moodle.org/course/view.php?id=20}.} autour de la mise à disposition d'une plateforme Moodle depuis un ordinateur local\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=318719}.}, afin de fournir un environnement d'apprentissage même dans des régions éloignées de toute infrastructure réseau. L'idée a rapidement bourgeonné de construire une telle configuration avec un Raspberry Pi 3, et de la rendre accessible directement par Wi-Fi\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=330291}}.
+L'idée d'une MoodleBox est issue d'une discussion survenue au printemps 2016 dans les forums de la communauté francophone de Moodle\footnote{\url{https://moodle.org/course/view.php?id=20}.} autour de la mise à disposition d'une plateforme Moodle depuis un ordinateur local\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=318719}.}, afin de fournir un environnement d'apprentissage même dans des régions éloignées de toute infrastructure réseau. L'idée a rapidement bourgeonné de construire une telle configuration avec un Raspberry Pi 3, et de la rendre accessible directement par Wi-Fi\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=330291}.}.
 
-Grâce à la persévérance d'un membre de la communauté\footnote{Christian W, \url{https://moodle.org/user/view.php?id=1378197&course=20}, qu'il en soit ici remercié}, une méthode de construction d'une MoodleBox a été proposée\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=331170}}. Reprenant certaines idées de cette première version, ce document décrit comment construire une MoodleBox à base d'une Raspberry Pi 3.
+Grâce à la persévérance d'un membre de la communauté\footnote{Christian Westphal, Académie de Strasbourg, voir \url{https://moodle.org/user/view.php?id=1378197&course=20}.}, une méthode de construction d'une MoodleBox a été proposée\footnote{\url{https://moodle.org/mod/forum/discuss.php?d=331170}.}. Reprenant certaines idées de cette première version, ce document décrit comment construire une MoodleBox à base d'une Raspberry Pi 3.
 
 \section{Fonctionnalités de la MoodleBox}
 
@@ -111,7 +111,7 @@ Grâce à la persévérance d'un membre de la communauté\footnote{Christian W, 
 
 \begin{itemize}
 \item Serveur de courriel : la MoodleBox est prévue pour être utilisée «en campagne», indépendamment d'une infrastructure réseau ; la fonctionnalité de serveur de courriel n'a donc pas d'intérêt pour cet usage.
-\item Machine à café : cette fonctionnalité, ainsi que l'implémentation du protocole HTCPCP\footnote{\url{https://tools.ietf.org/html/rfc2324}}, sera mise en oeuvre ultérieurement. Il n'est en revanche pas prévu d'implémenter le protocole HTCPCP-TEA\footnote{\url{https://tools.ietf.org/html/rfc7168}}.
+\item Machine à café : cette fonctionnalité, ainsi que l'implémentation du protocole HTCPCP\footnote{\url{https://tools.ietf.org/html/rfc2324}.}, sera mise en oeuvre ultérieurement. Il n'est en revanche pas prévu d'implémenter le protocole HTCPCP-TEA\footnote{\url{https://tools.ietf.org/html/rfc7168}.}.
 \end{itemize}
 
 
@@ -119,7 +119,7 @@ Grâce à la persévérance d'un membre de la communauté\footnote{Christian W, 
 
 \subsection{Préparation de la carte SD}
 
-Télécharger l'image \emph{Raspbian Jessie Lite} depuis le site de Raspberry Pi\footnote{\url{https://www.raspberrypi.org/downloads/raspbian/}}, puis la copier sur une carte SD. Les procédures détaillées, qui varient suivant le système d'exploitation, sont disponibles sur le site de Raspberry Pi\footnote{\url{https://www.raspberrypi.org/documentation/installation/installing-images/}}.
+Télécharger l'image \emph{Raspbian Jessie Lite} depuis le site de Raspberry Pi\footnote{\url{https://www.raspberrypi.org/downloads/raspbian/}.}, puis la copier sur une carte SD. Les procédures détaillées, qui varient suivant le système d'exploitation, sont disponibles sur le site de Raspberry Pi\footnote{\url{https://www.raspberrypi.org/documentation/installation/installing-images/}.}.
 
 \subsection{Démarrage de la Raspberry et connexion}
 
@@ -132,7 +132,7 @@ La diode rouge s'allume, la verte clignote après 1 à 2 secondes.
 
 Dès maintenant, toutes les manipulations se font en ligne de commande, par \lstinline{ssh} (\lstinline{Putty} sur Windows, terminal sur OS X ou Linux).
 
-Connecter la Raspberry au moyen d'un câble Ethernet sur un réseau avec un serveur DHCP. La Raspberry sera dès lors accessible sur le réseau au moyen de l'adresse \lstinline{raspberrypi.local}\footnote{Cette adresse sera changée ultérieurement en \lstinline{moodlebox.local}}.
+Connecter la Raspberry au moyen d'un câble Ethernet sur un réseau avec un serveur DHCP. La Raspberry sera dès lors accessible sur le réseau au moyen de l'adresse \lstinline{raspberrypi.local}\footnote{Cette adresse sera changée ultérieurement en \lstinline{moodlebox.local}.}.
 \iffalse
 Le serveur DHCP (la box par exemple) indique l'adresse IP de la Raspberry. Dans la suite du document, on suppose que l'adresse IP de la Raspberry est \lstinline{192.168.1.212}.
 \fi
@@ -188,7 +188,7 @@ $ sudo raspi-config
 Avec l'utilitaire \emph{raspi-config}, effectuer les tâches suivantes\footnote{Cette partie est inspirée de \url{https://moodle.org/mod/forum/discuss.php?d=331170}.}:
 \begin{itemize}
 \item agrandir la partition à la taille maximale de la carte SD;
-\item modifier le mot de passe de l'utilisateur \lstinline{pi} (mot de passe fort\footnote{\url{https://xkcd.com/936/}}). Pour cette image destinée à être distribuée, on choisira le mot de passe à \emph{Moodlebox4\$}.
+\item modifier le mot de passe de l'utilisateur \lstinline{pi} (mot de passe fort\footnote{\url{https://xkcd.com/936/}.}). Pour cette image destinée à être distribuée, on choisira le mot de passe à \emph{Moodlebox4\$}.
 \item régler les \emph{locales} à \lstinline{fr_FR.UTF-8};
 \item régler le fuseau horaire et le pays pour le Wi-Fi;
 \item changer le hostname de la Raspberry en \emph{moodlebox} ;
@@ -230,7 +230,7 @@ $ sudo apt-get install hostapd dnsmasq iptables
 
 Il n'est pas nécessaire d'installer le pilote de la carte Wi-Fi intégrée, qui est pré-installé dans Raspbian Jessie.
 
-\subsubsection[Configuration du point d'accès (\lstinline{hostapd})]{Configuration du point d'accès (\lstinline{hostapd})\footnote{Les configurations décrites dans cette section et la suivante sont inspirées de \url{https://frillip.com/using-your-raspberry-pi-3-as-a-wifi-access-point-with-hostapd/}}}
+\subsubsection[Configuration du point d'accès (\lstinline{hostapd})]{Configuration du point d'accès (\lstinline{hostapd})\footnote{Les configurations décrites dans cette section et la suivante sont inspirées de \url{https://frillip.com/using-your-raspberry-pi-3-as-a-wifi-access-point-with-hostapd/}.}}
 
 Modifier le contenu du fichier \lstinline{hostapd.conf}. C'est ici que l'on définit le nom du réseau Wi-Fi (SSID) et le mot de passe pour y accéder\footnote{On peut aussi y définir d'autres options, comme le canal de diffusion.}. Le nom du réseau choisi est \emph{MoodleBox} et le mot de passe \emph{moodlebox}.
 
@@ -509,7 +509,7 @@ $ sudo chown -R www-data:www-data /var/www/moodledata/
 $ sudo ln -s /media/usb /var/www/moodledata/repository
 \end{lstlisting}
 
-Il faut ensuite configurer Moodle de façon adéquate\footnote{Voir \url{https://docs.moodle.org/30/en/File_system_repository}}: connecté comme administrateur sur la plateforme, on visite \emph{Administration du site > Plugins > Dépôts > Gérer les dépôts}.
+Il faut ensuite configurer Moodle de façon adéquate\footnote{Voir \url{https://docs.moodle.org/30/en/File_system_repository}.}: connecté comme administrateur sur la plateforme, on visite \emph{Administration du site > Plugins > Dépôts > Gérer les dépôts}.
 
 Dans la ligne \emph{Système de fichiers}, on sélectionne dans le menu déroulant \emph{Activé et visible}.
 
