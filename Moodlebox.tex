@@ -111,7 +111,7 @@ Grâce à la persévérance d'un membre de la communauté\footnote{Christian Wes
 
 \begin{itemize}
 \item Serveur de courriel : la MoodleBox est prévue pour être utilisée «en campagne», indépendamment d'une infrastructure réseau ; la fonctionnalité de serveur de courriel n'a donc pas d'intérêt pour cet usage.
-\item Machine à café : cette fonctionnalité, ainsi que l'implémentation du protocole HTCPCP\footnote{\url{https://tools.ietf.org/html/rfc2324}.}, sera mise en oeuvre ultérieurement. Il n'est en revanche pas prévu d'implémenter le protocole HTCPCP-TEA\footnote{\url{https://tools.ietf.org/html/rfc7168}.}.
+\item Machine à café : cette fonctionnalité, ainsi que l'implémentation du protocole HTCPCP\footnote{\url{https://tools.ietf.org/html/rfc2324}.}, sera mise en œuvre ultérieurement. Il n'est en revanche pas prévu d'implémenter le protocole HTCPCP-TEA\footnote{\url{https://tools.ietf.org/html/rfc7168}.}.
 \end{itemize}
 
 
@@ -205,6 +205,7 @@ Dès maintenant, pour se connecter à la Raspberry, par SSH ou par SFTP, on util
 
 Par précaution, on effectue la mise à jour du microcode de Raspbian, puis redémarre la MoodleBox.
 
+% sudo SKIP_BACKUP=1 PRUNE_MODULES=1 rpi-update
 \begin{lstlisting}[language=bash]
 $ sudo apt-get install rpi-update
 $ sudo rpi-update
@@ -445,9 +446,9 @@ $ sudo apt-get install git
 $ cd /var/www/
 $ sudo git clone git://git.moodle.org/moodle.git
 $ cd moodle
-$ sudo git checkout MOODLE_30_STABLE
+$ sudo git checkout MOODLE_31_STABLE
 \end{lstlisting}
-La dernière commande ci-dessus détermine la branche installée par Git. Dans ce cas, il s'agit de la version 3.0.x stable actuelle. Lorsque la version 3.1 sera sortie, on choisira la branche \lstinline{MOODLE_31_STABLE}.
+La dernière commande ci-dessus détermine la branche installée par Git. Dans ce cas, il s'agit de la version 3.1.x stable actuelle.
 
 \subsection{Installation de Moodle}
 
@@ -531,10 +532,12 @@ On clique ensuite sur \emph{Enregistrer}, puis sur \emph{Paramètres} (même lig
 
 \subsection{Fichiers déposés par SFTP}
 
-On crée un dossier dans lequel les fichiers devront être déposés pour être accessibles depuis Moodle, ainsi qu'un lien vers le dossier de données de Moodle.
+On crée un dossier dans lequel les fichiers devront être déposés pour être accessibles depuis Moodle, ainsi qu'un lien vers le dossier de données de Moodle. Les permissions adéquates sont données.
 
 \begin{lstlisting}[language=bash]
 $ mkdir -p /home/pi/files
+$ sudo chown -R pi:www-data files/
+$ sudo chmod g+s files/
 $ sudo ln -s /home/pi/files /var/www/moodledata/repository
 \end{lstlisting}
 
