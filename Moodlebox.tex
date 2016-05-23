@@ -622,7 +622,7 @@ $ sudo crontab -e
 
 On ajoute à la table des crons les deux lignes suivantes pour effectuer la sauvegarde du cache toutes les 20 minutes et pour restaurer le cache au démarrage:
 \begin{lstlisting}[language=bash]
-3/20 * * * * rsync -a --delete /var/cache/moodle/ /var/cache/moodle-cache-backup/
+*/20 * * * * rsync -a --delete /var/cache/moodle/ /var/cache/moodle-cache-backup/
 @reboot cp -Rpf /var/cache/moodle-cache-backup/* /var/cache/moodle/
 \end{lstlisting}
 
