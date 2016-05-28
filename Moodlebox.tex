@@ -180,7 +180,6 @@ Mettre à jour le système d'exploitation de la Raspberry, puis lancer l'utilita
 
 \begin{lstlisting}[language=bash]
 $ sudo apt-get update -y
-$ sudo apt-get upgrade -y
 $ sudo apt-get dist-upgrade -y
 $ sudo raspi-config
 \end{lstlisting}
@@ -193,11 +192,6 @@ Avec l'utilitaire \emph{raspi-config}, effectuer les tâches suivantes\footnote
 \item régler le fuseau horaire et le pays pour le Wi-Fi;
 \item changer le hostname de la Raspberry en \emph{moodlebox} ;
 \end{itemize}
-
-Rebooter la Raspberry:
-\begin{lstlisting}[language=bash]
-$ sudo reboot
-\end{lstlisting}
 
 Dès maintenant, pour se connecter à la Raspberry, par SSH ou par SFTP, on utilisera l'adresse \lstinline{moodlebox.local}, le nom d'utilisateur \emph{pi} et le mot de passe \emph{Moodlebox4\$}.
 
@@ -258,9 +252,10 @@ On modifie ensuite dans les fichiers adéquats le nom de l'utilisateur, en le d�
 \begin{lstlisting}[language=bash]
 $ sudo sed -i.$(date +'%y%m%d_%H%M%S') 's/\bpi\b/moodlebox/g' passwd group shadow gshadow sudoers systemd/system/autologin@.service
 $ sudo mv /home/pi /home/moodlebox
+$ exit
 \end{lstlisting}
 
-Pour terminer, on quitte la session, et on se connecte à la MoodleBox avec le nouveau nom et le mot de passe \emph{Moodlebox4\$}, qui n'a pas été changé.
+On se connecte à la MoodleBox avec le nouveau nom et le mot de passe \emph{Moodlebox4\$}, qui n'a pas été changé.
 
 \begin{lstlisting}[language=bash]
 $ ssh moodlebox@moodlebox.local
@@ -293,7 +288,7 @@ Désormais, on se connectera à la MoodleBox avec le nom d'utilisateur \emph{moo
 \subsection{Installation des paquetages nécessaires}
 
 \begin{lstlisting}[language=bash]
-$ sudo apt-get install hostapd dnsmasq iptables
+$ sudo apt-get install hostapd dnsmasq
 \end{lstlisting}
 
 \subsection[Configuration du point d'accès (\lstinline{hostapd})]{Configuration du point d'accès (\lstinline{hostapd})\footnote{Les configurations décrites dans cette section et la suivante sont inspirées de \url{https://frillip.com/using-your-raspberry-pi-3-as-a-wifi-access-point-with-hostapd/}.}}
@@ -412,13 +407,6 @@ Son contenu doit être le suivant.
 \lstinputlisting[language=bash]{files/70-ipv4-nat}
 
 \subsection{Test du point d'accès sans fil}
-
-\iffalse
-\begin{lstlisting}[language=bash]
-$ sudo service hostapd start
-$ sudo service dnsmasq start
-\end{lstlisting}
-\fi
 
 Redémarrer la Raspberry
 
@@ -596,7 +584,7 @@ On crée un dossier dans lequel les fichiers devront être déposés pour être 
 
 \begin{lstlisting}[language=bash]
 $ mkdir -p /home/moodlebox/files
-$ sudo chown -R pi:www-data files/
+$ sudo chown -R moodlebox:www-data files/
 $ sudo chmod g+s files/
 $ sudo ln -s /home/moodlebox/files /var/www/moodledata/repository
 \end{lstlisting}
