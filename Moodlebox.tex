@@ -157,7 +157,7 @@ Se connecter à la Raspberry. Le compte utilisateur est \emph{pi} et le mot de p
 
 \begin{lstlisting}[language=bash]
 $ ssh pi@raspberrypi.local
-$ pi@raspberrypi.local's password: 
+$ pi@raspberrypi.local's password:
 \end{lstlisting}
 
 \begin{verification}
@@ -217,7 +217,7 @@ $ sudo service rsyslog restart
 
 \subsection[Changement de nom de l'utilisateur par défaut]{Changement de nom de l'utilisateur par défaut\footnote{Cette section est inspirée de \url{http://unixetc.co.uk/2016/01/07/how-to-rename-the-default-raspberry-pi-user/}.}}
 
-L'utilisation de l'utilisateur par défaut \emph{pi} de la Raspberry Pi 3 ne pose aucun problème. Toutefois, par sécurité, il n'est pas conseillé d'employer un utilisateur dont le nom est universellement connu. On change donc l'utilisateur par défaut. Le nom choisi ici est \emph{moodlebox}.
+L'utilisation de l'utilisateur par défaut \emph{pi} de la Raspberry Pi 3 ne pose aucun problème. Toutefois, par sécurité, il n'est pas conseillé d'employer un utilisateur dont le nom est universellement connu. On change donc le compte utilisateur par défaut. Le nom choisi ici est \emph{moodlebox}.
 
 On commence par créer un compte utilisateur temporaire, \emph{tempuser}, et l'on définit son mot de passe.
 \begin{lstlisting}[language=bash]
@@ -275,10 +275,11 @@ moodlebox@moodlebox:~ $
 \end{lstlisting}
 \end{verification}
 
-Pour terminer, on supprime le compte utilisateur temporaire \emph{tempuser}:
+Pour terminer, on supprime le compte utilisateur temporaire \emph{tempuser} et le fichier de sauvegarde:
 \begin{lstlisting}[language=bash]
 $ sudo userdel tempuser
 $ sudo rm -rf /home/tempuser/
+$ sudo rm authfiles.tgz
 \end{lstlisting}
 
 Désormais, on se connectera à la MoodleBox avec le nom d'utilisateur \emph{moodlebox} et le mot de passe \emph{Moodlebox4\$}.
@@ -368,7 +369,7 @@ Le contenu du fichier \lstinline{/etc/network/interfaces} devient alors
 
 \subsection{Configuration du routage}
 
-Dé-commenter la ligne 
+Dé-commenter la ligne
 \begin{lstlisting}[language=bash]
 # net.ipv4.ip_forward=1
 \end{lstlisting}
@@ -627,7 +628,7 @@ tmpfs /var/cache/moodle tmpfs size=64M,mode=775,uid=www-data,gid=www-data 0 0
 $ sudo nano /etc/fstab
 \end{lstlisting}
 
-Le contenu du fichier \lstinline{/etc/fstab} sera alors : 
+Le contenu du fichier \lstinline{/etc/fstab} sera alors :
 \lstinputlisting[language=bash]{files/fstab}
 
 Après un redémarrage de la Raspberry, le cache peut être configuré dans Moodle.
@@ -691,7 +692,7 @@ après la ligne \lstinline{$CFG->admin = 'admin';} dans le fichier de configurat
 $ sudo nano /var/www/html/config.php
 \end{lstlisting}
 
-Le contenu du fichier \lstinline{/var/www/html/config.php} sera alors : 
+Le contenu du fichier \lstinline{/var/www/html/config.php} sera alors :
 \lstinputlisting[language=bash]{files/config.php}
 
 Ajouter ensuite les lignes ci-dessous dans le fichier \lstinline{/etc/nginx/sites-available/default}
@@ -703,7 +704,7 @@ location /dataroot/ {
 }
 \end{lstlisting}
 
-Le contenu du fichier \lstinline{/etc/nginx/sites-available/default} devient alors : 
+Le contenu du fichier \lstinline{/etc/nginx/sites-available/default} devient alors :
 \lstinputlisting[language=bash]{files/default2}
 
 \subsubsection{Optimisation de MySQL}
@@ -741,7 +742,7 @@ $ sudo bash -c 'for logs in `find /var/log -type f`; do > $logs; done'
 $ cat /dev/null > ~/.bash_history && history -c && sudo shutdown -h now
 \end{lstlisting}
 
-Si tout s'est bien passé, la totalité ne doit pas dépasser la taille de 1.8~Go. L'image-disque, une fois tronquée, a une taille d'envion 2.5~Go. Compressée, elle tient dans un peu plus d'1~Go. 
+Si tout s'est bien passé, la totalité ne doit pas dépasser la taille de 1.8~Go. L'image-disque, une fois tronquée, a une taille d'envion 2.5~Go. Compressée, elle tient dans un peu plus d'1~Go.
 
 
 \end{document}
