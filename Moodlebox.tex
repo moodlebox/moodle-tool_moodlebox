@@ -117,13 +117,13 @@ Grâce à la persévérance d'un membre de la communauté\footnote{Christian Wes
 
 \section{Installation initiale de la Raspberry}
 
-\subsection{Préparation de la carte SD}
+\subsection{Préparation de la carte microSD}
 
-Télécharger l'image \emph{Raspbian Jessie Lite} depuis le site de Raspberry Pi\footnote{\url{https://www.raspberrypi.org/downloads/raspbian/}.}, puis la copier sur une carte SD. Les procédures détaillées, qui varient suivant le système d'exploitation, sont disponibles sur le site de Raspberry Pi\footnote{\url{https://www.raspberrypi.org/documentation/installation/installing-images/}.}.
+Télécharger l'image \emph{Raspbian Jessie Lite} depuis le site de Raspberry Pi\footnote{\url{https://www.raspberrypi.org/downloads/raspbian/}.}, puis la copier sur une carte microSD. Les procédures détaillées, qui varient suivant le système d'exploitation, sont disponibles sur le site de Raspberry Pi\footnote{\url{https://www.raspberrypi.org/documentation/installation/installing-images/}.}.
 
 \subsection{Démarrage de la Raspberry et connexion}
 
-Éjecter la carte SD et l'insérer dans la Raspberry Pi, puis brancher l'alimentation de la Raspberry.
+Éjecter la carte microSD et l'insérer dans la Raspberry Pi, puis brancher l'alimentation de la Raspberry.
 
 \begin{verification}
 La diode rouge s'allume, la verte clignote après 1 à 2 secondes.
@@ -186,7 +186,7 @@ $ sudo raspi-config
 
 Avec l'utilitaire \emph{raspi-config}, effectuer les tâches suivantes\footnote{Cette partie est inspirée de \url{https://moodle.org/mod/forum/discuss.php?d=331170}.}:
 \begin{itemize}
-\item agrandir la partition à la taille maximale de la carte SD;
+\item agrandir la partition à la taille maximale de la carte microSD;
 \item modifier le mot de passe de l'utilisateur \lstinline{pi} (mot de passe fort\footnote{\url{https://xkcd.com/936/}.}). Pour cette image destinée à être distribuée, on choisira le mot de passe à \emph{Moodlebox4\$}.
 \item régler les \emph{locales} à \lstinline{fr_FR.UTF-8};
 \item régler le fuseau horaire et le pays pour le Wi-Fi;
@@ -660,7 +660,7 @@ Pour terminer, il reste à associer ces nouvelles instances de cache à leur des
 \end{minipage}
 \end{figure}
 
-Le cache en disque RAM a un défaut: les données qu'il contient disparaissent à chaque redémarrage de la MoodleBox. Moodle doit donc à chaque fois reconstruire le cache. Si l'on veut conserver le cache entre les redémarrages, on copie à intervalle régulier le contenu du disque RAM sur la carte SD, et, lors de chaque démarrage, on effectue l'opération inverse.
+Le cache en disque RAM a un défaut: les données qu'il contient disparaissent à chaque redémarrage de la MoodleBox. Moodle doit donc à chaque fois reconstruire le cache. Si l'on veut conserver le cache entre les redémarrages, on copie à intervalle régulier le contenu du disque RAM sur la carte microSD, et, lors de chaque démarrage, on effectue l'opération inverse.
 
 On crée le dossier de sauvegarde, puis on définit le cron
 \begin{lstlisting}[language=bash]
