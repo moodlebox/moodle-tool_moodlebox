@@ -100,7 +100,7 @@ Grâce à la persévérance d'un membre de la communauté\footnote{Christian Wes
 
 \begin{itemize}
 \item Point d'accès sans fil. Le nom du réseau Wi-Fi fourni est \emph{MoodleBox} ; le mot de passe de connexion est \emph{moodlebox}.
-\item Plateforme Moodle 3.0.x accessible via Wi-Fi (\url{http://moodlebox.local/}), dans sa configuration de base vierge de toute personnalisation. L'unique compte utilisateur du Moodle est un compte administrateur, nom d'utilisateur : \emph{admin}, mot de passe : \emph{Moodlebox4\$}. La taille maximale des dépôts de fichiers est fixée à 50~Mo. Le cron est lancé toutes les 3 minutes.
+\item Plateforme Moodle 3.0.x accessible via Wi-Fi (\url{http://moodlebox.local/}), dans sa configuration de base vierge de toute personnalisation. L'unique compte utilisateur du Moodle est un compte administrateur, nom d'utilisateur : \emph{admin}, mot de passe : \emph{Moodlebox4\$}. La plateforme est configurée pour accepter les client de l'app mobile officielle\footnote{\url{https://download.moodle.org/mobile/}.} de Moodle. La taille maximale des dépôts de fichiers est fixée à 50~Mo. Le cron est lancé toutes les 3 minutes.
 \item Lorsqu'une clef USB est insérée dans la MoodleBox, les fichiers qu'elle contient sont accessibles pour les administrateurs et enseignants de la plateforme via le dépôt \emph{Système de fichiers} du Moodle.
 \item Possibilité de déposer des fichiers par SFTP directement sur la MoodleBox (nom d'utilisateur : \emph{moodlebox}, mot de passe : \emph{Moodlebox4\$}); ces fichiers sont accessibles pour les administrateurs et enseignants de la plateforme via le dépôt \emph{Système de fichiers} du Moodle.
 \item Accès à Internet : si la MoodleBox est connectée par câble à un réseau relié à Internet, elle agit comme routeur et les clients Wi-Fi ont accès à Internet.
@@ -594,6 +594,18 @@ On effectue la configuration d'un dépôt \emph{Système de fichiers}, de façon
 
 Pour déposer des fichiers, on se connecte au moyen d'un logiciel SFTP\footnote{Par exemple : \href{https://filezilla-project.org/}{FileZilla}, \href{https://cyberduck.io/}{Cyberduck}, \href{http://winscp.net/}{WinSCP}.} sur la MoodleBox, avec le nom d'utilisateur \emph{moodlebox} et le mot de passe \emph{Moodlebox4\$}. Les fichiers seront déposés dans le dossier \lstinline{files}.
 
+\section{Configurations additionnelle de Moodle}
+
+\subsection{Activation de l'accès via l'app mobile de Moodle}
+
+Après s'être connecté à la plateforme avec le compte administrateur,  on visite dans le Moodle \emph{Administration du site > Plugins > Services web > Mobile}. On coche la case \emph{Activer les services web pour appareils mobiles} et l'on enregistre les modifications.
+
+Pour cette plateforme dont la destination n'est pas d'être publiée sur Internet, l'avertissement concernant le certificat SSL peut être ignoré sans risque.
+
+\begin{verification}
+Depuis un smartphone connecté en Wi-Fi sur le réseau MoodleBox, lancer l'app mobile Moodle et se connecter à la plateforme au moyen de l'URL \url{http://moodlebox.local}, avec le compte administrateur. Aucune erreur ne doit être signalée, et le message \emph{Aucune information de cours à afficher} est affiché sur l'écran du smartphone.
+\end{verification}
+
 \section{Configuration de PhpMyAdmin (optionnel)}
 
 \begin{lstlisting}[language=bash]
@@ -633,7 +645,7 @@ Le contenu du fichier \lstinline{/etc/fstab} sera alors :
 
 Après un redémarrage de la Raspberry, le cache peut être configuré dans Moodle.
 
-On se connecte à Moodle avec le compte administrateur (créé plus haut), puis on dans le Moodle \emph{Administration du site > Plugins > Cache > Configuration}. On crée deux nouvelles instances de dépôt, en cliquant sur \emph{Ajouter une instance} dans la section \emph{Entrepôts de cache installés} (en haut de la page).
+On se connecte à Moodle avec le compte administrateur (créé plus haut), puis dans le Moodle on visite \emph{Administration du site > Plugins > Cache > Configuration}. On crée deux nouvelles instances de dépôt, en cliquant sur \emph{Ajouter une instance} dans la section \emph{Entrepôts de cache installés} (en haut de la page).
 
 \begin{figure}[!ht]
 \begin{minipage}[b]{0.45\linewidth} % A minipage that covers half the page
