@@ -673,6 +673,19 @@ Pour terminer, il reste à associer ces nouvelles instances de cache à leur des
 \end{minipage}
 \end{figure}
 
+\begin{verification}
+Après quelques actions sur la plateforme Moodle de la MoodleBox, se connecter via SSH à la MoodleBox, puis lancer la commande 
+\begin{lstlisting}[language=bash]
+ls -l /var/cache/moodle/
+\end{lstlisting}
+La console doit afficher quelque chose comme
+\begin{lstlisting}[language=bash]
+total 0
+drwxrwxrwx 19 www-data www-data 380 mai   30 19:18 application
+drwxrwxrwx  8 www-data www-data 160 mai   29 19:00 sessions
+\end{lstlisting}
+\end{verification}
+
 Le cache en disque RAM a un défaut: les données qu'il contient disparaissent à chaque redémarrage de la MoodleBox. Moodle doit donc à chaque fois reconstruire le cache. Si l'on veut conserver le cache entre les redémarrages, on copie à intervalle régulier le contenu du disque RAM sur la carte microSD, et, lors de chaque démarrage, on effectue l'opération inverse.
 
 On crée le dossier de sauvegarde, puis on définit le cron
