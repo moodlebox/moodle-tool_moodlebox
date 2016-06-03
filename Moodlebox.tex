@@ -1,6 +1,8 @@
 %!TEX encoding = UTF-8 Unicode
 %!TEX TS-program = xelatex
 \documentclass[11pt]{article}
+%% Versionning info
+\usepackage[mark]{gitinfo2}
 %% Polices OTF
 \usepackage{fontspec,xltxtra,xunicode}
 \usepackage{libertine}
@@ -10,6 +12,7 @@
 \usepackage{polyglossia}
 \setdefaultlanguage{french}
 \setotherlanguage{english}
+%% URLs and hyperlinks
 \usepackage{xcolor}
 \usepackage[hyphens]{url}
 \usepackage[unicode,bookmarks,colorlinks,breaklinks]{hyperref}
@@ -75,7 +78,7 @@ frametitlebackgroundcolor=yellow!50!white
 \begin{document}
 
 \title{Moodle sur Raspberry Pi 3\\ ou la construction d'une MoodleBox\footnote{Le présent document est mis à disposition selon les termes de la \href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{Licence Creative Commons Attribution - Pas d'Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International}.}}
-\date{27 mai 2016}
+\date{3 juin 2016\footnote{Version \gitAbbrevHash, \gitAuthorDate}}
 \author{Nicolas Martignoni}
 \maketitle
 
