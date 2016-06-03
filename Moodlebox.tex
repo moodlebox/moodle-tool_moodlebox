@@ -213,6 +213,7 @@ $ sudo reboot
 
 On profite de corriger un bogue qui a pour conséquence de remplir certains fichiers d'historique de la MoodleBox\footnote{Voir \url{https://anonscm.debian.org/cgit/collab-maint/rsyslog.git/commit/?id=67bc8e5326b0d3564c7e2153dede25f9690e6839}.}.
 
+% sudo nano /etc/rsyslog.conf
 \begin{lstlisting}[language=bash]
 $ sudo sed -i '/# The named pipe \/dev\/xconsole/,$d' /etc/rsyslog.conf
 $ sudo service rsyslog restart
@@ -353,7 +354,6 @@ Contenu du fichier \lstinline{/etc/dhcpcd.conf}
 
 \lstinputlisting[language=bash]{files/dhcpcd.conf}
 
-
 \subsection{Configuration des interfaces réseau}
 
 Il s'agit d'éviter que la Raspberry récupère une adresse dynamique sur son interface Wi-Fi, risquant d'entrer en conflit avec son adresse fixe. On commente pour cela la ligne
@@ -428,7 +428,7 @@ On va installer le serveur web nginx avec PHP et MySQL.
 
 \subsection{Installation et configuration de nginx et PHP}
 
-Installer les paquetage nécessaires.
+Installer les paquetages nécessaires.
 
 \begin{lstlisting}[language=bash]
 $ sudo apt-get install nginx php5-fpm php5-cli php5-xmlrpc php5-curl php5-gd php5-intl
@@ -562,7 +562,7 @@ $ sudo chown -R www-data:www-data /var/www/moodledata/
 $ sudo ln -s /media/usb /var/www/moodledata/repository
 \end{lstlisting}
 
-Il faut ensuite configurer Moodle de façon adéquate\footnote{Voir \url{https://docs.moodle.org/30/en/File_system_repository}.}: connecté comme administrateur sur la plateforme, on visite \emph{Administration du site > Plugins > Dépôts > Gérer les dépôts}.
+Il faut ensuite configurer Moodle de façon adéquate\footnote{Voir \url{https://docs.moodle.org/en/File_system_repository}.}: connecté comme administrateur sur la plateforme, on visite \emph{Administration du site > Plugins > Dépôts > Gérer les dépôts}.
 
 Dans la ligne \emph{Système de fichiers}, on sélectionne dans le menu déroulant \emph{Activé et visible}.
 
