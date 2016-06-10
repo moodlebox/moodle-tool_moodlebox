@@ -339,50 +339,50 @@ Contenu du fichier \lstinline{/etc/dnsmasq.conf}
 
 \lstinputlisting[language=bash]{files/dnsmasq.conf}
 
-Modifier ensuite le contenu du fichier \lstinline{dhcpcd.conf} afin de fixer l'adresse IP de la MoodleBox. On ajoute simplement les lignes
+Modifier ensuite le contenu du fichier \lstinline{dhcpcd.conf} afin de fixer l'adresse IP de la MoodleBox.
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/dhcpcd.conf
+\end{lstlisting}
+
+On ajoute simplement les lignes
 \begin{lstlisting}[language=bash]
 interface wlan0
     static ip_address=10.0.0.1/24
 \end{lstlisting}
 à la fin du fichier existant.
 
-\begin{lstlisting}[language=bash]
-$ sudo nano /etc/dhcpcd.conf
-\end{lstlisting}
-
+\iffalse
 Contenu du fichier \lstinline{/etc/dhcpcd.conf}
 
 \lstinputlisting[language=bash]{files/dhcpcd.conf}
+\fi
 
 \subsection{Configuration des interfaces réseau}
 
-Il s'agit d'éviter que la Raspberry récupère une adresse dynamique sur son interface Wi-Fi, risquant d'entrer en conflit avec son adresse fixe. On commente pour cela la ligne
-\begin{lstlisting}[language=bash]
-wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-\end{lstlisting}
-dans le fichier \lstinline{/etc/network/interfaces}, sous la ligne \lstinline{iface wlan0 inet manual}.
-
+Il s'agit d'éviter que la Raspberry récupère une adresse dynamique sur son interface Wi-Fi, risquant d'entrer en conflit avec son adresse fixe. On modifie le fichier \lstinline{/etc/network/interfaces}
 \begin{lstlisting}[language=bash]
 $ sudo nano /etc/network/interfaces
 \end{lstlisting}
 
+Sous la ligne \lstinline{iface wlan0 inet manual}, on supprime (ou met en commentaire) la ligne
+\begin{lstlisting}[language=bash]
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+\end{lstlisting}
+
+\iffalse
 Le contenu du fichier \lstinline{/etc/network/interfaces} devient alors
 
 \lstinputlisting[language=bash]{files/interfaces}
+\fi
 
 \subsection{Configuration du routage}
 
-Dé-commenter la ligne
-\begin{lstlisting}[language=bash]
-# net.ipv4.ip_forward=1
-\end{lstlisting}
-dans le fichier \lstinline{/etc/sysctl.conf}.
-
+On modifie le fichier fichier \lstinline{/etc/sysctl.conf}
 \begin{lstlisting}[language=bash]
 $ sudo nano /etc/sysctl.conf
 \end{lstlisting}
 
-La ligne devient
+en dé-commentant (ou en ajoutant) la ligne
 \begin{lstlisting}[language=bash]
 net.ipv4.ip_forward=1
 \end{lstlisting}
@@ -391,7 +391,7 @@ net.ipv4.ip_forward=1
 \lstinputlisting[language=bash]{files/sysctl.conf}
 \fi
 
-Taper les lignes suivantes dans l'interface.
+On saisit les lignes suivantes dans l'interface.
 
 \begin{lstlisting}[language=bash]
 $ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
@@ -401,7 +401,7 @@ $ sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 $ sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
 \end{lstlisting}
 
-Créer ensuite le fichier {/lib/dhcpcd/dhcpcd-hooks/70-ipv4-nat}.
+On crée ensuite le fichier {/lib/dhcpcd/dhcpcd-hooks/70-ipv4-nat}.
 \begin{lstlisting}[language=bash]
 $ sudo nano /lib/dhcpcd/dhcpcd-hooks/70-ipv4-nat
 \end{lstlisting}
@@ -410,13 +410,13 @@ Son contenu doit être le suivant.
 
 \lstinputlisting[language=bash]{files/70-ipv4-nat}
 
-\subsection{Test du point d'accès sans fil}
-
-Redémarrer la Raspberry
+Pour terminer, on redémarre la Raspberry.
 
 \begin{lstlisting}[language=bash]
 $ sudo reboot
 \end{lstlisting}
+
+\subsection{Test du point d'accès sans fil}
 
 \begin{verification}
 Au terme du démarrage, un client doit pouvoir surfer sur Internet après s'être connecté au réseau Wi-Fi \emph{MoodleBox} au moyen du mot de passe \emph{moodlebox}.
