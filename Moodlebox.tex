@@ -288,17 +288,54 @@ $ sudo rm authfiles.tgz
 
 Désormais, on se connectera à la MoodleBox avec le nom d'utilisateur \emph{moodlebox} et le mot de passe \emph{Moodlebox4\$}.
 
-\section{Configuration du point d'accès Wi-Fi}
+\section[Configuration du point d'accès Wi-Fi]{Configuration du point d'accès Wi-Fi\footnote{Les configurations décrites dans cette section et la suivante sont inspirées de \url{https://frillip.com/using-your-raspberry-pi-3-as-a-wifi-access-point-with-hostapd/}.}}
 
-\subsection{Installation des paquetages nécessaires}
+\subsection{Paquetages nécessaires}
 
+On commence par installer les paquetages requis.
 \begin{lstlisting}[language=bash]
 $ sudo apt-get install hostapd dnsmasq
 \end{lstlisting}
 
-\subsection[Configuration du point d'accès (\lstinline{hostapd})]{Configuration du point d'accès (\lstinline{hostapd})\footnote{Les configurations décrites dans cette section et la suivante sont inspirées de \url{https://frillip.com/using-your-raspberry-pi-3-as-a-wifi-access-point-with-hostapd/}.}}
+\subsection{Configuration des interfaces réseau}
 
-Modifier le contenu du fichier \lstinline{hostapd.conf}. C'est ici que l'on définit le nom du réseau Wi-Fi (SSID) et le mot de passe pour y accéder\footnote{On peut aussi y définir d'autres options, comme le canal de diffusion.}. Le nom du réseau choisi est \emph{MoodleBox} et le mot de passe \emph{moodlebox}.
+Il s'agit d'éviter que le client DHCP de la Raspberry récupère une adresse dynamique sur son interface Wi-Fi, risquant d'entrer en conflit avec son adresse fixe. On commence pour cela par modifier le fichier \lstinline{dhcpcd.conf}.
+
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/dhcpcd.conf
+\end{lstlisting}
+
+On ajoute tout à la fin du fichier\footnote{Cette ligne doit être insérée cependant avant toute ligne \emph{interface} qui aurait été ajoutée au fichier.} la ligne 
+\begin{lstlisting}[language=bash]
+denyinterfaces wlan0  
+\end{lstlisting}
+
+On modifie ensuite le fichier \lstinline{/etc/network/interfaces} afin de configurer l'interface Wi-Fi de manière statique, en fixant son adresse IP. Pour la MoodleBox, on choisit l'adresse \lstinline{10.0.0.1}.
+\begin{lstlisting}[language=bash]
+$ sudo nano /etc/network/interfaces
+\end{lstlisting}
+
+La partie \lstinline{wlan0} de ce fichier doit ressembler à quelque chose comme cela
+\begin{lstlisting}[language=bash]
+allow-hotplug wlan0
+iface wlan0 inet static
+    address 10.0.0.1
+    netmask 255.255.255.0
+    network 10.0.0.0
+    broadcast 10.0.0.255
+#    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+\end{lstlisting}
+Le reste du fichier n'est pas modifié.
+
+\iffalse
+Le contenu du fichier \lstinline{/etc/network/interfaces} devient alors
+
+\lstinputlisting[language=bash]{files/interfaces}
+\fi
+
+\subsection[Configuration du point d'accès (\lstinline{hostapd})]{Configuration du point d'accès (\lstinline{hostapd})}
+
+Modifier le contenu du fichier \lstinline{hostapd.conf}. C'est ici que l'on définit le nom du réseau Wi-Fi (SSID) et le mot de passe pour y accéder et d'autres options, comme le canal de diffusion. Le nom du réseau choisi est \emph{MoodleBox} et le mot de passe \emph{moodlebox}.
 
 \begin{lstlisting}[language=bash]
 $ sudo nano /etc/hostapd/hostapd.conf
@@ -317,15 +354,20 @@ $ sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
 L'affichage annonce une erreur (puisque la configuration n'est pas finie), mais il doit se terminer par \lstinline{wlan0: AP-ENABLED}. Un client Wi-Fi doit pouvoir détecter le réseau Wi-Fi \emph{MoodleBox}.
 \end{verification}
 
-Il reste maintenant à définir où \lstinline{hostapd} doit chercher sa configuration au démarrage. Pour ce faire, on modifie le fichier \lstinline{/etc/default/hostapd} en remplaçant la ligne \lstinline{#DAEMON_CONF=""} par \lstinline{DAEMON_CONF="/etc/hostapd/hostapd.conf"}.
+Il reste maintenant à définir où \lstinline{hostapd} doit chercher sa configuration au démarrage. Pour ce faire, on modifie le fichier \lstinline{/etc/default/hostapd}.
 
 \begin{lstlisting}[language=bash]
 $ sudo nano /etc/default/hostapd
 \end{lstlisting}
 
+On y remplace la ligne \lstinline{#DAEMON_CONF=""} par \lstinline{DAEMON_CONF="/etc/hostapd/hostapd.conf"}.
+
+
+\iffalse
 Contenu du fichier \lstinline{/etc/default/hostapd} :
 
 \lstinputlisting[language=bash]{files/hostapd}
+\fi
 
 \subsection{Configuration du serveur DHCP}
 
@@ -339,6 +381,7 @@ Contenu du fichier \lstinline{/etc/dnsmasq.conf}
 
 \lstinputlisting[language=bash]{files/dnsmasq.conf}
 
+\iffalse
 Modifier ensuite le contenu du fichier \lstinline{dhcpcd.conf} afin de fixer l'adresse IP de la MoodleBox.
 \begin{lstlisting}[language=bash]
 $ sudo nano /etc/dhcpcd.conf
@@ -350,29 +393,12 @@ interface wlan0
     static ip_address=10.0.0.1/24
 \end{lstlisting}
 à la fin du fichier existant.
+\fi
 
 \iffalse
 Contenu du fichier \lstinline{/etc/dhcpcd.conf}
 
 \lstinputlisting[language=bash]{files/dhcpcd.conf}
-\fi
-
-\subsection{Configuration des interfaces réseau}
-
-Il s'agit d'éviter que la Raspberry récupère une adresse dynamique sur son interface Wi-Fi, risquant d'entrer en conflit avec son adresse fixe. On modifie le fichier \lstinline{/etc/network/interfaces}
-\begin{lstlisting}[language=bash]
-$ sudo nano /etc/network/interfaces
-\end{lstlisting}
-
-Sous la ligne \lstinline{iface wlan0 inet manual}, on supprime (ou met en commentaire) la ligne
-\begin{lstlisting}[language=bash]
-wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-\end{lstlisting}
-
-\iffalse
-Le contenu du fichier \lstinline{/etc/network/interfaces} devient alors
-
-\lstinputlisting[language=bash]{files/interfaces}
 \fi
 
 \subsection{Configuration du routage}
