@@ -737,14 +737,18 @@ Le contenu du fichier \lstinline{/etc/nginx/sites-available/default} devient alo
 
 \subsubsection{Optimisation de MySQL}
 
-Augmenter la valeur de la variable \lstinline{open_table} dans le fichier \lstinline{/etc/mysql/my.cnf}. Pour ce faire, on ouvre le fichier en question
+On modifie les valeurs de quelques variables de MySQL dans le fichier \lstinline{/etc/mysql/my.cnf}. Pour ce faire, on ouvre le fichier en question
 \begin{lstlisting}[language=bash]
 $ sudo nano /etc/mysql/my.cnf
 \end{lstlisting}
 
-et on y modifie la ligne adéquate, de sorte qu'elle devienne:
+et on y modifie les lignes adéquates, à savoir:
 \begin{lstlisting}[language=bash]
 table_cache             = 512
+table_definition_cache  = 512
+max_connections         = 100
+query_cache_size        = 8M
+query_cache_type        = 0
 \end{lstlisting}
 
 \section{Nettoyage de la distribution}
