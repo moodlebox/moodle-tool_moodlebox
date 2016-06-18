@@ -18,7 +18,7 @@ The plugin needs to be installed in the Moodle tree of the MoodleBox, in the _lo
 To enable the restart and shutdown feature, an cron job should be defined on the MoodleBox (for root user) in the following way.
 
 ```
-* * * * * bash /var/www/html/local/moodlebox/lib/checkrebootrestart.sh
+* * * * * bash /var/www/html/local/moodlebox/bin/checkrebootrestart.sh
 ```
 ## Usage
 
