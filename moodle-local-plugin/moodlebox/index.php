@@ -23,24 +23,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(dirname(__FILE__).'/../../config.php');
+require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->libdir.'/formslib.php');
-
-class simplehtml_form extends moodleform {
-  //Add elements to form
-  public function definition() {
-    global $CFG;
-
-    $mform = $this->_form;
-
-    $buttonarray=array();
-    $buttonarray[] =& $mform->createElement('submit', 'restart', get_string('restart', 'local_moodlebox'));
-    $buttonarray[] =& $mform->createElement('submit', 'shutdown', get_string('shutdown', 'local_moodlebox'));
-    $mform->addGroup($buttonarray, 'buttons', '', array(' '), false);
-  }
-
-}
 
 require_login();
 require_capability('moodle/site:config', context_system::instance());
@@ -64,12 +49,14 @@ exec('uptime -p', $uptime);
 
 class restartshutdown_form extends moodleform {
   public function definition() {
-    //global $CFG;
     $mform = $this->_form;
-    $buttonarray=array();
-    $buttonarray[] =& $mform->createElement('submit', 'restart', get_string('restart', 'local_moodlebox'));
-    $buttonarray[] =& $mform->createElement('submit', 'shutdown', get_string('shutdown', 'local_moodlebox'));
-    $mform->addGroup($buttonarray, 'buttons', '', array(' '), false);
+    $buttonarray = array();
+    $buttonarray[] = & $mform->createElement('submit', 'restartbutton',
+                                              get_string('restart', 'local_moodlebox'));
+    $buttonarray[] = & $mform->createElement('submit', 'shutdownbutton',
+                                              get_string('shutdown', 'local_moodlebox'));
+    $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
+    $mform->closeHeaderBefore('buttonar');
   }
 }
 
