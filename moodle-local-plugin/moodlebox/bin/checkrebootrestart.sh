@@ -16,7 +16,7 @@
 # along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-#  * Script file to handle IP forwarding toggle of Moodlebox
+#  * Script file to handle reboot/shutdown of Moodlebox
 #  *
 #  * @package    local
 #  * @subpackage moodlebox
@@ -25,14 +25,22 @@
 #  */
 
 # See http://stackoverflow.com/questions/5226728/how-to-shutdown-ubuntu-with-exec-php
-if [ -f /var/www/html/local/moodlebox/.ipforwardtoggle ]; then
-  rm -f /var/www/html/local/moodlebox/.ipforwardtoggle
-  if [ -f /var/www/html/local/moodlebox/.ipforwardtoggle ]; then
-    echo "Can't remove file .ipforwardtoggle"
-  else # toggle routing status
-    echo "start"
-    sysctl -w net.ipv4.ip_forward=$(cat /proc/sys/net/ipv4/ip_forward | awk '{print !$1}')
-    systemctl daemon-reload
-    echo "end"
+if [ -f /var/www/html/local/moodlebox/.reboot-server ]; then
+  rm -f /var/www/html/local/moodlebox/.reboot-server
+  if [ -f /var/www/html/local/moodlebox/.reboot-server ]; then
+     echo "Can't remove file .reboot-server"
+  else
+    rsync -a --delete /var/cache/moodle/ /var/cache/moodle-cache-backup/
+    /sbin/shutdown -r now
+  fi
+fi
+
+if [ -f /var/www/html/local/moodlebox/.shutdown-server ]; then
+  rm -f /var/www/html/local/moodlebox/.shutdown-server
+  if [ -f /var/www/html/local/moodlebox/.shutdown-server ]; then
+     echo "Can't remove file .shutdown-server"
+  else
+    rsync -a --delete /var/cache/moodle/ /var/cache/moodle-cache-backup/
+    /sbin/shutdown -h now
   fi
 fi
