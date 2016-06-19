@@ -103,6 +103,7 @@ echo '</table>';
 
 echo $OUTPUT->box_end();
 
+// Restart-shutdown section
 echo $OUTPUT->heading(get_string('restartstop', 'local_moodlebox'));
 echo $OUTPUT->box_start('generalbox');
 
