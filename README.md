@@ -27,15 +27,13 @@ The local plugin needs to be installed in the Moodle tree of the MoodleBox, in t
 
 ## Features
 
-(Sorry, only in french, pull request needed!)
-
-* Point d'accès sans fil. Le nom du réseau Wi-Fi fourni est _MoodleBox_ ; le mot de passe de connexion est _moodlebox_.
-* Plateforme Moodle 3.1.x accessible via Wi-Fi ([http://moodlebox.local/](http://moodlebox.local/)), dans sa configuration de base vierge de toute personnalisation. L'unique compte utilisateur du Moodle est un compte administrateur, nom d'utilisateur : _admin_, mot de passe : _Moodlebox4$_. La plateforme est configurée pour accepter les clients de l'[app mobile officielle](https://download.moodle.org/mobile/) de Moodle. La taille maximale des dépôts de fichiers est fixée à 50 Mo. Le cron est lancé toutes les 3 minutes.
-* Lorsqu'une clef USB est insérée dans la MoodleBox, les fichiers qu'elle contient sont accessibles pour les administrateurs et enseignants de la plateforme via le dépôt _Système de fichiers_ du Moodle.
-* Possibilité de déposer des fichiers par SFTP directement sur la MoodleBox (nom d'utilisateur : _moodlebox_, mot de passe : _Moodlebox4$_); ces fichiers sont accessibles pour les administrateurs et enseignants de la plateforme via le dépôt _Système de fichiers_ du Moodle.
-* Accès à Internet : si la MoodleBox est connectée par câble à un réseau relié à Internet, elle agit comme routeur et les clients Wi-Fi ont accès à Internet.
-* [PhpMyAdmin](http://moodlebox.local/phpmyadmin) installé, avec un compte administrateur, nom d'utilisateur : _root_, mot de passe : _Moodlebox4$_.
-
+* Wi-Fi access point. SSID: _MoodleBox_; password: _moodlebox_.
+* GUI to restart and shutdown the MoodleBox.
+* Moodle 3.1.x platforme accessible via Wi-Fi ([http://moodlebox.local/](http://moodlebox.local/)), standard configuration with no customisation. An admin account for the Moodle, username: _admin_, password: _Moodlebox4$_. The Moodle server is configured to accept the clients from the Moodle [official mobile app](https://download.moodle.org/mobile/). The maximal size of uploaded files is set to 50Mb. The cron is launched every 3 minutes.
+* When a USB key is inserted in the MoodleBox, all the files on it are available for the admins and teachers of the Moodle server, via a _File system_ repository.
+* Option to upload files on the MoodleBox via SFTP (username: _moodlebox_, password: _Moodlebox4$_); these files are available for the admins and teachers of the Moodle server, via a _File system_ repository.
+* Internet access: when the MoodleBox is connected via ethernet to a network connected to Internet, the MoodleBox acts as a router (IP forwarding) and the Wi-Fi clients have access to Internet.
+* [PhpMyAdmin](http://moodlebox.local/phpmyadmin) is installed with an admin account; username: _root_, password: _Moodlebox4$_.
 
 ## Usage of the MoodleBox
 
