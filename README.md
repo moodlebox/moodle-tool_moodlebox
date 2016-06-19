@@ -10,6 +10,10 @@ The documentation is included in the plugin `doc` folder, as a LaTeX document (i
 
 The code is available at [https://github.com/martignoni/moodlebox](https://github.com/martignoni/moodlebox).
 
+An [prepared disk image](https://fricloud.ch/index.php/s/bjU65EHe6jdFVT6/download) for your Raspberry Pi 3 is [available](https://fricloud.ch/index.php/s/bjU65EHe6jdFVT6/download).
+
+SHA1 fingerprint of the disk image: becd79e10d48d9d2b8e0d20a1cfc49ab102cabc7
+
 ### Release notes
 
 * 2016-06-19, version 1.0a2 (alpha): reorganisation of project
