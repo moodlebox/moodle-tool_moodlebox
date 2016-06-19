@@ -4,7 +4,7 @@ A project to build a Moodle server and Wi-Fi router on a Raspberry Pi 3.
 
 The project includes a local plugin for Moodle 3.0 or later, provided to help the administrator of the MoodleBox to monitor some hardware settings and allow restart and shutdown of the MoodleBox.
 
-The documentation is included in the plugin `doc` folder, as a LaTeX document (in french; sorry, no english version as of now).
+The documentation is included in the plugin `doc` folder, as a LaTeX document (in french; sorry, no english version as of now, pull request highly desirable).
 
 ## Availability
 
@@ -17,7 +17,7 @@ The code is available at [https://github.com/martignoni/moodlebox](https://githu
 
 ## Building and installation
 
-To build a MoodleBox from scratch, you need a Raspberri Pi 3 (with Wi-Fi) and follow the [instructions given in the documentation](https://github.com/martignoni/moodlebox/blob/master/doc/Moodlebox.pdf).
+To build a MoodleBox from scratch, you need a Raspberri Pi 3 (Wi-Fi!) and follow the [instructions given in the documentation](https://github.com/martignoni/moodlebox/blob/master/doc/Moodlebox.pdf) (in french).
 
 The local plugin needs to be installed in the Moodle tree of the MoodleBox, in the _local_ folder. Once installed, an new option _MoodleBox administration_ will be available in Moodle, under _Site administration > Server_ in the _Administration_ block.
 
@@ -35,14 +35,14 @@ The local plugin needs to be installed in the Moodle tree of the MoodleBox, in t
 
 ## Usage of the MoodleBox
 
-See the [user manual](https://moodle.org/mod/book/view.php?id=8265), https://moodle.org/mod/book/view.php?id=8265.
+See the [user manual](https://moodle.org/mod/book/view.php?id=8265), in french.
 
 ## Thanks
 
 * To Daniel Méthot, for the [idea of a MoodleBox](https://moodle.org/mod/forum/discuss.php?d=278493)
 * To Christian Westphal, for the [first POC](https://moodle.org/mod/forum/discuss.php?d=331170) of a MoodleBox
 * To the [Raspberry Pi Foundation](https://www.raspberrypi.org/), for a splendid small computer
-* To [Martin Dougiamas](https://en.wikipedia.org/wiki/Martin_Dougiamas) and the [Moodle community](https://moodle.org/), for giving us Moodle
+* To [Martin Dougiamas](https://en.wikipedia.org/wiki/Martin_Dougiamas), for giving us Moodle, and to the [Moodle community](https://moodle.org/)
 
 ## License
 
