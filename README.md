@@ -4,7 +4,7 @@ A project to build a Moodle server and Wi-Fi router on a Raspberry Pi 3.
 
 The project includes a local plugin for Moodle 3.0 or later, provided to help the administrator of the MoodleBox to monitor some hardware settings and allow restart and shutdown of the MoodleBox.
 
-The documentation is included in the plugin `doc` folder, as a LaTeX document (in french. Sorry, no english version as of now).
+The documentation is included in the plugin `doc` folder, as a LaTeX document (in french; sorry, no english version as of now).
 
 ## Availability
 
@@ -19,11 +19,6 @@ The code is available at [https://github.com/martignoni/moodlebox](https://githu
 
 The local plugin needs to be installed in the Moodle tree of the MoodleBox, in the _local_ folder. Once installed, an new option _MoodleBox administration_ will be available in Moodle, under _Site administration > Server_ in the _Administration_ block.
 
-To enable the restart and shutdown feature, an cron job should be defined on the MoodleBox (for root user) in the following way.
-
-```
-* * * * * bash /var/www/html/local/moodlebox/bin/checkrebootrestart.sh
-```
 ## Usage
 
 TODO
