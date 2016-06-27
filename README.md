@@ -12,7 +12,7 @@ The code is available at [https://github.com/martignoni/moodlebox](https://githu
 
 An [prepared disk image](https://fricloud.ch/index.php/s/bjU65EHe6jdFVT6/download) for your Raspberry Pi 3 is [available](https://fricloud.ch/index.php/s/bjU65EHe6jdFVT6/download).
 
-SHA1 fingerprint of the disk image: 44c699a91c39c204dfe4ee4944f54627cd76c151
+SHA1 fingerprint of the compressed disk image (moodlebox.img.gz): 44c699a91c39c204dfe4ee4944f54627cd76c151
 
 ### Release notes
 
