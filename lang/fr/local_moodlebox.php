@@ -39,6 +39,6 @@ $string['restart'] = 'Redémarrer la MoodleBox';
 $string['restartmessage'] = 'La MoodleBox va redémarrer. Elle sera à nouveau accessible d\'ici une à deux minutes.';
 $string['restartstop'] = 'Redémarrage et arrêt';
 $string['shutdown'] = 'Éteindre la MoodleBox';
-$string['shutdownmessage'] = 'La MoodleBox va être s\'éteindre. Veuillez attendre une à deux minutes avant de retirer l\'alimentation.';
+$string['shutdownmessage'] = 'La MoodleBox va s\'éteindre. Veuillez attendre une à deux minutes avant de retirer l\'alimentation.';
 $string['systeminfo'] = 'Informations système';
 $string['uptime'] = 'Durée de fonctionnement du système';
