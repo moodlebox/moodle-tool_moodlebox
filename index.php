@@ -41,6 +41,10 @@ $strheading = get_string('pluginname', 'local_moodlebox');
 $PAGE->set_title($strheading);
 $PAGE->set_heading($strheading);
 
+$PAGE->requires->js('/local/moodlebox/checktime.js', false);
+$systemtime = usergetdate(time())[0];
+$PAGE->requires->js_init_call('checktime', array($systemtime), false);
+
 exec('uname -srm', $kernelversion);
 exec('lsb_release -d | cut -d\':\' -f2', $raspbianversion);
 $cpuload = sys_getloadavg();
@@ -50,6 +54,15 @@ exec('awk \'{print $1/1000" °C"}\' /sys/class/thermal/thermal_zone0/temp', $cp
 exec('awk \'{print $1/1000" Mhz"}\' /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq', $cpufrequency);
 exec('uptime -p', $uptime);
 $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
+
+class datetimeset_form extends moodleform {
+    public function definition() {
+        $mform = $this->_form;
+        $mform->addElement('date_time_selector', 'currentdatetime', get_string('datetime', 'local_moodlebox'),
+                            array('startyear' => date("Y") - 2, 'stopyear' => date("Y") + 2, 'timezone'  => 99, 'step' => 1));
+        $mform->addElement('submit', 'datetimesetbutton', get_string('datetimeset', 'local_moodlebox'));
+    }
+}
 
 class restartshutdown_form extends moodleform {
     public function definition() {
@@ -103,6 +116,25 @@ echo '</table>';
 
 echo $OUTPUT->box_end();
 
+// Time setting section
+echo $OUTPUT->heading(get_string('datetimesetting', 'local_moodlebox'));
+echo $OUTPUT->box_start('generalbox');
+
+// \core\notification::error(get_string('datetimesetmessage', 'local_moodlebox'));
+
+$datetimesetform = new datetimeset_form();
+$datetimesetform->display();
+
+if ($data = $datetimesetform->get_data()) {
+    if (!empty($data->datetimesetbutton)) {
+        $datecommand = "date +%s -s @$data->currentdatetime";
+        exec("echo $datecommand > .set-server-datetime");
+        \core\notification::warning(get_string('datetimemessage', 'local_moodlebox'));
+    }
+}
+
+echo $OUTPUT->box_end();
+
 // Restart-shutdown section
 echo $OUTPUT->heading(get_string('restartstop', 'local_moodlebox'));
 echo $OUTPUT->box_start('generalbox');
@@ -115,11 +147,11 @@ if ($data = $restartshutdownform->get_data()) {
 // adapted for use with incron
     if (!empty($data->restartbutton)) {
         exec('touch .reboot-server');
-        echo '<div class="alert alert-block">' . get_string('restartmessage', 'local_moodlebox') . '</div>';
+        \core\notification::warning(get_string('restartmessage', 'local_moodlebox'));
     }
     if (!empty($data->shutdownbutton)) {
         exec('touch .shutdown-server');
-        echo '<div class="alert alert-block">' . get_string('shutdownmessage', 'local_moodlebox') . '</div>';
+        \core\notification::warning(get_string('shutdownmessage', 'local_moodlebox'));
     }
 }
 
