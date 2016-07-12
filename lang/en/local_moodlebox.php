@@ -30,6 +30,7 @@ $string['cpuload'] = 'CPU load';
 $string['cputemperature'] = 'CPU temperature';
 $string['datetime'] = 'Date and time';
 $string['datetimeset'] = 'Set date and time';
+$string['datetimesetmessage'] = 'The date and time of the MoodleBox are desynchronised. It\'s highly recommanded to set the date and time to their current values.';
 $string['datetimesetting'] = 'Date and time setting';
 $string['dhcpclientnumber'] = 'DHCP client number';
 $string['information'] = 'Information';

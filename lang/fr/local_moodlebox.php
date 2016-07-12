@@ -30,6 +30,7 @@ $string['cpuload'] = 'Charge du processeur';
 $string['cputemperature'] = 'Température du processeur';
 $string['datetime'] = 'Date et heure';
 $string['datetimeset'] = 'Changer la date et l\'heure';
+$string['datetimesetmessage'] = 'La date et l\'heure de la MoodleBox semblent désynchronisées. Il est vivement recommandé de régler la date et l\'heure aux valeurs actuelles.';
 $string['datetimesetting'] = 'Réglage de la date et de l\'heure';
 $string['dhcpclientnumber'] = 'Nombre de clients DHCP';
 $string['information'] = 'Information';
