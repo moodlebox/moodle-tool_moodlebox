@@ -52,16 +52,16 @@ exec('uptime -p', $uptime);
 $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
 
 class restartshutdown_form extends moodleform {
-  public function definition() {
-    $mform = $this->_form;
-    $buttonarray = array();
-    $buttonarray[] = & $mform->createElement('submit', 'restartbutton',
-                                              get_string('restart', 'local_moodlebox'));
-    $buttonarray[] = & $mform->createElement('submit', 'shutdownbutton',
-                                              get_string('shutdown', 'local_moodlebox'));
-    $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
-    $mform->closeHeaderBefore('buttonar');
-  }
+    public function definition() {
+        $mform = $this->_form;
+        $buttonarray = array();
+        $buttonarray[] = & $mform->createElement('submit', 'restartbutton',
+                                                  get_string('restart', 'local_moodlebox'));
+        $buttonarray[] = & $mform->createElement('submit', 'shutdownbutton',
+                                                  get_string('shutdown', 'local_moodlebox'));
+        $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
+        $mform->closeHeaderBefore('buttonar');
+    }
 }
 
 echo $OUTPUT->header();
@@ -92,11 +92,11 @@ echo '<tr><th class="cell c0">' . get_string('uptime', 'local_moodlebox') .
 echo '<tr><th class="cell c0">' . get_string('dhcpclientnumber', 'local_moodlebox') .
       '</td><td class="cell c1">' . $dhcpclientnumber . '</td></tr>';
 if ($dhcpclientnumber > 0) {
-  foreach($leases as $row) {
-    $item = explode(' ', $row);
-    echo '<tr><td class="cell c0" style="padding-left:3em;">' . get_string('clientinfo', 'local_moodlebox') .
-          '</td><td class="cell c1">' . $item[2] . ' (' . $item[3] . ')</td></tr>';
-  }
+    foreach($leases as $row) {
+        $item = explode(' ', $row);
+        echo '<tr><td class="cell c0" style="padding-left:3em;">' . get_string('clientinfo', 'local_moodlebox') .
+              '</td><td class="cell c1">' . $item[2] . ' (' . $item[3] . ')</td></tr>';
+    }
 }
 echo '</tbody>';
 echo '</table>';
@@ -113,14 +113,14 @@ $restartshutdownform->display();
 if ($data = $restartshutdownform->get_data()) {
 // idea from http://stackoverflow.com/questions/5226728/how-to-shutdown-ubuntu-with-exec-php
 // adapted for use with incron
-  if (!empty($data->restartbutton)) {
-    exec('touch .reboot-server');
-    echo '<div class="alert alert-block">' . get_string('restartmessage', 'local_moodlebox') . '</div>';
-  }
-  if (!empty($data->shutdownbutton)) {
-    exec('touch .shutdown-server');
-    echo '<div class="alert alert-block">' . get_string('shutdownmessage', 'local_moodlebox') . '</div>';
-  }
+    if (!empty($data->restartbutton)) {
+        exec('touch .reboot-server');
+        echo '<div class="alert alert-block">' . get_string('restartmessage', 'local_moodlebox') . '</div>';
+    }
+    if (!empty($data->shutdownbutton)) {
+        exec('touch .shutdown-server');
+        echo '<div class="alert alert-block">' . get_string('shutdownmessage', 'local_moodlebox') . '</div>';
+    }
 }
 
 echo $OUTPUT->box_end();
