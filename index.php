@@ -41,7 +41,7 @@ $strheading = get_string('pluginname', 'local_moodlebox');
 $PAGE->set_title($strheading);
 $PAGE->set_heading($strheading);
 
-$PAGE->requires->js('/local/moodlebox/time.js', false);
+$PAGE->requires->js('/local/moodlebox/checktime.js', false);
 $systemtime = usergetdate(time())[0];
 $PAGE->requires->js_init_call('checktime', array($systemtime), false);
 
@@ -120,10 +120,6 @@ echo $OUTPUT->box_end();
 echo $OUTPUT->heading(get_string('datetimesetting', 'local_moodlebox'));
 echo $OUTPUT->box_start('generalbox');
 
-// if ( abs($currenttime - $systemtime) > 60) { // 1 minute difference between current time and system time
-//     echo '<div class="alert alert-block">' . get_string('datetimesetmessage', 'local_moodlebox') . '</div>';
-// }
-
 // \core\notification::error(get_string('datetimesetmessage', 'local_moodlebox'));
 
 $datetimesetform = new datetimeset_form();
@@ -131,7 +127,9 @@ $datetimesetform->display();
 
 if ($data = $datetimesetform->get_data()) {
     if (!empty($data->datetimesetbutton)) {
-        print_r(usergetdate($data->currentdatetime));
+        $datecommand = "date +%s -s @$data->currentdatetime";
+        exec("echo $datecommand > .set-server-datetime");
+        \core\notification::warning(get_string('datetimemessage', 'local_moodlebox'));
     }
 }
 
@@ -149,11 +147,11 @@ if ($data = $restartshutdownform->get_data()) {
 // adapted for use with incron
     if (!empty($data->restartbutton)) {
         exec('touch .reboot-server');
-        echo '<div class="alert alert-block">' . get_string('restartmessage', 'local_moodlebox') . '</div>';
+        \core\notification::warning(get_string('restartmessage', 'local_moodlebox'));
     }
     if (!empty($data->shutdownbutton)) {
         exec('touch .shutdown-server');
-        echo '<div class="alert alert-block">' . get_string('shutdownmessage', 'local_moodlebox') . '</div>';
+        \core\notification::warning(get_string('shutdownmessage', 'local_moodlebox'));
     }
 }
 
