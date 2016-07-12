@@ -41,6 +41,10 @@ $strheading = get_string('pluginname', 'local_moodlebox');
 $PAGE->set_title($strheading);
 $PAGE->set_heading($strheading);
 
+$PAGE->requires->js('/local/moodlebox/time.js', false);
+$systemtime = usergetdate(time())[0];
+$PAGE->requires->js_init_call('checktime', array($systemtime), false);
+
 exec('uname -srm', $kernelversion);
 exec('lsb_release -d | cut -d\':\' -f2', $raspbianversion);
 $cpuload = sys_getloadavg();
@@ -51,17 +55,26 @@ exec('awk \'{print $1/1000" Mhz"}\' /sys/devices/system/cpu/cpu0/cpufreq/scalin
 exec('uptime -p', $uptime);
 $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
 
+class datetimeset_form extends moodleform {
+    public function definition() {
+        $mform = $this->_form;
+        $mform->addElement('date_time_selector', 'currentdatetime', get_string('datetime', 'local_moodlebox'),
+                            array('startyear' => date("Y") - 2, 'stopyear' => date("Y") + 2, 'timezone'  => 99, 'step' => 1));
+        $mform->addElement('submit', 'datetimesetbutton', get_string('datetimeset', 'local_moodlebox'));
+    }
+}
+
 class restartshutdown_form extends moodleform {
-  public function definition() {
-    $mform = $this->_form;
-    $buttonarray = array();
-    $buttonarray[] = & $mform->createElement('submit', 'restartbutton',
-                                              get_string('restart', 'local_moodlebox'));
-    $buttonarray[] = & $mform->createElement('submit', 'shutdownbutton',
-                                              get_string('shutdown', 'local_moodlebox'));
-    $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
-    $mform->closeHeaderBefore('buttonar');
-  }
+    public function definition() {
+        $mform = $this->_form;
+        $buttonarray = array();
+        $buttonarray[] = & $mform->createElement('submit', 'restartbutton',
+                                                  get_string('restart', 'local_moodlebox'));
+        $buttonarray[] = & $mform->createElement('submit', 'shutdownbutton',
+                                                  get_string('shutdown', 'local_moodlebox'));
+        $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
+        $mform->closeHeaderBefore('buttonar');
+    }
 }
 
 echo $OUTPUT->header();
@@ -92,14 +105,35 @@ echo '<tr><th class="cell c0">' . get_string('uptime', 'local_moodlebox') .
 echo '<tr><th class="cell c0">' . get_string('dhcpclientnumber', 'local_moodlebox') .
       '</td><td class="cell c1">' . $dhcpclientnumber . '</td></tr>';
 if ($dhcpclientnumber > 0) {
-  foreach($leases as $row) {
-    $item = explode(' ', $row);
-    echo '<tr><td class="cell c0" style="padding-left:3em;">' . get_string('clientinfo', 'local_moodlebox') .
-          '</td><td class="cell c1">' . $item[2] . ' (' . $item[3] . ')</td></tr>';
-  }
+    foreach($leases as $row) {
+        $item = explode(' ', $row);
+        echo '<tr><td class="cell c0" style="padding-left:3em;">' . get_string('clientinfo', 'local_moodlebox') .
+              '</td><td class="cell c1">' . $item[2] . ' (' . $item[3] . ')</td></tr>';
+    }
 }
 echo '</tbody>';
 echo '</table>';
+
+echo $OUTPUT->box_end();
+
+// Time setting section
+echo $OUTPUT->heading(get_string('datetimesetting', 'local_moodlebox'));
+echo $OUTPUT->box_start('generalbox');
+
+// if ( abs($currenttime - $systemtime) > 60) { // 1 minute difference between current time and system time
+//     echo '<div class="alert alert-block">' . get_string('datetimesetmessage', 'local_moodlebox') . '</div>';
+// }
+
+// \core\notification::error(get_string('datetimesetmessage', 'local_moodlebox'));
+
+$datetimesetform = new datetimeset_form();
+$datetimesetform->display();
+
+if ($data = $datetimesetform->get_data()) {
+    if (!empty($data->datetimesetbutton)) {
+        print_r(usergetdate($data->currentdatetime));
+    }
+}
 
 echo $OUTPUT->box_end();
 
@@ -113,14 +147,14 @@ $restartshutdownform->display();
 if ($data = $restartshutdownform->get_data()) {
 // idea from http://stackoverflow.com/questions/5226728/how-to-shutdown-ubuntu-with-exec-php
 // adapted for use with incron
-  if (!empty($data->restartbutton)) {
-    exec('touch .reboot-server');
-    echo '<div class="alert alert-block">' . get_string('restartmessage', 'local_moodlebox') . '</div>';
-  }
-  if (!empty($data->shutdownbutton)) {
-    exec('touch .shutdown-server');
-    echo '<div class="alert alert-block">' . get_string('shutdownmessage', 'local_moodlebox') . '</div>';
-  }
+    if (!empty($data->restartbutton)) {
+        exec('touch .reboot-server');
+        echo '<div class="alert alert-block">' . get_string('restartmessage', 'local_moodlebox') . '</div>';
+    }
+    if (!empty($data->shutdownbutton)) {
+        exec('touch .shutdown-server');
+        echo '<div class="alert alert-block">' . get_string('shutdownmessage', 'local_moodlebox') . '</div>';
+    }
 }
 
 echo $OUTPUT->box_end();
