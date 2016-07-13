@@ -59,7 +59,13 @@ class datetimeset_form extends moodleform {
     public function definition() {
         $mform = $this->_form;
         $mform->addElement('date_time_selector', 'currentdatetime', get_string('datetime', 'local_moodlebox'),
-                            array('startyear' => date("Y") - 2, 'stopyear' => date("Y") + 2, 'timezone'  => 99, 'step' => 1));
+                            array(
+                                'startyear' => date("Y") - 2,
+                                'stopyear'  => date("Y") + 2,
+                                'timezone'  => 99,
+                                'step'      => 1,
+                                'optional'  => true)
+                            );
         $mform->addElement('submit', 'datetimesetbutton', get_string('datetimeset', 'local_moodlebox'));
     }
 }
@@ -119,8 +125,6 @@ echo $OUTPUT->box_end();
 // Time setting section
 echo $OUTPUT->heading(get_string('datetimesetting', 'local_moodlebox'));
 echo $OUTPUT->box_start('generalbox');
-
-// \core\notification::error(get_string('datetimesetmessage', 'local_moodlebox'));
 
 $datetimesetform = new datetimeset_form();
 $datetimesetform->display();
