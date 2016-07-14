@@ -30,9 +30,6 @@ require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->libdir.'/formslib.php');
 require_once(dirname(__FILE__).'/version.php');
 
-require_login();
-require_capability('moodle/site:config', context_system::instance());
-
 admin_externalpage_setup('local_moodlebox', '', null);
 
 $PAGE->set_context(context_system::instance());
