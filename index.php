@@ -86,36 +86,62 @@ echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('systeminfo', 'local_moodlebox'));
 echo $OUTPUT->box_start('generalbox');
 
-echo '<table class="admintable environmenttable generaltable" id="moodleboxstatus">';
-echo '<thead><tr><th class="header c0" scope="col" width="50%">' . get_string('parameter', 'local_moodlebox') .
-      '</th><th class="header c1" scope="col" width="50%">' . get_string('information', 'local_moodlebox') .
-      '</th></tr></thead>';
-echo '<tbody>';
-echo '<tr><th class="cell c0">' . get_string('moodleboxversion', 'local_moodlebox') .
-      '</td><td class="cell c1">' . $moodleboxversion . '</td></tr>';
-echo '<tr><th class="cell c0">' . get_string('kernelversion', 'local_moodlebox') .
-      '</td><td class="cell c1">' . $kernelversion[0] . '</td></tr>';
-echo '<tr><th class="cell c0">' . get_string('raspbianversion', 'local_moodlebox') .
-      '</td><td class="cell c1">' . $raspbianversion[0] . '</td></tr>';
-echo '<tr><th class="cell c0">' . get_string('cpuload', 'local_moodlebox') .
-      '</td><td class="cell c1">' . $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2] . '</td></tr>';
-echo '<tr><th class="cell c0">' . get_string('cputemperature', 'local_moodlebox') .
-      '</td><td class="cell c1">' . $cputemperature[0] . '</td></tr>';
-echo '<tr><th class="cell c0">' . get_string('cpufrequency', 'local_moodlebox') .
-      '</td><td class="cell c1">' . $cpufrequency[0] . '</td></tr>';
-echo '<tr><th class="cell c0">' . get_string('uptime', 'local_moodlebox') .
-      '</td><td class="cell c1">' . $uptime[0] . '</td></tr>';
-echo '<tr><th class="cell c0">' . get_string('dhcpclientnumber', 'local_moodlebox') .
-      '</td><td class="cell c1">' . $dhcpclientnumber . '</td></tr>';
+echo html_writer::start_tag('table', array('class' => 'admintable environmenttable generaltable', 'id' => 'moodleboxstatus'));
+
+echo html_writer::start_tag('thead');
+echo html_writer::start_tag('tr');
+echo html_writer::tag('th', get_string('parameter', 'local_moodlebox'),
+        array('class' => 'header c0', 'scope' => 'col', 'width' => '50%'));
+echo html_writer::tag('th', get_string('information', 'local_moodlebox'),
+        array('class' => 'header c1', 'scope' => 'col', 'width' => '50%'));
+echo html_writer::end_tag('tr');
+echo html_writer::end_tag('thead');
+
+echo html_writer::start_tag('tbody');
+echo html_writer::start_tag('tr');
+echo html_writer::tag('th', get_string('moodleboxversion', 'local_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('td', $moodleboxversion, array('class' => 'cell c1'));
+echo html_writer::end_tag('tr');
+echo html_writer::start_tag('tr');
+echo html_writer::tag('th', get_string('kernelversion', 'local_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('td', $kernelversion[0], array('class' => 'cell c1'));
+echo html_writer::end_tag('tr');
+echo html_writer::start_tag('tr');
+echo html_writer::tag('th', get_string('raspbianversion', 'local_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('td', $raspbianversion[0], array('class' => 'cell c1'));
+echo html_writer::end_tag('tr');
+echo html_writer::start_tag('tr');
+echo html_writer::tag('th', get_string('cpuload', 'local_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('td', $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2], array('class' => 'cell c1'));
+echo html_writer::end_tag('tr');
+echo html_writer::start_tag('tr');
+echo html_writer::tag('th', get_string('cputemperature', 'local_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('td', $cputemperature[0], array('class' => 'cell c1'));
+echo html_writer::end_tag('tr');
+echo html_writer::start_tag('tr');
+echo html_writer::tag('th', get_string('cpufrequency', 'local_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('td', $cpufrequency[0], array('class' => 'cell c1'));
+echo html_writer::end_tag('tr');
+echo html_writer::start_tag('tr');
+echo html_writer::tag('th', get_string('uptime', 'local_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('td', $uptime[0], array('class' => 'cell c1'));
+echo html_writer::end_tag('tr');
+echo html_writer::start_tag('tr');
+echo html_writer::tag('th', get_string('dhcpclientnumber', 'local_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('td', $dhcpclientnumber, array('class' => 'cell c1'));
+echo html_writer::end_tag('tr');
 if ($dhcpclientnumber > 0) {
     foreach($leases as $row) {
         $item = explode(' ', $row);
-        echo '<tr><td class="cell c0" style="padding-left:3em;">' . get_string('clientinfo', 'local_moodlebox') .
-              '</td><td class="cell c1">' . $item[2] . ' (' . $item[3] . ')</td></tr>';
+        echo html_writer::start_tag('tr');
+        echo html_writer::tag('td', get_string('clientinfo', 'local_moodlebox'),
+                array('class' => 'cell c1', 'style' => 'padding-left:3em;'));
+        echo html_writer::tag('td', $item[2] . ' (' . $item[3] . ')', array('class' => 'cell c1'));
+        echo html_writer::end_tag('tr');
     }
 }
-echo '</tbody>';
-echo '</table>';
+echo html_writer::end_tag('tbody');
+echo html_writer::end_tag('table');
 
 echo $OUTPUT->box_end();
 
