@@ -2,7 +2,7 @@
 
 A project to build a Moodle server and Wi-Fi router on a Raspberry Pi 3.
 
-The project includes a local plugin for Moodle 3.0 or later, provided to help the administrator of the MoodleBox to monitor some hardware settings and allow restart and shutdown of the MoodleBox.
+The project includes a local plugin for Moodle 3.0 or later, provided to help the administrator of the MoodleBox to monitor some hardware settings and to allow restart and shutdown of the MoodleBox via GUI.
 
 The documentation is included in the plugin `doc` folder, as a LaTeX document (in french; sorry, no english version as of now, pull request highly desirable).
 
