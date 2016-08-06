@@ -44,6 +44,7 @@ $string['raspbianversion'] = 'Raspbian version';
 $string['restart'] = 'Restart MoodleBox';
 $string['restartmessage'] = 'The MoodleBox is restarting. It will be online again in a moment.';
 $string['restartstop'] = 'Restart and shutdown';
+$string['sdcardavailablespace'] = 'Free space on SD card';
 $string['shutdown'] = 'Shutdown MoodleBox';
 $string['shutdownmessage'] = 'The MoodleBox is shutting down. Please wait a few seconds before disconnecting the power supply.';
 $string['systeminfo'] = 'System information';

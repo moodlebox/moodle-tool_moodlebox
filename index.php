@@ -50,6 +50,8 @@ $dhcpclientnumber = count($leases);
 exec('awk \'{print $1/1000" °C"}\' /sys/class/thermal/thermal_zone0/temp', $cputemperature);
 exec('awk \'{print $1/1000" Mhz"}\' /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq', $cpufrequency);
 exec('uptime -p', $uptime);
+$sdcardtotalspace = disk_total_space('/');
+$sdcardfreespace = disk_free_space('/');
 $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
 
 class datetimeset_form extends moodleform {
@@ -109,6 +111,10 @@ echo html_writer::end_tag('tr');
 echo html_writer::start_tag('tr');
 echo html_writer::tag('th', get_string('raspbianversion', 'local_moodlebox'), array('class' => 'cell c0'));
 echo html_writer::tag('td', $raspbianversion[0], array('class' => 'cell c1'));
+echo html_writer::end_tag('tr');
+echo html_writer::start_tag('tr');
+echo html_writer::tag('th', get_string('sdcardavailablespace', 'local_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('td', display_size($sdcardfreespace) . ' (' . 100*round($sdcardfreespace/$sdcardtotalspace, 3) . '%)', array('class' => 'cell c1'));
 echo html_writer::end_tag('tr');
 echo html_writer::start_tag('tr');
 echo html_writer::tag('th', get_string('cpuload', 'local_moodlebox'), array('class' => 'cell c0'));

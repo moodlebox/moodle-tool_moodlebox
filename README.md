@@ -16,6 +16,7 @@ SHA1 fingerprint of the compressed disk image (moodlebox.img.gz): 44c699a91c39c2
 
 ### Release notes
 
+* 2016-08-06, version 1.1: added display of free space on SD card
 * 2016-07-11, version 1.0: added time setting feature
 * 2016-06-26, version 1.0b (beta): added two folder as RAM disks, for better performance
 * 2016-06-19, version 1.0a2 (alpha): reorganisation of project
