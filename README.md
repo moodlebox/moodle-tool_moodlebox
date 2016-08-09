@@ -1,6 +1,6 @@
-# MoodleBox
+# MoodleBox Moodle plugin
 
-A Moodle local plugin providing a GUI to the administration of a [https://github.com/martignoni/make-moodlebox](MoodleBox).
+A Moodle local plugin providing a GUI to the administration of a [MoodleBox](https://github.com/martignoni/make-moodlebox).
 
 This plugin enable an administrator to monitor some hardware settings, to set the date of the MoodleBox and to allow restart and shutdown of the MoodleBox using a GUI.
 
