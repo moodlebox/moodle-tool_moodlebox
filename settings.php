@@ -17,7 +17,7 @@
 /**
  * Add page to admin menu.
  *
- * @package    admin
+ * @package    tool
  * @subpackage moodlebox
  * @copyright  2016 Nicolas Martignoni
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) { // needs this condition or there is error on login page
-    $ADMIN->add('server', new admin_externalpage('admin_moodlebox',
-            get_string('pluginname', 'admin_moodlebox'),
-            new moodle_url('/admin/moodlebox/index.php')));
+    $ADMIN->add('server', new admin_externalpage('tool_moodlebox',
+            get_string('pluginname', 'tool_moodlebox'),
+            new moodle_url('/tool/moodlebox/index.php')));
 }

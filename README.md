@@ -18,7 +18,7 @@ The code is available at [https://github.com/martignoni/moodlebox](https://githu
 
 ## Installation
 
-The MoodleBox plugin must be installed in the Moodle tree of the MoodleBox, in the _admin_ folder. Once installed, an new option _MoodleBox_ will be available in Moodle, under _Site administration > Server_ in the _Administration_ block.
+The MoodleBox plugin must be installed in the Moodle tree of the MoodleBox, in the _tool_ folder. Once installed, an new option _MoodleBox_ will be available in Moodle, under _Site administration > Server_ in the _Administration_ block.
 
 ## Features
 

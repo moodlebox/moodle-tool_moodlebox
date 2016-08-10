@@ -17,7 +17,7 @@
 /**
  * Version details.
  *
- * @package    admin
+ * @package    tool
  * @subpackage moodlebox
  * @copyright  2016 Nicolas Martignoni
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -29,4 +29,4 @@ $plugin->version  = 2016081000;
 $plugin->release = '1.2a';
 $plugin->requires = 2015051103;
 $plugin->maturity = MATURITY_ALPHA;
-$plugin->component = 'admin_moodlebox';
+$plugin->component = 'tool_moodlebox';

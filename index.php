@@ -20,7 +20,7 @@
  * the MoodleBox from inside Moodle.
  *
  * @seek       https://github.com/martignoni/moodlebox-plugin/
- * @package    admin
+ * @package    tool
  * @subpackage moodlebox
  * @copyright  2016 Nicolas Martignoni <nicolas@martignoni.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -33,15 +33,15 @@ require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->libdir.'/formslib.php');
 require_once(dirname(__FILE__).'/version.php');
 
-admin_externalpage_setup('admin_moodlebox');
+admin_externalpage_setup('tool_moodlebox');
 
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('admin');
-$strheading = get_string('pluginname', 'admin_moodlebox');
+$strheading = get_string('pluginname', 'tool_moodlebox');
 $PAGE->set_title($strheading);
 $PAGE->set_heading($strheading);
 
-$PAGE->requires->js('/admin/moodlebox/checktime.js', false);
+$PAGE->requires->js('/tool/moodlebox/checktime.js', false);
 $systemtime = usergetdate(time())[0];
 $PAGE->requires->js_init_call('checktime', array($systemtime), false);
 
@@ -60,7 +60,7 @@ $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
 class datetimeset_form extends moodleform {
     public function definition() {
         $mform = $this->_form;
-        $mform->addElement('date_time_selector', 'currentdatetime', get_string('datetime', 'admin_moodlebox'),
+        $mform->addElement('date_time_selector', 'currentdatetime', get_string('datetime', 'tool_moodlebox'),
                             array(
                                 'startyear' => date("Y") - 2,
                                 'stopyear'  => date("Y") + 2,
@@ -68,7 +68,7 @@ class datetimeset_form extends moodleform {
                                 'step'      => 1,
                                 'optional'  => true)
                             );
-        $mform->addElement('submit', 'datetimesetbutton', get_string('datetimeset', 'admin_moodlebox'));
+        $mform->addElement('submit', 'datetimesetbutton', get_string('datetimeset', 'tool_moodlebox'));
     }
 }
 
@@ -77,9 +77,9 @@ class restartshutdown_form extends moodleform {
         $mform = $this->_form;
         $buttonarray = array();
         $buttonarray[] = & $mform->createElement('submit', 'restartbutton',
-                                                  get_string('restart', 'admin_moodlebox'));
+                                                  get_string('restart', 'tool_moodlebox'));
         $buttonarray[] = & $mform->createElement('submit', 'shutdownbutton',
-                                                  get_string('shutdown', 'admin_moodlebox'));
+                                                  get_string('shutdown', 'tool_moodlebox'));
         $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
         $mform->closeHeaderBefore('buttonar');
     }
@@ -88,62 +88,62 @@ class restartshutdown_form extends moodleform {
 echo $OUTPUT->header();
 
 // System information section
-echo $OUTPUT->heading(get_string('systeminfo', 'admin_moodlebox'));
+echo $OUTPUT->heading(get_string('systeminfo', 'tool_moodlebox'));
 echo $OUTPUT->box_start('generalbox');
 
 echo html_writer::start_tag('table', array('class' => 'admintable environmenttable generaltable', 'id' => 'moodleboxstatus'));
 
 echo html_writer::start_tag('thead');
 echo html_writer::start_tag('tr');
-echo html_writer::tag('th', get_string('parameter', 'admin_moodlebox'),
+echo html_writer::tag('th', get_string('parameter', 'tool_moodlebox'),
         array('class' => 'header c0', 'scope' => 'col', 'width' => '50%'));
-echo html_writer::tag('th', get_string('information', 'admin_moodlebox'),
+echo html_writer::tag('th', get_string('information', 'tool_moodlebox'),
         array('class' => 'header c1', 'scope' => 'col', 'width' => '50%'));
 echo html_writer::end_tag('tr');
 echo html_writer::end_tag('thead');
 
 echo html_writer::start_tag('tbody');
 echo html_writer::start_tag('tr');
-echo html_writer::tag('th', get_string('moodleboxversion', 'admin_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('th', get_string('moodleboxversion', 'tool_moodlebox'), array('class' => 'cell c0'));
 echo html_writer::tag('td', $moodleboxversion, array('class' => 'cell c1'));
 echo html_writer::end_tag('tr');
 echo html_writer::start_tag('tr');
-echo html_writer::tag('th', get_string('kernelversion', 'admin_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('th', get_string('kernelversion', 'tool_moodlebox'), array('class' => 'cell c0'));
 echo html_writer::tag('td', $kernelversion[0], array('class' => 'cell c1'));
 echo html_writer::end_tag('tr');
 echo html_writer::start_tag('tr');
-echo html_writer::tag('th', get_string('raspbianversion', 'admin_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('th', get_string('raspbianversion', 'tool_moodlebox'), array('class' => 'cell c0'));
 echo html_writer::tag('td', $raspbianversion[0], array('class' => 'cell c1'));
 echo html_writer::end_tag('tr');
 echo html_writer::start_tag('tr');
-echo html_writer::tag('th', get_string('sdcardavailablespace', 'admin_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('th', get_string('sdcardavailablespace', 'tool_moodlebox'), array('class' => 'cell c0'));
 echo html_writer::tag('td', display_size($sdcardfreespace) . ' (' . 100*round($sdcardfreespace/$sdcardtotalspace, 3) . '%)', array('class' => 'cell c1'));
 echo html_writer::end_tag('tr');
 echo html_writer::start_tag('tr');
-echo html_writer::tag('th', get_string('cpuload', 'admin_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('th', get_string('cpuload', 'tool_moodlebox'), array('class' => 'cell c0'));
 echo html_writer::tag('td', $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2], array('class' => 'cell c1'));
 echo html_writer::end_tag('tr');
 echo html_writer::start_tag('tr');
-echo html_writer::tag('th', get_string('cputemperature', 'admin_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('th', get_string('cputemperature', 'tool_moodlebox'), array('class' => 'cell c0'));
 echo html_writer::tag('td', $cputemperature[0], array('class' => 'cell c1'));
 echo html_writer::end_tag('tr');
 echo html_writer::start_tag('tr');
-echo html_writer::tag('th', get_string('cpufrequency', 'admin_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('th', get_string('cpufrequency', 'tool_moodlebox'), array('class' => 'cell c0'));
 echo html_writer::tag('td', $cpufrequency[0], array('class' => 'cell c1'));
 echo html_writer::end_tag('tr');
 echo html_writer::start_tag('tr');
-echo html_writer::tag('th', get_string('uptime', 'admin_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('th', get_string('uptime', 'tool_moodlebox'), array('class' => 'cell c0'));
 echo html_writer::tag('td', $uptime[0], array('class' => 'cell c1'));
 echo html_writer::end_tag('tr');
 echo html_writer::start_tag('tr');
-echo html_writer::tag('th', get_string('dhcpclientnumber', 'admin_moodlebox'), array('class' => 'cell c0'));
+echo html_writer::tag('th', get_string('dhcpclientnumber', 'tool_moodlebox'), array('class' => 'cell c0'));
 echo html_writer::tag('td', $dhcpclientnumber, array('class' => 'cell c1'));
 echo html_writer::end_tag('tr');
 if ($dhcpclientnumber > 0) {
     foreach($leases as $row) {
         $item = explode(' ', $row);
         echo html_writer::start_tag('tr');
-        echo html_writer::tag('td', get_string('clientinfo', 'admin_moodlebox'),
+        echo html_writer::tag('td', get_string('clientinfo', 'tool_moodlebox'),
                 array('class' => 'cell c1', 'style' => 'padding-left:3em;'));
         echo html_writer::tag('td', $item[2] . ' (' . $item[3] . ')', array('class' => 'cell c1'));
         echo html_writer::end_tag('tr');
@@ -155,7 +155,7 @@ echo html_writer::end_tag('table');
 echo $OUTPUT->box_end();
 
 // Time setting section
-echo $OUTPUT->heading(get_string('datetimesetting', 'admin_moodlebox'));
+echo $OUTPUT->heading(get_string('datetimesetting', 'tool_moodlebox'));
 echo $OUTPUT->box_start('generalbox');
 
 $datetimesetform = new datetimeset_form();
@@ -165,14 +165,14 @@ if ($data = $datetimesetform->get_data()) {
     if (!empty($data->datetimesetbutton)) {
         $datecommand = "date +%s -s @$data->currentdatetime";
         exec("echo $datecommand > .set-server-datetime");
-        \core\notification::warning(get_string('datetimemessage', 'admin_moodlebox'));
+        \core\notification::warning(get_string('datetimemessage', 'tool_moodlebox'));
     }
 }
 
 echo $OUTPUT->box_end();
 
 // Restart-shutdown section
-echo $OUTPUT->heading(get_string('restartstop', 'admin_moodlebox'));
+echo $OUTPUT->heading(get_string('restartstop', 'tool_moodlebox'));
 echo $OUTPUT->box_start('generalbox');
 
 $restartshutdownform = new restartshutdown_form();
@@ -183,11 +183,11 @@ if ($data = $restartshutdownform->get_data()) {
 // adapted for use with incron
     if (!empty($data->restartbutton)) {
         exec('touch .reboot-server');
-        \core\notification::warning(get_string('restartmessage', 'admin_moodlebox'));
+        \core\notification::warning(get_string('restartmessage', 'tool_moodlebox'));
     }
     if (!empty($data->shutdownbutton)) {
         exec('touch .shutdown-server');
-        \core\notification::warning(get_string('shutdownmessage', 'admin_moodlebox'));
+        \core\notification::warning(get_string('shutdownmessage', 'tool_moodlebox'));
     }
 }
 
