@@ -41,7 +41,7 @@ $strheading = get_string('pluginname', 'tool_moodlebox');
 $PAGE->set_title($strheading);
 $PAGE->set_heading($strheading);
 
-$PAGE->requires->js('/tool/moodlebox/checktime.js', false);
+$PAGE->requires->js('/admin/tool/moodlebox/checktime.js', false);
 $systemtime = usergetdate(time())[0];
 $PAGE->requires->js_init_call('checktime', array($systemtime), false);
 
