@@ -28,5 +28,5 @@ defined('MOODLE_INTERNAL') || die;
 if ($hassiteconfig) { // needs this condition or there is error on login page
     $ADMIN->add('server', new admin_externalpage('tool_moodlebox',
             get_string('pluginname', 'tool_moodlebox'),
-            new moodle_url('/tool/moodlebox/index.php')));
+            new moodle_url('/admin/tool/moodlebox/index.php')));
 }
