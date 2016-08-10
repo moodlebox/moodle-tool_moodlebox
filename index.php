@@ -15,11 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Main file
+ * Provides a dashboard of some hardware settings of the MoodleBox,
+ * a way to set the date of the MoodleBox and to restart and shutdown
+ * the MoodleBox from inside Moodle.
  *
+ * @seek       https://github.com/martignoni/moodlebox-plugin/
  * @package    admin
  * @subpackage moodlebox
- * @copyright  2016 Nicolas Martignoni
+ * @copyright  2016 Nicolas Martignoni <nicolas@martignoni.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -30,7 +33,7 @@ require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->libdir.'/formslib.php');
 require_once(dirname(__FILE__).'/version.php');
 
-admin_externalpage_setup('admin_moodlebox', '', null);
+admin_externalpage_setup('admin_moodlebox');
 
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('admin');
