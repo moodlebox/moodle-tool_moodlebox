@@ -17,7 +17,7 @@
 /**
  * English language strings
  *
- * @package    local
+ * @package    admin
  * @subpackage moodlebox
  * @copyright  2016 Nicolas Martignoni
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
