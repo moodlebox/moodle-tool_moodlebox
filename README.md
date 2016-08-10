@@ -1,6 +1,6 @@
 # MoodleBox Moodle plugin
 
-A Moodle local plugin providing a GUI to the administration of a [MoodleBox](https://github.com/martignoni/make-moodlebox).
+A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://github.com/martignoni/make-moodlebox).
 
 This plugin enable an administrator to monitor some hardware settings, to set the date of the MoodleBox and to allow restart and shutdown of the MoodleBox using a GUI.
 
@@ -18,7 +18,7 @@ The code is available at [https://github.com/martignoni/moodlebox](https://githu
 
 ## Installation
 
-The MoodleBox plugin must be installed in the Moodle tree of the MoodleBox, in the _local_ folder. Once installed, an new option _MoodleBox_ will be available in Moodle, under _Site administration > Server_ in the _Administration_ block.
+The MoodleBox plugin must be installed in the Moodle tree of the MoodleBox, in the _tool_ folder. Once installed, an new option _MoodleBox_ will be available in Moodle, under _Site administration > Server_ in the _Administration_ block.
 
 ## Features
 

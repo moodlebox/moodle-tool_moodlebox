@@ -17,7 +17,7 @@
 /**
  * Version details.
  *
- * @package    local
+ * @package    tool
  * @subpackage moodlebox
  * @copyright  2016 Nicolas Martignoni
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version  = 2016080600;
-$plugin->release = '1.1';
+$plugin->version  = 2016081000;
+$plugin->release = '1.2b';
 $plugin->requires = 2015051103;
-$plugin->maturity = MATURITY_STABLE;
-$plugin->component = 'local_moodlebox';
+$plugin->maturity = MATURITY_BETA;
+$plugin->component = 'tool_moodlebox';
