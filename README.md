@@ -10,6 +10,7 @@ The code is available at [https://github.com/martignoni/moodlebox](https://githu
 
 ### Release notes
 
+* 2016-08-09, version 1.2: changed to admin tool plugin (from local plugin)
 * 2016-08-06, version 1.1: added display of free space on SD card
 * 2016-07-11, version 1.0: added time setting feature
 * 2016-06-26, version 1.0b (beta): added two folder as RAM disks, for better performance
