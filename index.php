@@ -28,7 +28,7 @@
 
 $plugin = new stdClass();
 
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
 require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->libdir.'/formslib.php');
 require_once(dirname(__FILE__).'/version.php');
