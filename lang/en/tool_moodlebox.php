@@ -24,7 +24,6 @@
  */
 
 
-$string['clientinfo'] = 'Client information';
 $string['cpufrequency'] = 'CPU frequency';
 $string['cpuload'] = 'CPU load';
 $string['cputemperature'] = 'CPU temperature';
@@ -34,10 +33,11 @@ $string['datetimeset'] = 'Set date and time';
 $string['datetimesetautomessage'] = 'The clock of the MoodleBox isn\'t on time. The date and time have been automatically set to the current time, based on the clock of your device.';
 $string['datetimesetmessage'] = 'The clock of the MoodleBox isn\'t on time. It\'s highly recommended to set the date and time to the current time.';
 $string['datetimesetting'] = 'Date and time setting';
+$string['dhcpclientinfo'] = 'IP address and client name';
 $string['dhcpclientnumber'] = 'DHCP client number';
 $string['information'] = 'Information';
 $string['kernelversion'] = 'Kernel version';
-$string['moodleboxversion'] = 'MoodleBox plugin version';
+$string['moodleboxpluginversion'] = 'MoodleBox plugin version';
 $string['parameter'] = 'Parameter';
 $string['pluginname'] = 'MoodleBox';
 $string['raspbianversion'] = 'Raspbian version';

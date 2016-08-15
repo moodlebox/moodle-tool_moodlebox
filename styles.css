@@ -23,6 +23,15 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+table#moodleboxstatus td.c0 {
+    font-weight: bold;
+}
+
+table#moodleboxstatus tr.dhcpclientinfo td.c0 {
+    font-weight: normal;
+    padding-left: 3em;
+}
+
 input#id_restartbutton {
   color:#fff;
   background-color:#faa732;
