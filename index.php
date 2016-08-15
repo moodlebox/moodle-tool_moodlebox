@@ -43,14 +43,14 @@ $PAGE->set_heading($strheading);
 
 echo $OUTPUT->header();
 
-exec('awk \'/^Hardware/{print $3}\' /proc/cpuinfo', $hardware);
-switch ( $hardware[0] ) {
+$hardware = exec('awk \'/^Hardware/{print $3}\' /proc/cpuinfo');
+switch ( $hardware ) {
     case 'BCM2708':
         $platform = 'rpi1';
         break;
     case 'BCM2709':
-        exec('awk \'/^Revision/{print $3}\' /proc/cpuinfo', $revision);
-        if ( $revision[0] === 'a02082' || $revision[0] === 'a22082' ) {
+        $revision = exec('awk \'/^Revision/{print $3}\' /proc/cpuinfo');
+        if ( $revision === 'a02082' || $revision === 'a22082' ) {
             $platform = 'rpi3';
         } else {
             $platform = 'rpi2';
@@ -67,13 +67,13 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     $PAGE->requires->js_init_call('checktime', array($systemtime), false);
 
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
-    exec('lsb_release -ds', $raspbianversion);
+    $raspbianversion = exec('lsb_release -ds');
     $cpuload = sys_getloadavg();
     exec('cat /var/lib/misc/dnsmasq.leases', $leases);
     $dhcpclientnumber = count($leases);
-    exec('awk \'{print $1/1000" °C"}\' /sys/class/thermal/thermal_zone0/temp', $cputemperature);
-    exec('awk \'{print $1/1000" Mhz"}\' /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq', $cpufrequency);
-    exec('uptime -p', $uptime);
+    $cputemperature = exec('awk \'{print $1/1000" °C"}\' /sys/class/thermal/thermal_zone0/temp');
+    $cpufrequency = exec('awk \'{print $1/1000" Mhz"}\' /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq');
+    $uptime = exec('uptime -p');
     $sdcardtotalspace = disk_total_space('/');
     $sdcardfreespace = disk_free_space('/');
     $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
@@ -121,9 +121,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
 
     $table->add_data(array(get_string('sdcardavailablespace', 'tool_moodlebox'), display_size($sdcardfreespace) . ' (' . 100*round($sdcardfreespace/$sdcardtotalspace, 3) . '%)'));
     $table->add_data(array(get_string('cpuload', 'tool_moodlebox'), $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2]));
-    $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature[0]));
-    $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency[0]));
-    $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime[0]));
+    $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature));
+    $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency));
+    $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime));
     $table->add_data(array(get_string('dhcpclientnumber', 'tool_moodlebox'), $dhcpclientnumber));
     if ($dhcpclientnumber > 0) {
         foreach($leases as $row) {
@@ -132,7 +132,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
         }
     }
     $table->add_data(array(get_string('raspberryhardware', 'tool_moodlebox'), get_string($platform, 'tool_moodlebox')));
-    $table->add_data(array(get_string('raspbianversion', 'tool_moodlebox'), $raspbianversion[0]));
+    $table->add_data(array(get_string('raspbianversion', 'tool_moodlebox'), $raspbianversion));
     $table->add_data(array(get_string('kernelversion', 'tool_moodlebox'), $kernelversion));
     $table->add_data(array(get_string('moodleboxpluginversion', 'tool_moodlebox'), $moodleboxversion));
 
