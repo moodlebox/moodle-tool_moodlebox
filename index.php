@@ -89,7 +89,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
                                     'step'      => 1,
                                     'optional'  => true)
                                 );
-            $mform->addElement('submit', 'datetimesetbutton', get_string('datetimeset', 'tool_moodlebox'));
+            $this->add_action_buttons(false, get_string('datetimeset', 'tool_moodlebox'));
         }
     }
 
@@ -148,7 +148,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     $datetimesetform->display();
 
     if ($data = $datetimesetform->get_data()) {
-        if (!empty($data->datetimesetbutton)) {
+        if (!empty($data->currentdatetime)) {
             $datecommand = "date +%s -s @$data->currentdatetime";
             exec("echo $datecommand > .set-server-datetime");
             \core\notification::warning(get_string('datetimemessage', 'tool_moodlebox'));
