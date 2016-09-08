@@ -148,7 +148,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     $datetimesetform->display();
 
     if ($data = $datetimesetform->get_data()) {
-        if (!empty($data->currentdatetime)) {
+        if (!empty($data->submitbutton)) {
             $datecommand = "date +%s -s @$data->currentdatetime";
             exec("echo $datecommand > .set-server-datetime");
             \core\notification::warning(get_string('datetimemessage', 'tool_moodlebox'));
