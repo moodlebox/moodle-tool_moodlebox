@@ -79,7 +79,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
 
     class datetimeset_form extends moodleform {
-        public function definition() {
+        function definition() {
             $mform = $this->_form;
             $mform->addElement('date_time_selector', 'currentdatetime', get_string('datetime', 'tool_moodlebox'),
                                 array(
@@ -89,12 +89,40 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
                                     'step'      => 1,
                                     'optional'  => true)
                                 );
+
             $this->add_action_buttons(false, get_string('datetimeset', 'tool_moodlebox'));
         }
     }
 
+    class changepassword_form extends moodleform {
+        function definition() {
+            $mform = $this->_form;
+
+            $mform->addElement('passwordunmask', 'newpassword1', get_string('newpassword'));
+            $mform->addRule('newpassword1', get_string('required'), 'required', null, 'client');
+            $mform->setType('newpassword1', PARAM_RAW);
+
+            $mform->addElement('passwordunmask', 'newpassword2', get_string('newpassword').' ('.get_string('again').')');
+            $mform->addRule('newpassword2', get_string('required'), 'required', null, 'client');
+            $mform->setType('newpassword2', PARAM_RAW);
+
+            $this->add_action_buttons(false, get_string('changepassword'));
+        }
+
+        function validation($data, $files) {
+            $errors = array();
+
+            if ($data['newpassword1'] <> $data['newpassword2']) {
+                $errors['newpassword1'] = get_string('passwordsdiffer');
+                $errors['newpassword2'] = get_string('passwordsdiffer');
+            }
+
+            return $errors;
+        }
+    }
+
     class restartshutdown_form extends moodleform {
-        public function definition() {
+        function definition() {
             $mform = $this->_form;
             $buttonarray = array();
             $buttonarray[] = & $mform->createElement('submit', 'restartbutton',
@@ -153,6 +181,25 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
             exec("echo $datecommand > .set-server-datetime");
             \core\notification::warning(get_string('datetimemessage', 'tool_moodlebox'));
         }
+    }
+
+    echo $OUTPUT->box_end();
+
+    // Change password section
+    echo $OUTPUT->heading(get_string('changepasswordsetting', 'tool_moodlebox'));
+    echo $OUTPUT->box_start('generalbox');
+
+    $changepasswordform = new changepassword_form();
+    $changepasswordform->display();
+
+    if ($data = $changepasswordform->get_data()) {
+        if (!empty($data->submitbutton)) {
+            // print_r($data);
+            file_put_contents(".newpassword", $data->newpassword1);
+            \core\notification::warning(get_string('changepasswordmessage', 'tool_moodlebox'));
+        }
+    } else if ($changepasswordform->is_submitted()) { // validation failed
+        \core\notification::error(get_string('changepassworderror', 'tool_moodlebox'));
     }
 
     echo $OUTPUT->box_end();

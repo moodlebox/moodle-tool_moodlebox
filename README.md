@@ -10,6 +10,7 @@ The code is available at [https://github.com/martignoni/moodlebox](https://githu
 
 ### Release notes
 
+* 2016-09-10, version 1.3: new option enabling to change the MoodleBox password
 * 2016-08-09, version 1.2: changed to admin tool plugin (from local plugin)
 * 2016-08-06, version 1.1: added display of free space on SD card
 * 2016-07-11, version 1.0: added time setting feature
@@ -25,6 +26,7 @@ The MoodleBox plugin must be installed in the Moodle tree of the MoodleBox, in t
 
 * Info about the MoodleBox (kernel version, Raspbian version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
 * GUI to set the MoodleBox date and time.
+* GUI to set the MoodleBox password.
 * GUI to restart and shutdown the MoodleBox.
 
 ## License
