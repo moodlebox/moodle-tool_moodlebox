@@ -23,14 +23,15 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
+$string['changepassworderror'] = 'Le mot de passe de la MoodleBox n\'a pas été modifié. Les mots de passe donnés ne concordent pas.';
+$string['changepasswordmessage'] = 'Le mot de passe principal de la Moodlebox (compte Unix), de la base de données et de phpMyAdmin ont été modifiés.<br /><br />Attention ! Le mot de passe de l\'utilisateur Admin du Moodle <b>n\'a pas été modifié</b>. Pour le modifier, veuillez passer par la page des préférences de cet utilisateur.';
+$string['changepasswordsetting'] = 'Changement du mot de passe de la MoodleBox';
 $string['cpufrequency'] = 'Fréquence du processeur';
 $string['cpuload'] = 'Charge du processeur';
 $string['cputemperature'] = 'Température du processeur';
 $string['datetime'] = 'Date et heure';
 $string['datetimemessage'] = 'L\'horloge de la MoodleBox a été mise à l\'heure. Pour une précision encore meilleure, il est recommandé de brancher la MoodleBox à un réseau connecté à Internet, au moyen d\'un câble ethernet.';
 $string['datetimeset'] = 'Changer la date et l\'heure';
-$string['datetimesetautomessage'] = 'L\'horloge de la MoodleBox n\'est pas à l\'heure. La date et l\'heure ont été automatiquement réglées à leurs valeurs actuelles, basées sur l\'horloge de votre appareil.';
 $string['datetimesetmessage'] = 'L\'horloge de la MoodleBox n\'est pas à l\'heure. Il est vivement recommandé de régler la date et l\'heure à leurs valeurs actuelles.';
 $string['datetimesetting'] = 'Réglage de la date et de l\'heure';
 $string['dhcpclientinfo'] = 'Adresse IP et nom du client';

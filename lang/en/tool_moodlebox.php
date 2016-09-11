@@ -23,14 +23,15 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
+$string['changepassworderror'] = 'The MoodleBox password was not changed. The passwords given don\'t match.';
+$string['changepasswordmessage'] = 'The main password of the MoodleBox (Unix account) was changed.<br /><br />Warning! The password of the Admin user of the Moodle <b>was not changed</b>. To change it, please use the preferences page of this user.';
+$string['changepasswordsetting'] = 'MoodleBox password change';
 $string['cpufrequency'] = 'CPU frequency';
 $string['cpuload'] = 'CPU load';
 $string['cputemperature'] = 'CPU temperature';
 $string['datetime'] = 'Date and time';
 $string['datetimemessage'] = 'The clock of the MoodleBox was set. To get the most accuracy, it\'s recommended to connect the MoodleBox to an Internet connected network via an ethernet cable.';
 $string['datetimeset'] = 'Set date and time';
-$string['datetimesetautomessage'] = 'The clock of the MoodleBox isn\'t on time. The date and time have been automatically set to the current time, based on the clock of your device.';
 $string['datetimesetmessage'] = 'The clock of the MoodleBox isn\'t on time. It\'s highly recommended to set the date and time to the current time.';
 $string['datetimesetting'] = 'Date and time setting';
 $string['dhcpclientinfo'] = 'IP address and client name';
