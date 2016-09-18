@@ -78,6 +78,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     $sdcardfreespace = disk_free_space('/');
     $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
     $currentwifipassword = exec('grep "wpa_passphrase" /etc/hostapd/hostapd.conf  | cut -d= -f2');
+    if ( $currentwifipassword === '' ) {
+        $currentwifipassword = get_string('nopassworddefined', 'tool_moodlebox');
+    }
 
     class datetimeset_form extends moodleform {
         function definition() {
@@ -120,6 +123,26 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
 
             return $errors;
         }
+    }
+
+    class wifipassword_form extends moodleform {
+
+        function definition() {
+            global $currentwifipassword;
+            $mform = $this->_form;
+
+            $mform->addElement('static', 'currentwifipassword', get_string('currentwifipassword', 'tool_moodlebox'), $currentwifipassword);
+            $mform->addElement('text', 'wifipassword', get_string('newwifipassword', 'tool_moodlebox'));
+            $mform->addRule('wifipassword', get_string('wifipassworderror', 'tool_moodlebox'), 'rangelength', array(8, 63), 'client');
+            $mform->setType('wifipassword', PARAM_RAW);
+            if ( $currentwifipassword === get_string('nopassworddefined', 'tool_moodlebox') ) {
+                $currentwifipassword = '';
+            }
+            $mform->setDefault('wifipassword', $currentwifipassword);
+
+            $this->add_action_buttons(false, get_string('changewifipassword', 'tool_moodlebox'));
+        }
+
     }
 
     class restartshutdown_form extends moodleform {
@@ -201,6 +224,23 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
         }
     } else if ($changepasswordform->is_submitted()) { // validation failed
         \core\notification::error(get_string('changepassworderror', 'tool_moodlebox'));
+    }
+
+    echo $OUTPUT->box_end();
+
+    // Wi-Fi password section
+    echo $OUTPUT->heading(get_string('wifipasswordsetting', 'tool_moodlebox'));
+    echo $OUTPUT->box_start('generalbox');
+
+    $wifipasswordform = new wifipassword_form();
+    $wifipasswordform->display();
+
+    if ($data = $wifipasswordform->get_data()) {
+        if (!empty($data->submitbutton)) {
+            // print_r($data);
+            file_put_contents(".wifipassword", $data->wifipassword);
+            \core\notification::warning(get_string('wifipasswordmessage', 'tool_moodlebox'));
+        }
     }
 
     echo $OUTPUT->box_end();
