@@ -77,6 +77,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     $sdcardtotalspace = disk_total_space('/');
     $sdcardfreespace = disk_free_space('/');
     $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
+    $currentwifipassword = exec('grep "wpa_passphrase" /etc/hostapd/hostapd.conf  | cut -d= -f2');
 
     class datetimeset_form extends moodleform {
         function definition() {
@@ -152,6 +153,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature));
     $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency));
     $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime));
+    $table->add_data(array(get_string('currentwifipassword', 'tool_moodlebox'), $currentwifipassword));
     $table->add_data(array(get_string('dhcpclientnumber', 'tool_moodlebox'), $dhcpclientnumber));
     if ($dhcpclientnumber > 0) {
         foreach($leases as $row) {
@@ -194,7 +196,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
 
     if ($data = $changepasswordform->get_data()) {
         if (!empty($data->submitbutton)) {
-            // print_r($data);
             file_put_contents(".newpassword", $data->newpassword1);
             \core\notification::warning(get_string('changepasswordmessage', 'tool_moodlebox'));
         }

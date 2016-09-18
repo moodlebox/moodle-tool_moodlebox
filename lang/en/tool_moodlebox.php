@@ -29,6 +29,7 @@ $string['changepasswordsetting'] = 'MoodleBox password change';
 $string['cpufrequency'] = 'CPU frequency';
 $string['cpuload'] = 'CPU load';
 $string['cputemperature'] = 'CPU temperature';
+$string['currentwifipassword'] = 'Current Wi-Fi password';
 $string['datetime'] = 'Date and time';
 $string['datetimemessage'] = 'The clock of the MoodleBox was set. To get the most accuracy, it\'s recommended to connect the MoodleBox to an Internet connected network via an ethernet cable.';
 $string['datetimeset'] = 'Set date and time';
