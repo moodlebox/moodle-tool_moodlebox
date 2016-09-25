@@ -10,6 +10,7 @@ The code is available at [https://github.com/martignoni/moodlebox](https://githu
 
 ### Release notes
 
+* 2016-09-25, version 1.4.1: MoodleBox Wi-Fi network password cannot be changed to empty
 * 2016-09-18, version 1.4: new option enabling to change the MoodleBox Wi-Fi network password
 * 2016-09-10, version 1.3: new option enabling to change the MoodleBox password
 * 2016-08-09, version 1.2: changed to admin tool plugin (from local plugin)
