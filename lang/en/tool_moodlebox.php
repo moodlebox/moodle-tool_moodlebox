@@ -59,6 +59,6 @@ $string['shutdownmessage'] = 'The MoodleBox is shutting down. Please wait a few 
 $string['systeminfo'] = 'System information';
 $string['unsupportedhardware'] = 'Unsupported server hardware detected ! This plugin does only work on Raspberry Pi';
 $string['uptime'] = 'System uptime';
-$string['wifipassworderror'] = 'The Wi-Fi network password must have between 8 and 63 characters, or be empty.';
+$string['wifipassworderror'] = 'The Wi-Fi network password must have between 8 and 63 characters.';
 $string['wifipasswordmessage'] = 'The Wi-Fi network password was changed. Don\'t forget to communicate it to your students.';
 $string['wifipasswordsetting'] = 'Wi-Fi network password change';

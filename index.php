@@ -78,9 +78,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     $sdcardfreespace = disk_free_space('/');
     $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
     $currentwifipassword = exec('grep "wpa_passphrase" /etc/hostapd/hostapd.conf  | cut -d= -f2');
-    if ( $currentwifipassword === '' ) {
-        $currentwifipassword = get_string('nopassworddefined', 'tool_moodlebox');
-    }
 
     class datetimeset_form extends moodleform {
         function definition() {
@@ -133,11 +130,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
 
             $mform->addElement('static', 'currentwifipassword', get_string('currentwifipassword', 'tool_moodlebox'), $currentwifipassword);
             $mform->addElement('text', 'wifipassword', get_string('newwifipassword', 'tool_moodlebox'));
+            $mform->addRule('wifipassword', get_string('required'), 'required', null, 'client');
             $mform->addRule('wifipassword', get_string('wifipassworderror', 'tool_moodlebox'), 'rangelength', array(8, 63), 'client');
             $mform->setType('wifipassword', PARAM_RAW);
-            if ( $currentwifipassword === get_string('nopassworddefined', 'tool_moodlebox') ) {
-                $currentwifipassword = '';
-            }
             $mform->setDefault('wifipassword', $currentwifipassword);
 
             $this->add_action_buttons(false, get_string('changewifipassword', 'tool_moodlebox'));

@@ -59,6 +59,6 @@ $string['shutdownmessage'] = 'La MoodleBox va s\'éteindre. Veuillez attendre qu
 $string['systeminfo'] = 'Informations système';
 $string['unsupportedhardware'] = 'Matériel serveur non compatible détecté ! Ce plugin ne fonctionne que sur Raspberry Pi';
 $string['uptime'] = 'Durée de fonctionnement du système';
-$string['wifipassworderror'] = 'Le mot de passe du réseau Wi-Fi doit comporter entre 8 et 63 caratères, ou alors être vide.';
+$string['wifipassworderror'] = 'Le mot de passe du réseau Wi-Fi doit comporter entre 8 et 63 caractères.';
 $string['wifipasswordmessage'] = 'Le mot de passe du réseau Wi-Fi a été modifié. N\'oubliez pas de le communiquer à vos étudiants.';
 $string['wifipasswordsetting'] = 'Changement du mot de passe du réseau Wi-Fi';
