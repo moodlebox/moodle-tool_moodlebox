@@ -24,7 +24,7 @@
  */
 
 $string['changepassworderror'] = 'Le mot de passe de la MoodleBox n\'a pas été modifié. Les mots de passe donnés ne concordent pas.';
-$string['changepasswordmessage'] = 'Le mot de passe principal de la Moodlebox (compte Unix), de la base de données et de phpMyAdmin ont été modifiés.<br /><br />Attention ! Le mot de passe de l\'utilisateur Admin du Moodle <b>n\'a pas été modifié</b>. Pour le modifier, veuillez passer par la page des préférences de cet utilisateur.';
+$string['changepasswordmessage'] = 'Le mot de passe principal de la MoodleBox (compte Unix), de la base de données et de phpMyAdmin ont été modifiés.<br /><br />Attention ! Le mot de passe de l\'utilisateur Admin du Moodle <b>n\'a pas été modifié</b>. Pour le modifier, veuillez passer par la page des préférences de cet utilisateur.';
 $string['changepasswordsetting'] = 'Changement du mot de passe de la MoodleBox';
 $string['changewifipassword'] = 'Changer le mot de passe Wi-Fi';
 $string['cpufrequency'] = 'Fréquence du processeur';
