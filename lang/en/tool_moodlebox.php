@@ -41,6 +41,7 @@ $string['dhcpclientnumber'] = 'DHCP client number';
 $string['information'] = 'Information';
 $string['kernelversion'] = 'Kernel version';
 $string['moodleboxpluginversion'] = 'MoodleBox plugin version';
+$string['missingconfigurationerror'] = 'This section isn\'t available. The plugin installation is not complete, so that the setting cannot be handled by the MoodleBox. Please read the <a href="https://github.com/martignoni/make-moodlebox/blob/master/doc/Moodlebox.pdf" target="_blank">documentation for building a MoodleBox</a> to fix this error.';
 $string['newwifipassword'] = 'New Wi-Fi password';
 $string['nopassworddefined'] = 'No Wi-Fi password defined';
 $string['parameter'] = 'Parameter';

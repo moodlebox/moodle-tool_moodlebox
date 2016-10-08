@@ -10,6 +10,7 @@ The code is available at [https://github.com/martignoni/moodlebox-plugin](https:
 
 ### Release notes
 
+* 2016-10-08, version 1.4.2: Display warnings when the plugin installation is not complete
 * 2016-09-25, version 1.4.1: MoodleBox Wi-Fi network password cannot be changed to empty
 * 2016-09-18, version 1.4: new option enabling to change the MoodleBox Wi-Fi network password
 * 2016-09-10, version 1.3: new option enabling to change the MoodleBox password
@@ -23,6 +24,8 @@ The code is available at [https://github.com/martignoni/moodlebox-plugin](https:
 ## Installation
 
 The MoodleBox plugin must be installed in the Moodle tree of the MoodleBox, in the _tool_ folder. Once installed, an new option _MoodleBox_ will be available in Moodle, under _Site administration > Server_ in the _Administration_ block.
+
+To complete the installation, you have to create some files in the plugin folder and configure some incron jobs on the MoodleBox. These steps are described in the [documentation on creating a MoodleBox](https://github.com/martignoni/make-moodlebox/blob/master/doc/Moodlebox.pdf).
 
 ## Features
 

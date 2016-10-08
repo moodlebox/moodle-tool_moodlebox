@@ -192,15 +192,21 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     echo $OUTPUT->heading(get_string('datetimesetting', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
-    $datetimesetform = new datetimeset_form();
-    $datetimesetform->display();
+    $datetimetriggerfilename = ".set-server-datetime";
 
-    if ($data = $datetimesetform->get_data()) {
-        if (!empty($data->submitbutton)) {
-            $datecommand = "date +%s -s @$data->currentdatetime";
-            exec("echo $datecommand > .set-server-datetime");
-            \core\notification::warning(get_string('datetimemessage', 'tool_moodlebox'));
+    if (file_exists($datetimetriggerfilename)) {
+        $datetimesetform = new datetimeset_form();
+        $datetimesetform->display();
+
+        if ($data = $datetimesetform->get_data()) {
+            if (!empty($data->submitbutton)) {
+                $datecommand = "date +%s -s @$data->currentdatetime";
+                file_put_contents($datetimetriggerfilename, "date +%s -s @$data->currentdatetime");
+                \core\notification::warning(get_string('datetimemessage', 'tool_moodlebox'));
+            }
         }
+    } else {
+        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
 
     echo $OUTPUT->box_end();
@@ -209,16 +215,22 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     echo $OUTPUT->heading(get_string('changepasswordsetting', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
-    $changepasswordform = new changepassword_form();
-    $changepasswordform->display();
+    $changepasswordtriggerfilename = ".newpassword";
 
-    if ($data = $changepasswordform->get_data()) {
-        if (!empty($data->submitbutton)) {
-            file_put_contents(".newpassword", $data->newpassword1);
-            \core\notification::warning(get_string('changepasswordmessage', 'tool_moodlebox'));
+    if (file_exists($changepasswordtriggerfilename)) {
+        $changepasswordform = new changepassword_form();
+        $changepasswordform->display();
+
+        if ($data = $changepasswordform->get_data()) {
+            if (!empty($data->submitbutton)) {
+                file_put_contents($changepasswordtriggerfilename, $data->newpassword1);
+                \core\notification::warning(get_string('changepasswordmessage', 'tool_moodlebox'));
+            }
+        } else if ($changepasswordform->is_submitted()) { // validation failed
+            \core\notification::error(get_string('changepassworderror', 'tool_moodlebox'));
         }
-    } else if ($changepasswordform->is_submitted()) { // validation failed
-        \core\notification::error(get_string('changepassworderror', 'tool_moodlebox'));
+    } else {
+        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
 
     echo $OUTPUT->box_end();
@@ -227,15 +239,21 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     echo $OUTPUT->heading(get_string('wifipasswordsetting', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
-    $wifipasswordform = new wifipassword_form();
-    $wifipasswordform->display();
+    $wifipasswordtriggerfilename = ".wifipassword";
 
-    if ($data = $wifipasswordform->get_data()) {
-        if (!empty($data->submitbutton)) {
-            // print_r($data);
-            file_put_contents(".wifipassword", $data->wifipassword);
-            \core\notification::warning(get_string('wifipasswordmessage', 'tool_moodlebox'));
+    if (file_exists($wifipasswordtriggerfilename)) {
+        $wifipasswordform = new wifipassword_form();
+        $wifipasswordform->display();
+
+        if ($data = $wifipasswordform->get_data()) {
+            if (!empty($data->submitbutton)) {
+                // print_r($data);
+                file_put_contents($wifipasswordtriggerfilename, $data->wifipassword);
+                \core\notification::warning(get_string('wifipasswordmessage', 'tool_moodlebox'));
+            }
         }
+    } else {
+        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
 
     echo $OUTPUT->box_end();
@@ -244,20 +262,27 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     echo $OUTPUT->heading(get_string('restartstop', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
-    $restartshutdownform = new restartshutdown_form();
-    $restartshutdownform->display();
+    $reboottriggerfilename = ".reboot-server";
+    $shutdowntriggerfilename = ".shutdown-server";
 
-    if ($data = $restartshutdownform->get_data()) {
-    // idea from http://stackoverflow.com/questions/5226728/how-to-shutdown-ubuntu-with-exec-php
-    // adapted for use with incron
-        if (!empty($data->restartbutton)) {
-            exec('touch .reboot-server');
-            \core\notification::warning(get_string('restartmessage', 'tool_moodlebox'));
+    if (file_exists($reboottriggerfilename) and file_exists($shutdowntriggerfilename)) {
+        $restartshutdownform = new restartshutdown_form();
+        $restartshutdownform->display();
+
+        if ($data = $restartshutdownform->get_data()) {
+        // idea from http://stackoverflow.com/questions/5226728/how-to-shutdown-ubuntu-with-exec-php
+        // adapted for use with incron
+            if (!empty($data->restartbutton)) {
+                exec("touch $reboottriggerfilename");
+                \core\notification::warning(get_string('restartmessage', 'tool_moodlebox'));
+            }
+            if (!empty($data->shutdownbutton)) {
+                exec("touch $shutdowntriggerfilename");
+                \core\notification::warning(get_string('shutdownmessage', 'tool_moodlebox'));
+            }
         }
-        if (!empty($data->shutdownbutton)) {
-            exec('touch .shutdown-server');
-            \core\notification::warning(get_string('shutdownmessage', 'tool_moodlebox'));
-        }
+    } else {
+        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
 
     echo $OUTPUT->box_end();
