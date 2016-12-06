@@ -2,7 +2,7 @@
 
 A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://github.com/martignoni/make-moodlebox).
 
-This plugin enable an administrator to monitor some hardware settings, to set the date of the MoodleBox and to allow restart and shutdown of the MoodleBox using a GUI.
+This plugin enable an administrator to monitor some hardware settings, to set the date of the MoodleBox, to allow restart and shutdown of the MoodleBox and changing Raspberry Pi passwords using a GUI. The plugin is compatible with Moodle 3.1 or later.
 
 ## Availability
 
@@ -10,16 +10,17 @@ The code is available at [https://github.com/martignoni/moodlebox-plugin](https:
 
 ### Release notes
 
+* 2016-12-06, version 1.4.3: Bug fixed for use with Moodle 3.2
 * 2016-10-08, version 1.4.2: Display warnings when the plugin installation is not complete
 * 2016-09-25, version 1.4.1: MoodleBox Wi-Fi network password cannot be changed to empty
-* 2016-09-18, version 1.4: new option enabling to change the MoodleBox Wi-Fi network password
-* 2016-09-10, version 1.3: new option enabling to change the MoodleBox password
-* 2016-08-09, version 1.2: changed to admin tool plugin (from local plugin)
-* 2016-08-06, version 1.1: added display of free space on SD card
-* 2016-07-11, version 1.0: added time setting feature
-* 2016-06-26, version 1.0b (beta): added two folder as RAM disks, for better performance
-* 2016-06-19, version 1.0a2 (alpha): reorganisation of project
-* 2016-06-16, version 1.0a1 (alpha): first version
+* 2016-09-18, version 1.4: New option enabling to change the MoodleBox Wi-Fi network password
+* 2016-09-10, version 1.3: New option enabling to change the MoodleBox password
+* 2016-08-09, version 1.2: Changed to admin tool plugin (from local plugin)
+* 2016-08-06, version 1.1: Added display of free space on SD card
+* 2016-07-11, version 1.0: Added time setting feature
+* 2016-06-26, version 1.0b (beta): Added two folder as RAM disks, for better performance
+* 2016-06-19, version 1.0a2 (alpha): Reorganisation of project
+* 2016-06-16, version 1.0a1 (alpha): First version
 
 ## Installation
 
