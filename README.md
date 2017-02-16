@@ -1,8 +1,10 @@
 # MoodleBox Moodle plugin
 
-A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://github.com/martignoni/make-moodlebox).
+A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://moodlebox.net/), a Moodle server installed on a [Raspberry Pi](http://www.raspberrypi.org/).
 
-This plugin enable an administrator to monitor some hardware settings, to set the date of the MoodleBox, to allow restart and shutdown of the MoodleBox and changing Raspberry Pi passwords using a GUI. The plugin is compatible with Moodle 3.1 or later.
+This plugin enables a Moodle administrator to monitor some hardware settings, to set the date of the MoodleBox, to allow restart and shutdown of the MoodleBox and changing Raspberry Pi passwords using a GUI. After the installation in Moodle, some steps are required to complete on the Raspberry Pi (see below).
+
+The plugin is compatible with Moodle 3.1 or later.
 
 ## Availability
 
@@ -26,7 +28,28 @@ The code is available at [https://github.com/martignoni/moodle-tool_moodlebox](h
 
 The MoodleBox plugin must be installed in the Moodle tree of the MoodleBox, in the _tool_ folder. Once installed, an new option _MoodleBox_ will be available in Moodle, under _Site administration > Server_ in the _Administration_ block.
 
-To complete the installation, you have to create some files in the plugin folder and configure some incron jobs on the MoodleBox. These steps are described in the [documentation on creating a MoodleBox](https://github.com/martignoni/make-moodlebox/blob/master/doc/Moodlebox.pdf).
+To complete the installation, you have to create some files in the plugin folder and configure some incron jobs on the MoodleBox.
+
+1. Create necessary files
+    ```bash
+        touch .reboot-server; touch .shutdown-server; touch .set-server-datetime; touch .newpassword; touch .wifipassword
+        chown -R www-data:www-data /var/www/html/admin/tool/moodlebox
+    ```
+
+1. Install `incron` package and allow `root` to run it:
+    ```bash
+        sudo apt-get install incron
+        echo root | sudo tee -a /etc/incron.allow
+    ```
+
+1. Add following lines to `incrontab`:
+    ```bash
+        /var/www/html/admin/tool/moodlebox/.reboot-server IN_CLOSE_WRITE /sbin/shutdown -r now
+        /var/www/html/admin/tool/moodlebox/.shutdown-server IN_CLOSE_WRITE /sbin/shutdown -h now
+        /var/www/html/admin/tool/moodlebox/.set-server-datetime IN_MODIFY /bin/bash /var/www/html/admin/tool/moodlebox/.set-server-datetime
+        /var/www/html/admin/tool/moodlebox/.newpassword IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/bin/changepassword.sh
+        /var/www/html/admin/tool/moodlebox/.wifipassword IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/bin/setwifipassword.sh
+    ```
 
 ## Features
 
