@@ -19,14 +19,12 @@
  * a way to set the date of the MoodleBox and to restart and shutdown
  * the MoodleBox from inside Moodle.
  *
- * @seek       https://github.com/martignoni/moodlebox-plugin/
+ * @seek       https://github.com/martignoni/moodle-tool_moodlebox
  * @package    tool
  * @subpackage moodlebox
  * @copyright  2016 Nicolas Martignoni <nicolas@martignoni.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-$plugin = new stdClass();
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
 require_once($CFG->libdir.'/adminlib.php');
@@ -61,7 +59,7 @@ switch ( $hardware ) {
         $platform = 'unknown';
 }
 
-if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
+if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     $PAGE->requires->js('/admin/tool/moodlebox/checktime.js', false);
     $systemtime = usergetdate(time())[0];
@@ -81,7 +79,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     $currentwifipassword = exec('grep "wpa_passphrase" /etc/hostapd/hostapd.conf  | cut -d= -f2');
 
     class datetimeset_form extends moodleform {
-        function definition() {
+        public function definition() {
             $mform = $this->_form;
             $mform->addElement('date_time_selector', 'currentdatetime', get_string('datetime', 'tool_moodlebox'),
                                 array(
@@ -97,7 +95,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     }
 
     class changepassword_form extends moodleform {
-        function definition() {
+        public function definition() {
             $mform = $this->_form;
 
             $mform->addElement('passwordunmask', 'newpassword1', get_string('newpassword'));
@@ -111,7 +109,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
             $this->add_action_buttons(false, get_string('changepassword'));
         }
 
-        function validation($data, $files) {
+        public function validation($data, $files) {
             $errors = array();
 
             if ($data['newpassword1'] <> $data['newpassword2']) {
@@ -125,14 +123,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
 
     class wifipassword_form extends moodleform {
 
-        function definition() {
+        public function definition() {
             global $currentwifipassword;
             $mform = $this->_form;
 
-            $mform->addElement('static', 'currentwifipassword', get_string('currentwifipassword', 'tool_moodlebox'), $currentwifipassword);
+            $mform->addElement('static', 'currentwifipassword',
+                    get_string('currentwifipassword', 'tool_moodlebox'), $currentwifipassword);
             $mform->addElement('text', 'wifipassword', get_string('newwifipassword', 'tool_moodlebox'));
             $mform->addRule('wifipassword', get_string('required'), 'required', null, 'client');
-            $mform->addRule('wifipassword', get_string('wifipassworderror', 'tool_moodlebox'), 'rangelength', array(8, 63), 'client');
+            $mform->addRule('wifipassword', get_string('wifipassworderror', 'tool_moodlebox'),
+                    'rangelength', array(8, 63), 'client');
             $mform->setType('wifipassword', PARAM_RAW);
             $mform->setDefault('wifipassword', $currentwifipassword);
 
@@ -142,7 +142,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     }
 
     class restartshutdown_form extends moodleform {
-        function definition() {
+        public function definition() {
             $mform = $this->_form;
             $buttonarray = array();
             $buttonarray[] = & $mform->createElement('submit', 'restartbutton',
@@ -154,7 +154,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
         }
     }
 
-    // System information section
+    // System information section.
     echo $OUTPUT->heading(get_string('systeminfo', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
@@ -167,7 +167,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     $table->set_attribute('class', 'admintable environmenttable generaltable');
     $table->setup();
 
-    $table->add_data(array(get_string('sdcardavailablespace', 'tool_moodlebox'), display_size($sdcardfreespace) . ' (' . 100*round($sdcardfreespace/$sdcardtotalspace, 3) . '%)'));
+    $table->add_data(array(get_string('sdcardavailablespace', 'tool_moodlebox'), display_size($sdcardfreespace) .
+            ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)'));
     $table->add_data(array(get_string('cpuload', 'tool_moodlebox'), $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2]));
     $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature));
     $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency));
@@ -175,7 +176,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     $table->add_data(array(get_string('currentwifipassword', 'tool_moodlebox'), $currentwifipassword));
     $table->add_data(array(get_string('dhcpclientnumber', 'tool_moodlebox'), $dhcpclientnumber));
     if ($dhcpclientnumber > 0) {
-        foreach($leases as $row) {
+        foreach ($leases as $row) {
             $item = explode(' ', $row);
             $table->add_data(array(get_string('dhcpclientinfo', 'tool_moodlebox'), $item[2] . ' (' . $item[3] . ')'), 'dhcpclientinfo');
         }
@@ -189,7 +190,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
 
     echo $OUTPUT->box_end();
 
-    // Time setting section
+    // Time setting section.
     echo $OUTPUT->heading(get_string('datetimesetting', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
@@ -212,7 +213,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
 
     echo $OUTPUT->box_end();
 
-    // Change password section
+    // Change password section.
     echo $OUTPUT->heading(get_string('changepasswordsetting', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
@@ -227,7 +228,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
                 file_put_contents($changepasswordtriggerfilename, $data->newpassword1);
                 \core\notification::warning(get_string('changepasswordmessage', 'tool_moodlebox'));
             }
-        } else if ($changepasswordform->is_submitted()) { // validation failed
+        } else if ($changepasswordform->is_submitted()) { // Validation failed.
             \core\notification::error(get_string('changepassworderror', 'tool_moodlebox'));
         }
     } else {
@@ -236,7 +237,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
 
     echo $OUTPUT->box_end();
 
-    // Wi-Fi password section
+    // Wi-Fi password section.
     echo $OUTPUT->heading(get_string('wifipasswordsetting', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
@@ -248,7 +249,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
 
         if ($data = $wifipasswordform->get_data()) {
             if (!empty($data->submitbutton)) {
-                // print_r($data);
                 file_put_contents($wifipasswordtriggerfilename, $data->wifipassword);
                 \core\notification::warning(get_string('wifipasswordmessage', 'tool_moodlebox'));
             }
@@ -259,7 +259,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
 
     echo $OUTPUT->box_end();
 
-    // Restart-shutdown section
+    // Restart-shutdown section.
     echo $OUTPUT->heading(get_string('restartstop', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
@@ -271,8 +271,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
         $restartshutdownform->display();
 
         if ($data = $restartshutdownform->get_data()) {
-        // idea from http://stackoverflow.com/questions/5226728/how-to-shutdown-ubuntu-with-exec-php
-        // adapted for use with incron
+            // Idea from http://stackoverflow.com/questions/5226728/how-to-shutdown-ubuntu-with-exec-php.
             if (!empty($data->restartbutton)) {
                 exec("touch $reboottriggerfilename");
                 \core\notification::warning(get_string('restartmessage', 'tool_moodlebox'));
@@ -287,7 +286,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi
     }
 
     echo $OUTPUT->box_end();
-} else { // We're not on a Raspberry Pi
+} else { // We're not on a Raspberry Pi.
     \core\notification::error(get_string('unsupportedhardware', 'tool_moodlebox'));
 }
 
