@@ -6,7 +6,7 @@ This plugin enable an administrator to monitor some hardware settings, to set th
 
 ## Availability
 
-The code is available at [https://github.com/martignoni/moodlebox-plugin](https://github.com/martignoni/moodlebox-plugin).
+The code is available at [https://github.com/martignoni/moodle-tool_moodlebox](https://github.com/martignoni/moodle-tool_moodlebox).
 
 ### Release notes
 
