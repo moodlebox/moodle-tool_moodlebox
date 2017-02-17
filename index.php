@@ -19,7 +19,7 @@
  * a way to set the date of the MoodleBox and to restart and shutdown
  * the MoodleBox from inside Moodle.
  *
- * @seek       https://github.com/martignoni/moodle-tool_moodlebox
+ * @see        https://github.com/martignoni/moodle-tool_moodlebox
  * @package    tool_moodlebox
  * @copyright  2016 Nicolas Martignoni <nicolas@martignoni.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -77,7 +77,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
     $currentwifipassword = exec('grep "wpa_passphrase" /etc/hostapd/hostapd.conf  | cut -d= -f2');
 
+    /**
+     * Class datetimeset_form
+     *
+     * Form class to set time and date.
+     */
     class datetimeset_form extends moodleform {
+
+        /**
+         * Define the form.
+         */
         public function definition() {
             $mform = $this->_form;
             $mform->addElement('date_time_selector', 'currentdatetime', get_string('datetime', 'tool_moodlebox'),
@@ -93,7 +102,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         }
     }
 
+    /**
+     * Class changepassword_form
+     *
+     * Form class to change MoodleBox password.
+     */
     class changepassword_form extends moodleform {
+
+        /**
+         * Define the form.
+         */
         public function definition() {
             $mform = $this->_form;
 
@@ -108,6 +126,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $this->add_action_buttons(false, get_string('changepassword'));
         }
 
+        /**
+         * Define validation of the form.
+         */
         public function validation($data, $files) {
             $errors = array();
 
@@ -120,8 +141,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         }
     }
 
+    /**
+     * Class wifipassword_form
+     *
+     * Form class to change MoodleBox Wi-Fi password.
+     */
     class wifipassword_form extends moodleform {
 
+        /**
+         * Define the form.
+         */
         public function definition() {
             global $currentwifipassword;
             $mform = $this->_form;
@@ -140,7 +169,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     }
 
+    /**
+     * Class restartshutdown_form
+     *
+     * Form class to restart and shutdown the MoodleBox.
+     */
     class restartshutdown_form extends moodleform {
+
+        /**
+         * Define the form.
+         */
         public function definition() {
             $mform = $this->_form;
             $buttonarray = array();
