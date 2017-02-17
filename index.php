@@ -20,8 +20,7 @@
  * the MoodleBox from inside Moodle.
  *
  * @seek       https://github.com/martignoni/moodle-tool_moodlebox
- * @package    tool
- * @subpackage moodlebox
+ * @package    tool_moodlebox
  * @copyright  2016 Nicolas Martignoni <nicolas@martignoni.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -169,7 +168,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     $table->add_data(array(get_string('sdcardavailablespace', 'tool_moodlebox'), display_size($sdcardfreespace) .
             ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)'));
-    $table->add_data(array(get_string('cpuload', 'tool_moodlebox'), $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2]));
+    $table->add_data(array(get_string('cpuload', 'tool_moodlebox'),
+            $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2]));
     $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature));
     $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency));
     $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime));
@@ -178,7 +178,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     if ($dhcpclientnumber > 0) {
         foreach ($leases as $row) {
             $item = explode(' ', $row);
-            $table->add_data(array(get_string('dhcpclientinfo', 'tool_moodlebox'), $item[2] . ' (' . $item[3] . ')'), 'dhcpclientinfo');
+            $table->add_data(array(get_string('dhcpclientinfo', 'tool_moodlebox'),
+                    $item[2] . ' (' . $item[3] . ')'), 'dhcpclientinfo');
         }
     }
     $table->add_data(array(get_string('raspberryhardware', 'tool_moodlebox'), get_string($platform, 'tool_moodlebox')));
