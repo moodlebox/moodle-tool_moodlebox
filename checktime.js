@@ -1,4 +1,4 @@
-checktime = function(Y, servertime) {
+var checktime = function(Y, servertime) {
         var usertime = Math.round(M.pageloadstarttime.getTime() / 1000);
         if (Math.abs(usertime - servertime) >= 60) { // time difference greater than 1 minute
             require(['core/str', 'core/notification'], function(str, notification) {
