@@ -18,7 +18,7 @@
  * CSS rules
  *
  * @package    tool_moodlebox
- * @copyright  2016 Nicolas Martignoni
+ * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -41,8 +41,7 @@ input#id_restartbutton {
     background-image: linear-gradient(to bottom, #fbb450, #f89406);
     background-repeat: repeat-x;
     filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
-    border-color: #f89406 #f89406 #ad6704;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-color: rgba(248, 148, 6, 0.1) rgba(248, 148, 6, 0.1) rgba(173, 103, 4, 0.25);
     filter: progid:dximagetransform.microsoft.gradient(enabled = false);
 }
 
@@ -56,7 +55,6 @@ input#id_shutdownbutton {
     background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
     background-repeat: repeat-x;
     filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0);
-    border-color: #bd362f #bd362f #802420;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-color: rgba(189, 54, 47, 0.1) rgba(189, 54, 47, 0.1) rgba(128, 36, 32, 0.25);
     filter: progid:dximagetransform.microsoft.gradient(enabled = false);
 }

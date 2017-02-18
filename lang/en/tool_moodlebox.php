@@ -18,7 +18,7 @@
  * English language strings
  *
  * @package    tool_moodlebox
- * @copyright  2016 Nicolas Martignoni
+ * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

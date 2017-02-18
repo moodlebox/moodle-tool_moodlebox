@@ -15,13 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * A dashboard for the MoodleBox.
+ *
  * Provides a dashboard of some hardware settings of the MoodleBox,
  * a way to set the date of the MoodleBox and to restart and shutdown
  * the MoodleBox from inside Moodle.
  *
  * @see        https://github.com/martignoni/moodle-tool_moodlebox
  * @package    tool_moodlebox
- * @copyright  2016 Nicolas Martignoni <nicolas@martignoni.net>
+ * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -81,6 +83,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
      * Class datetimeset_form
      *
      * Form class to set time and date.
+     *
+     * @package    tool_moodlebox
+     * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
+     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
      */
     class datetimeset_form extends moodleform {
 
@@ -106,6 +112,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
      * Class changepassword_form
      *
      * Form class to change MoodleBox password.
+     *
+     * @package    tool_moodlebox
+     * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
+     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
      */
     class changepassword_form extends moodleform {
 
@@ -127,7 +137,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         }
 
         /**
-         * Define validation of the form.
+         * Validate the form.
+         * @param array $data submitted data
+         * @param array $files not used
+         * @return array errors
          */
         public function validation($data, $files) {
             $errors = array();
@@ -145,6 +158,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
      * Class wifipassword_form
      *
      * Form class to change MoodleBox Wi-Fi password.
+     *
+     * @package    tool_moodlebox
+     * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
+     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
      */
     class wifipassword_form extends moodleform {
 
@@ -173,6 +190,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
      * Class restartshutdown_form
      *
      * Form class to restart and shutdown the MoodleBox.
+     *
+     * @package    tool_moodlebox
+     * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
+     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
      */
     class restartshutdown_form extends moodleform {
 

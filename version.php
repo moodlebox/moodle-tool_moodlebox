@@ -18,14 +18,14 @@
  * Version details.
  *
  * @package    tool_moodlebox
- * @copyright  2016 Nicolas Martignoni
+ * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version  = 2016120600;
-$plugin->release = '1.4.3';
+$plugin->version  = 2017021800;
+$plugin->release = '1.4.3+';
 $plugin->requires = 2015051103;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->component = 'tool_moodlebox';
