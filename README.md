@@ -12,6 +12,7 @@ The code is available at [https://github.com/martignoni/moodle-tool_moodlebox](h
 
 ### Release notes
 
+* 2017-04-10, version 1.4.4: Restart and shutdown buttons are now disabled after submit
 * 2016-12-06, version 1.4.3: Bug fixed for use with Moodle 3.2
 * 2016-10-08, version 1.4.2: Display warnings when the plugin installation is not complete
 * 2016-09-25, version 1.4.1: MoodleBox Wi-Fi network password cannot be changed to empty
