@@ -62,9 +62,11 @@ switch ( $hardware ) {
 
 if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
-    $PAGE->requires->js('/admin/tool/moodlebox/checktime.js', false);
+    $PAGE->requires->js('/admin/tool/moodlebox/utils.js');
     $systemtime = usergetdate(time())[0];
-    $PAGE->requires->js_init_call('checktime', array($systemtime), false);
+
+    $PAGE->requires->js_init_call('checktime', array($systemtime));
+    $PAGE->requires->js_init_call('disable_restartshutdown_buttons');
 
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
     $raspbianversion = exec('lsb_release -ds');
@@ -327,7 +329,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $shutdowntriggerfilename = ".shutdown-server";
 
     if (file_exists($reboottriggerfilename) and file_exists($shutdowntriggerfilename)) {
-        $restartshutdownform = new restartshutdown_form();
+        $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));
         $restartshutdownform->display();
 
         if ($data = $restartshutdownform->get_data()) {
