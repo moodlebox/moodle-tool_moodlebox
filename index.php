@@ -66,7 +66,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $systemtime = usergetdate(time())[0];
 
     $PAGE->requires->js_init_call('checktime', array($systemtime));
-    $PAGE->requires->js_init_call('disable_restartshutdown_buttons');
 
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
     $raspbianversion = exec('lsb_release -ds');
