@@ -47,7 +47,7 @@ The code is available at [https://github.com/martignoni/moodle-tool_moodlebox](h
 
 ### Release notes
 
-See [Release notes](https://github.com/martignoni/RELEASENOTES.md).
+See [Release notes](https://github.com/martignoni/moodle-tool_moodlebox/blob/master/RELEASENOTES.md).
 
 ## License
 
