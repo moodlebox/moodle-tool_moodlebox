@@ -28,6 +28,7 @@
  */
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
+require_once($CFG->libdir.'/moodlelib.php');
 require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->libdir.'/formslib.php');
 require_once($CFG->libdir.'/tablelib.php');
@@ -84,8 +85,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $cpuload = sys_getloadavg();
 
     // Get DHCP leases
-    $leases = file_get_contents('/var/lib/misc/dnsmasq.leases');
-    $dhcpclientnumber = count(explode('\n', $leases)) - 1; // TODO: check array content
+    $leases = explode(PHP_EOL, trim(file_get_contents('/var/lib/misc/dnsmasq.leases')));
+    $dhcpclientnumber = count($leases);
 
     // Get CPU temperature
     $cputemperature = file_get_contents('/sys/class/thermal/thermal_zone0/temp')/1000 . ' °C';
@@ -94,14 +95,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $cpufrequency = file_get_contents('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')/1000 . ' MHz';
 
     // Get system uptime
-    $rawuptime = floatval(file_get_contents('/proc/uptime'));
-    $upsecs  = fmod($rawuptime, 60); $rawuptime = (int)($rawuptime / 60);
-    $upmins  = $rawuptime % 60;      $rawuptime = (int)($rawuptime / 60);
-    $uphours = $rawuptime % 24;      $rawuptime = (int)($rawuptime / 24);
-    $updays  = $rawuptime;
-    $uptime = $updays . ' ' . get_string('days') . ' ' .
-              $uphours . ' ' . get_string('hours') . ' ' .
-              $upmins . ' ' . get_string('minutes');
+    $rawuptime = intval(file_get_contents('/proc/uptime'));
+    $uptime = format_time($rawuptime);
 
     // Get SD card space and memory used
     $sdcardtotalspace = disk_total_space('/');
@@ -366,7 +361,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $restartshutdownform->display();
 
         if ($data = $restartshutdownform->get_data()) {
-            // Idea from http://stackoverflow.com/questions/5226728/how-to-shutdown-ubuntu-with-exec-php.
             if (!empty($data->restartbutton)) {
                 file_put_contents($reboottriggerfilename, 'reboot');
                 \core\notification::warning(get_string('restartmessage', 'tool_moodlebox'));
