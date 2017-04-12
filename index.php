@@ -43,13 +43,19 @@ $PAGE->set_heading($strheading);
 
 echo $OUTPUT->header();
 
-$hardware = exec('awk \'/^Hardware/{print $3}\' /proc/cpuinfo');
+$cpuinfo = file_get_contents('/proc/cpuinfo');
+preg_match_all('/^Hardware.*/m', $cpuinfo, $hardwarematch);
+preg_match_all('/^Revision.*/m', $cpuinfo, $revisionmatch);
+$hardware = explode(' ', $hardwarematch[0][0]);
+$hardware = end($hardware);
+$revision = explode(' ', $revisionmatch[0][0]);
+$revision = end($revision);
+
 switch ( $hardware ) {
     case 'BCM2708':
         $platform = 'rpi1';
         break;
     case 'BCM2709':
-        $revision = exec('awk \'/^Revision/{print $3}\' /proc/cpuinfo');
         if ( $revision === 'a02082' || $revision === 'a22082' ) {
             $platform = 'rpi3';
         } else {
@@ -67,18 +73,46 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     $PAGE->requires->js_init_call('checktime', array($systemtime));
 
+    // Get kernel version
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
-    $raspbianversion = exec('lsb_release -ds');
+
+    // Get Raspbian distribution version
+    $releaseinfo = parse_ini_file('/etc/os-release');
+    $raspbianversion = $releaseinfo['PRETTY_NAME'];
+
+    // Get CPU load
     $cpuload = sys_getloadavg();
-    exec('cat /var/lib/misc/dnsmasq.leases', $leases);
-    $dhcpclientnumber = count($leases);
-    $cputemperature = exec('awk \'{print $1/1000" °C"}\' /sys/class/thermal/thermal_zone0/temp');
-    $cpufrequency = exec('awk \'{print $1/1000" Mhz"}\' /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq');
-    $uptime = exec('uptime -p');
+
+    // Get DHCP leases
+    $leases = file_get_contents('/var/lib/misc/dnsmasq.leases');
+    $dhcpclientnumber = count(explode('\n', $leases)) - 1; // TODO: check array content
+
+    // Get CPU temperature
+    $cputemperature = file_get_contents('/sys/class/thermal/thermal_zone0/temp')/1000 . ' °C';
+
+    // Get CPU frequency
+    $cpufrequency = file_get_contents('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')/1000 . ' MHz';
+
+    // Get system uptime
+    $rawuptime = floatval(file_get_contents('/proc/uptime'));
+    $upsecs  = fmod($rawuptime, 60); $rawuptime = (int)($rawuptime / 60);
+    $upmins  = $rawuptime % 60;      $rawuptime = (int)($rawuptime / 60);
+    $uphours = $rawuptime % 24;      $rawuptime = (int)($rawuptime / 24);
+    $updays  = $rawuptime;
+    $uptime = $updays . ' ' . get_string('days') . ' ' .
+              $uphours . ' ' . get_string('hours') . ' ' .
+              $upmins . ' ' . get_string('minutes');
+
+    // Get SD card space and memory used
     $sdcardtotalspace = disk_total_space('/');
     $sdcardfreespace = disk_free_space('/');
+
+    // Get plugin version
     $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
-    $currentwifipassword = exec('grep "wpa_passphrase" /etc/hostapd/hostapd.conf  | cut -d= -f2');
+
+    // Get current Wi-Fi WPA password
+    $wifiinfo = parse_ini_file('/etc/hostapd/hostapd.conf');
+    $currentwifipassword = $wifiinfo['wpa_passphrase'];
 
     /**
      * Class datetimeset_form
@@ -334,11 +368,11 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         if ($data = $restartshutdownform->get_data()) {
             // Idea from http://stackoverflow.com/questions/5226728/how-to-shutdown-ubuntu-with-exec-php.
             if (!empty($data->restartbutton)) {
-                exec("touch $reboottriggerfilename");
+                file_put_contents($reboottriggerfilename, 'reboot');
                 \core\notification::warning(get_string('restartmessage', 'tool_moodlebox'));
             }
             if (!empty($data->shutdownbutton)) {
-                exec("touch $shutdowntriggerfilename");
+                file_put_contents($shutdowntriggerfilename, 'shutdown');
                 \core\notification::warning(get_string('shutdownmessage', 'tool_moodlebox'));
             }
         }
