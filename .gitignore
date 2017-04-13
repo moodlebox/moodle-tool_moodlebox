@@ -3,6 +3,10 @@
 # Mac finder files and hidden folders
 .DS_Store
 
+# Node and Grunt files
+node_modules
+
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
