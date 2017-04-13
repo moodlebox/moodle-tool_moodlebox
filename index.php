@@ -85,7 +85,11 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $cpuload = sys_getloadavg();
 
     // Get DHCP leases
-    $leases = explode(PHP_EOL, trim(file_get_contents('/var/lib/misc/dnsmasq.leases')));
+    if (filesize('/var/lib/misc/dnsmasq.leases') > 0) {
+        $leases = explode(PHP_EOL, trim(file_get_contents('/var/lib/misc/dnsmasq.leases')));
+    } else {
+        $leases = null;
+    }
     $dhcpclientnumber = count($leases);
 
     // Get CPU temperature
