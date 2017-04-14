@@ -2,10 +2,12 @@
 
 ## Release notes
 
-### Version 1.4.5, 2017-04-xx
+### Version 1.5, 2017-04-14
 
-* Code refactored, not using eval() any more, issue #12
-* TO BE CONTINUED
+* Code doesn't use eval() any more, issue #12
+* Javascript code refactored, using AMD, issue #11
+* Documentation updated (release notes have their own file now), issue #13
+* Plugin is now published on Moodle plugin database
 
 ### Version 1.4.4, 2017-04-11
 

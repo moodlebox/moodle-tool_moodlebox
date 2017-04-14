@@ -5,7 +5,7 @@
 
 # Node and Grunt files
 node_modules
-
+Gruntfile.js
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

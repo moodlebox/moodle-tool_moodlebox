@@ -69,10 +69,8 @@ switch ( $hardware ) {
 
 if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
-    $PAGE->requires->js('/admin/tool/moodlebox/utils.js');
     $systemtime = usergetdate(time())[0];
-
-    $PAGE->requires->js_init_call('checktime', array($systemtime));
+    $PAGE->requires->js_call_amd('tool_moodlebox/timediff', 'init', array($systemtime));
 
     // Get kernel version
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
