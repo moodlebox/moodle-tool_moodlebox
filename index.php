@@ -64,7 +64,7 @@ switch ( $hardware ) {
         }
         break;
     default:
-        $platform = 'unknown';
+        $platform = 'unknownmodel';
 }
 
 if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.

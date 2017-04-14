@@ -57,6 +57,7 @@ $string['sdcardavailablespace'] = 'Espace libre sur la carte SD';
 $string['shutdown'] = 'Éteindre la MoodleBox';
 $string['shutdownmessage'] = 'La MoodleBox va s\'éteindre. Veuillez attendre quelques secondes avant de retirer l\'alimentation.';
 $string['systeminfo'] = 'Informations système';
+$string['unknownmodel'] = 'Modèle de Raspberry Pi inconnu';
 $string['unsupportedhardware'] = 'Matériel serveur non compatible détecté ! Ce plugin ne fonctionne que sur Raspberry Pi';
 $string['uptime'] = 'Durée de fonctionnement du système';
 $string['wifipassworderror'] = 'Le mot de passe du réseau Wi-Fi doit comporter entre 8 et 63 caractères.';
