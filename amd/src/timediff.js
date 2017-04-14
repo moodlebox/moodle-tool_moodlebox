@@ -35,7 +35,7 @@ define(['core/str', 'core/notification'], function(str, notification) {
         init: function(servertime) {
             var usertime = Math.round(M.pageloadstarttime.getTime() / 1000);
             if (Math.abs(usertime - servertime) >= 300) { // time difference greater than 5 minutes
-                str.get_strings([{'key': 'datetimesetmessage', component: 'tool_moodlebox'},]).done(function(s) {
+                str.get_strings([{'key': 'datetimesetmessage', component: 'tool_moodlebox'}]).done(function(s) {
                     notification.addNotification({
                         message: s[0],
                         type: 'error'

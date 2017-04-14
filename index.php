@@ -72,17 +72,17 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $systemtime = usergetdate(time())[0];
     $PAGE->requires->js_call_amd('tool_moodlebox/timediff', 'init', array($systemtime));
 
-    // Get kernel version
+    // Get kernel version.
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
 
-    // Get Raspbian distribution version
+    // Get Raspbian distribution version.
     $releaseinfo = parse_ini_file('/etc/os-release');
     $raspbianversion = $releaseinfo['PRETTY_NAME'];
 
-    // Get CPU load
+    // Get CPU load.
     $cpuload = sys_getloadavg();
 
-    // Get DHCP leases
+    // Get DHCP leases.
     if (filesize('/var/lib/misc/dnsmasq.leases') > 0) {
         $leases = explode(PHP_EOL, trim(file_get_contents('/var/lib/misc/dnsmasq.leases')));
     } else {
@@ -90,24 +90,24 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
     $dhcpclientnumber = count($leases);
 
-    // Get CPU temperature
-    $cputemperature = file_get_contents('/sys/class/thermal/thermal_zone0/temp')/1000 . ' °C';
+    // Get CPU temperature.
+    $cputemperature = file_get_contents('/sys/class/thermal/thermal_zone0/temp') / 1000 . ' °C';
 
-    // Get CPU frequency
-    $cpufrequency = file_get_contents('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')/1000 . ' MHz';
+    // Get CPU frequency.
+    $cpufrequency = file_get_contents('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq') / 1000 . ' MHz';
 
-    // Get system uptime
+    // Get system uptime.
     $rawuptime = intval(file_get_contents('/proc/uptime'));
     $uptime = format_time($rawuptime);
 
-    // Get SD card space and memory used
+    // Get SD card space and memory used.
     $sdcardtotalspace = disk_total_space('/');
     $sdcardfreespace = disk_free_space('/');
 
-    // Get plugin version
+    // Get plugin version.
     $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
 
-    // Get current Wi-Fi WPA password
+    // Get current Wi-Fi WPA password.
     $wifiinfo = parse_ini_file('/etc/hostapd/hostapd.conf');
     $currentwifipassword = $wifiinfo['wpa_passphrase'];
 
