@@ -28,18 +28,18 @@ To complete the installation, you have to create some files in the plugin folder
     ```bash
     /var/www/html/admin/tool/moodlebox/.reboot-server IN_CLOSE_WRITE /sbin/shutdown -r now
     /var/www/html/admin/tool/moodlebox/.shutdown-server IN_CLOSE_WRITE /sbin/shutdown -h now
-    /var/www/html/admin/tool/moodlebox/.set-server-datetime IN_MODIFY /bin/bash /var/www/html/admin/tool/moodlebox/.set-server-datetime
+    /var/www/html/admin/tool/moodlebox/.set-server-datetime IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/.set-server-datetime
     /var/www/html/admin/tool/moodlebox/.newpassword IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/bin/changepassword.sh
     /var/www/html/admin/tool/moodlebox/.wifipassword IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/bin/setwifipassword.sh
     ```
 
 ## Features
 
-* Info about the MoodleBox (kernel version, Raspbian version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
-* GUI to set the MoodleBox date and time.
-* GUI to set the MoodleBox password.
-* GUI to set the MoodleBox Wi-Fi network password.
-* GUI to restart and shutdown the MoodleBox.
+- Info about the MoodleBox (kernel version, Raspbian version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
+- GUI to set the MoodleBox date and time.
+- GUI to set the MoodleBox password.
+- GUI to set the MoodleBox Wi-Fi network password.
+- GUI to restart and shutdown the MoodleBox.
 
 ## Availability
 
@@ -53,8 +53,8 @@ See [Release notes](https://github.com/martignoni/moodle-tool_moodlebox/blob/mas
 
 Copyright © 2016 onwards, Nicolas Martignoni <nicolas@martignoni.net>
 
-* All the source code is licensed under GPL 3 or any later version
-* The documentation is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International.
+- All the source code is licensed under GPL 3 or any later version
+- The documentation is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
