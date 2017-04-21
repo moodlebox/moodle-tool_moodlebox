@@ -15,12 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * English language strings
+ * Strings for component 'tool_moodlebox', language 'en' (English)
  *
  * @package    tool_moodlebox
  * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+defined('MOODLE_INTERNAL') || die();
 
 $string['changepassworderror'] = 'The MoodleBox password was not changed. The passwords given don\'t match.';
 $string['changepasswordmessage'] = 'The main password of the MoodleBox (Unix account) was changed.<br /><br />Warning! The password of the Admin user of the Moodle <b>was not changed</b>. To change it, please use the preferences page of this user.';
