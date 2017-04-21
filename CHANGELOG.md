@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Version 1.5.1, 2017-04-21
+
+- Several language files added (de, es, es_mx)
+- Missing string added
+- Cosmetic fixes for Moodle code checker
+- Some small documentation enhancements (mainly release notes)
+
 ## Version 1.5, 2017-04-14
 
 - Code doesn't use eval() any more, issue #12
