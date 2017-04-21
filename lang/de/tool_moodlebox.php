@@ -41,7 +41,7 @@ $string['dhcpclientinfo'] = 'IP-Adresse und Name';
 $string['dhcpclientnumber'] = 'DHCP-Clients';
 $string['information'] = 'Informationen';
 $string['kernelversion'] = 'Kernel-Version';
-$string['missingconfigurationerror'] = 'Dieser Bereich ist nicht verfügbar. Die Installation des Plugins ist nicht vollständig, so dass keine Einstellungen für die MoodleBox vorgenommen werden können. Um den Fehler zu beheben, lesen Sie die <a href="https://github.com/martignoni/make-moodlebox/blob/master/doc/Moodlebox.pdf" target="_blank">Dokumentation zur MoodleBox</a>.';
+$string['missingconfigurationerror'] = 'Dieser Bereich ist nicht verfügbar. Die Installation des Plugins ist nicht vollständig, so dass keine Einstellungen für die MoodleBox vorgenommen werden können. Um den Fehler zu beheben, lesen Sie die <a href="https://github.com/martignoni/moodle-tool_moodlebox/blob/master/README.md" target="_blank">Dokumentation zur Installation</a>.';
 $string['moodleboxpluginversion'] = 'Plugin-Version';
 $string['newwifipassword'] = 'Neues WLAN-Kennwort';
 $string['nopassworddefined'] = 'Kein WLAN-Kenwort festgelegt';
