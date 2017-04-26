@@ -6,6 +6,7 @@
 # Node and Grunt files
 node_modules
 Gruntfile.js
+package.json
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
