@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Version 1.5.3, 2017-04-29
+
+- Hardware specification added, for RPi3 support (new kernel)
+
 ## Version 1.5.2, 2017-04-29
 
 - Language files removed, fixing issue #15
