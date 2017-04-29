@@ -44,13 +44,18 @@ $PAGE->set_heading($strheading);
 
 echo $OUTPUT->header();
 
-$cpuinfo = file_get_contents('/proc/cpuinfo');
-preg_match_all('/^Hardware.*/m', $cpuinfo, $hardwarematch);
-preg_match_all('/^Revision.*/m', $cpuinfo, $revisionmatch);
-$hardware = explode(' ', $hardwarematch[0][0]);
-$hardware = end($hardware);
-$revision = explode(' ', $revisionmatch[0][0]);
-$revision = end($revision);
+$hardware = null;
+$revision = null;
+if ( $cpuinfo = file_get_contents('/proc/cpuinfo') ) {
+    if ( preg_match_all('/^Hardware.*/m', $cpuinfo, $hardwarematch) > 0 ) {
+        $hardware = explode(' ', $hardwarematch[0][0]);
+        $hardware = end($hardware);
+    }
+    if ( preg_match_all('/^Revision.*/m', $cpuinfo, $revisionmatch) > 0 ) {
+        $revision = explode(' ', $revisionmatch[0][0]);
+        $revision = end($revision);
+    }
+}
 
 switch ( $hardware ) {
     case 'BCM2708':
