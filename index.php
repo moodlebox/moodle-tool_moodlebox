@@ -62,6 +62,7 @@ switch ( $hardware ) {
         $platform = 'rpi1';
         break;
     case 'BCM2709':
+    case 'BCM2835':
         if ( $revision === 'a02082' || $revision === 'a22082' ) {
             $platform = 'rpi3';
         } else {
