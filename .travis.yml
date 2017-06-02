@@ -21,7 +21,8 @@ php:
 
 env:
  global:
-  - MOODLE_BRANCH=MOODLE_32_STABLE
+  - MOODLE_BRANCH=MOODLE_33_STABLE
+  - MOODLE_BRANCH=master
  matrix:
   - DB=pgsql
   - DB=mysqli
@@ -41,9 +42,9 @@ script:
   - moodle-plugin-ci phpcpd
   - moodle-plugin-ci phpmd
   - moodle-plugin-ci codechecker
+  - moodle-plugin-ci csslint
   - moodle-plugin-ci validate
   - moodle-plugin-ci savepoints
   - moodle-plugin-ci mustache
-  - moodle-plugin-ci grunt
   - moodle-plugin-ci phpunit
   - moodle-plugin-ci behat
