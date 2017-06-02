@@ -1,5 +1,7 @@
 # MoodleBox Moodle plugin
 
+[![Build Status](https://travis-ci.org/martignoni/moodle-tool_moodlebox.svg?branch=master)](https://travis-ci.org/martignoni/moodle-tool_moodlebox)
+
 A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://moodlebox.net/), a Moodle server installed on a [Raspberry Pi](http://www.raspberrypi.org/).
 
 This plugin enables a Moodle administrator to monitor some hardware settings, to set the date of the MoodleBox, to allow restart and shutdown of the MoodleBox and changing Raspberry Pi passwords using a GUI. After the installation in Moodle, some steps are required to complete on the Raspberry Pi (see below).
