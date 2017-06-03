@@ -2,6 +2,11 @@ language: php
 
 sudo: false
 
+notifications:
+  email:
+    on_success: never # default: change
+    on_failure: always # default: always
+
 addons:
   postgresql: "9.3"
   apt:
@@ -45,4 +50,4 @@ script:
   - moodle-plugin-ci savepoints
   - moodle-plugin-ci mustache
   - moodle-plugin-ci phpunit
-  - moodle-plugin-ci behat
+#  - moodle-plugin-ci behat
