@@ -8,7 +8,7 @@ Feature: Manage MoodleBox settings
   Scenario: Display list of options
     # Check the report doesn't show when not enabled.
     Given I log in as "admin"
-    Then I should see "Unsupported server hardware detected"
+    Then I should see "MoodleBox"
 #     Then I should see "System information"
 #     And I should see "Date and time setting"
 #     And I should see "MoodleBox password change"
