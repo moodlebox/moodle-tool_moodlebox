@@ -30,5 +30,5 @@ NEWPASSWORD="$(head -n 1 $FILE | sed 's/ *$//g' | sed 's/^ *//g')"
 # set new password
 sed -i "/wpa_passphrase/c\wpa_passphrase=$NEWPASSWORD" /etc/hostapd/hostapd.conf
 # reload hostapd service
-service hostapd reload
+systemctl restart hostapd
 # the end
