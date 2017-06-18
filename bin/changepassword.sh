@@ -37,7 +37,7 @@ if [ -n "$(getent passwd $USER)" ] && [ $USER != "root" ]; then
     # change the password if non empty
     if [ -n "$NEWPASSWORD" ]; then
         # 1. change MariaDB root password
-        mysql mysql -u root -p"$OLDPASSWORD" -e "UPDATE user SET password=PASSWORD('$NEWPASSWORD') WHERE user='root'; FLUSH PRIVILEGES;"
+        mysql mysql -u root -p"$OLDPASSWORD" -e "UPDATE user SET password=PASSWORD('$NEWPASSWORD') WHERE user='moodlebox'; FLUSH PRIVILEGES;"
         # 2. change phpMyAdmin root password, using new root password!
         mysql mysql -u root -p"$NEWPASSWORD" -e "UPDATE user SET password=PASSWORD('$NEWPASSWORD') WHERE user='phpmyadmin'; FLUSH PRIVILEGES;"
         sed -i "/\$dbpass/c\$dbpass='$NEWPASSWORD';" /etc/phpmyadmin/config-db.php
