@@ -36,14 +36,15 @@ if [ -n "$(getent passwd $USER)" ] && [ $USER != "root" ]; then
     NEWPASSWORD="$(head -n 1 $FILE | sed 's/ *$//g' | sed 's/^ *//g')"
     # change the password if non empty
     if [ -n "$NEWPASSWORD" ]; then
-        # 1. change MariaDB root password
-        mysql mysql -u root -p"$OLDPASSWORD" -e "UPDATE user SET password=PASSWORD('$NEWPASSWORD') WHERE user='moodlebox'; FLUSH PRIVILEGES;"
-        # 2. change phpMyAdmin root password, using new root password!
-        mysql mysql -u root -p"$NEWPASSWORD" -e "UPDATE user SET password=PASSWORD('$NEWPASSWORD') WHERE user='phpmyadmin'; FLUSH PRIVILEGES;"
+        # 1. change password for database user "moodlebox"
+        mysql -e "UPDATE user SET password=PASSWORD('$NEWPASSWORD') WHERE user='moodlebox'; FLUSH PRIVILEGES;"
+        # 2. change password for database user "phpmyadmin"
+        mysql -e "UPDATE user SET password=PASSWORD('$NEWPASSWORD') WHERE user='phpmyadmin'; FLUSH PRIVILEGES;"
+        # 3. change password for database user "phpmyadmin" in phpMyAdmin config-db.php
         sed -i "/\$dbpass/c\$dbpass='$NEWPASSWORD';" /etc/phpmyadmin/config-db.php
-        # 3. change moodlebox account password
+        # 4. change password for Unix account "moodlebox"
         echo $USER:$NEWPASSWORD | chpasswd
-        # 4. change Moodle config.php
+        # 5. change password for database user "moodlebox" in Moodle config.php
         sed -i "/\$CFG->dbpass/c\$CFG->dbpass    = '$NEWPASSWORD';" /var/www/html/config.php
     else
         echo "Empty password given"; exit 1;
