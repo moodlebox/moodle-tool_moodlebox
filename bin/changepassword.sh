@@ -47,7 +47,8 @@ if [ -n "$(getent passwd $USER)" ] && [ $USER != "root" ]; then
         # 5. change password for database user "moodlebox" in Moodle config.php
         sed -i "/\$CFG->dbpass/c\$CFG->dbpass    = '$NEWPASSWORD';" /var/www/html/config.php
     else
-        echo "Empty password given"; exit 1;
+        echo "Empty password given"
+        exit 1
     fi
 fi
 # empty file
