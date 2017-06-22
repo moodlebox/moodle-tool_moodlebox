@@ -37,9 +37,9 @@ if [ -n "$(getent passwd $USER)" ] && [ $USER != "root" ]; then
     # change the password if non empty
     if [ -n "$NEWPASSWORD" ]; then
         # 1. change password for database user "moodlebox"
-        mysql -e "UPDATE user SET password=PASSWORD('$NEWPASSWORD') WHERE user='moodlebox'; FLUSH PRIVILEGES;"
+        mysql -e "UPDATE mysql.user SET password=PASSWORD('$NEWPASSWORD') WHERE user='moodlebox'; FLUSH PRIVILEGES;"
         # 2. change password for database user "phpmyadmin"
-        mysql -e "UPDATE user SET password=PASSWORD('$NEWPASSWORD') WHERE user='phpmyadmin'; FLUSH PRIVILEGES;"
+        mysql -e "UPDATE mysql.user SET password=PASSWORD('$NEWPASSWORD') WHERE user='phpmyadmin'; FLUSH PRIVILEGES;"
         # 3. change password for database user "phpmyadmin" in phpMyAdmin config-db.php
         sed -i "/\$dbpass/c\$dbpass='$NEWPASSWORD';" /etc/phpmyadmin/config-db.php
         # 4. change password for Unix account "moodlebox"
