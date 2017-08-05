@@ -35,7 +35,6 @@ before_install:
   - cd ../..
   - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^2
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
-  - pip install codecov
 
 install:
   - moodle-plugin-ci install
