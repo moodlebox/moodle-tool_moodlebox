@@ -49,7 +49,7 @@ script:
   - moodle-plugin-ci mustache
   - moodle-plugin-ci phpunit
 #  - moodle-plugin-ci behat
-  - vendor/bin/phpunit --coverage-clover=coverage.xml
+#  - vendor/bin/phpunit --coverage-clover=coverage.xml
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+# after_success:
+#  - bash <(curl -s https://codecov.io/bash)
