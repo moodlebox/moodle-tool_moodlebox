@@ -30,7 +30,7 @@ NEWSSID="$(grep 'ssid' $FILE | cut -d= -f2)"
 #
 # Script
 # set new password
-sed -i "/wpa_passphrase/c\wpa_passphrase=$NEWPASSWORD" /etc/hostapd/hostapd.conf
+sed -i "/^wpa_passphrase/c\wpa_passphrase=$NEWPASSWORD" /etc/hostapd/hostapd.conf
 # set new channel
 sed -i "/^channel/c\channel=$NEWCHANNEL" /etc/hostapd/hostapd.conf
 # set new ssid
