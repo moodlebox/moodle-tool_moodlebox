@@ -17,7 +17,7 @@ To complete the installation, you have to create some files in the plugin folder
 1. Create necessary files
     ```bash
     touch .reboot-server; touch .shutdown-server; touch .set-server-datetime; touch .newpassword; touch .wifipassword
-    chown -R www-data:www-data /var/www/html/admin/tool/moodlebox
+    chown -R www-data:www-data /var/www/moodle/admin/tool/moodlebox
     ```
 
 1. Install `incron` package and allow `root` to run it:
@@ -28,11 +28,11 @@ To complete the installation, you have to create some files in the plugin folder
 
 1. Add following lines to `incrontab`:
     ```bash
-    /var/www/html/admin/tool/moodlebox/.reboot-server IN_CLOSE_WRITE /sbin/shutdown -r now
-    /var/www/html/admin/tool/moodlebox/.shutdown-server IN_CLOSE_WRITE /sbin/shutdown -h now
-    /var/www/html/admin/tool/moodlebox/.set-server-datetime IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/.set-server-datetime
-    /var/www/html/admin/tool/moodlebox/.newpassword IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/bin/changepassword.sh
-    /var/www/html/admin/tool/moodlebox/.wifisettings IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/bin/changewifisettings.sh
+    /var/www/moodle/admin/tool/moodlebox/.reboot-server IN_CLOSE_WRITE /sbin/shutdown -r now
+    /var/www/moodle/admin/tool/moodlebox/.shutdown-server IN_CLOSE_WRITE /sbin/shutdown -h now
+    /var/www/moodle/admin/tool/moodlebox/.set-server-datetime IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/.set-server-datetime
+    /var/www/moodle/admin/tool/moodlebox/.newpassword IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/bin/changepassword.sh
+    /var/www/moodle/admin/tool/moodlebox/.wifisettings IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/bin/changewifisettings.sh
     ```
 
 ## Features

@@ -28,7 +28,7 @@ FILE=${DIR%/*}/.newpassword
 # username
 USER="moodlebox"
 # get oldpassword from Moodle config.php file
-OLDPASSWORD="$(grep '\$CFG->dbpass' /var/www/html/config.php | cut -d\' -f2)"
+OLDPASSWORD="$(grep '\$CFG->dbpass' /var/www/moodle/config.php | cut -d\' -f2)"
 #
 # Script
 # make sure there is a matching USER, but not the root user
@@ -45,7 +45,7 @@ if [ -n "$(getent passwd $USER)" ] && [ $USER != "root" ]; then
         # 4. change password for Unix account "moodlebox"
         echo $USER:$NEWPASSWORD | chpasswd
         # 5. change password for database user "moodlebox" in Moodle config.php
-        sed -i "/\$CFG->dbpass/c\$CFG->dbpass    = '$NEWPASSWORD';" /var/www/html/config.php
+        sed -i "/\$CFG->dbpass/c\$CFG->dbpass    = '$NEWPASSWORD';" /var/www/moodle/config.php
     else
         echo "Empty password given"
         exit 1
