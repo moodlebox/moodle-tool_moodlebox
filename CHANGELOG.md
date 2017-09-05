@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
 
+## Version 1.6, 2017-09-05
+### Added
+- Wi-Fi SSID can now be changed.
+- Wi-Fi channel can now be changed.
+
+### Changed
+- Changelog adapted to principles of http://keepachangelog.com.
+
+### Fixed
+- Change moodle installation directory, to cope with last version of MoodleBox.
+
 ## Version 1.5.4, 2017-06-23
 ### Changed
 - Hardware test refactored
