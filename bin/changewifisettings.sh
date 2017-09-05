@@ -22,13 +22,19 @@
 # get directory of this script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # path of file containing the new password (plain text)
-FILE=${DIR%/*}/.wifipassword
-# newpassword
-NEWPASSWORD="$(head -n 1 $FILE | sed 's/ *$//g' | sed 's/^ *//g')"
+FILE=${DIR%/*}/.wifisettings
+# New values
+NEWCHANNEL="$(grep 'channel' $FILE | cut -d= -f2)"
+NEWPASSWORD="$(grep 'password' $FILE | cut -d= -f2)"
+NEWSSID="$(grep 'ssid' $FILE | cut -d= -f2)"
 #
 # Script
 # set new password
 sed -i "/wpa_passphrase/c\wpa_passphrase=$NEWPASSWORD" /etc/hostapd/hostapd.conf
+# set new channel
+sed -i "/^channel/c\channel=$NEWCHANNEL" /etc/hostapd/hostapd.conf
+# set new ssid
+sed -i "/^ssid/c\ssid=$NEWSSID" /etc/hostapd/hostapd.conf
 # restart hostapd service
 systemctl restart hostapd
 # restart again after 1 second; workaround some wifi driver bug

@@ -32,7 +32,7 @@ To complete the installation, you have to create some files in the plugin folder
     /var/www/html/admin/tool/moodlebox/.shutdown-server IN_CLOSE_WRITE /sbin/shutdown -h now
     /var/www/html/admin/tool/moodlebox/.set-server-datetime IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/.set-server-datetime
     /var/www/html/admin/tool/moodlebox/.newpassword IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/bin/changepassword.sh
-    /var/www/html/admin/tool/moodlebox/.wifipassword IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/bin/setwifipassword.sh
+    /var/www/html/admin/tool/moodlebox/.wifisettings IN_CLOSE_WRITE /bin/bash /var/www/html/admin/tool/moodlebox/bin/changewifisettings.sh
     ```
 
 ## Features
@@ -40,7 +40,7 @@ To complete the installation, you have to create some files in the plugin folder
 - Info about the MoodleBox (kernel version, Raspbian version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
 - GUI to set the MoodleBox date and time.
 - GUI to set the MoodleBox password.
-- GUI to set the MoodleBox Wi-Fi network password.
+- GUI to set the MoodleBox Wi-Fi network password, SSID and channel.
 - GUI to restart and shutdown the MoodleBox.
 
 ## Availability

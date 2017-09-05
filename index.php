@@ -117,8 +117,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     // Get current Wi-Fi SSID, channel and password.
     $wifiinfo = parse_ini_file('/etc/hostapd/hostapd.conf');
-    $currentwifissid = $wifiinfo['ssid'];
     $currentwifichannel = $wifiinfo['channel'];
+    $currentwifissid = $wifiinfo['ssid'];
     $currentwifipassword = $wifiinfo['wpa_passphrase'];
 
     /**
@@ -364,7 +364,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     echo $OUTPUT->heading(get_string('wifisettings', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
-    $wifipasswordtriggerfilename = ".wifipassword";
+    $wifipasswordtriggerfilename = ".wifisettings";
 
     if (file_exists($wifipasswordtriggerfilename)) {
         $wifisettingsform = new wifisettings_form();
@@ -372,7 +372,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
         if ($data = $wifisettingsform->get_data()) {
             if (!empty($data->submitbutton)) {
-                file_put_contents($wifipasswordtriggerfilename, $data->wifipassword);
+                file_put_contents($wifipasswordtriggerfilename, "channel=" . $data->wifichannel . "\n");
+                file_put_contents($wifipasswordtriggerfilename, "password=" . $data->wifipassword . "\n", FILE_APPEND);
+                file_put_contents($wifipasswordtriggerfilename, "ssid=" . $data->wifissid . "\n", FILE_APPEND);
                 \core\notification::warning(get_string('wifisettingsmessage', 'tool_moodlebox'));
             }
         }
