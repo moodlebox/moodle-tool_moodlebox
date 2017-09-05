@@ -197,15 +197,15 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     /**
-     * Class wifipassword_form
+     * Class wifisettings_form
      *
-     * Form class to change MoodleBox Wi-Fi password.
+     * Form class to change MoodleBox Wi-Fi settings.
      *
      * @package    tool_moodlebox
      * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
      * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
      */
-    class wifipassword_form extends moodleform {
+    class wifisettings_form extends moodleform {
 
         /**
          * Define the form.
@@ -367,10 +367,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $wifipasswordtriggerfilename = ".wifipassword";
 
     if (file_exists($wifipasswordtriggerfilename)) {
-        $wifipasswordform = new wifipassword_form();
-        $wifipasswordform->display();
+        $wifisettingsform = new wifisettings_form();
+        $wifisettingsform->display();
 
-        if ($data = $wifipasswordform->get_data()) {
+        if ($data = $wifisettingsform->get_data()) {
             if (!empty($data->submitbutton)) {
                 file_put_contents($wifipasswordtriggerfilename, $data->wifipassword);
                 \core\notification::warning(get_string('wifisettingsmessage', 'tool_moodlebox'));
