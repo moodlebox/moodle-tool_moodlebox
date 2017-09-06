@@ -33,6 +33,6 @@ defined('MOODLE_INTERNAL') || die();
  * @param int $scanner_mode (optional)
  * @return associative array of parameters, value
  */
-function tool_moodlebox_parse_config_file($file, $mode = false, $scanner_mode = INI_SCANNER_NORMAL) {
+function tool_moodlebox_parse_config_file($file, $mode = false, $scannermode = INI_SCANNER_NORMAL) {
     return parse_ini_string(preg_replace('/^#.*\\n/m', '', @file_get_contents($file)), $mode, $scanner_mode);
 }
