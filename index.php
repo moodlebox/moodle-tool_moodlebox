@@ -117,6 +117,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     // Get current Wi-Fi SSID, channel and password.
     $wifiinfo = parse_ini_file('/etc/hostapd/hostapd.conf');
+
     $currentwifichannel = $wifiinfo['channel'];
     $currentwifissid = $wifiinfo['ssid'];
     $currentwifipassword = $wifiinfo['wpa_passphrase'];
@@ -217,16 +218,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
             $mform = $this->_form;
 
-            $mform->addElement('static', 'currentwifipassword',
-                    get_string('currentwifissid', 'tool_moodlebox'), $currentwifissid);
-            $mform->addElement('text', 'wifissid', get_string('newwifissid', 'tool_moodlebox'));
+            $mform->addElement('text', 'wifissid', get_string('wifissid', 'tool_moodlebox'));
             $mform->addRule('wifissid', get_string('required'), 'required', null, 'client');
             $mform->setType('wifissid', PARAM_RAW);
             $mform->setDefault('wifissid', $currentwifissid);
 
-            $mform->addElement('static', 'currentwifipassword',
-                    get_string('currentwifichannel', 'tool_moodlebox'), $currentwifichannel);
-            $mform->addElement('text', 'wifichannel', get_string('newwifichannel', 'tool_moodlebox'));
+            $mform->addElement('text', 'wifichannel', get_string('wifichannel', 'tool_moodlebox'));
             $mform->addRule('wifichannel', get_string('required'), 'required', null, 'client');
             $mform->addRule('wifichannel', get_string('wifichannelerror', 'tool_moodlebox'),
                     'numeric', null, 'client');
@@ -235,16 +232,14 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $mform->setType('wifichannel', PARAM_INT);
             $mform->setDefault('wifichannel', $currentwifichannel);
 
-            $mform->addElement('static', 'currentwifipassword',
-                    get_string('currentwifipassword', 'tool_moodlebox'), $currentwifipassword);
-            $mform->addElement('text', 'wifipassword', get_string('newwifipassword', 'tool_moodlebox'));
+            $mform->addElement('text', 'wifipassword', get_string('wifipassword', 'tool_moodlebox'));
             $mform->addRule('wifipassword', get_string('required'), 'required', null, 'client');
             $mform->addRule('wifipassword', get_string('wifipassworderror', 'tool_moodlebox'),
                     'rangelength', array(8, 63), 'client');
             $mform->setType('wifipassword', PARAM_RAW);
             $mform->setDefault('wifipassword', $currentwifipassword);
 
-            $this->add_action_buttons(false, get_string('changesettings', 'tool_moodlebox'));
+            $this->add_action_buttons(false, get_string('changewifisettings', 'tool_moodlebox'));
         }
 
     }
@@ -295,7 +290,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature));
     $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency));
     $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime));
-    $table->add_data(array(get_string('currentwifipassword', 'tool_moodlebox'), $currentwifipassword));
+    $table->add_data(array(get_string('wifisettings', 'tool_moodlebox'), ''));
+    $table->add_data(array(get_string('wifissid', 'tool_moodlebox'), $currentwifissid), 'dhcpclientinfo');
+    $table->add_data(array(get_string('wifichannel', 'tool_moodlebox'), $currentwifichannel), 'dhcpclientinfo');
+    $table->add_data(array(get_string('wifipassword', 'tool_moodlebox'),$currentwifipassword), 'dhcpclientinfo');
     $table->add_data(array(get_string('dhcpclientnumber', 'tool_moodlebox'), $dhcpclientnumber));
     if ($dhcpclientnumber > 0) {
         foreach ($leases as $row) {
