@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
 
+## Unreleased
+### Added
+- None
+
+### Changed
+- Wi-Fi settings display refactored (issue #20).
+
+### Fixed
+- Required Moodle version number updated (issue #21).
+- Change way to parse config files, to avoid potential bugs (issue #19).
+
 ## Version 1.6, 2017-09-05
 ### Added
 - Wi-Fi SSID can now be changed.
