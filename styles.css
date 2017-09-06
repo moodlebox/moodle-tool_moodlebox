@@ -26,7 +26,7 @@ table#moodleboxstatus td.c0 {
     font-weight: bold;
 }
 
-table#moodleboxstatus tr.dhcpclientinfo td.c0 {
+table#moodleboxstatus tr.subinfo td.c0 {
     font-weight: normal;
     padding-left: 3em;
 }
