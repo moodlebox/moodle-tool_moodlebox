@@ -233,7 +233,13 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $mform->setType('wifichannel', PARAM_INT);
             $mform->setDefault('wifichannel', $currentwifichannel);
 
+            $mform->addElement('checkbox', 'wifipasswordon', get_string('wifipasswordon', 'tool_moodlebox'),
+                ' ' . get_string('wifipasswordonhelp', 'tool_moodlebox'));
+            $mform->setDefault('wifipasswordon', 1);
+            $mform->setType('wifipasswordon', PARAM_INT);
+
             $mform->addElement('text', 'wifipassword', get_string('wifipassword', 'tool_moodlebox'));
+            $mform->disabledIf('wifipassword', 'wifipasswordon', 'unchecked');
             $mform->addRule('wifipassword', get_string('required'), 'required', null, 'client');
             $mform->addRule('wifipassword', get_string('wifipassworderror', 'tool_moodlebox'),
                     'rangelength', array(8, 63), 'client');
@@ -371,9 +377,14 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
         if ($data = $wifisettingsform->get_data()) {
             if (!empty($data->submitbutton)) {
-                file_put_contents($wifipasswordtriggerfilename, "channel=" . $data->wifichannel . "\n");
-                file_put_contents($wifipasswordtriggerfilename, "password=" . $data->wifipassword . "\n", FILE_APPEND);
-                file_put_contents($wifipasswordtriggerfilename, "ssid=" . $data->wifissid . "\n", FILE_APPEND);
+                if (!isset($data->wifipasswordon)) {
+                    $data->wifipasswordon = 0;
+                }
+                file_put_contents($wifipasswordtriggerfilename,
+                                  "channel=" . $data->wifichannel . "\n" .
+                                  "password=" . $data->wifipassword . "\n" .
+                                  "ssid=" . $data->wifissid . "\n" .
+                                  "passwordprotected=" . $data->wifipasswordon . "\n");
                 \core\notification::warning(get_string('wifisettingsmessage', 'tool_moodlebox'));
             }
         }
