@@ -19,25 +19,30 @@
 [[ $EUID -ne 0 ]] && { echo "This script must be run as root"; exit 1; }
 #
 # Configuration
-# get directory of this script
+# Get directory of this script.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# path of file containing the new password (plain text)
+# Path of file containing the new password (plain text).
 FILE=${DIR%/*}/.wifisettings
-# New values
+# New values from $FILE
 NEWCHANNEL="$(grep 'channel' $FILE | cut -d= -f2)"
 NEWPASSWORD="$(grep 'password' $FILE | cut -d= -f2)"
 NEWSSID="$(grep 'ssid' $FILE | cut -d= -f2)"
+PASSWORDPROTECTED="$(grep 'passwordprotected' $FILE | cut -d= -f2)"
 #
-# Script
-# set new password
+# Actions.
+# Set new password.
 sed -i "/^wpa_passphrase/c\wpa_passphrase=$NEWPASSWORD" /etc/hostapd/hostapd.conf
-# set new channel
+# Set new channel.
 sed -i "/^channel/c\channel=$NEWCHANNEL" /etc/hostapd/hostapd.conf
-# set new ssid
+# Set new ssid.
 sed -i "/^ssid/c\ssid=$NEWSSID" /etc/hostapd/hostapd.conf
-# restart hostapd service
+## TODO
+## Handle PASSWORDPROTECTED value
+# End of actions.
+#
+# Restart hostapd service.
 systemctl restart hostapd
-# restart again after 1 second; workaround some wifi driver bug
+# Restart again after 1 second; workaround some wifi driver bug
 sleep 1
 systemctl restart hostapd
-# the end
+# The end
