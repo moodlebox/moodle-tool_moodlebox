@@ -365,7 +365,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     echo $OUTPUT->box_end();
 
-    // Wi-Fi password section.
+    // Wi-Fi configuration section.
     echo $OUTPUT->heading(get_string('wifisettings', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
