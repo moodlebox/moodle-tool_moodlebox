@@ -24,10 +24,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Path of file containing the new password (plain text).
 FILE=${DIR%/*}/.wifisettings
 # New values from $FILE
-NEWCHANNEL="$(grep 'channel' $FILE | cut -d= -f2)"
-NEWPASSWORD="$(grep 'password' $FILE | cut -d= -f2)"
-NEWSSID="$(grep 'ssid' $FILE | cut -d= -f2)"
-PASSWORDPROTECTED="$(grep 'passwordprotected' $FILE | cut -d= -f2)"
+NEWCHANNEL="$(grep '^channel\b' $FILE | cut -d= -f2)"
+NEWPASSWORD="$(grep '^password\b' $FILE | cut -d= -f2)"
+NEWSSID="$(grep '^ssid\b' $FILE | cut -d= -f2)"
+PASSWORDPROTECTED="$(grep '^passwordprotected\b' $FILE | cut -d= -f2)"
 #
 # Actions.
 # Set new password.
@@ -36,8 +36,19 @@ sed -i "/^wpa_passphrase/c\wpa_passphrase=$NEWPASSWORD" /etc/hostapd/hostapd.con
 sed -i "/^channel/c\channel=$NEWCHANNEL" /etc/hostapd/hostapd.conf
 # Set new ssid.
 sed -i "/^ssid/c\ssid=$NEWSSID" /etc/hostapd/hostapd.conf
-## TODO
-## Handle PASSWORDPROTECTED value
+## WIP: Handle PASSWORDPROTECTED value
+if [ "$PASSWORDPROTECTED" -eq 1 ]; then
+    # Check if lines wpa=, wpa_key_mgmt=, wpa_passphrase=, rsn_pairwise= exist.
+    # Leave them alone if this is the case
+    # Create them otherwise
+    : # TODO
+else
+    # Check if lines wpa=, wpa_key_mgmt=, wpa_passphrase=, rsn_pairwise= exist.
+    # Delete them if this is the case
+    # Do nothing otherwise
+    : # TODO
+fi
+exit 0
 # End of actions.
 #
 # Restart hostapd service.
