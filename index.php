@@ -121,7 +121,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     $currentwifichannel = $wifiinfo['channel'];
     $currentwifissid = $wifiinfo['ssid'];
-    $currentwifipassword = $wifiinfo['wpa_passphrase'];
+    $currentwifipassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
 
     /**
      * Class datetimeset_form
@@ -235,16 +235,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
             $mform->addElement('checkbox', 'wifipasswordon', get_string('wifipasswordon', 'tool_moodlebox'),
                 ' ' . get_string('wifipasswordonhelp', 'tool_moodlebox'));
-            $mform->setDefault('wifipasswordon', 1);
+            $mform->setDefault('wifipasswordon', ($currentwifipassword == null) ? 0 : 1);
             $mform->setType('wifipasswordon', PARAM_INT);
 
             $mform->addElement('text', 'wifipassword', get_string('wifipassword', 'tool_moodlebox'));
-            $mform->disabledIf('wifipassword', 'wifipasswordon', 'unchecked');
-            $mform->addRule('wifipassword', get_string('required'), 'required', null, 'client');
-            $mform->addRule('wifipassword', get_string('wifipassworderror', 'tool_moodlebox'),
-                    'rangelength', array(8, 63), 'client');
+            $mform->disabledIf('wifipassword', 'wifipasswordon');
+//             $mform->addRule('wifipassword', get_string('required'), 'required', null, 'client');
+//             $mform->addRule('wifipassword', get_string('wifipassworderror', 'tool_moodlebox'),
+//                     'rangelength', array(8, 63), 'client');
             $mform->setType('wifipassword', PARAM_RAW);
-            $mform->setDefault('wifipassword', $currentwifipassword);
+            $mform->setDefault('wifipassword', ($currentwifipassword == null) ? 'moodlebox' : $currentwifipassword);
 
             $this->add_action_buttons(false, get_string('changewifisettings', 'tool_moodlebox'));
         }
@@ -379,6 +379,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             if (!empty($data->submitbutton)) {
                 if (!isset($data->wifipasswordon)) {
                     $data->wifipasswordon = 0;
+                }
+                if (!isset($data->wifipassword)) {
+                    $data->wifipassword = null;
                 }
                 file_put_contents($wifipasswordtriggerfilename,
                                   "channel=" . $data->wifichannel . "\n" .

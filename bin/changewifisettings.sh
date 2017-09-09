@@ -18,12 +18,14 @@
 # This script MUST be run as root
 [[ $EUID -ne 0 ]] && { echo "This script must be run as root"; exit 1; }
 #
-# Configuration
+# Configuration.
 # Get directory of this script.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# Path of file containing the new password (plain text).
+# Path of file containing the new settings (plain text).
 FILE=${DIR%/*}/.wifisettings
-# New values from $FILE
+# Path of hostapd config file.
+CONFIGFILE="/etc/hostapd/hostapd.conf"
+# New values taken from $FILE.
 NEWCHANNEL="$(grep '^channel\b' $FILE | cut -d= -f2)"
 NEWPASSWORD="$(grep '^password\b' $FILE | cut -d= -f2)"
 NEWSSID="$(grep '^ssid\b' $FILE | cut -d= -f2)"
@@ -31,24 +33,36 @@ PASSWORDPROTECTED="$(grep '^passwordprotected\b' $FILE | cut -d= -f2)"
 #
 # Actions.
 # Set new password.
-sed -i "/^wpa_passphrase/c\wpa_passphrase=$NEWPASSWORD" /etc/hostapd/hostapd.conf
+sed -i "/^wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$CONFIGFILE"
 # Set new channel.
-sed -i "/^channel/c\channel=$NEWCHANNEL" /etc/hostapd/hostapd.conf
+sed -i "/^channel=/c\channel=$NEWCHANNEL" "$CONFIGFILE"
 # Set new ssid.
-sed -i "/^ssid/c\ssid=$NEWSSID" /etc/hostapd/hostapd.conf
-## WIP: Handle PASSWORDPROTECTED value
-if [ "$PASSWORDPROTECTED" -eq 1 ]; then
-    # Check if lines wpa=, wpa_key_mgmt=, wpa_passphrase=, rsn_pairwise= exist.
-    # Leave them alone if this is the case
-    # Create them otherwise
-    : # TODO
-else
-    # Check if lines wpa=, wpa_key_mgmt=, wpa_passphrase=, rsn_pairwise= exist.
-    # Delete them if this is the case
-    # Do nothing otherwise
-    : # TODO
+sed -i "/^ssid=/c\ssid=$NEWSSID" "$CONFIGFILE"
+# Check if line "wpa_passphrase=..." exist uncommented in config file.
+# If found, the Wi-Fi network is currently password protected.
+STRING="^wpa_passphrase=\b"
+if [ -z $(grep "$STRING" "$CONFIGFILE") ]; then # Line not found, we're not password protected.
+    ISCURRENTLYPROTECTED=false
+else # Line found, we're password protected.
+    ISCURRENTLYPROTECTED=true
 fi
-exit 0
+if [ "$PASSWORDPROTECTED" -eq 1 ]; then
+    if [[ "$ISCURRENTLYPROTECTED" == false ]]; then
+        # echo "Would like to protect and is NOT protected"
+        sed -i "/#*wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$CONFIGFILE"
+        sed -i "/#*wpa=/c\wpa=2" "$CONFIGFILE"
+        sed -i "/#*wpa_key_mgmt=/c\wpa_key_mgmt=WPA-PSK" "$CONFIGFILE"
+        sed -i "/#*rsn_pairwise=/c\rsn_pairwise=CCMP" "$CONFIGFILE"
+    fi
+else
+    if [[ "$ISCURRENTLYPROTECTED" == true ]]; then
+        # echo "Would NOT like to protect but is protected"
+        sed -i "/^wpa_passphrase=/c\#wpa_passphrase=moodlebox" "$CONFIGFILE"
+        sed -i "/^wpa=/c\#wpa=2" "$CONFIGFILE"
+        sed -i "/^wpa_key_mgmt=/c\#wpa_key_mgmt=WPA-PSK" "$CONFIGFILE"
+        sed -i "/^rsn_pairwise=/c\#rsn_pairwise=CCMP" "$CONFIGFILE"
+    fi
+fi
 # End of actions.
 #
 # Restart hostapd service.
