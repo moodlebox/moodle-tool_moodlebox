@@ -240,9 +240,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
             $mform->addElement('text', 'wifipassword', get_string('wifipassword', 'tool_moodlebox'));
             $mform->disabledIf('wifipassword', 'wifipasswordon');
-//             $mform->addRule('wifipassword', get_string('required'), 'required', null, 'client');
-//             $mform->addRule('wifipassword', get_string('wifipassworderror', 'tool_moodlebox'),
-//                     'rangelength', array(8, 63), 'client');
             $mform->setType('wifipassword', PARAM_RAW);
             $mform->setDefault('wifipassword', ($currentwifipassword == null) ? 'moodlebox' : $currentwifipassword);
 
