@@ -60,7 +60,6 @@ $string['unknownmodel'] = 'Unknown Raspberry Pi model';
 $string['unsupportedhardware'] = 'Unsupported server hardware detected ! This plugin does only work on Raspberry Pi';
 $string['uptime'] = 'System uptime';
 $string['wifichannel'] = 'Wi-Fi channel';
-$string['wifichannelerror'] = 'The Wi-Fi channel must be an integer number between 1 and 11.';
 $string['wifipassword'] = 'Wi-Fi password';
 $string['wifipassworderror'] = 'The Wi-Fi network password must have between 8 and 63 characters.';
 $string['wifipasswordon'] = 'Wi-Fi network password protected';

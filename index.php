@@ -122,6 +122,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $currentwifichannel = $wifiinfo['channel'];
     $currentwifissid = $wifiinfo['ssid'];
     $currentwifipassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
+    $currentwificountry = $wifiinfo['country_code'];
 
     /**
      * Class datetimeset_form
@@ -216,6 +217,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             global $currentwifissid;
             global $currentwifichannel;
             global $currentwifipassword;
+            global $currentwificountry;
 
             $mform = $this->_form;
 
@@ -224,8 +226,13 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $mform->setType('wifissid', PARAM_RAW);
             $mform->setDefault('wifissid', $currentwifissid);
 
+            if ($currentwificountry == 'US' or $currentwificountry == 'CA') {
+                $wifichannelrange = range(1, 11);
+            } else {
+                $wifichannelrange = range(1, 13);
+            }
             $mform->addElement('select', 'wifichannel', get_string('wifichannel', 'tool_moodlebox'),
-                    array_combine(range(1, 11), range(1, 11)));
+                    array_combine($wifichannelrange, $wifichannelrange));
             $mform->addRule('wifichannel', get_string('required'), 'required', null, 'client');
             $mform->setType('wifichannel', PARAM_INT);
             $mform->setDefault('wifichannel', $currentwifichannel);
@@ -294,6 +301,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->add_data(array(get_string('wifisettings', 'tool_moodlebox'), ''));
     $table->add_data(array(get_string('wifissid', 'tool_moodlebox'), $currentwifissid), 'subinfo');
     $table->add_data(array(get_string('wifichannel', 'tool_moodlebox'), $currentwifichannel), 'subinfo');
+    $table->add_data(array(get_string('wificountry', 'tool_moodlebox'), $currentwificountry), 'subinfo');
     $table->add_data(array(get_string('wifipassword', 'tool_moodlebox'), $currentwifipassword), 'subinfo');
     $table->add_data(array(get_string('dhcpclientnumber', 'tool_moodlebox'), $dhcpclientnumber));
     if ($dhcpclientnumber > 0) {
