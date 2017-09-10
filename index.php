@@ -303,8 +303,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->add_data(array(get_string('wifichannel', 'tool_moodlebox'), $currentwifichannel), 'subinfo');
     $table->add_data(array(get_string('wificountry', 'tool_moodlebox'), $currentwificountry), 'subinfo');
     $table->add_data(array(get_string('wifipassword', 'tool_moodlebox'), $currentwifipassword), 'subinfo');
-    $table->add_data(array(get_string('dhcpclientnumber', 'tool_moodlebox'), $dhcpclientnumber));
     if ($dhcpclientnumber > 0) {
+        $table->add_data(array(get_string('dhcpclients', 'tool_moodlebox') .
+                ' (' . get_string('dhcpclientnumber', 'tool_moodlebox') . ': ' . $dhcpclientnumber . ')'));
         foreach ($leases as $row) {
             $item = explode(' ', $row);
             $table->add_data(array(get_string('dhcpclientinfo', 'tool_moodlebox'),
