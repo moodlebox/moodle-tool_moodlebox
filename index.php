@@ -224,12 +224,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $mform->setType('wifissid', PARAM_RAW);
             $mform->setDefault('wifissid', $currentwifissid);
 
-            $mform->addElement('text', 'wifichannel', get_string('wifichannel', 'tool_moodlebox'));
+            $mform->addElement('select', 'wifichannel', get_string('wifichannel', 'tool_moodlebox'),
+                    array_combine(range(1, 11), range(1, 11)));
             $mform->addRule('wifichannel', get_string('required'), 'required', null, 'client');
-            $mform->addRule('wifichannel', get_string('wifichannelerror', 'tool_moodlebox'),
-                    'numeric', null, 'client');
-            $mform->addRule('wifichannel', get_string('wifichannelerror', 'tool_moodlebox'),
-                    'regex', '/^([1-9]|1[01])$/', 'client');
             $mform->setType('wifichannel', PARAM_INT);
             $mform->setDefault('wifichannel', $currentwifichannel);
 
