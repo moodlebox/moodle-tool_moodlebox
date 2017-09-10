@@ -40,7 +40,7 @@ To complete the installation, you have to create some files in the plugin folder
 - Info about the MoodleBox (kernel version, Raspbian version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
 - GUI to set the MoodleBox date and time.
 - GUI to set the MoodleBox password.
-- GUI to set the MoodleBox Wi-Fi network password, SSID and channel.
+- GUI to set the MoodleBox Wi-Fi network password (or remove it), SSID and channel.
 - GUI to restart and shutdown the MoodleBox.
 
 ## Availability
