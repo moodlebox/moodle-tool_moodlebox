@@ -60,6 +60,7 @@ $string['unknownmodel'] = 'Modèle de Raspberry Pi inconnu';
 $string['unsupportedhardware'] = 'Matériel serveur non compatible détecté ! Ce plugin ne fonctionne que sur Raspberry Pi';
 $string['uptime'] = 'Durée de fonctionnement du système';
 $string['wifichannel'] = 'Canal Wi-Fi';
+$string['wificountry'] = 'Pays de régulation Wi-Fi';
 $string['wifipassword'] = 'Mot de passe Wi-Fi';
 $string['wifipassworderror'] = 'Le mot de passe du réseau Wi-Fi doit comporter entre 8 et 63 caractères.';
 $string['wifipasswordon'] = 'Réseau Wi-Fi protégé par mot de passe';
