@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and follow pri
 
 ### Changed
 - Wi-Fi settings display refactored (issue #20).
+- Better display the DHCP clients (issue #24).
 
 ### Fixed
 - Required Moodle version number updated (issue #21).
