@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and follow pri
 
 ## Unreleased
 ### Added
-- None
+- Possibility to have an open (i.e. without password) Wi-Fi network (issue #22). Feature dedicated to @christian-westphal.
 
 ### Changed
 - Wi-Fi settings display refactored (issue #20).
