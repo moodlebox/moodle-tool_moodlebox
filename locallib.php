@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  *
  * @param file $file to parse
  * @param bool $mode (optional)
- * @param int $scanner_mode (optional)
+ * @param int $scannermode (optional)
  * @return associative array of parameters, value
  */
 function tool_moodlebox_parse_config_file($file, $mode = false, $scannermode = INI_SCANNER_NORMAL) {
