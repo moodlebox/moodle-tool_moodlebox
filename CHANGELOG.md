@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
 
-## Unreleased
+## Version 1.7, 2017-09-11
 ### Added
 - Possibility to have an open (i.e. without password) Wi-Fi network (issue #22). Feature dedicated to @christian-westphal.
 - Wi-Fi channel selection depends on regulatory domain defined in `/etc/hostapd/hostapd` (issue #23)
