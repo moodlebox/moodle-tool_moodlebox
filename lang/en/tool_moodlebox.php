@@ -58,7 +58,7 @@ $string['shutdown'] = 'Shutdown MoodleBox';
 $string['shutdownmessage'] = 'The MoodleBox is shutting down. Please wait a few seconds before disconnecting the power supply.';
 $string['systeminfo'] = 'System information';
 $string['unknownmodel'] = 'Unknown Raspberry Pi model';
-$string['unsupportedhardware'] = 'Unsupported server hardware detected ! This plugin does only work on Raspberry Pi';
+$string['unsupportedhardware'] = 'Unsupported server hardware detected! This plugin does only work on Raspberry Pi';
 $string['uptime'] = 'System uptime';
 $string['wifichannel'] = 'Wi-Fi channel';
 $string['wificountry'] = 'Wi-Fi regulatory country';
@@ -69,3 +69,12 @@ $string['wifipasswordonhelp'] = 'If enabled, users have to type a password to co
 $string['wifisettings'] = 'Wi-Fi settings';
 $string['wifisettingsmessage'] = 'The Wi-Fi settings were changed. Don\'t forget to communicate the new SSID and password to your students.';
 $string['wifissid'] = 'Wi-Fi network name (SSID)';
+
+// Deprecated
+$string['changepasswordsetting'] = 'MoodleBox password change';
+$string['changewifipassword'] = 'Change Wi-Fi password';
+$string['currentwifipassword'] = 'Current Wi-Fi password';
+$string['newwifipassword'] = 'New Wi-Fi password';
+$string['nopassworddefined'] = 'No Wi-Fi password defined';
+$string['wifipasswordmessage'] = 'The Wi-Fi network password was changed. Don\'t forget to communicate it to your students.';
+$string['wifipasswordsetting'] = 'Wi-Fi network password change';
