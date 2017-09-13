@@ -70,7 +70,7 @@ $string['wifisettings'] = 'Wi-Fi settings';
 $string['wifisettingsmessage'] = 'The Wi-Fi settings were changed. Don\'t forget to communicate the new SSID and password to your students.';
 $string['wifissid'] = 'Wi-Fi network name (SSID)';
 
-// Deprecated
+// Deprecated.
 $string['changepasswordsetting'] = 'MoodleBox password change';
 $string['changewifipassword'] = 'Change Wi-Fi password';
 $string['currentwifipassword'] = 'Current Wi-Fi password';
