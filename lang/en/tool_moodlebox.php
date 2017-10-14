@@ -40,6 +40,8 @@ $string['dhcpclientnumber'] = 'number of clients';
 $string['dhcpclients'] = 'DHCP clients';
 $string['information'] = 'Information';
 $string['kernelversion'] = 'Kernel version';
+$string['moodleboxinfo'] = 'MoodleBox image version and date';
+$string['moodleboxinfofileerror'] = 'Information not available';
 $string['moodleboxpluginversion'] = 'MoodleBox plugin version';
 $string['missingconfigurationerror'] = 'This section isn\'t available. The plugin installation is not complete, so that the setting cannot be handled by the MoodleBox. Please read the <a href="https://github.com/martignoni/moodle-tool_moodlebox/blob/master/README.md" target="_blank">installation documentation</a> to fix this error.';
 $string['parameter'] = 'Parameter';

@@ -114,7 +114,20 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $sdcardfreespace = disk_free_space('/');
 
     // Get plugin version.
-    $moodleboxversion = $plugin->release . ' (' . $plugin->version . ')';
+    $moodleboxpluginversion = $plugin->release . ' (' . $plugin->version . ')';
+
+    // Get MoodleBox image version and date.
+    $moodleboxinfo = null;
+    $moodleboxinfofile = '/etc/moodlebox-info';
+    if ( file_exists($moodleboxinfofile) ) {
+        $moodleboxinfo = file($moodleboxinfofile);
+        if ( preg_match_all('/^.*version (\d+\.\d+(\.\d+)?), (\d{4}-\d{2}-\d{2})$/i',
+                $moodleboxinfo[0], $moodleboxinfomatch) > 0 ) {
+            $moodleboxinfo = $moodleboxinfomatch[1][0] . ' (' . $moodleboxinfomatch[3][0] . ')';
+        }
+    } else {
+        $moodleboxinfo = get_string('moodleboxinfofileerror', 'tool_moodlebox');
+    }
 
     // Get current Wi-Fi SSID, channel and password.
     $wifiinfo = tool_moodlebox_parse_config_file('/etc/hostapd/hostapd.conf');
@@ -315,7 +328,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->add_data(array(get_string('raspberryhardware', 'tool_moodlebox'), get_string($platform, 'tool_moodlebox')));
     $table->add_data(array(get_string('raspbianversion', 'tool_moodlebox'), $raspbianversion));
     $table->add_data(array(get_string('kernelversion', 'tool_moodlebox'), $kernelversion));
-    $table->add_data(array(get_string('moodleboxpluginversion', 'tool_moodlebox'), $moodleboxversion));
+    $table->add_data(array(get_string('moodleboxinfo', 'tool_moodlebox'), $moodleboxinfo));
+    $table->add_data(array(get_string('moodleboxpluginversion', 'tool_moodlebox'), $moodleboxpluginversion));
 
     $table->print_html();
 
