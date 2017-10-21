@@ -15,41 +15,43 @@
 # You should have received a copy of the GNU General Public License
 # along with this script.  If not, see <http://www.gnu.org/licenses/>.
 #
-# This script MUST be run as root
+# This script MUST be run as root.
 [[ $EUID -ne 0 ]] && { echo "This script must be run as root"; exit 1; }
 #
-# See http://sylnsr.blogspot.ch/2012/09/keep-unix-password-in-sync-with.html
-#
-# Configuration
-# get directory of this script
+# Configuration.
+# Get directory of this script and Moodle source directory.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# path of file containing the new password (plain text)
+MOODLEDIR="$( echo $DIR | sed 's/\/admin.*//g' )"
+# Path of file containing the new password (plain text).
 FILE=${DIR%/*}/.newpassword
-# username
+# Set username.
 USER="moodlebox"
-# get oldpassword from Moodle config.php file
-OLDPASSWORD="$(grep '\$CFG->dbpass' /var/www/moodle/config.php | cut -d\' -f2)"
+# Get oldpassword from Moodle config.php file.
+OLDPASSWORD="$(grep '\$CFG->dbpass' $MOODLEDIR/config.php | cut -d\' -f2)"
 #
-# Script
-# make sure there is a matching USER, but not the root user
+# Actions.
+# Make sure there is a matching USER, but not the root user.
 if [ -n "$(getent passwd $USER)" ] && [ $USER != "root" ]; then
     NEWPASSWORD="$(head -n 1 $FILE | sed 's/ *$//g' | sed 's/^ *//g')"
-    # change the password if non empty
+    # Change the password if non empty.
     if [ -n "$NEWPASSWORD" ]; then
-        # 1. change password for database user "moodlebox"
+        # 1. Change password for database user "moodlebox".
         mysql -e "UPDATE mysql.user SET password=PASSWORD('$NEWPASSWORD') WHERE user='moodlebox'; FLUSH PRIVILEGES;"
-        # 2. change password for database user "phpmyadmin"
+        # 2. Change password for database user "phpmyadmin".
         mysql -e "UPDATE mysql.user SET password=PASSWORD('$NEWPASSWORD') WHERE user='phpmyadmin'; FLUSH PRIVILEGES;"
-        # 3. change password for database user "phpmyadmin" in phpMyAdmin config-db.php
+        # 3. Change password for database user "phpmyadmin" in phpMyAdmin config-db.php.
         sed -i "/\$dbpass/c\$dbpass='$NEWPASSWORD';" /etc/phpmyadmin/config-db.php
-        # 4. change password for Unix account "moodlebox"
+        # 4. Change password for Unix account "moodlebox".
         echo $USER:$NEWPASSWORD | chpasswd
-        # 5. change password for database user "moodlebox" in Moodle config.php
-        sed -i "/\$CFG->dbpass/c\$CFG->dbpass    = '$NEWPASSWORD';" /var/www/moodle/config.php
+        # 5. Change password for database user "moodlebox" in Moodle config.php.
+        sed -i "/\$CFG->dbpass/c\$CFG->dbpass    = '$NEWPASSWORD';" $MOODLEDIR/config.php
     else
         echo "Empty password given"
         exit 1
     fi
 fi
-# empty file
+# End of actions.
+#
+# Empty password file.
 > $FILE
+# The end.
