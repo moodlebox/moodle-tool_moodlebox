@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this script.  If not, see <http://www.gnu.org/licenses/>.
 #
-# This script MUST be run as root
+# This script MUST be run as root.
 [[ $EUID -ne 0 ]] && { echo "This script must be run as root"; exit 1; }
 #
 # Configuration.
@@ -36,11 +36,15 @@ PASSWORDPROTECTED="$(grep '^passwordprotected\b' $FILE | cut -d= -f2)"
 # Each character must have an encoding in the range of 32 to 126, inclusive,
 # see IEEE Std. 802.11i-2004, Annex H.4.1.
 [[ $NEWPASSWORD =~ ^[\ -z\{\|\}\~]{8,63}$ ]] || NEWPASSWORD="moodlebox"
-# Set new password.
+# New password is now valid; set it in config file.
 sed -i "/^wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$CONFIGFILE"
-# Set new channel.
+# Validate new channel. Replace it with 6 if invalid.
+[[ $NEWCHANNEL =~ ^[1-9]|1[0-3]$ ]] || NEWCHANNEL="6"
+# New channel is now valid; set it in config file.
 sed -i "/^channel=/c\channel=$NEWCHANNEL" "$CONFIGFILE"
-# Set new ssid.
+# Validate new SSID. Replace it with 'MoodleBox' if invalid.
+[[ $NEWSSID =~ ^[[:alnum:]]{1,32}$ ]] || NEWSSID="MoodleBox"
+# New SSID is now valid; set it in config file.
 sed -i "/^ssid=/c\ssid=$NEWSSID" "$CONFIGFILE"
 # Check if line "wpa_passphrase=..." exist uncommented in config file.
 # If found, the Wi-Fi network is currently password protected.
@@ -71,7 +75,7 @@ fi
 #
 # Restart hostapd service.
 systemctl restart hostapd
-# Restart again after 1 second; workaround some wifi driver bug
+# Restart again after 1 second; workaround some wifi driver bug.
 sleep 1
 systemctl restart hostapd
-# The end
+# The end.
