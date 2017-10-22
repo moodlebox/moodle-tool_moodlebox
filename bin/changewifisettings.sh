@@ -32,16 +32,22 @@ NEWSSID="$(grep '^ssid\b' $FILE | cut -d= -f2)"
 PASSWORDPROTECTED="$(grep '^passwordprotected\b' $FILE | cut -d= -f2)"
 #
 # Actions.
+#
+# Password setting.
 # Validate password length and allowed chars. Replace it with 'moodlebox' if invalid.
 # Each character must have an encoding in the range of 32 to 126, inclusive,
 # see IEEE Std. 802.11i-2004, Annex H.4.1.
 [[ $NEWPASSWORD =~ ^[\ -z\{\|\}\~]{8,63}$ ]] || NEWPASSWORD="moodlebox"
 # New password is now valid; set it in config file.
 sed -i "/^wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$CONFIGFILE"
+#
+# Channel setting.
 # Validate new channel. Replace it with 6 if invalid.
 [[ $NEWCHANNEL =~ ^[1-9]|1[0-3]$ ]] || NEWCHANNEL="6"
 # New channel is now valid; set it in config file.
 sed -i "/^channel=/c\channel=$NEWCHANNEL" "$CONFIGFILE"
+#
+# SSID setting.
 # Validate new SSID. Replace it with 'MoodleBox' if invalid.
 [[ $NEWSSID =~ ^[[:alnum:]]{1,32}$ ]] || NEWSSID="MoodleBox"
 # New SSID is now valid; set it in config file.
