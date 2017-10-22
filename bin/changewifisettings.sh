@@ -52,6 +52,10 @@ sed -i "/^channel=/c\channel=$NEWCHANNEL" "$CONFIGFILE"
 [[ $NEWSSID =~ ^[[:alnum:]]{1,32}$ ]] || NEWSSID="MoodleBox"
 # New SSID is now valid; set it in config file.
 sed -i "/^ssid=/c\ssid=$NEWSSID" "$CONFIGFILE"
+#
+# Password protection setting.
+# Validate password protection setting. Replace it with 1 if invalid.
+[[ $PASSWORDPROTECTED =~ ^[01]$ ]] || PASSWORDPROTECTED="1"
 # Check if line "wpa_passphrase=..." exist uncommented in config file.
 # If found, the Wi-Fi network is currently password protected.
 STRING="^wpa_passphrase=\b"
