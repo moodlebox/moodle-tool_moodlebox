@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
 
+## Unreleased
+### Added
+- Display of MoodleBox image version (issue #28).
+- Compatible with Moodle 3.4 (issue #27).
+
+### Fixed
+- Now works even in unusual Moodle installation directory (issue #29).
+- Wi-Fi invalid SSIDs aren't allowed anymore (issue #30).
+- Prevent potential bugs due to not validated settings (issue #30).
+
+## Version 1.7, 2017-09-11
+### Added
+- Possibility to have an open (i.e. without password) Wi-Fi network (issue #22). Feature dedicated to @christian-westphal.
+- Wi-Fi channel selection depends on regulatory domain defined in `/etc/hostapd/hostapd` (issue #23)
+
 ## Version 1.7.1, 2017-09-13
 ### Fixed
 - Re-added removed strings to fix issue #25.
@@ -43,7 +58,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and follow pri
 
 ## Version 1.5.2, 2017-04-29
 ### Added
-- Some tests added to fix issue #16 
+- Some tests added to fix issue #16
 
 ### Removed
 - Language files removed, fixing issue #15
