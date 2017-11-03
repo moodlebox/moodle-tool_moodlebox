@@ -48,7 +48,7 @@ script:
   - moodle-plugin-ci validate
   - moodle-plugin-ci savepoints
   - moodle-plugin-ci mustache
-  - moodle-plugin-ci grunt
+#  - moodle-plugin-ci grunt
   - moodle-plugin-ci phpunit
 #  - moodle-plugin-ci behat
 #  - vendor/bin/phpunit --coverage-clover=coverage.xml
