@@ -33,7 +33,6 @@ require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->libdir.'/formslib.php');
 require_once($CFG->libdir.'/tablelib.php');
 require_once(dirname(__FILE__).'/version.php');
-require_once(dirname(__FILE__).'/locallib.php');
 
 admin_externalpage_setup('tool_moodlebox');
 
@@ -85,7 +84,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
 
     // Get Raspbian distribution version.
-    $releaseinfo = tool_moodlebox_parse_config_file('/etc/os-release');
+    $releaseinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/os-release');
     $raspbianversion = $releaseinfo['PRETTY_NAME'];
 
     // Get CPU load.
@@ -130,7 +129,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     // Get current Wi-Fi SSID, channel and password.
-    $wifiinfo = tool_moodlebox_parse_config_file('/etc/hostapd/hostapd.conf');
+    $wifiinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/hostapd/hostapd.conf');
 
     $currentwifichannel = $wifiinfo['channel'];
     $currentwifissid = $wifiinfo['ssid'];
