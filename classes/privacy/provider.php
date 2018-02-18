@@ -28,6 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Privacy Subsystem for tool_moodlebox implementing null_provider.
+ *
  * This plugin does not store any personal user data.
  *
  * @copyright  2018 onwards Nicolas Martignoni <nicolas@martignoni.net>
