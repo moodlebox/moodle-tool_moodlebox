@@ -120,9 +120,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $moodleboxinfofile = '/etc/moodlebox-info';
     if ( file_exists($moodleboxinfofile) ) {
         $moodleboxinfo = file($moodleboxinfofile);
-        if ( preg_match_all('/^.*version (\d+\.\d+(\.\d+)?), (\d{4}-\d{2}-\d{2})$/i',
+        if ( preg_match_all('/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
                 $moodleboxinfo[0], $moodleboxinfomatch) > 0 ) {
-            $moodleboxinfo = $moodleboxinfomatch[1][0] . ' (' . $moodleboxinfomatch[3][0] . ')';
+            $moodleboxinfo = $moodleboxinfomatch[1][0] . ' (' . $moodleboxinfomatch[4][0] . ')';
         }
     } else {
         $moodleboxinfo = get_string('moodleboxinfofileerror', 'tool_moodlebox');
