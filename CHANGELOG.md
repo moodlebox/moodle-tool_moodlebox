@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
 
+## Unreleased
+### Added
+- Moodle privacy API implementation (issue #34).
+
+### Changed
+- Now uses classes and auto-loading instead of local library (issue #35)
+
+### Fixed
+- Better parsing of version numbers (issue #36)
+
 ## Version 1.8, 2017-11-01
 ### Added
 - Display of MoodleBox image version (issue #28).
