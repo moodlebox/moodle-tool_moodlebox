@@ -35,4 +35,15 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements \core_privacy\metadata\null_provider {
+
+    /**
+     * Get the language string identifier explaining why tool_moodlebox
+     * stores no data.
+     *
+     * @return  String
+     */
+    public static function get_reason() : String {
+        return 'privacy:null_reason';
+    }
+
 }
