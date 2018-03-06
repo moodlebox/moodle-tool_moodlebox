@@ -42,7 +42,7 @@ class provider implements \core_privacy\metadata\null_provider {
      *
      * @return  String
      */
-    public static function get_reason() : String {
+    public static function get_reason() : string {
         return 'privacy:null_reason';
     }
 
