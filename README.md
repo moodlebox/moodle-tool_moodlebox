@@ -21,7 +21,7 @@ To complete the installation, you have to create some files in the plugin folder
 1. Create necessary files
     ```bash
     cd /var/www/moodle/admin/tool/moodlebox
-    touch .reboot-server; touch .shutdown-server; touch .set-server-datetime; touch .newpassword; touch .wifipassword
+    touch .reboot-server; touch .shutdown-server; touch .set-server-datetime; touch .newpassword; touch .wifisettings
     chown -R www-data:www-data /var/www/moodle/admin/tool/moodlebox
     ```
 
