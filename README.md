@@ -1,6 +1,6 @@
 # MoodleBox Moodle plugin
 
-[![Build Status](https://travis-ci.org/martignoni/moodle-tool_moodlebox.svg?branch=master)](https://travis-ci.org/martignoni/moodle-tool_moodlebox)
+[![Build Status](https://travis-ci.org/moodlebox/moodle-tool_moodlebox.svg?branch=master)](https://travis-ci.org/moodlebox/moodle-tool_moodlebox)
 [![GitHub release](https://img.shields.io/github/release/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/moodle-tool_moodlebox/releases/latest)
 [![GitHub Release Date](https://img.shields.io/github/release-date/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/moodle-tool_moodlebox/releases/latest)
 [![GitHub last commit](https://img.shields.io/github/last-commit/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/moodlebox/commits/)
