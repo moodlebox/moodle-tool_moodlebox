@@ -43,7 +43,7 @@ $string['kernelversion'] = 'Version du noyau';
 $string['moodleboxinfo'] = 'Version et date de l\'image MoodleBox';
 $string['moodleboxinfofileerror'] = 'Information non disponible';
 $string['moodleboxpluginversion'] = 'Version du plugin MoodleBox';
-$string['missingconfigurationerror'] = 'Cette section n\'est pas disponble, car l\'installation du plugin n\'est pas complète. Le réglage ne peut donc pas être traité par la MoodleBox. Veuillez consulter la <a href="https://github.com/martignoni/moodle-tool_moodlebox/blob/master/README.md" target="_blank">documentation d\'installation</a> afin de corriger cette erreur.';
+$string['missingconfigurationerror'] = 'Cette section n\'est pas disponble, car l\'installation du plugin n\'est pas complète. Le réglage ne peut donc pas être traité par la MoodleBox. Veuillez consulter la <a href="https://github.com/moodlebox/moodle-tool_moodlebox/blob/master/README.md" target="_blank">documentation d\'installation</a> afin de corriger cette erreur.';
 $string['parameter'] = 'Paramètre';
 $string['passwordsetting'] = 'Mot de passe de la MoodleBox';
 $string['pluginname'] = 'MoodleBox';
