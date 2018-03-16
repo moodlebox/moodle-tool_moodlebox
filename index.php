@@ -188,11 +188,11 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
             $mform->addElement('passwordunmask', 'newpassword1', get_string('newpassword'));
             $mform->addRule('newpassword1', get_string('required'), 'required', null, 'client');
-            $mform->setType('newpassword1', PARAM_RAW);
+            $mform->setType('newpassword1', PARAM_RAW_TRIMMED);
 
             $mform->addElement('passwordunmask', 'newpassword2', get_string('newpassword').' ('.get_string('again').')');
             $mform->addRule('newpassword2', get_string('required'), 'required', null, 'client');
-            $mform->setType('newpassword2', PARAM_RAW);
+            $mform->setType('newpassword2', PARAM_RAW_TRIMMED);
 
             $this->add_action_buttons(false, get_string('changepassword'));
         }
@@ -239,7 +239,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
             $mform->addElement('text', 'wifissid', get_string('wifissid', 'tool_moodlebox'));
             $mform->addRule('wifissid', get_string('required'), 'required', null, 'client');
-            $mform->setType('wifissid', PARAM_RAW);
+            $mform->setType('wifissid', PARAM_RAW_TRIMMED);
             $mform->setDefault('wifissid', $currentwifissid);
 
             if ($currentwificountry == 'US' or $currentwificountry == 'CA') {
@@ -260,7 +260,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
             $mform->addElement('text', 'wifipassword', get_string('wifipassword', 'tool_moodlebox'));
             $mform->disabledIf('wifipassword', 'wifipasswordon');
-            $mform->setType('wifipassword', PARAM_RAW);
+            $mform->setType('wifipassword', PARAM_RAW_TRIMMED);
             $mform->setDefault('wifipassword', ($currentwifipassword == null) ? 'moodlebox' : $currentwifipassword);
 
             $this->add_action_buttons(false, get_string('changewifisettings', 'tool_moodlebox'));
