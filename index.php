@@ -62,7 +62,7 @@ switch ( $hardware ) {
         $platform = 'rpi1';
         break;
     case 'BCM2709': // RPi 2 or RPi 3 on kernel earlier than 4.9.x.
-        if ( $revision === 'a02082' || $revision === 'a22082' ) {
+        if ( $revision === 'a02082' || $revision === 'a22082' || $revision === 'a32082' ) {
             $platform = 'rpi3';
         } else {
             $platform = 'rpi2';
