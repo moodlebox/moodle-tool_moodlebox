@@ -8,7 +8,7 @@ notifications:
 
 addons:
   #firefox: "47.0.1"
-  postgresql: "9.3"
+  postgresql: "9.6"
   #apt:
   #  packages:
   #    - oracle-java8-installer
@@ -20,19 +20,16 @@ cache:
     - $HOME/.npm
 
 php:
- - 7.0
- - 7.1
- - 7.2
+  - 7.0
+  - 7.1
+  - 7.2
 
-env:
- matrix:
-  - DB=pgsql MOODLE_BRANCH=MOODLE_32_STABLE
-  - DB=pgsql MOODLE_BRANCH=MOODLE_33_STABLE
-  - DB=pgsql MOODLE_BRANCH=MOODLE_34_STABLE
-  - DB=pgsql MOODLE_BRANCH=master
-  - DB=mysqli MOODLE_BRANCH=MOODLE_32_STABLE
-  - DB=mysqli MOODLE_BRANCH=MOODLE_33_STABLE
-  - DB=mysqli MOODLE_BRANCH=MOODLE_34_STABLE
+matrix:
+#  - DB=pgsql MOODLE_BRANCH=MOODLE_33_STABLE
+#  - DB=pgsql MOODLE_BRANCH=MOODLE_34_STABLE
+#  - DB=pgsql MOODLE_BRANCH=master
+#  - DB=mysqli MOODLE_BRANCH=MOODLE_33_STABLE
+#  - DB=mysqli MOODLE_BRANCH=MOODLE_34_STABLE
   - DB=mysqli MOODLE_BRANCH=master
 
 before_install:
