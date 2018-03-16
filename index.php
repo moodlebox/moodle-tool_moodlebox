@@ -68,11 +68,12 @@ switch ( $hardware ) {
             $platform = 'rpi2';
         }
         break;
-    case 'BCM2835': // RPi 3B on kernel 4.9.x or later.
-        $platform = 'rpi3';
-        break;
-    case 'a020d3': // RPi 3B+
-        $platform = 'rpi3B+';
+    case 'BCM2835': // RPi 3B on kernel 4.9.x or later, or RPi 3B+.
+        if ( $revision === 'a020d3' ) {
+            $platform = 'rpi3B+';
+        } else {
+            $platform = 'rpi3';
+        }
         break;
     default: // Anything else is not a RPi.
         $platform = 'unknownmodel';
