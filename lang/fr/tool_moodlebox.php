@@ -56,6 +56,7 @@ $string['restartstop'] = 'Redémarrage et arrêt';
 $string['rpi1'] = 'Raspberry Pi 1';
 $string['rpi2'] = 'Raspberry Pi 2 modèle B';
 $string['rpi3'] = 'Raspberry Pi 3 modèle B';
+$string['rpi3b+'] = 'Raspberry Pi 3 modèle B+';
 $string['sdcardavailablespace'] = 'Espace libre sur la carte SD';
 $string['shutdown'] = 'Arrêter la MoodleBox';
 $string['shutdownmessage'] = 'La MoodleBox va s\'arrêter. Veuillez attendre quelques secondes avant de retirer l\'alimentation.';
