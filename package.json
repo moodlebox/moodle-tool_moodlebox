@@ -1,0 +1,12 @@
+{
+  "name": "moodle-tool_moodlebox",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-less": "^1.4.1",
+    "grunt-contrib-uglify": "^2.3.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-eslint": "^19.0.0",
+    "grunt-load-gruntfile": "0.0.2",
+    "grunt-stylelint": "^0.7.0"
+  }
+}
