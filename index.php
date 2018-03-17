@@ -136,7 +136,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $wifiinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/hostapd/hostapd.conf', false, INI_SCANNER_RAW);
 
     $currentwifichannel = $wifiinfo['channel'];
-    $currentwifissid = $wifiinfo['ssid'];
+    $currentwifissid = array_key_exists('ssid', $wifiinfo) ? $wifiinfo['ssid'] : $wifiinfo['ssid2'];
+    if ( preg_match_all('/"([^"]+)"/', $currentwifissid, $ssidmatch) ) {
+        $currentwifissid = $ssidmatch[1][0];
+    }
     $currentwifipassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
     $currentwificountry = $wifiinfo['country_code'];
 

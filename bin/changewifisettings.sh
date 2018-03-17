@@ -49,9 +49,14 @@ sed -i "/^channel=/c\channel=$NEWCHANNEL" "$CONFIGFILE"
 #
 # SSID setting.
 # Validate new SSID. Replace it with 'MoodleBox' if invalid.
-[[ $NEWSSID =~ ^[[:alnum:]]{1,32}$ ]] || NEWSSID="MoodleBox"
+[[ $NEWSSID =~ ^[[:alnum:][:blank:]]{1,32}$ ]] || NEWSSID="MoodleBox"
 # New SSID is now valid; set it in config file.
-sed -i "/^ssid=/c\ssid=$NEWSSID" "$CONFIGFILE"
+if [[ -z $(grep "^utf8_ssid=1$" "$CONFIGFILE") ]]; then # Change ssid to ssid2, add utf8_ssid param.
+    sed -i "/^ssid=/c\ssid2=P\"$NEWSSID\"" "$CONFIGFILE"
+    sed -i "/ssid2/a utf8_ssid=1" "$CONFIGFILE"
+else
+    sed -i "/^ssid2=/c\ssid2=P\"$NEWSSID\"" "$CONFIGFILE"
+fi
 #
 # Password protection setting.
 # Validate password protection setting. Replace it with 1 if invalid.
