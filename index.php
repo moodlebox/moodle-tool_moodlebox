@@ -133,7 +133,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     // Get current Wi-Fi SSID, channel and password.
-    $wifiinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/hostapd/hostapd.conf');
+    $wifiinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/hostapd/hostapd.conf', false, INI_SCANNER_RAW);
 
     $currentwifichannel = $wifiinfo['channel'];
     $currentwifissid = $wifiinfo['ssid'];
