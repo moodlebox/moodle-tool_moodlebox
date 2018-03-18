@@ -29,7 +29,6 @@ env:
     - DB=pgsql
     - DB=mysqli
   matrix:
-    - MOODLE_BRANCH=MOODLE_32_STABLE
     - MOODLE_BRANCH=MOODLE_33_STABLE
     - MOODLE_BRANCH=MOODLE_34_STABLE
     - MOODLE_BRANCH=master
@@ -38,16 +37,12 @@ matrix:
   include:
     # Test with PHP 7.0
     - php: 7.0
-      env: MOODLE_BRANCH=MOODLE_32_STABLE
-    - php: 7.0
       env: MOODLE_BRANCH=MOODLE_33_STABLE
     - php: 7.0
       env: MOODLE_BRANCH=MOODLE_34_STABLE
     - php: 7.0
       env: MOODLE_BRANCH=master
     # Test with PHP 7.1
-    - php: 7.1
-      env: MOODLE_BRANCH=MOODLE_32_STABLE
     - php: 7.1
       env: MOODLE_BRANCH=MOODLE_33_STABLE
     - php: 7.1
