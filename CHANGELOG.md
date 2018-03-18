@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
 
+## Unreleased (future 1.10)
+### Added
+- Moodle privacy API implementation complete (issue #34).
+- Wi-Fi SSID with spaces are supported (issue #31).
+
+### Changed
+- Requires now Moodle 3.3 or later.
+- Hidden files used as trigger for plugin actions are now bundled (#37).
+
+### Fixed
+- Nothing yet.
+
 ## Version 1.9, 2018-02-18
 ### Added
 - Moodle privacy API implementation (issue #34).

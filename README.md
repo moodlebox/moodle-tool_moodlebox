@@ -10,20 +10,13 @@ A Moodle administration plugin providing a GUI to some settings and management o
 
 This plugin enables a Moodle administrator to monitor some hardware settings, to set the date of the MoodleBox, to allow restart and shutdown of the MoodleBox and changing Raspberry Pi passwords using a GUI. After the installation in Moodle, some steps are required to complete on the Raspberry Pi (see below).
 
-The plugin is compatible with Moodle 3.1 or later.
+The plugin is compatible with Moodle 3.3 or later.
 
 ## Installation
 
 The MoodleBox plugin must be installed in the Moodle tree of the MoodleBox, in the _tool_ folder. Once installed, an new option _MoodleBox_ will be available in Moodle, under _Site administration > Server_ in the _Administration_ block.
 
-To complete the installation, you have to create some files in the plugin folder and configure some incron jobs on the MoodleBox.
-
-1. Create necessary files
-    ```bash
-    cd /var/www/moodle/admin/tool/moodlebox
-    touch .reboot-server; touch .shutdown-server; touch .set-server-datetime; touch .newpassword; touch .wifisettings
-    chown -R www-data:www-data /var/www/moodle/admin/tool/moodlebox
-    ```
+To complete the installation, you have to configure some incron jobs on the MoodleBox.
 
 1. Install `incron` package and allow `root` to run it:
     ```bash
