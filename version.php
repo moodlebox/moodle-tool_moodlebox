@@ -28,6 +28,6 @@ $plugin = new stdClass();
 
 $plugin->version  = 2018031800;
 $plugin->release = '1.10-beta';
-$plugin->requires = 2016050400;
+$plugin->requires = 2017051500;
 $plugin->maturity = MATURITY_BETA;
 $plugin->component = 'tool_moodlebox';
