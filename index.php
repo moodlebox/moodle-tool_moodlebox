@@ -136,9 +136,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $wifiinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/hostapd/hostapd.conf', false, INI_SCANNER_RAW);
 
     $currentwifichannel = $wifiinfo['channel'];
-    $currentwifissid = array_key_exists('ssid', $wifiinfo) ? $wifiinfo['ssid'] : $wifiinfo['ssid2'];
-    if ( preg_match_all('/"([^"]+)"/', $currentwifissid, $ssidmatch) ) {
-        $currentwifissid = $ssidmatch[1][0];
+    if ( array_key_exists('ssid', $wifiinfo) ) {
+        $currentwifissid = $wifiinfo['ssid'];
+    } else {
+        $currentwifissid = $wifiinfo['ssid2'];
+        // Convert $currentwifissid from hex. See https://stackoverflow.com/a/46344675.
+        $currentwifissid = pack("H*", $currentwifissid);
     }
     $currentwifipassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
     $currentwificountry = $wifiinfo['country_code'];
@@ -406,6 +409,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 if (!isset($data->wifipassword)) {
                     $data->wifipassword = null;
                 }
+                // Convert $data->wifissid to hex. See https://stackoverflow.com/a/46344675.
+                $data->wifissid = implode(unpack("H*", $data->wifissid));
                 file_put_contents($wifipasswordtriggerfilename,
                                   "channel=" . $data->wifichannel . "\n" .
                                   "password=" . $data->wifipassword . "\n" .
