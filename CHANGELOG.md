@@ -3,10 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
 
-## Unreleased (future 1.10)
+## Unreleased (upcoming version 1.10)
 ### Added
 - Moodle privacy API implementation complete (issue #34).
-- Wi-Fi SSID with spaces are supported (issue #31).
+- Arbitrary characters, included spaces, are now allowed in SSID (issues #31 and #38).
+- Support for Raspberry 3 B+ (issue #39).
 
 ### Changed
 - Requires now Moodle 3.3 or later.
