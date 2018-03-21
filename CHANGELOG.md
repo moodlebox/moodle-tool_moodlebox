@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
 
-## Unreleased (upcoming version 1.10)
+## Version 1.10, 2018-03-21
 ### Added
 - Moodle privacy API implementation complete (issue #34).
 - Arbitrary characters, included spaces, are now allowed in SSID (issues #31 and #38).
