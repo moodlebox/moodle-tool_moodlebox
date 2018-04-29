@@ -51,7 +51,7 @@ sed -i "/^channel=/c\channel=$NEWCHANNEL" "$CONFIGFILE"
 # Validate new SSID. Replace it with 'MoodleBox' if invalid.
 # At this point, $NEWSSID is a string of hex values, e.g. "74657374" for "test"
 # We want to check that it is valid, and between 8 and 32 bytes.
-[[ $NEWSSID =~ ^([0-9a-fA-F]{2}){8,32}$ ]] || NEWSSID="4d6f6f646c65426f78" # "MoodleBox"
+[[ $NEWSSID =~ ^([0-9a-fA-F]{2}){1,32}$ ]] || NEWSSID="4d6f6f646c65426f78" # "MoodleBox"
 # New SSID is now valid; set it in config file.
 # Change ssid to ssid2
 sed -i "/^ssid=/c\ssid2=$NEWSSID" "$CONFIGFILE"
