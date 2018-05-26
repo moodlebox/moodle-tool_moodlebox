@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
 
+## Version 1.10.3, 2018-05-26
+### Fixed
+- Error in privacy provider prevents privacy registry display (#42).
+
 ## Version 1.10.2, 2018-04-29
 ### Fixed
 - Impossible to enter SSIDs with less than 8 bytes (#41).

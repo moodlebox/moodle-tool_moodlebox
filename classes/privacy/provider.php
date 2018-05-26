@@ -34,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2018 onwards Nicolas Martignoni <nicolas@martignoni.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements \core_privacy\metadata\null_provider {
+class provider implements \core_privacy\local\metadata\null_provider {
 
     /**
      * Get the language string identifier explaining why tool_moodlebox
