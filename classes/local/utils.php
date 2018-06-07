@@ -74,19 +74,19 @@ class utils {
      * @return associative array of parameters, value or false if unsupported hardware.
      */
     public static function get_hardware_model() {
-        $revision_number = null;
+        $revisionnumber = null;
 
         // Read revision number from device.
         if ( $cpuinfo = @file_get_contents('/proc/cpuinfo') ) {
             if ( preg_match_all('/^Revision.*/m', $cpuinfo, $revisionmatch) > 0 ) {
-                $revision_number = explode(' ', $revisionmatch[0][0]);
-                $revision_number = end($revision_number);
+                $revisionnumber = explode(' ', $revisionmatch[0][0]);
+                $revisionnumber = end($revisionnumber);
             }
         }
-        $revision_number = hexdec($revision_number);
+        $revisionnumber = hexdec($revisionnumber);
 
         // Define arrays of various hardware parameter values.
-        $memory_sizes = array('256', '512', '1024');
+        $memorysizes = array('256', '512', '1024');
         $models = array('A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
                 '3B', 'Zero', 'CM3', 'Unknown', 'Zero W', '3B+');
         $processors = array('BCM2835', 'BCM2836', 'BCM2837');
@@ -94,28 +94,28 @@ class utils {
                 'Embest', 'Stadium');
 
         // Get raw values of hardware parameters using bitwise operations.
-        $raw_revision = ($revision_number & 0xf);
-        $raw_model = ($revision_number & 0xff0) >> 4;
-        $raw_processor = ($revision_number & 0xf000) >> 12;
-        $raw_manufacturer = ($revision_number & 0xf0000) >> 16;
-        $raw_memory = ($revision_number & 0x700000) >> 20;
-        $raw_versionflag = ($revision_number & 0x800000) >> 23;
+        $rawrevision = ($revisionnumber & 0xf);
+        $rawmodel = ($revisionnumber & 0xff0) >> 4;
+        $rawprocessor = ($revisionnumber & 0xf000) >> 12;
+        $rawmanufacturer = ($revisionnumber & 0xf0000) >> 16;
+        $rawmemory = ($revisionnumber & 0x700000) >> 20;
+        $rawversionflag = ($revisionnumber & 0x800000) >> 23;
 
         // If recent hardware present, return associative array of parameters, value.
         // Return false otherwise.
-        if ($raw_versionflag) {
-            $revision = '1.' . $raw_revision;
-            $model = $models[$raw_model];
-            $processor = $processors[$raw_processor];
-            $manufacturer = $manufacturers[$raw_manufacturer];
-            $memory_size = $memory_sizes[$raw_memory];
+        if ($rawversionflag) {
+            $revision = '1.' . $rawrevision;
+            $model = $models[$rawmodel];
+            $processor = $processors[$rawprocessor];
+            $manufacturer = $manufacturers[$rawmanufacturer];
+            $memorysize = $memorysizes[$rawmemory];
 
             return array(
                 'revision' => $revision,
                 'model' => $model,
                 'processor' => $processor,
                 'manufacturer' => $manufacturer,
-                'memory' => $memory_size
+                'memory' => $memorysize
             );
         } else {
             return false;
