@@ -31,6 +31,7 @@ env:
   matrix:
     - MOODLE_BRANCH=MOODLE_33_STABLE
     - MOODLE_BRANCH=MOODLE_34_STABLE
+    - MOODLE_BRANCH=MOODLE_35_STABLE
     - MOODLE_BRANCH=master
 
 matrix:
@@ -41,6 +42,8 @@ matrix:
     - php: 7.0
       env: MOODLE_BRANCH=MOODLE_34_STABLE
     - php: 7.0
+      env: MOODLE_BRANCH=MOODLE_35_STABLE
+    - php: 7.0
       env: MOODLE_BRANCH=master
     # Test with PHP 7.1
     - php: 7.1
@@ -48,10 +51,14 @@ matrix:
     - php: 7.1
       env: MOODLE_BRANCH=MOODLE_34_STABLE
     - php: 7.1
+      env: MOODLE_BRANCH=MOODLE_35_STABLE
+    - php: 7.1
       env: MOODLE_BRANCH=master
     # Test with PHP 7.2, only 34 and later
     - php: 7.2
       env: MOODLE_BRANCH=MOODLE_34_STABLE
+    - php: 7.2
+      env: MOODLE_BRANCH=MOODLE_35_STABLE
     - php: 7.2
       env: MOODLE_BRANCH=master
 
@@ -68,7 +75,7 @@ jobs:
     # Prechecks against one configuration (Moodle, PHP, DB) only.
     - stage: prechecks
       php: 7.1
-      env: DB=pgsql MOODLE_BRANCH=MOODLE_34_STABLE
+      env: DB=pgsql MOODLE_BRANCH=MOODLE_35_STABLE
       install:
       - moodle-plugin-ci install --no-init
       script:
