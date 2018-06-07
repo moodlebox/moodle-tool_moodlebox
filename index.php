@@ -44,36 +44,21 @@ $PAGE->set_heading($strheading);
 
 echo $OUTPUT->header();
 
-$hardware = null;
-$revision = null;
-if ( $cpuinfo = file_get_contents('/proc/cpuinfo') ) {
-    if ( preg_match_all('/^Hardware.*/m', $cpuinfo, $hardwarematch) > 0 ) {
-        $hardware = explode(' ', $hardwarematch[0][0]);
-        $hardware = end($hardware);
-    }
-    if ( preg_match_all('/^Revision.*/m', $cpuinfo, $revisionmatch) > 0 ) {
-        $revision = explode(' ', $revisionmatch[0][0]);
-        $revision = end($revision);
-    }
-}
+$hardwaredata = \tool_moodlebox\local\utils::get_hardware_model();
 
-switch ( $hardware ) {
-    case 'BCM2708': // RPi 1.
+switch ( $hardwaredata['model'] ) {
+    case 'A+':
+    case 'B+':
         $platform = 'rpi1';
         break;
-    case 'BCM2709': // RPi 2B or RPi 3B on kernel earlier than 4.9.x.
-        if ( $revision === 'a02082' || $revision === 'a22082' || $revision === 'a32082' ) {
-            $platform = 'rpi3';
-        } else {
-            $platform = 'rpi2';
-        }
+    case '2B':
+        $platform = 'rpi2';
         break;
-    case 'BCM2835': // RPi 3B on kernel 4.9.x or later, or RPi 3B+.
-        if ( $revision === 'a020d3' ) {
-            $platform = 'rpi3bplus';
-        } else {
-            $platform = 'rpi3';
-        }
+    case '3B':
+        $platform = 'rpi3';
+        break;
+    case '3B+':
+        $platform = 'rpi3bplus';
         break;
     default: // Anything else is not a RPi.
         $platform = 'unknownmodel';

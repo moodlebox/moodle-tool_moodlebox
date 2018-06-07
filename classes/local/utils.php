@@ -35,6 +35,94 @@ defined('MOODLE_INTERNAL') || die();
 class utils {
 
     /**
+     * Get Raspberry Pi hardware model
+     *
+     * Revision field in /proc/cpuinfo. The bit fields are as follows.
+     * See https://www.raspberrypi.org/documentation/hardware/raspberrypi/revision-codes/.
+     * See https://github.com/AndrewFromMelbourne/raspberry_pi_revision/.
+     *
+     * +----+----+----+----+----+----+----+----+
+     * |FEDC|BA98|7654|3210|FEDC|BA98|7654|3210|
+     * +----+----+----+----+----+----+----+----+
+     * |    |    |    |    |    |    |    |AAAA|
+     * |    |    |    |    |    |BBBB|BBBB|    |
+     * |    |    |    |    |CCCC|    |    |    |
+     * |    |    |    |DDDD|    |    |    |    |
+     * |    |    | EEE|    |    |    |    |    |
+     * |    |    |F   |    |    |    |    |    |
+     * |    |   G|    |    |    |    |    |    |
+     * |    |  H |    |    |    |    |    |    |
+     * +----+----+----+----+----+----+----+----+
+     * |1098|7654|3210|9876|5432|1098|7654|3210|
+     * +----+----+----+----+----+----+----+----+
+     *
+     * +---+-------+-------------–-+--------------------------------------------+
+     * | # | bits  | contains      | values                                     |
+     * +---+-------+------------–--+--------------------------------------------+
+     * | A | 00-03 | PCB Revision  | The PCB revision number                    |
+     * | B | 04-11 | Model name    | A, B, A+, B+, 2B, Alpha, CM1, unknown, 3B, |
+     * |   |       |               | Zero, CM3, unknown, Zero W, 3B+            |
+     * | C | 12-15 | Processor     | BCM2835, BCM2836, BCM2837                  |
+     * | D | 16-19 | Manufacturer  | Sony UK, Egoman, Embest, Sony Japan,       |
+     * |   |       |               | Embest, Stadium                            |
+     * | E | 20-22 | Memory size   | 256 MB, 512 MB, 1024 MB                    |
+     * | F | 23-23 | Revision flag | (if set, new-style revision)               |
+     * | G | 24-24 | Warranty bit  | (if set, warranty void - Pre Pi2)          |
+     * | H | 25-25 | Warranty bit  | (if set, warranty void - Post Pi2)         |
+     * +---+-------+---------------+--------------------------------------------+
+     *
+     * @return associative array of parameters, value or false if unsupported hardware.
+     */
+    public static function get_hardware_model() {
+        $revision_number = null;
+
+        // Read revision number from device.
+        if ( $cpuinfo = @file_get_contents('/proc/cpuinfo') ) {
+            if ( preg_match_all('/^Revision.*/m', $cpuinfo, $revisionmatch) > 0 ) {
+                $revision_number = explode(' ', $revisionmatch[0][0]);
+                $revision_number = end($revision_number);
+            }
+        }
+        $revision_number = hexdec($revision_number);
+
+        // Define arrays of various hardware parameter values.
+        $memory_sizes = array('256', '512', '1024');
+        $models = array('A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
+                '3B', 'Zero', 'CM3', 'Unknown', 'Zero W', '3B+');
+        $processors = array('BCM2835', 'BCM2836', 'BCM2837');
+        $manufacturers = array('Sony UK', 'Egoman', 'Embest', 'Sony Japan',
+                'Embest', 'Stadium');
+
+        // Get raw values of hardware parameters using bitwise operations.
+        $raw_revision = ($revision_number & 0xf);
+        $raw_model = ($revision_number & 0xff0) >> 4;
+        $raw_processor = ($revision_number & 0xf000) >> 12;
+        $raw_manufacturer = ($revision_number & 0xf0000) >> 16;
+        $raw_memory = ($revision_number & 0x700000) >> 20;
+        $raw_versionflag = ($revision_number & 0x800000) >> 23;
+
+        // If recent hardware present, return associative array of parameters, value.
+        // Return false otherwise.
+        if ($raw_versionflag) {
+            $revision = '1.' . $raw_revision;
+            $model = $models[$raw_model];
+            $processor = $processors[$raw_processor];
+            $manufacturer = $manufacturers[$raw_manufacturer];
+            $memory_size = $memory_sizes[$raw_memory];
+
+            return array(
+                'revision' => $revision,
+                'model' => $model,
+                'processor' => $processor,
+                'manufacturer' => $manufacturer,
+                'memory' => $memory_size
+            );
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Parse config files with "setting=value" syntax, ignoring commented lines
      * beginnning with a hash (#).
      *
