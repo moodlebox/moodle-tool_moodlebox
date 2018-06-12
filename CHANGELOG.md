@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
 
+## Version 1.10.4, 2018-06-12
+### Added
+- Correctly detect Raspberry Pi Zero W (issue #44).
+
+### Changed
+- Better Raspberry Pi model detection (#43).
+
 ## Version 1.10.3, 2018-05-26
 ### Fixed
 - Error in privacy provider prevents privacy registry display (#42).
