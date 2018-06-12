@@ -88,7 +88,7 @@ class utils {
         // Define arrays of various hardware parameter values.
         $memorysizes = array('256', '512', '1024');
         $models = array('A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
-                '3B', 'Zero', 'CM3', 'Unknown', 'Zero W', '3B+');
+                '3B', 'Zero', 'CM3', 'Unknown', 'ZeroW', '3B+');
         $processors = array('BCM2835', 'BCM2836', 'BCM2837');
         $manufacturers = array('Sony UK', 'Egoman', 'Embest', 'Sony Japan',
                 'Embest', 'Stadium');

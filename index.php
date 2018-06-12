@@ -60,6 +60,9 @@ switch ( $hardwaredata['model'] ) {
     case '3B+':
         $platform = 'rpi3bplus';
         break;
+    case 'ZeroW':
+        $platform = 'rpizerow';
+        break;
     default: // Anything else is not a RPi.
         $platform = 'unknownmodel';
 }
