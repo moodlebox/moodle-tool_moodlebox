@@ -31,7 +31,7 @@ table#moodleboxstatus tr.subinfo td.c0 {
     padding-left: 3em;
 }
 
-input#id_restartbutton {
+input#id_restartbutton, input#id_resizepartitionbutton {
     color: #fff;
     background-color: #faa732;
     background-image: -moz-linear-gradient(top, #fbb450, #f89406);

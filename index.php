@@ -263,6 +263,30 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     /**
+     * Class resizepartition_form
+     *
+     * Form class to resize the partition of the MoodleBox.
+     *
+     * @package    tool_moodlebox
+     * @copyright  2018 onwards Nicolas Martignoni <nicolas@martignoni.net>
+     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+     */
+    class resizepartition_form extends moodleform {
+
+        /**
+         * Define the form.
+         */
+        public function definition() {
+            $mform = $this->_form;
+            $buttonarray = array();
+            $buttonarray[] = & $mform->createElement('submit', 'resizepartitionbutton',
+                                                      get_string('resizepartition', 'tool_moodlebox'));
+            $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
+            $mform->closeHeaderBefore('buttonar');
+        }
+    }
+
+    /**
      * Class restartshutdown_form
      *
      * Form class to restart and shutdown the MoodleBox.
@@ -336,7 +360,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     echo $OUTPUT->heading(get_string('datetimesetting', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
-    $datetimetriggerfilename = ".set-server-datetime";
+    $datetimetriggerfilename = '.set-server-datetime';
 
     if (file_exists($datetimetriggerfilename)) {
         $datetimesetform = new datetimeset_form();
@@ -359,7 +383,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     echo $OUTPUT->heading(get_string('passwordsetting', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
-    $changepasswordtriggerfilename = ".newpassword";
+    $changepasswordtriggerfilename = '.newpassword';
 
     if (file_exists($changepasswordtriggerfilename)) {
         $changepasswordform = new changepassword_form();
@@ -383,7 +407,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     echo $OUTPUT->heading(get_string('wifisettings', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
-    $wifipasswordtriggerfilename = ".wifisettings";
+    $wifipasswordtriggerfilename = '.wifisettings';
 
     if (file_exists($wifipasswordtriggerfilename)) {
         $wifisettingsform = new wifisettings_form();
@@ -413,12 +437,34 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     echo $OUTPUT->box_end();
 
+    // Resize partition section
+    echo $OUTPUT->heading(get_string('resizepartition', 'tool_moodlebox'));
+    echo $OUTPUT->box_start('generalbox');
+
+    $resizepartitiontriggerfilename = '.resize-partition';
+
+    if (file_exists($resizepartitiontriggerfilename)) {
+        $resizepartitionform = new resizepartition_form(null, null, 'post', '', array('id' => 'formresizepartition'));
+        $resizepartitionform->display();
+
+        if ($data = $resizepartitionform->get_data()) {
+            if (!empty($data->resizepartitionbutton)) {
+                file_put_contents($resizepartitiontriggerfilename, 'Resize partition');
+                \core\notification::warning(get_string('resizepartitionmessage', 'tool_moodlebox'));
+            }
+        }
+    } else {
+        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
+    }
+
+    echo $OUTPUT->box_end();
+
     // Restart-shutdown section.
     echo $OUTPUT->heading(get_string('restartstop', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
-    $reboottriggerfilename = ".reboot-server";
-    $shutdowntriggerfilename = ".shutdown-server";
+    $reboottriggerfilename = '.reboot-server';
+    $shutdowntriggerfilename = '.shutdown-server';
 
     if (file_exists($reboottriggerfilename) and file_exists($shutdowntriggerfilename)) {
         $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));
