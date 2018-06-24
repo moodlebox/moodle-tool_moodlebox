@@ -31,6 +31,7 @@ To complete the installation, you have to configure some incron jobs on the Mood
     /var/www/moodle/admin/tool/moodlebox/.set-server-datetime IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/.set-server-datetime
     /var/www/moodle/admin/tool/moodlebox/.newpassword IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/bin/changepassword.sh
     /var/www/moodle/admin/tool/moodlebox/.wifisettings IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/bin/changewifisettings.sh
+    /var/www/moodle/admin/tool/moodlebox/.resize-partition IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/bin/resizepartition.sh
     ```
 
 ## Features
@@ -39,6 +40,7 @@ To complete the installation, you have to configure some incron jobs on the Mood
 - GUI to set the MoodleBox date and time.
 - GUI to set the MoodleBox password.
 - GUI to set the MoodleBox Wi-Fi network password (or remove it), SSID and channel.
+- GUI to resize the partition of the SD card of the MoodleBox.
 - GUI to restart and shutdown the MoodleBox.
 
 ## Availability
