@@ -3,12 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
-## Version 1.11.0, unreleased
+## Version 1.11.0, 2018-07-09
 ### Added
 - New feature to resize SD card (issue #45). Idea by Ralf Krause.
-
-### Changed
-- Nothing.
 
 ### Fixed
 - Wrong display of table row background (issue #47).
