@@ -17,9 +17,13 @@
 /**
  * A dashboard for the MoodleBox.
  *
- * Provides a dashboard of some hardware settings of the MoodleBox,
- * a way to set the date of the MoodleBox and to restart and shutdown
- * the MoodleBox from inside Moodle.
+ * Provides a dashboard of some hardware settings of the MoodleBox, and
+ * a GUI for several tools to manage the MoodleBox:
+ *  - set the date and time,
+ *  - set the main password,
+ *  - set the WLAN settings, including SSID and password,
+ *  - resize the microSD card partition,
+ *  - restart and shutdown.
  *
  * @see        https://github.com/moodlebox/moodle-tool_moodlebox
  * @package    tool_moodlebox
