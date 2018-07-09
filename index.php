@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * A dashboard for the MoodleBox.
@@ -28,7 +28,7 @@
  * @see        https://github.com/moodlebox/moodle-tool_moodlebox
  * @package    tool_moodlebox
  * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
@@ -145,7 +145,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
      *
      * @package    tool_moodlebox
      * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
-     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+     * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
      */
     class datetimeset_form extends moodleform {
 
@@ -174,7 +174,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
      *
      * @package    tool_moodlebox
      * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
-     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+     * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
      */
     class changepassword_form extends moodleform {
 
@@ -220,7 +220,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
      *
      * @package    tool_moodlebox
      * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
-     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+     * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
      */
     class wifisettings_form extends moodleform {
 
@@ -273,7 +273,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
      *
      * @package    tool_moodlebox
      * @copyright  2018 onwards Nicolas Martignoni <nicolas@martignoni.net>
-     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+     * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
      */
     class resizepartition_form extends moodleform {
 
@@ -297,7 +297,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
      *
      * @package    tool_moodlebox
      * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
-     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+     * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
      */
     class restartshutdown_form extends moodleform {
 

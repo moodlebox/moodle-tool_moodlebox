@@ -6,7 +6,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/moodlebox/commits/)
 
 
-A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://moodlebox.net/), a Moodle server installed on a [Raspberry Pi](http://www.raspberrypi.org/).
+A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://moodlebox.net/), a Moodle server installed on a [Raspberry Pi](https://www.raspberrypi.org/).
 
 This plugin enables a Moodle administrator to monitor some hardware settings, to set the date of the MoodleBox, to allow restart and shutdown of the MoodleBox and changing Raspberry Pi passwords using a GUI. After the installation in Moodle, some steps are required to complete on the Raspberry Pi (see below).
 

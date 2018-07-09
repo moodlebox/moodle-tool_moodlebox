@@ -13,7 +13,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this script.  If not, see <http://www.gnu.org/licenses/>.
+# along with this script.  If not, see <https://www.gnu.org/licenses/>.
 #
 # This script MUST be run as root.
 [[ $EUID -ne 0 ]] && { echo "This script must be run as root"; exit 1; }
