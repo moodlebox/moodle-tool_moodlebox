@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
 
+## Version 1.11.0, unreleased
+### Added
+- New feature to resize SD card (issue #45). Idea by Ralf Krause.
+
+### Changed
+- Nothing.
+
+### Fixed
+- Wrong display of table row background (issue #47).
+
 ## Version 1.10.4, 2018-06-12
 ### Added
 - Correctly detect Raspberry Pi Zero W (issue #44).
