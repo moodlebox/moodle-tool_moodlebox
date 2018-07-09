@@ -441,7 +441,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     echo $OUTPUT->box_end();
 
-    // Resize partition section
+    // Resize partition section.
     echo $OUTPUT->heading(get_string('resizepartition', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
