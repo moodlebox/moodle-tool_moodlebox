@@ -1,7 +1,7 @@
 # MoodleBox Moodle plugin Release Notes
 
 All notable changes to this project will be documented in this file.
-This project adheres to [Semantic Versioning](http://semver.org/) and follow principles of [keep a changelog](http://keepachangelog.com).
+This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
 ## Version 1.11.0, unreleased
 ### Added
@@ -88,7 +88,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and follow pri
 - Wi-Fi channel can now be changed.
 
 ### Changed
-- Changelog adapted to principles of http://keepachangelog.com.
+- Changelog adapted to principles of [keep a changelog](https://keepachangelog.com).
 
 ### Fixed
 - Change moodle installation directory, to cope with last version of MoodleBox.
