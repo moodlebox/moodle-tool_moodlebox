@@ -27,9 +27,12 @@ FILE=${DIR%/*}/.wifisettings
 CONFIGFILE="/etc/hostapd/hostapd.conf"
 # New values taken from $FILE.
 NEWCHANNEL="$(grep '^channel\b' $FILE | cut -d= -f2)"
+NEWCOUNTRY="$(grep '^country\b' $FILE | cut -d= -f2)"
 NEWPASSWORD="$(grep '^password\b' $FILE | cut -d= -f2)"
 NEWSSID="$(grep '^ssid\b' $FILE | cut -d= -f2)"
 PASSWORDPROTECTED="$(grep '^passwordprotected\b' $FILE | cut -d= -f2)"
+# Valid country codes. See https://www.iso.org/iso-3166-country-codes.html.
+ALLOWEDCOUNTRIES="AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP) KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK) ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW"
 #
 # Actions.
 #
@@ -41,9 +44,19 @@ PASSWORDPROTECTED="$(grep '^passwordprotected\b' $FILE | cut -d= -f2)"
 # New password is now valid; set it in config file.
 sed -i "/^wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$CONFIGFILE"
 #
+# Country setting.
+# Validate new country. Replace it with 'CH' if invalid.
+[[ $ALLOWEDCOUNTRIES =~ $NEWCOUNTRY ]] || NEWCOUNTRY="CH"
+# New channel is now valid; set it in config file.
+sed -i "/^country_code=/c\country_code=$NEWCOUNTRY" "$CONFIGFILE"
+#
 # Channel setting.
 # Validate new channel. Replace it with 11 if invalid.
 [[ $NEWCHANNEL =~ ^[1-9]|1[0-3]$ ]] || NEWCHANNEL="11"
+# Channel 12 and 13 aren't valid in Canada and US.
+if [[ $NEWCOUNTRY =~ ^(CA|US)$ ]] && [[ $NEWCHANNEL =~ ^1[23]$ ]]
+    NEWCHANNEL="11"
+fi
 # New channel is now valid; set it in config file.
 sed -i "/^channel=/c\channel=$NEWCHANNEL" "$CONFIGFILE"
 #

@@ -235,11 +235,13 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
             $mform = $this->_form;
 
+            // SSID setting.
             $mform->addElement('text', 'wifissid', get_string('wifissid', 'tool_moodlebox'));
             $mform->addRule('wifissid', get_string('required'), 'required', null, 'client');
             $mform->setType('wifissid', PARAM_RAW_TRIMMED);
             $mform->setDefault('wifissid', $currentwifissid);
 
+            // Channel setting.
             if ($currentwificountry == 'US' or $currentwificountry == 'CA') {
                 $wifichannelrange = range(1, 11);
             } else {
@@ -251,11 +253,20 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $mform->setType('wifichannel', PARAM_INT);
             $mform->setDefault('wifichannel', $currentwifichannel);
 
+            // Regulatory country setting.
+            $mform->addElement('select', 'wificountry', get_string('wificountry', 'tool_moodlebox'),
+                    get_string_manager()->get_list_of_countries(true));
+            $mform->addRule('wificountry', get_string('required'), 'required', null, 'client');
+            $mform->setType('wificountry', PARAM_RAW);
+            $mform->setDefault('wificountry', $currentwificountry);
+
+            // Password protection setting.
             $mform->addElement('checkbox', 'wifipasswordon', get_string('wifipasswordon', 'tool_moodlebox'),
                 ' ' . get_string('wifipasswordonhelp', 'tool_moodlebox'));
             $mform->setDefault('wifipasswordon', ($currentwifipassword == null) ? 0 : 1);
             $mform->setType('wifipasswordon', PARAM_INT);
 
+            // Password setting.
             $mform->addElement('text', 'wifipassword', get_string('wifipassword', 'tool_moodlebox'));
             $mform->disabledIf('wifipassword', 'wifipasswordon');
             $mform->setType('wifipassword', PARAM_RAW_TRIMMED);
@@ -429,6 +440,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 $data->wifissid = implode(unpack("H*", $data->wifissid));
                 file_put_contents($wifipasswordtriggerfilename,
                                   "channel=" . $data->wifichannel . "\n" .
+                                  "country=" . $data->wificountry . "\n" .
                                   "password=" . $data->wifipassword . "\n" .
                                   "ssid=" . $data->wifissid . "\n" .
                                   "passwordprotected=" . $data->wifipasswordon . "\n");
