@@ -42,8 +42,8 @@ PASSWORDPROTECTED="$(grep '^passwordprotected\b' $FILE | cut -d= -f2)"
 sed -i "/^wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$CONFIGFILE"
 #
 # Channel setting.
-# Validate new channel. Replace it with 6 if invalid.
-[[ $NEWCHANNEL =~ ^[1-9]|1[0-3]$ ]] || NEWCHANNEL="6"
+# Validate new channel. Replace it with 11 if invalid.
+[[ $NEWCHANNEL =~ ^[1-9]|1[0-3]$ ]] || NEWCHANNEL="11"
 # New channel is now valid; set it in config file.
 sed -i "/^channel=/c\channel=$NEWCHANNEL" "$CONFIGFILE"
 #
