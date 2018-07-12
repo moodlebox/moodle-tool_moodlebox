@@ -422,9 +422,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     echo $OUTPUT->heading(get_string('wifisettings', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
-    $wifipasswordtriggerfilename = '.wifisettings';
+    $wifisettingstriggerfilename = '.wifisettings';
 
-    if (file_exists($wifipasswordtriggerfilename)) {
+    if (file_exists($wifisettingstriggerfilename)) {
         $wifisettingsform = new wifisettings_form();
         $wifisettingsform->display();
 
@@ -438,7 +438,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 }
                 // Convert $data->wifissid to hex. See https://stackoverflow.com/a/46344675.
                 $data->wifissid = implode(unpack("H*", $data->wifissid));
-                file_put_contents($wifipasswordtriggerfilename,
+                file_put_contents($wifisettingstriggerfilename,
                                   "channel=" . $data->wifichannel . "\n" .
                                   "country=" . $data->wificountry . "\n" .
                                   "password=" . $data->wifipassword . "\n" .
