@@ -54,7 +54,7 @@ sed -i "/^country_code=/c\country_code=$NEWCOUNTRY" "$CONFIGFILE"
 # Validate new channel. Replace it with 11 if invalid.
 [[ $NEWCHANNEL =~ ^[1-9]|1[0-3]$ ]] || NEWCHANNEL="11"
 # Channel 12 and 13 aren't valid in Canada and US.
-if [[ $NEWCOUNTRY =~ ^(CA|US)$ ]] && [[ $NEWCHANNEL =~ ^1[23]$ ]]
+if [[ $NEWCOUNTRY =~ ^(CA|US)$ ]] && [[ $NEWCHANNEL =~ ^1[23]$ ]]; then
     NEWCHANNEL="11"
 fi
 # New channel is now valid; set it in config file.
