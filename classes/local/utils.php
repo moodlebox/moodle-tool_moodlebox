@@ -152,4 +152,17 @@ class utils {
         return explode('/', array_keys(iterator_to_array($iter))[0])[4];
     }
 
+    /**
+     * Convert string with hexadecimal code to unicode string.
+     * See https://stackoverflow.com/a/12083180.
+     *
+     * @param string $string to convert
+     * @return string converted
+     */
+    public static function convert_hex_string($string) {
+    return preg_replace_callback('#\\\\x([[:xdigit:]]{2})#ism', function($matches) {
+        return chr(hexdec($matches[1]));
+    }, $string);
+}
+
 }
