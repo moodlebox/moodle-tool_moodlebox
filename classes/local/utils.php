@@ -160,9 +160,9 @@ class utils {
      * @return string converted
      */
     public static function convert_hex_string($string) {
-    return preg_replace_callback('#\\\\x([[:xdigit:]]{2})#ism', function($matches) {
-        return chr(hexdec($matches[1]));
-    }, $string);
-}
+        return preg_replace_callback('#\\\\x([[:xdigit:]]{2})#ism', function($matches) {
+            return chr(hexdec($matches[1]));
+        }, $string);
+    }
 
 }
