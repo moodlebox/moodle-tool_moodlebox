@@ -135,4 +135,23 @@ class utils {
         return parse_ini_string(preg_replace('/^#.*\\n/m', '', @file_get_contents($file)), $mode, $scannermode);
     }
 
+    /**
+     * Get wireless interface name. Usually 'wlan0'.
+     *
+     * @return string containing interface name
+     */
+    public static function get_wireless_interface_name() {
+        $path = realpath('/sys/class/net');
+
+        $iter = new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS +
+                \RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
+        $iter = new \RecursiveIteratorIterator($iter, \RecursiveIteratorIterator::CHILD_FIRST);
+        $iter = new \RegexIterator($iter, '|^.*/wireless$|i', \RecursiveRegexIterator::GET_MATCH);
+        $iter->setMaxDepth(2);
+
+        $interface = explode('/', array_keys(iterator_to_array($iter))[0])[4];
+
+        return $interface;
+    }
+
 }
