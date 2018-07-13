@@ -149,9 +149,7 @@ class utils {
         $iter = new \RegexIterator($iter, '|^.*/wireless$|i', \RecursiveRegexIterator::GET_MATCH);
         $iter->setMaxDepth(2);
 
-        $interface = explode('/', array_keys(iterator_to_array($iter))[0])[4];
-
-        return $interface;
+        return explode('/', array_keys(iterator_to_array($iter))[0])[4];
     }
 
 }
