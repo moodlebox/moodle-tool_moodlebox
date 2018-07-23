@@ -34,6 +34,11 @@ To complete the installation, you have to configure some incron jobs on the Mood
     /var/www/moodle/admin/tool/moodlebox/.resize-partition IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/bin/resizepartition.sh
     ```
 
+1. Copy the following line at the end of file `/etc/sudoers`:
+    ```bash
+    www-data ALL=(ALL) NOPASSWD:/sbin/parted /dev/mmcblk0 unit MB print free
+    ```
+
 ## Features
 
 - Info about the MoodleBox (kernel version, Raspbian version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
