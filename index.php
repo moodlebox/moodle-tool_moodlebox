@@ -454,26 +454,31 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     echo $OUTPUT->box_end();
 
     // Resize partition section.
-    echo $OUTPUT->heading(get_string('resizepartition', 'tool_moodlebox'));
-    echo $OUTPUT->box_start('generalbox');
+    // We display this section only when enough free size is present on the SD card.
+    $unallocatedfreespace = \tool_moodlebox\local\utils::unallocated_free_space();
 
-    $resizepartitiontriggerfilename = '.resize-partition';
+    if ($unallocatedfreespace) {
+        echo $OUTPUT->heading(get_string('resizepartition', 'tool_moodlebox'));
+        echo $OUTPUT->box_start('generalbox');
 
-    if (file_exists($resizepartitiontriggerfilename)) {
-        $resizepartitionform = new resizepartition_form(null, null, 'post', '', array('id' => 'formresizepartition'));
-        $resizepartitionform->display();
+        $resizepartitiontriggerfilename = '.resize-partition';
 
-        if ($data = $resizepartitionform->get_data()) {
-            if (!empty($data->resizepartitionbutton)) {
-                file_put_contents($resizepartitiontriggerfilename, 'Resize partition');
-                \core\notification::warning(get_string('resizepartitionmessage', 'tool_moodlebox'));
+        if (file_exists($resizepartitiontriggerfilename)) {
+            $resizepartitionform = new resizepartition_form(null, null, 'post', '', array('id' => 'formresizepartition'));
+            $resizepartitionform->display();
+
+            if ($data = $resizepartitionform->get_data()) {
+                if (!empty($data->resizepartitionbutton)) {
+                    file_put_contents($resizepartitiontriggerfilename, 'Resize partition');
+                    \core\notification::warning(get_string('resizepartitionmessage', 'tool_moodlebox'));
+                }
             }
+        } else {
+            echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
         }
-    } else {
-        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
-    }
 
-    echo $OUTPUT->box_end();
+        echo $OUTPUT->box_end();
+    }
 
     // Restart-shutdown section.
     echo $OUTPUT->heading(get_string('restartstop', 'tool_moodlebox'));

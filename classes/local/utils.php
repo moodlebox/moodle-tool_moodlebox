@@ -165,4 +165,15 @@ class utils {
         }, $string);
     }
 
+    /**
+     * Find unallocated space on SD card.
+     *
+     * @return float value if unallocated space, in MB.
+     */
+    public static function unallocated_free_space() {
+        $command = "sudo parted /dev/mmcblk0 unit MB print free | tail -n2 | grep 'Free Space' | awk '{print $3}' | sed -e 's/MB$//'";
+        $unallocatedfreespace = exec($command, $out);
+        return (float)$unallocatedfreespace;
+    }
+
 }
