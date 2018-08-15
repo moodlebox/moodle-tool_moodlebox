@@ -50,6 +50,7 @@ class datetimeset_form extends moodleform {
                                 'step'      => 1,
                                 'optional'  => true)
                             );
+        $mform->addHelpButton('currentdatetime', 'datetime', 'tool_moodlebox');
 
         $this->add_action_buttons(false, get_string('datetimeset', 'tool_moodlebox'));
     }
@@ -128,6 +129,7 @@ class wifisettings_form extends moodleform {
         $mform->addRule('wifissid', get_string('required'), 'required', null, 'client');
         $mform->setType('wifissid', PARAM_RAW_TRIMMED);
         $mform->setDefault('wifissid', $currentwifissid);
+        $mform->addHelpButton('wifissid', 'wifissid', 'tool_moodlebox');
 
         // Channel setting.
         if ($currentwificountry == 'US' or $currentwificountry == 'CA') {
@@ -140,6 +142,7 @@ class wifisettings_form extends moodleform {
         $mform->addRule('wifichannel', get_string('required'), 'required', null, 'client');
         $mform->setType('wifichannel', PARAM_INT);
         $mform->setDefault('wifichannel', $currentwifichannel);
+        $mform->addHelpButton('wifichannel', 'wifichannel', 'tool_moodlebox');
 
         // Regulatory country setting.
         $mform->addElement('select', 'wificountry', get_string('wificountry', 'tool_moodlebox'),
@@ -147,18 +150,21 @@ class wifisettings_form extends moodleform {
         $mform->addRule('wificountry', get_string('required'), 'required', null, 'client');
         $mform->setType('wificountry', PARAM_RAW);
         $mform->setDefault('wificountry', $currentwificountry);
+        $mform->addHelpButton('wificountry', 'wificountry', 'tool_moodlebox');
 
         // Password protection setting.
         $mform->addElement('checkbox', 'wifipasswordon', get_string('wifipasswordon', 'tool_moodlebox'),
-            ' ' . get_string('wifipasswordonhelp', 'tool_moodlebox'));
+            ' ' . get_string('passwordprotected', 'tool_moodlebox'));
         $mform->setDefault('wifipasswordon', ($currentwifipassword == null) ? 0 : 1);
         $mform->setType('wifipasswordon', PARAM_INT);
+        $mform->addHelpButton('wifipasswordon', 'wifipasswordon', 'tool_moodlebox');
 
         // Password setting.
         $mform->addElement('text', 'wifipassword', get_string('wifipassword', 'tool_moodlebox'));
         $mform->disabledIf('wifipassword', 'wifipasswordon');
         $mform->setType('wifipassword', PARAM_RAW_TRIMMED);
         $mform->setDefault('wifipassword', ($currentwifipassword == null) ? 'moodlebox' : $currentwifipassword);
+        $mform->addHelpButton('wifipassword', 'wifipassword', 'tool_moodlebox');
 
         $this->add_action_buttons(false, get_string('changewifisettings', 'tool_moodlebox'));
     }

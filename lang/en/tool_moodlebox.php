@@ -31,6 +31,7 @@ $string['cpufrequency'] = 'CPU frequency';
 $string['cpuload'] = 'CPU load';
 $string['cputemperature'] = 'CPU temperature';
 $string['datetime'] = 'Date and time';
+$string['datetime_help'] = 'If the MoodleBox is not connected to the Internet, it will not be on time. It can be set manually using this setting.';
 $string['datetimemessage'] = 'The clock of the MoodleBox was set. To get the most accuracy, it\'s recommended to connect the MoodleBox to an Internet connected network via an ethernet cable.';
 $string['datetimeset'] = 'Set date and time';
 $string['datetimesetmessage'] = 'The clock of the MoodleBox isn\'t on time. It\'s highly recommended to set the date and time to the current time.';
@@ -40,12 +41,14 @@ $string['dhcpclientnumber'] = 'number of clients';
 $string['dhcpclients'] = 'DHCP clients';
 $string['information'] = 'Information';
 $string['kernelversion'] = 'Kernel version';
-$string['moodleboxinfo'] = 'MoodleBox image version and date';
+$string['moodleboxinfo'] = 'MoodleBox version';
 $string['moodleboxinfofileerror'] = 'Information not available';
 $string['moodleboxpluginversion'] = 'MoodleBox plugin version';
 $string['missingconfigurationerror'] = 'This section isn\'t available. The plugin installation is not complete, so that the setting cannot be handled by the MoodleBox. Please read the <a href="https://github.com/moodlebox/moodle-tool_moodlebox/blob/master/README.md" target="_blank">installation documentation</a> to fix this error.';
 $string['parameter'] = 'Parameter';
+$string['passwordprotected'] = 'Password protected';
 $string['passwordsetting'] = 'MoodleBox password';
+$string['passwordsetting_help'] = 'MoodleBox main password can be changed here. __It is strongly discouraged to keep the default password__. Your __must__ definitely change it as minimal security measure.';
 $string['pluginname'] = 'MoodleBox';
 $string['privacy:metadata'] = 'The MoodleBox plugin displays information from the Raspberry Pi and enables some configuration changes, but does not affect or store any personal data itself.';
 $string['resizepartition'] = 'Resize SD card partition';
@@ -56,6 +59,7 @@ $string['raspbianversion'] = 'Raspbian version';
 $string['restart'] = 'Restart MoodleBox';
 $string['restartmessage'] = 'The MoodleBox is restarting. It will be online again in a moment.';
 $string['restartstop'] = 'Restart and shutdown';
+$string['restartstop_help'] = 'Use these buttons to restart or turn off the MoodleBox. It is not recommended to unplug the power supply to shutdown the MoodleBox.';
 $string['rpi1'] = 'Raspberry Pi 1';
 $string['rpi2'] = 'Raspberry Pi 2B';
 $string['rpi3'] = 'Raspberry Pi 3B';
@@ -64,19 +68,31 @@ $string['rpizerow'] = 'Raspberry Pi Zero W';
 $string['sdcardavailablespace'] = 'Free space on SD card';
 $string['shutdown'] = 'Shutdown MoodleBox';
 $string['shutdownmessage'] = 'The MoodleBox is shutting down. Please wait a few seconds before disconnecting the power supply.';
-$string['systeminfo'] = 'System information';
+$string['systeminfo'] = 'MoodleBox information';
+$string['systeminfo_help'] = 'The MoodleBox information dashboard displays several important data about the MoodleBox. This info includes:
+
+* Critical MoodleBox operation details, such as remaining disk space on the SD card and processor load, temperature and frequency
+* Current settings of Wi-Fi network supplied by the MoodleBox
+* Number, IP address and name of all devices connected to the MoodleBox
+* Raspberry Pi model and operating system
+* MoodleBox version and MoodleBox plugin version
+';
 $string['unknownmodel'] = 'Unknown Raspberry Pi model';
 $string['unsupportedhardware'] = 'Unsupported server hardware detected! This plugin does only work on Raspberry Pi';
 $string['uptime'] = 'System uptime';
 $string['wifichannel'] = 'Wi-Fi channel';
+$string['wifichannel_help'] = 'It is not necessary to change the Wi-Fi broadcast channel unless the performance is poor due to interference.';
 $string['wificountry'] = 'Wi-Fi regulatory country';
+$string['wificountry_help'] = 'For legal reasons, it is recommended to set your country as the Wi-Fi regulatory country.';
 $string['wifipassword'] = 'Wi-Fi password';
+$string['wifipassword_help'] = 'If you have chosen a password protected Wi-Fi network, to prevent intruders from using the MoodleBox Wi-Fi network, it is recommended to change its default password. The Wi-Fi network password must have between 8 and 63 characters.';
 $string['wifipassworderror'] = 'The Wi-Fi network password must have between 8 and 63 characters.';
-$string['wifipasswordon'] = 'Wi-Fi network password protected';
-$string['wifipasswordonhelp'] = 'If enabled, users have to type a password to connect to the MoodleBox Wi-Fi network.';
+$string['wifipasswordon'] = 'Wi-Fi network protection';
+$string['wifipasswordon_help'] = 'If enabled, users have to type a password to connect to the MoodleBox Wi-Fi network.';
 $string['wifisettings'] = 'Wi-Fi settings';
 $string['wifisettingsmessage'] = 'The Wi-Fi settings were changed. Don\'t forget to communicate the new SSID and password to your students.';
-$string['wifissid'] = 'Wi-Fi network name (SSID)';
+$string['wifissid'] = 'Wi-Fi network name';
+$string['wifissid_help'] = 'The name of the Wi-Fi network (SSID) of the MoodleBox. The string must be a minimum of 8 bytes and a maximum of 32 bytes.';
 
 // Deprecated.
 $string['changepasswordsetting'] = 'MoodleBox password change';
@@ -85,4 +101,5 @@ $string['currentwifipassword'] = 'Current Wi-Fi password';
 $string['newwifipassword'] = 'New Wi-Fi password';
 $string['nopassworddefined'] = 'No Wi-Fi password defined';
 $string['wifipasswordmessage'] = 'The Wi-Fi network password was changed. Don\'t forget to communicate it to your students.';
+$string['wifipasswordonhelp'] = 'If enabled, users have to type a password to connect to the MoodleBox Wi-Fi network.';
 $string['wifipasswordsetting'] = 'Wi-Fi network password change';

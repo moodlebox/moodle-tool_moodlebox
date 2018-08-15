@@ -139,7 +139,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $currentwificountry = $wifiinfo['country_code'];
 
     // System information section.
-    echo $OUTPUT->heading(get_string('systeminfo', 'tool_moodlebox'));
+    echo $OUTPUT->heading_with_help(get_string('systeminfo', 'tool_moodlebox'), 'systeminfo', 'tool_moodlebox');
     echo $OUTPUT->box_start('generalbox');
 
     $table = new flexible_table('moodleboxstatus_table');
@@ -206,7 +206,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     echo $OUTPUT->box_end();
 
     // Change password section.
-    echo $OUTPUT->heading(get_string('passwordsetting', 'tool_moodlebox'));
+    echo $OUTPUT->heading_with_help(get_string('passwordsetting', 'tool_moodlebox'), 'passwordsetting', 'tool_moodlebox');
     echo $OUTPUT->box_start('generalbox');
 
     $changepasswordtriggerfilename = '.newpassword';
@@ -269,7 +269,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $unallocatedfreespace = \tool_moodlebox\local\utils::unallocated_free_space();
 
     if ($unallocatedfreespace) {
-        echo $OUTPUT->heading(get_string('resizepartition', 'tool_moodlebox'));
+        echo $OUTPUT->heading_with_help(get_string('resizepartition', 'tool_moodlebox'), 'resizepartition', 'tool_moodlebox');
         echo $OUTPUT->box_start('generalbox');
 
         $resizepartitiontriggerfilename = '.resize-partition';
@@ -292,7 +292,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     // Restart-shutdown section.
-    echo $OUTPUT->heading(get_string('restartstop', 'tool_moodlebox'));
+    echo $OUTPUT->heading_with_help(get_string('restartstop', 'tool_moodlebox'), 'restartstop', 'tool_moodlebox');
     echo $OUTPUT->box_start('generalbox');
 
     $reboottriggerfilename = '.reboot-server';
