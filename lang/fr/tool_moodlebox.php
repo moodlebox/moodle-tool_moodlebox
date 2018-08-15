@@ -52,6 +52,7 @@ $string['passwordsetting_help'] = 'Le mot de passe principal de MoodleBox peut �
 $string['pluginname'] = 'MoodleBox';
 $string['privacy:metadata'] = 'Le plugin MoodleBox affiche certaines informations du Raspberry Pi et permet quelques modifications de configuration, mais ne touche ni ne stocke aucune donnée personnelle.';
 $string['resizepartition'] = 'Redimensionner la partition de la carte SD';
+$string['resizepartition_help'] = 'Utiliser ce bouton pour redimensionner la partition de la carte SD.';
 $string['resizepartitionmessage'] = 'La partition de la carte SD a été redimensionnée à sa taille maximale. La MoodleBox redémarre maintenant. Elle sera à nouveau accessible dans quelques instants.';
 $string['resizepartitionsetting'] = 'Redimensionnement de la partition de la carte SD';
 $string['raspberryhardware'] = 'Modèle Raspberry Pi';
