@@ -32,7 +32,7 @@ require_once($CFG->dirroot . '/lib/formslib.php');
  * Form class to set time and date.
  *
  * @package    tool_moodlebox
- * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
+ * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class datetimeset_form extends moodleform {
@@ -61,7 +61,7 @@ class datetimeset_form extends moodleform {
  * Form class to change MoodleBox password.
  *
  * @package    tool_moodlebox
- * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
+ * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class changepassword_form extends moodleform {
@@ -107,7 +107,7 @@ class changepassword_form extends moodleform {
  * Form class to change MoodleBox Wi-Fi settings.
  *
  * @package    tool_moodlebox
- * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
+ * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class wifisettings_form extends moodleform {
@@ -171,7 +171,7 @@ class wifisettings_form extends moodleform {
  * Form class to resize the partition of the MoodleBox.
  *
  * @package    tool_moodlebox
- * @copyright  2018 onwards Nicolas Martignoni <nicolas@martignoni.net>
+ * @copyright  2018 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class resizepartition_form extends moodleform {
@@ -195,7 +195,7 @@ class resizepartition_form extends moodleform {
  * Form class to restart and shutdown the MoodleBox.
  *
  * @package    tool_moodlebox
- * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
+ * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class restartshutdown_form extends moodleform {

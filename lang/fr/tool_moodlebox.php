@@ -18,7 +18,7 @@
  * Strings for component 'tool_moodlebox', language 'fr' (French)
  *
  * @package    tool_moodlebox
- * @copyright  2016 onwards Nicolas Martignoni <nicolas@martignoni.net>
+ * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

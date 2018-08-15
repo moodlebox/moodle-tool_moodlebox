@@ -58,7 +58,7 @@ See [Release notes](https://github.com/moodlebox/moodle-tool_moodlebox/blob/mast
 
 ## License
 
-Copyright © 2016 onwards, Nicolas Martignoni <nicolas@martignoni.net>
+Copyright © 2016 onwards, Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
 
 - All the source code is licensed under GPL 3 or any later version
 - The documentation is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International.

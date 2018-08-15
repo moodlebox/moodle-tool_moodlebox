@@ -18,7 +18,7 @@
  * Utilities for tool_moodlebox.
  *
  * @package    tool_moodlebox
- * @copyright  2018 onwards Nicolas Martignoni <nicolas@martignoni.net>
+ * @copyright  2018 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Utilities for tool_moodlebox
  *
- * @copyright  2018 onwards Nicolas Martignoni <nicolas@martignoni.net>
+ * @copyright  2018 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class utils {
