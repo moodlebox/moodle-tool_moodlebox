@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 1.12.0, 2018-08-16
+### Added
+- Wi-Fi regulatory country can now be set in the GUI (issue #48).
+- Section to resize SD card doesn't display when partition already resized (issue #50).
+- Help icons and texts added to enhance usability (issue #51).
+- Function get_wireless_interface_name() added (part of issue #32).
+
+### Changed
+- Wi-Fi default channel changed to 11 (part of issue #48).
+- Form definitions moved to separate file (issue #52).
+
+### Fixed
+- Variable name fixed (part of issue #32).
+
 ## Version 1.11.0, 2018-07-09
 ### Added
 - New feature to resize SD card (issue #45). Idea by Ralf Krause.
