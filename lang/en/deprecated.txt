@@ -4,4 +4,5 @@ currentwifipassword,tool_moodlebox
 newwifipassword,tool_moodlebox
 nopassworddefined,tool_moodlebox
 wifipasswordmessage,tool_moodlebox
+wifipasswordonhelp,tool_moodlebox
 wifipasswordsetting,tool_moodlebox
