@@ -38,8 +38,8 @@ ALLOWEDCOUNTRIES="AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF
 #
 # Password setting.
 # Validate password length and allowed chars. Replace it with 'moodlebox' if invalid.
-# Each character must have an encoding in the range of 32 to 126, inclusive,
-# see IEEE Std. 802.11i-2004, Annex H.4.1.
+# Password must have 8 to 63 characters. Each character must have an encoding in the
+# range of 32 to 126, inclusive, see IEEE Std. 802.11i-2004, Annex H.4.1.
 [[ $NEWPASSWORD =~ ^[\ -z\{\|\}\~]{8,63}$ ]] || NEWPASSWORD="moodlebox"
 # New password is now valid; set it in config file.
 sed -i "/^wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$CONFIGFILE"
@@ -63,7 +63,7 @@ sed -i "/^channel=/c\channel=$NEWCHANNEL" "$CONFIGFILE"
 # SSID setting.
 # Validate new SSID. Replace it with 'MoodleBox' if invalid.
 # At this point, $NEWSSID is a string of hex values, e.g. "74657374" for "test"
-# We want to check that it is valid, and between 8 and 32 bytes.
+# We want to check that it is valid, and between 1 and 32 bytes.
 [[ $NEWSSID =~ ^([0-9a-fA-F]{2}){1,32}$ ]] || NEWSSID="4d6f6f646c65426f78" # "MoodleBox"
 # New SSID is now valid; set it in config file.
 # Change ssid to ssid2

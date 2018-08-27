@@ -93,7 +93,7 @@ $string['wifipasswordon_help'] = 'If enabled, users have to type a password to c
 $string['wifisettings'] = 'Wi-Fi settings';
 $string['wifisettingsmessage'] = 'The Wi-Fi settings were changed. Don\'t forget to communicate the new SSID and password to your students.';
 $string['wifissid'] = 'Wi-Fi network name';
-$string['wifissid_help'] = 'The name of the Wi-Fi network (SSID) of the MoodleBox. The string must be a minimum of 8 bytes and a maximum of 32 bytes.';
+$string['wifissid_help'] = 'The name of the Wi-Fi network (SSID) of the MoodleBox. It must be a string of at least 1 byte and at most 32 bytes. Remember that some characters, such as emojis, use more than one byte.';
 
 // Deprecated.
 $string['changepasswordsetting'] = 'MoodleBox password change';
