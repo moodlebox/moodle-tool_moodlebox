@@ -93,4 +93,4 @@ $string['wifipasswordon_help'] = 'Si ce réglage est activé, les utilisateurs d
 $string['wifisettings'] = 'Réglages Wi-Fi';
 $string['wifisettingsmessage'] = 'Les réglages du réseau Wi-Fi ont été modifié. N\'oubliez pas de communiquer le nom du réseau (SSID) et le mot de passe à vos étudiants.';
 $string['wifissid'] = 'Nom du réseau Wi-Fi';
-$string['wifissid_help'] = 'Le nom du réseau Wi-Fi (SSID) de la MoodleBox. Il doit s\'agir d\'une chaîne de 1 octet au minimum et de 32 octets au maximum. N\'oubliez pas que certains personnages, comme les émojis, utilisent plus d\'un octet.';
+$string['wifissid_help'] = 'Le nom du réseau Wi-Fi (SSID) de la MoodleBox. Il doit s\'agir d\'une chaîne de 1 octet au minimum et de 32 octets au maximum. N\'oubliez pas que certains caractères, comme les émojis, utilisent plus d\'un octet.';
