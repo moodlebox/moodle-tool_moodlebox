@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 1.12.1, 2018-08-28
+### Fixed
+- Error in help string fixed (issue #53).
+
 ## Version 1.12.0, 2018-08-16
 ### Added
 - Wi-Fi regulatory country can now be set in the GUI (issue #48).
