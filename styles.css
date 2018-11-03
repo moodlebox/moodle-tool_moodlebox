@@ -22,6 +22,14 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/* Style collapsible region captions as h2 heading. */
+#page-admin-tool-moodlebox-index .collapsibleregioncaption {
+    font-size: 1.875rem;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: .5rem;
+}
+
 table#moodleboxstatus td.c0 {
     font-weight: bold;
 }

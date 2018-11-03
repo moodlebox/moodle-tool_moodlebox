@@ -139,7 +139,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $currentwificountry = $wifiinfo['country_code'];
 
     // System information section.
-    echo $OUTPUT->heading_with_help(get_string('systeminfo', 'tool_moodlebox'), 'systeminfo', 'tool_moodlebox');
+    print_collapsible_region_start('systeminfo', 'systeminfo',
+        get_string('systeminfo', 'tool_moodlebox') .
+            $OUTPUT->help_icon('systeminfo', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
     $table = new flexible_table('moodleboxstatus_table');
@@ -181,9 +183,11 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->print_html();
 
     echo $OUTPUT->box_end();
+    print_collapsible_region_end();
 
     // Time setting section.
-    echo $OUTPUT->heading(get_string('datetimesetting', 'tool_moodlebox'));
+    print_collapsible_region_start('datetimesetting', 'datetimesetting',
+        get_string('datetimesetting', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
     $datetimetriggerfilename = '.set-server-datetime';
@@ -204,9 +208,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     echo $OUTPUT->box_end();
+    print_collapsible_region_end();
 
     // Change password section.
-    echo $OUTPUT->heading_with_help(get_string('passwordsetting', 'tool_moodlebox'), 'passwordsetting', 'tool_moodlebox');
+    print_collapsible_region_start('passwordsetting', 'passwordsetting',
+        get_string('passwordsetting', 'tool_moodlebox') .
+            $OUTPUT->help_icon('passwordsetting', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
     $changepasswordtriggerfilename = '.newpassword';
@@ -228,9 +235,11 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     echo $OUTPUT->box_end();
+    print_collapsible_region_end();
 
     // Wi-Fi configuration section.
-    echo $OUTPUT->heading(get_string('wifisettings', 'tool_moodlebox'));
+    print_collapsible_region_start('wifisettings', 'wifisettings',
+        get_string('wifisettings', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
     $wifisettingstriggerfilename = '.wifisettings';
@@ -263,13 +272,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     echo $OUTPUT->box_end();
+    print_collapsible_region_end();
 
     // Resize partition section.
     // We display this section only when enough free size is present on the SD card.
     $unallocatedfreespace = \tool_moodlebox\local\utils::unallocated_free_space();
 
     if ($unallocatedfreespace) {
-        echo $OUTPUT->heading_with_help(get_string('resizepartition', 'tool_moodlebox'), 'resizepartition', 'tool_moodlebox');
+        print_collapsible_region_start('resizepartition', 'resizepartition',
+            get_string('resizepartition', 'tool_moodlebox') .
+                $OUTPUT->help_icon('resizepartition', 'tool_moodlebox'));
         echo $OUTPUT->box_start('generalbox');
 
         $resizepartitiontriggerfilename = '.resize-partition';
@@ -289,10 +301,13 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         }
 
         echo $OUTPUT->box_end();
+        print_collapsible_region_end();
     }
 
     // Restart-shutdown section.
-    echo $OUTPUT->heading_with_help(get_string('restartstop', 'tool_moodlebox'), 'restartstop', 'tool_moodlebox');
+    print_collapsible_region_start('restartstop', 'restartstop',
+        get_string('restartstop', 'tool_moodlebox') .
+            $OUTPUT->help_icon('restartstop', 'tool_moodlebox'));
     echo $OUTPUT->box_start('generalbox');
 
     $reboottriggerfilename = '.reboot-server';
@@ -317,6 +332,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     echo $OUTPUT->box_end();
+    print_collapsible_region_end();
 } else { // We're not on a Raspberry Pi.
     \core\notification::error(get_string('unsupportedhardware', 'tool_moodlebox'));
 }
