@@ -118,6 +118,7 @@ class wifisettings_form extends moodleform {
      */
     public function definition() {
         global $currentwifissid;
+        global $currentwifissidhiddenstate;
         global $currentwifichannel;
         global $currentwifipassword;
         global $currentwificountry;
@@ -130,6 +131,13 @@ class wifisettings_form extends moodleform {
         $mform->setType('wifissid', PARAM_RAW_TRIMMED);
         $mform->setDefault('wifissid', $currentwifissid);
         $mform->addHelpButton('wifissid', 'wifissid', 'tool_moodlebox');
+
+        // SSID hiding setting.
+        $mform->addElement('checkbox', 'wifissidhiddenstate', get_string('wifissidhiddenstate', 'tool_moodlebox'),
+            ' ' . get_string('wifissidhidden', 'tool_moodlebox'));
+        $mform->setDefault('wifissidhiddenstate', ($currentwifissidhiddenstate == 0) ? 0 : 1);
+        $mform->setType('wifissidhiddenstate', PARAM_INT);
+        $mform->addHelpButton('wifissidhiddenstate', 'wifissidhiddenstate', 'tool_moodlebox');
 
         // Channel setting.
         if ($currentwificountry == 'US' or $currentwificountry == 'CA') {

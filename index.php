@@ -137,6 +137,14 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
     $currentwifipassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
     $currentwificountry = $wifiinfo['country_code'];
+    $currentwifissidhiddenstate = array_key_exists('ignore_broadcast_ssid', $wifiinfo) ? $wifiinfo['ignore_broadcast_ssid'] : '0';
+    if ( $currentwifissidhiddenstate === '0') {
+        // SSID is visible.
+        $currentwifissidhiddenstate = 0;
+    } else {
+        // SSID is hidden.
+        $currentwifissidhiddenstate = 1;
+    }
 
     // System information section.
     print_collapsible_region_start('systeminfo', 'systeminfo',
@@ -162,6 +170,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime));
     $table->add_data(array(get_string('wifisettings', 'tool_moodlebox'), ''));
     $table->add_data(array(get_string('wifissid', 'tool_moodlebox'), $currentwifissid), 'subinfo');
+    $table->add_data(array(get_string('wifissidhiddenstate', 'tool_moodlebox'),
+            ($currentwifissidhiddenstate == 0) ?
+                get_string('visible', 'tool_moodlebox') : get_string('hidden', 'tool_moodlebox')), 'subinfo');
     $table->add_data(array(get_string('wifichannel', 'tool_moodlebox'), $currentwifichannel), 'subinfo');
     $table->add_data(array(get_string('wificountry', 'tool_moodlebox'), $currentwificountry), 'subinfo');
     $table->add_data(array(get_string('wifipassword', 'tool_moodlebox'), $currentwifipassword), 'subinfo');
@@ -256,6 +267,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 if (!isset($data->wifipassword)) {
                     $data->wifipassword = null;
                 }
+                if (!isset($data->wifissidhiddenstate)) {
+                    $data->wifissidhiddenstate = 0;
+                }
                 // Convert $data->wifissid to hex. See https://stackoverflow.com/a/46344675.
                 $data->wifissid = implode(unpack("H*", $data->wifissid));
                 file_put_contents($wifisettingstriggerfilename,
@@ -263,6 +277,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                                   "country=" . $data->wificountry . "\n" .
                                   "password=" . $data->wifipassword . "\n" .
                                   "ssid=" . $data->wifissid . "\n" .
+                                  "ssidhiddenstate=" . $data->wifissidhiddenstate . "\n" .
                                   "passwordprotected=" . $data->wifipasswordon . "\n");
                 \core\notification::warning(get_string('wifisettingsmessage', 'tool_moodlebox'));
             }
