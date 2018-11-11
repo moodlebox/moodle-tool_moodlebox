@@ -39,6 +39,7 @@ $string['datetimesetting'] = 'Date and time';
 $string['dhcpclientinfo'] = 'Client IP address and name';
 $string['dhcpclientnumber'] = 'number of clients';
 $string['dhcpclients'] = 'DHCP clients';
+$string['hidden'] = 'Hidden';
 $string['information'] = 'Information';
 $string['kernelversion'] = 'Kernel version';
 $string['moodleboxinfo'] = 'MoodleBox version';
@@ -81,6 +82,7 @@ $string['systeminfo_help'] = 'The MoodleBox information dashboard displays sever
 $string['unknownmodel'] = 'Unknown Raspberry Pi model';
 $string['unsupportedhardware'] = 'Unsupported server hardware detected! This plugin does only work on Raspberry Pi';
 $string['uptime'] = 'System uptime';
+$string['visible'] = 'Visible';
 $string['wifichannel'] = 'Wi-Fi channel';
 $string['wifichannel_help'] = 'It is not necessary to change the Wi-Fi broadcast channel unless the performance is poor due to interference.';
 $string['wificountry'] = 'Wi-Fi regulatory country';
@@ -94,6 +96,9 @@ $string['wifisettings'] = 'Wi-Fi settings';
 $string['wifisettingsmessage'] = 'The Wi-Fi settings were changed. Don\'t forget to communicate the new SSID and password to your students.';
 $string['wifissid'] = 'Wi-Fi network name';
 $string['wifissid_help'] = 'The name of the Wi-Fi network (SSID) of the MoodleBox. It must be a string of at least 1 byte and at most 32 bytes. Remember that some characters, such as emojis, use more than one byte.';
+$string['wifissidhidden'] = 'Wi-Fi network name hidden';
+$string['wifissidhiddenstate'] = 'Wi-Fi SSID visibility';
+$string['wifissidhiddenstate_help'] = 'If enabled, Wi-Fi SSID will be hidden from users, who won\'t know that there\'s a MoodleBox around. This will notably reduce the usability of the device, but improve slightly its security.';
 
 // Deprecated.
 $string['changepasswordsetting'] = 'MoodleBox password change';
