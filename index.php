@@ -95,10 +95,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $dhcpclientnumber = count($leases);
 
     // Get CPU temperature.
-    $cputemperature = file_get_contents('/sys/class/thermal/thermal_zone0/temp') / 1000 . ' °C';
+    $cputemperature = intval(file_get_contents('/sys/class/thermal/thermal_zone0/temp')) / 1000 . ' °C';
 
     // Get CPU frequency.
-    $cpufrequency = file_get_contents('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq') / 1000 . ' MHz';
+    $cpufrequency = intval(file_get_contents('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')) / 1000 . ' MHz';
 
     // Get system uptime.
     $rawuptime = intval(file_get_contents('/proc/uptime'));
