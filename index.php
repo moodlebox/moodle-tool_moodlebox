@@ -332,12 +332,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));
         $restartshutdownform->display();
 
-        if ($data = $restartshutdownform->get_data()) {
-            if (!empty($data->restartbutton)) {
+        if (($data = $restartshutdownform->get_data()) || $_GET['init']) {
+            if (!empty($data->restartbutton) || $_GET['init'] == 'reboot') {
                 file_put_contents($reboottriggerfilename, 'reboot');
                 \core\notification::warning(get_string('restartmessage', 'tool_moodlebox'));
             }
-            if (!empty($data->shutdownbutton)) {
+            if (!empty($data->shutdownbutton) || $_GET['init'] == 'shutdown') {
                 file_put_contents($shutdowntriggerfilename, 'shutdown');
                 \core\notification::warning(get_string('shutdownmessage', 'tool_moodlebox'));
             }
