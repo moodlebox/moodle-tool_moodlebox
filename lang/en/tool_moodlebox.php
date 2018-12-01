@@ -96,7 +96,7 @@ $string['wifisettings'] = 'Wi-Fi settings';
 $string['wifisettingsmessage'] = 'The Wi-Fi settings were changed. Don\'t forget to communicate the new SSID and password to your students.';
 $string['wifissid'] = 'Wi-Fi network name';
 $string['wifissid_help'] = 'The name of the Wi-Fi network (SSID) of the MoodleBox. It must be a string of at least 1 byte and at most 32 bytes. Remember that some characters, such as emojis, use more than one byte.';
-$string['wifissidhidden'] = 'Wi-Fi network name hidden';
+$string['wifissidhidden'] = 'Hidden Wi-Fi network';
 $string['wifissidhiddenstate'] = 'Wi-Fi SSID visibility';
 $string['wifissidhiddenstate_help'] = 'If enabled, Wi-Fi SSID will be hidden from users, who won\'t know that there\'s a MoodleBox around. This will notably reduce the usability of the device, but improve slightly its security.';
 
