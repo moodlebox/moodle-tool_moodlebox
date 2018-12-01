@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 1.12.2, 2018-12-01
+### Added
+- Each section is now collapsible (issue #55)
+- New feature allowing to hide Wi-Fi SSID (issue #56)
+
+### Changed
+- Supports Moodle 3.6 (issue #58)
+
+### Fixed
+- Type mismatch PHP warnings fixed (no issue number)
+
 ## Version 1.12.1, 2018-08-28
 ### Fixed
 - Error in help string fixed (issue #53).
