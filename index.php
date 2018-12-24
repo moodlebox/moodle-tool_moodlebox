@@ -149,7 +149,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // System information section.
     print_collapsible_region_start('systeminfo', 'systeminfo',
         get_string('systeminfo', 'tool_moodlebox') .
-            $OUTPUT->help_icon('systeminfo', 'tool_moodlebox'));
+            $OUTPUT->help_icon('systeminfo', 'tool_moodlebox'), 'moodleboxsysteminfosection');
     echo $OUTPUT->box_start('generalbox');
 
     $table = new flexible_table('moodleboxstatus_table');
@@ -198,7 +198,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     // Time setting section.
     print_collapsible_region_start('datetimesetting', 'datetimesetting',
-        get_string('datetimesetting', 'tool_moodlebox'));
+        get_string('datetimesetting', 'tool_moodlebox'), 'moodleboxdatetimesection');
     echo $OUTPUT->box_start('generalbox');
 
     $datetimetriggerfilename = '.set-server-datetime';
@@ -224,7 +224,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // Change password section.
     print_collapsible_region_start('passwordsetting', 'passwordsetting',
         get_string('passwordsetting', 'tool_moodlebox') .
-            $OUTPUT->help_icon('passwordsetting', 'tool_moodlebox'));
+            $OUTPUT->help_icon('passwordsetting', 'tool_moodlebox'), 'moodleboxpasswordsection');
     echo $OUTPUT->box_start('generalbox');
 
     $changepasswordtriggerfilename = '.newpassword';
@@ -250,7 +250,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     // Wi-Fi configuration section.
     print_collapsible_region_start('wifisettings', 'wifisettings',
-        get_string('wifisettings', 'tool_moodlebox'));
+        get_string('wifisettings', 'tool_moodlebox'), 'moodleboxwifisection');
     echo $OUTPUT->box_start('generalbox');
 
     $wifisettingstriggerfilename = '.wifisettings';
@@ -296,7 +296,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     if ($unallocatedfreespace) {
         print_collapsible_region_start('resizepartition', 'resizepartition',
             get_string('resizepartition', 'tool_moodlebox') .
-                $OUTPUT->help_icon('resizepartition', 'tool_moodlebox'));
+                $OUTPUT->help_icon('resizepartition', 'tool_moodlebox'), 'moodleboxresizepartitionsection');
         echo $OUTPUT->box_start('generalbox');
 
         $resizepartitiontriggerfilename = '.resize-partition';
@@ -322,7 +322,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // Restart-shutdown section.
     print_collapsible_region_start('restartstop', 'restartstop',
         get_string('restartstop', 'tool_moodlebox') .
-            $OUTPUT->help_icon('restartstop', 'tool_moodlebox'));
+            $OUTPUT->help_icon('restartstop', 'tool_moodlebox'), 'moodleboxrestartstopsection');
     echo $OUTPUT->box_start('generalbox');
 
     $reboottriggerfilename = '.reboot-server';
