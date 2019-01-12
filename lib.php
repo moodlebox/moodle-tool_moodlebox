@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-use tool_moodlebox\helper;
+require_once($CFG->dirroot.'/admin/tool/moodlebox/forms.php');
 
 /**
  * Callback to add footer elements.
@@ -33,23 +33,13 @@ use tool_moodlebox\helper;
  * @return string HTML footer content
  */
 function tool_moodlebox_standard_footer_html() {
-    global $PAGE;
 
-    if (has_capability('moodle/site:config', context_system::instance())) {
+    $data = \tool_moodlebox\local\utils::parse_config_file('/var/www/moodle/admin/tool/moodlebox/.restartstopsettings');
 
-        $output = \html_writer::start_tag('form', ['id' => 'footerrestartstop',
-                'action' => new \moodle_url('/admin/tool/moodlebox/index.php')]);
-
-        $output .= \html_writer::empty_tag('input', ['type' => 'hidden', 'id' => 'restartstopvalue', 'name' => 'init', 'value' => 0]);
-
-        $output .= \html_writer::empty_tag('input', ['type' => 'button', 'id' => 'rebootbox', 'name' => 'reboot',
-                'value' => get_string('restart', 'tool_moodlebox'), 'class' => 'btn btn-secondary m-t-1']);
-        $output .= \html_writer::empty_tag('input', ['type' => 'button', 'id' => 'shutdownbox', 'name' => 'shutdown',
-                'value' => get_string('shutdown', 'tool_moodlebox'), 'class' => 'btn btn-secondary m-t-1']);
-
-        $output .= "</form>";
-
-        $PAGE->requires->js_call_amd('tool_moodlebox/footerform', 'init');
+    if (has_capability('moodle/site:config', context_system::instance()) && $data['restartshutdownfooterstate']) {
+        $restartshutdownform = new restartshutdown_form('/admin/tool/moodlebox/index.php',
+                null, 'post', '', array('id' => 'formrestartstop'));
+        $output = $restartshutdownform->render();
 
         return $output;
     }

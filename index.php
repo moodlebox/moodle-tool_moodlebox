@@ -325,19 +325,38 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $OUTPUT->help_icon('restartstop', 'tool_moodlebox'), 'moodleboxrestartstopsection');
     echo $OUTPUT->box_start('generalbox');
 
+    $restartstopfilename = '.restartstopsettings';
     $reboottriggerfilename = '.reboot-server';
     $shutdowntriggerfilename = '.shutdown-server';
+
+    if (file_exists($restartstopfilename)) {
+        $restartshutdownsettingsform = new restartshutdownsettings_form(null, null, 'post', '', array('id' => 'formrestartstopsettings'));
+        $restartshutdownsettingsform->display();
+
+        if ($data = $restartshutdownsettingsform->get_data()) {
+            if (!empty($data->submitbutton)) {
+                if (!isset($data->restartshutdownfooterstate)) {
+                    $data->restartshutdownfooterstate = 0;
+                }
+                file_put_contents($restartstopfilename,
+                        "restartshutdownfooterstate=" . $data->restartshutdownfooterstate . "\n");
+                \core\notification::warning(get_string('restartshutdownmessage', 'tool_moodlebox'));
+            }
+        }
+    } else {
+        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
+    }
 
     if (file_exists($reboottriggerfilename) and file_exists($shutdowntriggerfilename)) {
         $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));
         $restartshutdownform->display();
 
-        if (($data = $restartshutdownform->get_data()) || $_GET['init']) {
-            if (!empty($data->restartbutton) || $_GET['init'] == 'reboot') {
+        if ($data = $restartshutdownform->get_data()) {
+            if (!empty($data->restartbutton)) {
                 file_put_contents($reboottriggerfilename, 'reboot');
                 \core\notification::warning(get_string('restartmessage', 'tool_moodlebox'));
             }
-            if (!empty($data->shutdownbutton) || $_GET['init'] == 'shutdown') {
+            if (!empty($data->shutdownbutton)) {
                 file_put_contents($shutdowntriggerfilename, 'shutdown');
                 \core\notification::warning(get_string('shutdownmessage', 'tool_moodlebox'));
             }
