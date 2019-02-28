@@ -28,16 +28,16 @@ if ($hassiteconfig) { // Speedup for non-admins.
 
     $ADMIN->add('server', new admin_category('moodlebox', get_string('pluginname', 'tool_moodlebox')));
 
+    $moodleboxadminpage = new admin_externalpage('tool_moodlebox',
+            get_string('moodleboxdashboard', 'tool_moodlebox'),
+            new moodle_url('/admin/tool/moodlebox/index.php'));
+    $ADMIN->add('moodlebox', $moodleboxadminpage);
+
     $moodleboxsettingpage = new admin_settingpage('tool_moodlebox_settings',
             get_string('moodleboxconfiguration', 'tool_moodlebox'));
     $moodleboxsettingpage->add(new admin_setting_configcheckbox('moodlebox_buttonsinfooter',
             get_string('showbuttonsinfooter', 'tool_moodlebox'),
             get_string('showbuttonsinfooter_desc', 'tool_moodlebox'), 0));
     $ADMIN->add('moodlebox', $moodleboxsettingpage);
-
-    $moodleboxadminpage = new admin_externalpage('tool_moodlebox',
-            get_string('moodleboxdashboard', 'tool_moodlebox'),
-            new moodle_url('/admin/tool/moodlebox/index.php'));
-    $ADMIN->add('moodlebox', $moodleboxadminpage);
 
 }
