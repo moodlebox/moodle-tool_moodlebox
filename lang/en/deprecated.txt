@@ -1,6 +1,9 @@
 changepasswordsetting,tool_moodlebox
 changewifipassword,tool_moodlebox
 currentwifipassword,tool_moodlebox
+moodleboxinfo,tool_moodlebox
+moodleboxinfofileerror,tool_moodlebox
+moodleboxpluginversion,tool_moodlebox
 newwifipassword,tool_moodlebox
 nopassworddefined,tool_moodlebox
 wifipasswordmessage,tool_moodlebox

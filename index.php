@@ -121,7 +121,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $moodleboxinfo = $moodleboxinfomatch[1][0] . ' (' . $moodleboxinfomatch[4][0] . ')';
         }
     } else {
-        $moodleboxinfo = get_string('moodleboxinfofileerror', 'tool_moodlebox');
+        $moodleboxinfo = get_string('infofileerror', 'tool_moodlebox');
     }
 
     // Get current Wi-Fi SSID, channel and password.
@@ -188,8 +188,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->add_data(array(get_string('raspberryhardware', 'tool_moodlebox'), get_string($platform, 'tool_moodlebox')));
     $table->add_data(array(get_string('raspbianversion', 'tool_moodlebox'), $raspbianversion));
     $table->add_data(array(get_string('kernelversion', 'tool_moodlebox'), $kernelversion));
-    $table->add_data(array(get_string('moodleboxinfo', 'tool_moodlebox'), $moodleboxinfo));
-    $table->add_data(array(get_string('moodleboxpluginversion', 'tool_moodlebox'), $moodleboxpluginversion));
+    $table->add_data(array(get_string('version', 'tool_moodlebox'), $moodleboxinfo));
+    $table->add_data(array(get_string('pluginversion', 'tool_moodlebox'), $moodleboxpluginversion));
 
     $table->print_html();
 
