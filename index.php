@@ -124,6 +124,15 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $sdcardtotalspace = disk_total_space('/');
     $sdcardfreespace = disk_free_space('/');
 
+    // Check if PiJuice package is installed
+    $pijuicepackage = exec('dpkg-query -W -f=\'${Status}\' pijuice-base 2>/dev/null | grep -c "ok installed"');
+
+    // Get PiJuice Status
+    if ($pijuicepackage) {
+        $pijuicestatusJSON = exec('bin/pijuicestatus.py');
+        $pijuicestatus = json_decode($pijuicestatusJSON, true);
+    }
+
     // Get plugin version.
     $moodleboxpluginversion = $plugin->release . ' (' . $plugin->version . ')';
 
@@ -179,6 +188,15 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     $table->add_data(array(get_string('sdcardavailablespace', 'tool_moodlebox'), display_size($sdcardfreespace) .
             ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)'));
+    if ($pijuicepackage) {
+        if ($pijuicestatus['status_error'] == "NO_ERROR") {
+            $table->add_data(array(get_string('pijuicebatterychargelevel', 'tool_beekeebox'), $pijuicestatus['charge_level'] . '%'));
+            $table->add_data(array(get_string('pijuicebatterystatus', 'tool_beekeebox'), $pijuicestatus['battery_status']));
+        } else {
+            $table->add_data(array(get_string('pijuicestatuserror', 'tool_beekeebox'), $pijuicestatus['status_error']));
+        }
+        $table->add_data(array(get_string('pijuiceisfault', 'tool_beekeebox'), $pijuicestatus['is_fault']));
+    }
     $table->add_data(array(get_string('cpuload', 'tool_moodlebox'),
             $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2]));
     $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature));

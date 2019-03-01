@@ -42,6 +42,11 @@ To complete the installation, you have to configure some incron jobs on the Mood
     www-data ALL=(ALL) NOPASSWD:/usr/bin/vcgencmd
     ```
 
+1. If you use the [PiJuice module](https://github.com/PiSupply/PiJuice), you need to allow www-data to access I2C:
+    ```bash
+    sudo adduser www-data i2c
+    ```
+
 ## Features
 
 - Info about the MoodleBox (kernel version, Raspbian version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
