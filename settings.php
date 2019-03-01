@@ -39,8 +39,6 @@ if ($hassiteconfig) { // Speedup for non-admins.
     $moodleboxsettingpage = new admin_settingpage('tool_moodlebox_settings',
             get_string('configuration', 'tool_moodlebox'));
     // Add settings.
-    // $moodleboxsettingpage->add(new admin_setting_heading('moodlebox_settingsheading',
-    //         get_string('specialconfiguration', 'tool_moodlebox')), '');
     $moodleboxsettingpage->add(new admin_setting_configcheckbox('moodlebox_buttonsinfooter',
             get_string('showbuttonsinfooter', 'tool_moodlebox'),
             get_string('showbuttonsinfooter_desc', 'tool_moodlebox'), 0));
