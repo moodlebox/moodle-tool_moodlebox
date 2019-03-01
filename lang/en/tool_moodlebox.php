@@ -42,7 +42,7 @@ $string['dhcpclientinfo'] = 'Client IP address and name';
 $string['dhcpclientnumber'] = 'number of clients';
 $string['dhcpclients'] = 'DHCP clients';
 $string['documentation'] = 'MoodleBox documentation';
-$string['documentation_desc'] = 'For support questions, browse the complete <a href="https://moodlebox.net/en/help/" title="MoodleBox documentation" target="_blank">MoodleBox documentation</a>.';
+$string['documentation_desc'] = 'For support questions, browse the complete official <a href="https://moodlebox.net/en/help/" title="MoodleBox documentation" target="_blank">MoodleBox documentation</a>.';
 $string['forum'] = 'MoodleBox support forum';
 $string['forum_desc'] = 'If you can’t find an answer to your question in the <a href="https://moodlebox.net/en/help/" title="MoodleBox documentation" target="_blank">MoodleBox documentation</a>, search the <a href="https://discuss.moodlebox.net/" title="MoodleBox forum" target="_blank">MoodleBox support forum</a> to see if your question has already been answered. Otherwise, feel free to open a new discussion.';
 $string['hidden'] = 'Hidden';
