@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['changepassworderror'] = 'Le mot de passe de la MoodleBox n\'a pas été modifié. Les mots de passe donnés ne concordent pas.';
 $string['changepasswordmessage'] = 'Le mot de passe principal de la MoodleBox (compte Unix), de la base de données et de phpMyAdmin ont été modifiés.<br /><br />Attention ! Le mot de passe de l\'utilisateur Admin du Moodle <b>n\'a pas été modifié</b>. Pour le modifier, veuillez passer par la page des préférences de cet utilisateur.';
 $string['changewifisettings'] = 'Changer les réglages Wi-Fi';
-$string['configuration'] = 'Configuration des options MoodleBox';
+$string['configuration'] = 'Options MoodleBox';
 $string['cpufrequency'] = 'Fréquence du processeur';
 $string['cpuload'] = 'Charge du processeur';
 $string['cputemperature'] = 'Température du processeur';
@@ -58,7 +58,7 @@ $string['passwordsetting_help'] = 'Le mot de passe principal de MoodleBox peut �
 $string['pluginname'] = 'MoodleBox';
 $string['pluginversion'] = 'Version du plugin MoodleBox';
 $string['privacy:metadata'] = 'Le plugin MoodleBox affiche certaines informations du Raspberry Pi et permet quelques modifications de configuration, mais ne touche ni ne stocke aucune donnée personnelle.';
-$string['projectinfo'] = '<p>Le <a href="https://moodlebox.net/fr/" title="Site web MoodleBox" target="_blank">projet MoodleBox</a> est un projet libre et gratuit développé à temps perdu, bénévolement et sans but lucratif par Nicolas Martignoni.</p><p>Soutenez ce projet <a href="https://moodlebox.net/fr/donate/" title="Faire un don" target="_blank">en faisant un don</a> ❤. Votre don contribuera au financement du matériel nécessaire au développement de la MoodleBox et à l\'hébergement de sa documentation.</p>';
+$string['projectinfo'] = '<p>Le <a href="https://moodlebox.net/fr/" title="Site web MoodleBox" target="_blank">projet MoodleBox</a> est un projet libre et gratuit développé bénévolement et sans but lucratif par <a href="https://blog.martignoni.net/a-propos/" title="Nicolas Martignoni" target="_blank">Nicolas Martignoni</a> sur son temps libre.</p><p>Soutenez ce projet <a href="https://moodlebox.net/fr/donate/" title="Faire un don" target="_blank">en faisant un don</a> ❤. Votre don contribuera au financement du matériel nécessaire au développement de la MoodleBox et à l\'hébergement de sa documentation.</p>';
 $string['resizepartition'] = 'Redimensionner la partition de la carte SD';
 $string['resizepartition_help'] = 'Utiliser ce bouton pour redimensionner la partition de la carte SD.';
 $string['resizepartitionmessage'] = 'La partition de la carte SD a été redimensionnée à sa taille maximale. La MoodleBox redémarre maintenant. Elle sera à nouveau accessible dans quelques instants.';

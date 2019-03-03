@@ -38,10 +38,8 @@ if ($hassiteconfig) { // Speedup for non-admins.
     // Add admin setting page to sub-category 'moodlebox'.
     $moodleboxsettingpage = new admin_settingpage('tool_moodlebox_settings',
             get_string('configuration', 'tool_moodlebox'));
-    // Add settings.
-    $moodleboxsettingpage->add(new admin_setting_configcheckbox('moodlebox_buttonsinfooter',
-            get_string('showbuttonsinfooter', 'tool_moodlebox'),
-            get_string('showbuttonsinfooter_desc', 'tool_moodlebox'), 0));
+
+    // Add info.
     $moodleboxsettingpage->add(new admin_setting_heading('moodlebox_infoheading',
             get_string('infoheading', 'tool_moodlebox'), get_string('projectinfo', 'tool_moodlebox')));
     $moodleboxsettingpage->add(new admin_setting_description('moodlebox_documentation',
@@ -50,6 +48,13 @@ if ($hassiteconfig) { // Speedup for non-admins.
     $moodleboxsettingpage->add(new admin_setting_description('moodlebox_forum',
             get_string('forum', 'tool_moodlebox'),
             get_string('forum_desc', 'tool_moodlebox')));
+
+    // Add settings.
+    $moodleboxsettingpage->add(new admin_setting_heading('moodlebox_settingheading',
+            get_string('configuration', 'tool_moodlebox'), ''));
+    $moodleboxsettingpage->add(new admin_setting_configcheckbox('moodlebox_buttonsinfooter',
+            get_string('showbuttonsinfooter', 'tool_moodlebox'),
+            get_string('showbuttonsinfooter_desc', 'tool_moodlebox'), 0));
     $ADMIN->add('moodlebox', $moodleboxsettingpage);
 
 }
