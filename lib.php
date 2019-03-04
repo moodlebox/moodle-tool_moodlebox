@@ -34,9 +34,7 @@ require_once($CFG->dirroot.'/admin/tool/moodlebox/forms.php');
  */
 function tool_moodlebox_standard_footer_html() {
 
-    $data = \tool_moodlebox\local\utils::parse_config_file('/var/www/moodle/admin/tool/moodlebox/.restartstopsettings');
-
-    if (has_capability('moodle/site:config', context_system::instance()) && $data['restartshutdownfooterstate']) {
+    if (has_capability('moodle/site:config', context_system::instance()) && get_config('tool_moodlebox', 'buttonsinfooter')) {
         $restartshutdownform = new restartshutdown_form('/admin/tool/moodlebox/index.php',
                 null, 'post', '', array('id' => 'formrestartstop'));
         $output = $restartshutdownform->render();

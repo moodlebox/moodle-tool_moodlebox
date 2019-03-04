@@ -325,27 +325,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $OUTPUT->help_icon('restartstop', 'tool_moodlebox'), 'moodleboxrestartstopsection');
     echo $OUTPUT->box_start('generalbox');
 
-    $restartstopfilename = '.restartstopsettings';
     $reboottriggerfilename = '.reboot-server';
     $shutdowntriggerfilename = '.shutdown-server';
-
-    if (file_exists($restartstopfilename)) {
-        $restartshutdownsettingsform = new restartshutdownsettings_form(null, null, 'post', '', array('id' => 'formrestartstopsettings'));
-        $restartshutdownsettingsform->display();
-
-        if ($data = $restartshutdownsettingsform->get_data()) {
-            if (!empty($data->submitbutton)) {
-                if (!isset($data->restartshutdownfooterstate)) {
-                    $data->restartshutdownfooterstate = 0;
-                }
-                file_put_contents($restartstopfilename,
-                        "restartshutdownfooterstate=" . $data->restartshutdownfooterstate . "\n");
-                \core\notification::warning(get_string('restartshutdownmessage', 'tool_moodlebox'));
-            }
-        }
-    } else {
-        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
-    }
 
     if (file_exists($reboottriggerfilename) and file_exists($shutdowntriggerfilename)) {
         $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));

@@ -228,20 +228,3 @@ class restartshutdown_form extends moodleform {
         $mform->closeHeaderBefore('buttonar');
     }
 }
-class restartshutdownsettings_form extends moodleform {
-
-    /**
-     * Define the form.
-     */
-    public function definition() {
-        $mform = $this->_form;
-        $mform->addElement('checkbox', 'restartshutdownfooterstate',
-                get_string('restartshutdownfooterstate', 'tool_moodlebox'),
-                ' ' . get_string('restartshutdownfooter', 'tool_moodlebox'));
-        $mform->setDefault('restartshutdownfooterstate', 0);
-        $mform->setType('restartshutdownfooterstate', PARAM_INT);
-        $mform->addHelpButton('restartshutdownfooterstate', 'restartshutdownfooterstate', 'tool_moodlebox');
-
-        $this->add_action_buttons(false, get_string('changerestartshutdownsettings', 'tool_moodlebox'));
-    }
-}
