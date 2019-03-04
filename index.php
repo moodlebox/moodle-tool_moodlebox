@@ -113,8 +113,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     // Get PiJuice Status
     if ($pijuicepackage) {
-        $pijuicestatusJSON = exec('bin/pijuicestatus.py');
-        $pijuicestatus = json_decode($pijuicestatusJSON, true);
+        $pijuicestatusjson = exec('bin/pijuicestatus.py');
+        $pijuicestatus = json_decode($pijuicestatusjson, true);
     }
 
     // Get plugin version.
