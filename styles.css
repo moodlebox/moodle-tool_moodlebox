@@ -66,3 +66,15 @@ input#id_shutdownbutton {
     border-color: rgba(189, 54, 47, 0.1) rgba(189, 54, 47, 0.1) rgba(128, 36, 32, 0.25);
     filter: progid:dximagetransform.microsoft.gradient(enabled = false);
 }
+
+#page-footer #formrestartstop #fgroup_id_buttonar {
+    margin: 1rem 0 0 0;
+}
+
+#page-footer #formrestartstop #fgroup_id_buttonar .col-md-3 {
+    display: none;
+}
+
+#page-footer #formrestartstop #fgroup_id_buttonar .form-inline {
+    padding-left: 0;
+}
