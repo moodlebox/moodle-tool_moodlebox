@@ -49,6 +49,8 @@ $string['hidden'] = 'Caché';
 $string['infofileerror'] = 'Information non disponible';
 $string['infoheading'] = 'Information sur la MoodleBox';
 $string['information'] = 'Information';
+$string['ihavedonated'] = 'J\'ai faut un don !';
+$string['ihavedonated_desc'] = 'Cochez cette case si <a href="https://moodlebox.net/fr/donate/" title="Faire un don" target="_blank">vous avez fait un don</a> au projet MoodleBox.<br />Ce réglage n\'a absolument aucun effet. Il vous permet simplement de marquer votre fierté d\'avoir contribué au <a href="https://moodlebox.net/fr/" title="Site web MoodleBox" target="_blank">projet MoodleBox</a>. Mille mercis !';
 $string['kernelversion'] = 'Version du noyau';
 $string['missingconfigurationerror'] = 'Cette section n\'est pas disponble, car l\'installation du plugin n\'est pas complète. Le réglage ne peut donc pas être traité par la MoodleBox. Veuillez consulter la <a href="https://github.com/moodlebox/moodle-tool_moodlebox/blob/master/README.md" target="_blank">documentation d\'installation</a> afin de corriger cette erreur.';
 $string['parameter'] = 'Paramètre';
