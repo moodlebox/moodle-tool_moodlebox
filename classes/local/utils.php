@@ -176,4 +176,73 @@ class utils {
         return (float)$unallocatedfreespace;
     }
 
+    /**
+     * Get Raspberry Pi throttled state
+     * See https://github.com/raspberrypi/documentation/blob/JamesH65-patch-vcgencmd-vcdbg-docs/raspbian/applications/vcgencmd.md.
+     * See https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=147781&start=50#p972790.
+     *
+     * +----+----+----+----+----+
+     * |3210|FEDC|BA98|7654|3210|
+     * +----+----+----+----+----+
+     * |    |    |    |    |   A|
+     * |    |    |    |    |  B |
+     * |    |    |    |    | C  |
+     * |    |    |    |    |D   |
+     * |   E|    |    |    |    |
+     * |  F |    |    |    |    |
+     * | G  |    |    |    |    |
+     * |H   |    |    |    |    |
+     * +----+----+----+----+----+
+     * |9876|5432|1098|7654|3210|
+     * +----+----+----+----+----+
+     *
+     * +---+------+-------------–-----------------------+
+     * | # | bits | contains                            |
+     * +---+------+------------–------------------------+
+     * | A |  01  | Under voltage detected              |
+     * | B |  02  | Arm frequency capped                |
+     * | C |  03  | Currently throttled                 |
+     * | D |  04  | Soft temperature limit active       |
+     * |   |      |                                     |
+     * | E |  16  | Under voltage has occurred          |
+     * | F |  17  | Arm frequency capped has occurred   |
+     * | G |  18  | Throttling has occurred             |
+     * | H |  19  | Soft temperature limit has occurred |
+     * +---+------+-------------------------------------+
+     *
+     * @return associative array of parameters, value or false if unsupported hardware.
+     */
+    public static function get_throttled_state() {
+        $throttledstate = null;
+
+        $command = "sudo vcgencmd get_throttled | awk -F'=' '{print $2}'";
+        // Get bit pattern from device.
+        if ( $throttledstate = exec($command, $out) ) {
+            $throttledstate = hexdec($throttledstate);
+
+            // Get raw values using bitwise operations.
+            $undervoltagedetected = ($throttledstate & 0x1);
+            $armfreqcapped = ($throttledstate & 0x2) >> 1;
+            $currentlythrottled = ($throttledstate & 0x4) >> 2;
+            $softtemplimitactive = ($throttledstate & 0x8) >> 3;
+            $undervoltageoccurred = ($throttledstate & 0x10000) >> 16;
+            $armfreqwascapped = ($throttledstate & 0x20000) >> 17;
+            $throttlingoccurred = ($throttledstate & 0x40000) >> 18;
+            $softtemplimitoccurred = ($throttledstate & 0x80000) >> 19;
+
+            return array(
+                'undervoltagedetected' => ($undervoltagedetected == 1),
+                'armfrequencycapped' => ($armfreqcapped == 1),
+                'currentlythrottled' => ($currentlythrottled == 1),
+                'softtemplimitactive' => ($softtemplimitactive == 1),
+                'undervoltageoccurred' => ($undervoltageoccurred == 1),
+                'armfrequencycappedoccurred' => ($armfreqwascapped == 1),
+                'throttlingoccurred' => ($throttlingoccurred == 1),
+                'softtemplimitoccurred' => ($softtemplimitoccurred == 1),
+            );
+        } else {
+            return false;
+        }
+    }
+
 }
