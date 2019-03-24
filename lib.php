@@ -40,8 +40,6 @@ function tool_moodlebox_standard_footer_html() {
             if ( $throttledstate['undervoltagedetected'] || $throttledstate['undervoltageoccurred'] ) {
                 \core\notification::error(get_string('badpowersupply', 'tool_moodlebox'));
             }
-        } else {
-            // TODO: print error message.
         }
     }
 
