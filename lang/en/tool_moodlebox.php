@@ -24,6 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['badpowersupply'] = '<p><b>Warning</b> ! The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and use a good quality cable to connect it with the MoodleBox.</p>';
 $string['changepassworderror'] = 'The MoodleBox password was not changed. The passwords given don\'t match.';
 $string['changepasswordmessage'] = 'The main password of the MoodleBox (Unix account) was changed.<br /><br />Warning! The password of the Admin user of the Moodle <b>was not changed</b>. To change it, please use the preferences page of this user.';
 $string['changewifisettings'] = 'Change Wi-Fi settings';
@@ -44,7 +45,7 @@ $string['dhcpclients'] = 'DHCP clients';
 $string['documentation'] = 'MoodleBox documentation';
 $string['documentation_desc'] = '<p>For support questions, browse the complete <a href="https://moodlebox.net/en/help/" title="MoodleBox documentation" target="_blank">MoodleBox documentation</a>.</p>';
 $string['forum'] = 'MoodleBox support forum';
-$string['forum_desc'] = '<p>If you can’t find an answer to your question in the <a href="https://moodlebox.net/en/help/" title="MoodleBox documentation" target="_blank">MoodleBox documentation</a>, search the <a href="https://discuss.moodlebox.net/" title="MoodleBox forum" target="_blank">MoodleBox support forum</a> to see if your question has already been answered. Otherwise, feel free to open a new discussion.</p>';
+$string['forum_desc'] = '<p>If you can\'t find an answer to your question in the <a href="https://moodlebox.net/en/help/" title="MoodleBox documentation" target="_blank">MoodleBox documentation</a>, search the <a href="https://discuss.moodlebox.net/" title="MoodleBox forum" target="_blank">MoodleBox support forum</a> to see if your question has already been answered. Otherwise, feel free to open a new discussion.</p>';
 $string['hidden'] = 'Hidden';
 $string['infofileerror'] = 'Information not available';
 $string['infoheading'] = 'MoodleBox support information';
