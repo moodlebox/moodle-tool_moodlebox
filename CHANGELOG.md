@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.0.0, 2019-04-19
+### Added
+- Restart and shutdown buttons can be displayed to the administrator on the footer of any Moodle page (issue #33). Warm thanks to [Adrian Perez Rodriguez](https://github.com/adpe) for most of the implementation.
+- A warning is displayed to the administrator on any Moodle page if under voltage is detected (issue #65).
+- Links to documentation website and support forum are displayed on the new MoodleBox settings page (issue #54).
+
+### Changed
+- Moodle 3.6.0 or later is now required (due to implementation of #54).
+- Configuration and dashboard pages were refactored (part of issue #33).
+- Collapsed status of collapsible regions is now saved between sessions (issue #60).
+
+### Fixed
+- Bad permissions on shell script (issue #61).
+- Typos fixed in lang strings (no issue number).
+
 ## Version 1.12.2, 2018-12-01
 ### Added
 - Each section is now collapsible (issue #55)
