@@ -37,11 +37,13 @@ To complete the installation, you have to configure some incron jobs on the Mood
 1. Copy the following line at the end of file `/etc/sudoers`:
     ```bash
     www-data ALL=(ALL) NOPASSWD:/sbin/parted /dev/mmcblk0 unit MB print free
+    www-data ALL=(ALL) NOPASSWD:/usr/bin/vcgencmd
     ```
 
 ## Features
 
 - Info about the MoodleBox (kernel version, Raspbian version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
+- Warning when under voltage detected.
 - GUI to set the MoodleBox date and time.
 - GUI to set the MoodleBox password.
 - GUI to set the MoodleBox Wi-Fi network password (or remove it), SSID and channel.
