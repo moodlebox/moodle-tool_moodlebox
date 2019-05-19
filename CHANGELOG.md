@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.0.1, 2019-05-19
+### Added
+- Plugin is compatible with Moodle 3.7.0 (issue #67).
+
+### Fixed
+- Fix warning in PHP7.2 and later (issue #67).
+
 ## Version 2.0.0, 2019-04-19
 ### Added
 - Restart and shutdown buttons can be displayed to the administrator on the footer of any Moodle page (issue #33). Warm thanks to [Adrian Perez Rodriguez](https://github.com/adpe) for most of the implementation.
