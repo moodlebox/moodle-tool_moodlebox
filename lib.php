@@ -35,7 +35,7 @@ require_once($CFG->dirroot.'/admin/tool/moodlebox/forms.php');
 function tool_moodlebox_standard_footer_html() {
 
     // Check that logged in user has admin or manager role.
-    if ( has_capability('moodle/site:manageallmessaging', context_system::instance()) ) {
+    if ( has_capability('tool/moodlebox:viewbuttonsinfooter', context_system::instance()) ) {
         // Get throttled state and print warning if throttling is active or has occurred.
         if ( $throttledstate = \tool_moodlebox\local\utils::get_throttled_state() ) {
             if ( $throttledstate['undervoltagedetected'] || $throttledstate['undervoltageoccurred'] ) {
@@ -45,7 +45,8 @@ function tool_moodlebox_standard_footer_html() {
     }
 
     // Check that logged in user has admin or manager role and option is enabled.
-    if (has_capability('moodle/site:manageallmessaging', context_system::instance()) && get_config('tool_moodlebox', 'buttonsinfooter')) {
+    if (has_capability('tool/moodlebox:viewbuttonsinfooter', context_system::instance()) &&
+            get_config('tool_moodlebox', 'buttonsinfooter')) {
         $restartshutdownform = new restartshutdown_form('/admin/tool/moodlebox/index.php',
                 null, 'post', '', array('id' => 'formrestartstop'));
         $output = $restartshutdownform->render();
