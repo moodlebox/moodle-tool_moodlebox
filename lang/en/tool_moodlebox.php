@@ -54,6 +54,7 @@ $string['ihavedonated'] = 'I have donated! 🎉';
 $string['ihavedonated_desc'] = 'Check this box if <a href="https://moodlebox.net/en/donate/" title="Make a donation" target="_blank">you\'ve donated</a> to the MoodleBox project.<br />This setting has no effect at all. It simply allows you to show your pride in having contributed to the <a href="https://moodlebox.net/en/" title="MoodleBox website" target="_blank">MoodleBox project</a>. Many thanks!';
 $string['kernelversion'] = 'Kernel version';
 $string['missingconfigurationerror'] = 'This section isn\'t available. The plugin installation is not complete, so that the setting cannot be handled by the MoodleBox. Please read the <a href="https://github.com/moodlebox/moodle-tool_moodlebox/blob/master/README.md" target="_blank">installation documentation</a> to fix this error.';
+$string['moodlebox:viewbuttonsinfooter'] = 'View restart and shutdown buttons in footer';
 $string['parameter'] = 'Parameter';
 $string['passwordprotected'] = 'Password protected';
 $string['passwordsetting'] = 'MoodleBox password';
