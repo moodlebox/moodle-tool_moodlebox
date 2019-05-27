@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,19 +15,26 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details.
+ * Defines the capabilities used by the MoodleBox plugin.
  *
  * @package    tool_moodlebox
  * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     2018 Adrian Perez Rodriguez {@link mailto:p.adrian@gmx.ch}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
-$plugin = new stdClass();
+$capabilities = array(
 
-$plugin->version  = 2019052600;
-$plugin->release = '2.1.0-beta';
-$plugin->requires = 2018120300;
-$plugin->maturity = MATURITY_BETA;
-$plugin->component = 'tool_moodlebox';
+    /* allows the user to view the restart/shutdown buttons in the footer */
+    'tool/moodlebox:viewbuttonsinfooter' => array(
+        'riskbitmask' => RISK_CONFIG | RISK_DATALOSS,
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW,
+        ),
+    ),
+
+);
