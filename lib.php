@@ -34,6 +34,8 @@ require_once($CFG->dirroot.'/admin/tool/moodlebox/forms.php');
  */
 function tool_moodlebox_standard_footer_html() {
 
+    global $CFG;
+
     // Check that logged in user has admin or manager role.
     if ( has_capability('tool/moodlebox:viewbuttonsinfooter', context_system::instance()) ) {
         // Get throttled state and print warning if throttling is active or has occurred.
@@ -47,8 +49,24 @@ function tool_moodlebox_standard_footer_html() {
     // Check that logged in user has admin or manager role and option is enabled.
     if (has_capability('tool/moodlebox:viewbuttonsinfooter', context_system::instance()) &&
             get_config('tool_moodlebox', 'buttonsinfooter')) {
-        $restartshutdownform = new restartshutdown_form('/admin/tool/moodlebox/index.php',
-                null, 'post', '', array('id' => 'formrestartstop'));
+
+        $thisplugindir = $CFG->dirroot . '/admin/tool/moodlebox/';
+        $reboottriggerfilename = $thisplugindir . '.reboot-server';
+        $shutdowntriggerfilename = $thisplugindir . '.shutdown-server';
+
+        $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));
+
+        if ($data = $restartshutdownform->get_data()) {
+            if (!empty($data->restartbutton)) {
+                file_put_contents($reboottriggerfilename, 'reboot');
+                \core\notification::warning(get_string('restartmessage', 'tool_moodlebox'));
+            }
+            if (!empty($data->shutdownbutton)) {
+                file_put_contents($shutdowntriggerfilename, 'shutdown');
+                \core\notification::warning(get_string('shutdownmessage', 'tool_moodlebox'));
+            }
+        }
+
         $output = $restartshutdownform->render();
 
         return $output;
