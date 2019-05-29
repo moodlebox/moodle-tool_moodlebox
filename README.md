@@ -10,7 +10,9 @@ A Moodle administration plugin providing a GUI to some settings and management o
 
 This plugin enables a Moodle administrator to monitor some hardware settings, to set the date of the MoodleBox, to allow restart and shutdown of the MoodleBox and changing Raspberry Pi passwords using a GUI. After the installation in Moodle, some steps are required to complete on the Raspberry Pi (see below).
 
-The plugin is compatible with Moodle 3.3 or later. A Raspberry Pi model 3B or 3B+ is recommended.
+Administrators and users with manager role can moreover restart and shutdown the MoodleBox with buttons in the footer of each Moodle page.
+
+The plugin is compatible with Moodle 3.6 or later. A Raspberry Pi model 3B or 3B+ is recommended.
 
 ## Installation
 

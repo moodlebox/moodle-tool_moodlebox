@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.1.0, 2019-05-29
+### Added
+- Manager can now use restart and shutdown buttons in the footer (#68).
+
 ## Version 2.0.1, 2019-05-19
 ### Added
 - Plugin is compatible with Moodle 3.7.0 (issue #67).
