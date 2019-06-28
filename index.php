@@ -64,6 +64,19 @@ switch ( $hardwaredata['model'] ) {
     case '3B+':
         $platform = 'rpi3bplus';
         break;
+    case '4B':
+        switch ($hardwaredata['memory']) {
+            case '1 GB':
+                $platform = 'rpi4onemb';
+                break;
+            case '2 GB':
+                $platform = 'rpi4twomb';
+                break;
+            case '4 GB':
+                $platform = 'rpi4fourmb';
+                break;
+        };
+        break
     case 'ZeroW':
         $platform = 'rpizerow';
         break;
