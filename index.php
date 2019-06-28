@@ -76,7 +76,7 @@ switch ( $hardwaredata['model'] ) {
                 $platform = 'rpi4fourmb';
                 break;
         };
-        break
+        break;
     case 'ZeroW':
         $platform = 'rpizerow';
         break;
