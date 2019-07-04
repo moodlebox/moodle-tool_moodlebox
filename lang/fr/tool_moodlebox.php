@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['badpowersupply'] = '<p><b>Attention</b> ! L\'alimentation de la MoodleBox est insuffisante, ce qui peut causer divers problèmes, par exemple une limitation du nombre de clients Wi-Fi ou même un arrêt inopiné de l\'appareil.</p><p>Il est vivement recommander de <b>changer d\'alimentation</b>, en privilégiant l\'<a href="https://www.raspberrypi.org/products/universal-power-supply/" target="_blank">alimentation officielle de la Fondation Raspberry</a>, et d\'utiliser un câble de bonne qualité pour la relier à la MoodleBox.</p>';
+$string['badpowersupply'] = '<p><b>Attention</b> ! L\'alimentation de la MoodleBox est insuffisante, ce qui peut causer divers problèmes, par exemple une limitation du nombre de clients Wi-Fi ou même un arrêt inopiné de l\'appareil.</p><p>Il est vivement recommandé de <b>changer d\'alimentation</b>, en privilégiant l\'<a href="https://www.raspberrypi.org/products/universal-power-supply/" target="_blank">alimentation officielle de la Fondation Raspberry</a>, et d\'utiliser un câble de bonne qualité pour la relier à la MoodleBox.</p>';
 $string['changepassworderror'] = 'Le mot de passe de la MoodleBox n\'a pas été modifié. Les mots de passe donnés ne concordent pas.';
 $string['changepasswordmessage'] = 'Le mot de passe principal de la MoodleBox (compte Unix), de la base de données et de phpMyAdmin ont été modifiés.<br /><br />Attention ! Le mot de passe de l\'utilisateur Admin du Moodle <b>n\'a pas été modifié</b>. Pour le modifier, veuillez passer par la page des préférences de cet utilisateur.';
 $string['changewifisettings'] = 'Changer les réglages Wi-Fi';
@@ -115,4 +115,4 @@ $string['wifissid'] = 'Nom du réseau Wi-Fi';
 $string['wifissid_help'] = 'Le nom du réseau Wi-Fi (SSID) de la MoodleBox. Il doit s\'agir d\'une chaîne de 1 octet au minimum et de 32 octets au maximum. N\'oubliez pas que certains caractères, comme les émojis, utilisent plus d\'un octet.';
 $string['wifissidhidden'] = 'Réseau Wi-Fi caché';
 $string['wifissidhiddenstate'] = 'Visibilité du SSID Wi-Fi';
-$string['wifissidhiddenstate_help'] = 'Si ce réglage est activé, le SSID Wi-Fi sera caché pour les utilisateurs, qui ne sauront pas qu\'il y une MoodleBox aux environs. Ceci diminuera considérablement la convivialité de l\'appareil, mais améliorera très légèrement sa sécurité.';
+$string['wifissidhiddenstate_help'] = 'Si ce réglage est activé, le SSID Wi-Fi sera caché pour les utilisateurs, qui ne sauront pas qu\'il y a une MoodleBox aux environs. Ceci diminuera considérablement la convivialité de l\'appareil, mais améliorera très légèrement sa sécurité.';
