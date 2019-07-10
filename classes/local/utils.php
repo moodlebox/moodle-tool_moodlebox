@@ -264,4 +264,47 @@ class utils {
         }
     }
 
+    /**
+     * Get survey data.
+     *
+     * @return associative array of parameters, value
+     */
+    public static function get_survey_data() {
+        require(dirname(dirname(dirname(__FILE__))).'/version.php');
+
+        // Read serial number from device.
+        if ( $cpuinfo = @file_get_contents('/proc/cpuinfo') ) {
+            if ( preg_match_all('/^Serial.*/m', $cpuinfo, $serialmatch) > 0 ) {
+                $serialnumber = explode(' ', $serialmatch[0][0]);
+                $serialnumber = end($serialnumber);
+            }
+        }
+        // Compute device uuid.
+        $uuid = hash('md5', $serialnumber);
+
+        // Get hardware model
+        $hardware = utils::get_hardware_model();
+
+        // Get MoodleBox image version
+        if ( file_exists('/etc/moodlebox-info') ) {
+            $moodleboxinfo = file('/etc/moodlebox-info');
+            if ( preg_match_all('/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
+                    $moodleboxinfo[0], $moodleboxinfomatch) > 0 ) {
+                $moodleboxinfo = $moodleboxinfomatch[1][0] . ' (' . $moodleboxinfomatch[4][0] . ')';
+            }
+        }
+
+        $surveydata = array(
+            'uuid' => $uuid,
+            'osrelease' => utils::parse_config_file('/etc/os-release')['PRETTY_NAME'],
+            'kernel' => php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m'),
+            'hardware' => $hardware['model'] . ' ' . $hardware['memory'],
+            'moodleboxversion' => $moodleboxinfo,
+            'pluginversion' => $plugin->release . ' (' . $plugin->version . ')',
+            'sdsize' => disk_total_space('/'),
+        );
+
+        return $surveydata;
+    }
+
 }
