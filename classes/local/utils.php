@@ -137,6 +137,24 @@ class utils {
     }
 
     /**
+     * Get ethernet interface name. Usually 'eth0'.
+     *
+     * @return string containing interface name
+     */
+    public static function get_ethernet_interface_name() {
+        $path = realpath('/sys/class/net');
+
+        $iter = new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS +
+                \RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
+        $iter = new \RecursiveIteratorIterator($iter, \RecursiveIteratorIterator::CHILD_FIRST);
+        $iter = new \RegexIterator($iter, '|^.*/device$|i', \RecursiveRegexIterator::GET_MATCH);
+        $iter->setMaxDepth(2);
+        $matches = array_values(preg_grep('#^.*/(eth|en).*$#i', array_keys(iterator_to_array($iter))))[0];
+
+        return explode('/', $matches)[4];
+    }
+
+    /**
      * Get wireless interface name. Usually 'wlan0'.
      *
      * @return string containing interface name
