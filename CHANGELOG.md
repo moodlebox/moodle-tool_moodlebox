@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.2.0, 2019-06-10
+### Added
+- Raspberry Pi 4B and other models are now supported (#70).
+
 ## Version 2.1.0, 2019-05-29
 ### Added
 - Manager can now use restart and shutdown buttons in the footer (#68).
