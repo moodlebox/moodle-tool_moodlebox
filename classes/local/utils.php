@@ -127,7 +127,7 @@ class utils {
      * Parse config files with "setting=value" syntax, ignoring commented lines
      * beginnning with a hash (#).
      *
-     * @SuppressWarnings("unused")
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      *
      * @param file $file to parse
      * @param bool $mode (optional)
@@ -189,7 +189,7 @@ class utils {
     /**
      * Find unallocated space on SD card.
      *
-     * @SuppressWarnings("unused")
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      *
      * @return float value if unallocated space, in MB.
      */
@@ -234,7 +234,7 @@ class utils {
      * | H |  19  | Soft temperature limit has occurred |
      * +---+------+-------------------------------------+
      *
-     * @SuppressWarnings("unused")
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      *
      * @return associative array of parameters, value or false if unsupported hardware.
      */

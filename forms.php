@@ -87,7 +87,7 @@ class changepassword_form extends moodleform {
     /**
      * Validate the form.
      *
-     * @SuppressWarnings("unused")
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @param array $data submitted data
      * @param array $files not used
