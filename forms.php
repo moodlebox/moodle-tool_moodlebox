@@ -90,6 +90,7 @@ class changepassword_form extends moodleform {
      * @param array $files not used
      * @return array errors
      */
+    // @codingStandardsIgnoreLine
     public function validation($data, $files) {
         $errors = array();
 

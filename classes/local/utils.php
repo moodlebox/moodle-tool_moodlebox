@@ -132,6 +132,7 @@ class utils {
      * @param int $scannermode (optional)
      * @return associative array of parameters, value
      */
+    // @codingStandardsIgnoreLine
     public static function parse_config_file($file, $mode = false, $scannermode = INI_SCANNER_NORMAL) {
         return parse_ini_string(preg_replace('/^#.*\\n/m', '', @file_get_contents($file)), $mode, $scannermode);
     }
@@ -190,7 +191,9 @@ class utils {
      * @return float value if unallocated space, in MB.
      */
     public static function unallocated_free_space() {
+        // @codingStandardsIgnoreLine
         $command = "sudo parted /dev/mmcblk0 unit MB print free | tail -n2 | grep 'Free Space' | awk '{print $3}' | sed -e 's/MB$//'";
+        // @codingStandardsIgnoreLine
         $unallocatedfreespace = exec($command, $out);
         return (float)$unallocatedfreespace;
     }
@@ -236,6 +239,7 @@ class utils {
 
         $command = "sudo vcgencmd get_throttled | awk -F'=' '{print $2}'";
         // Get bit pattern from device.
+        // @codingStandardsIgnoreLine
         if ( $throttledstate = exec($command, $out) ) {
             $throttledstate = hexdec($throttledstate);
 
@@ -243,21 +247,21 @@ class utils {
             $undervoltagedetected = ($throttledstate & 0x1);
             $armfreqcapped = ($throttledstate & 0x2) >> 1;
             $currentlythrottled = ($throttledstate & 0x4) >> 2;
-            $softtemplimitactive = ($throttledstate & 0x8) >> 3;
+            $templimitactive = ($throttledstate & 0x8) >> 3;
             $undervoltageoccurred = ($throttledstate & 0x10000) >> 16;
             $armfreqwascapped = ($throttledstate & 0x20000) >> 17;
             $throttlingoccurred = ($throttledstate & 0x40000) >> 18;
-            $softtemplimitoccurred = ($throttledstate & 0x80000) >> 19;
+            $templimitoccurred = ($throttledstate & 0x80000) >> 19;
 
             return array(
                 'undervoltagedetected' => ($undervoltagedetected == 1),
                 'armfrequencycapped' => ($armfreqcapped == 1),
                 'currentlythrottled' => ($currentlythrottled == 1),
-                'softtemplimitactive' => ($softtemplimitactive == 1),
+                'templimitactive' => ($templimitactive == 1),
                 'undervoltageoccurred' => ($undervoltageoccurred == 1),
                 'armfrequencycappedoccurred' => ($armfreqwascapped == 1),
                 'throttlingoccurred' => ($throttlingoccurred == 1),
-                'softtemplimitoccurred' => ($softtemplimitoccurred == 1),
+                'templimitoccurred' => ($templimitoccurred == 1),
             );
         } else {
             return false;
@@ -282,10 +286,10 @@ class utils {
         // Compute device uuid.
         $uuid = hash('md5', $serialnumber);
 
-        // Get hardware model
-        $hardware = utils::get_hardware_model();
+        // Get hardware model.
+        $hardware = self::get_hardware_model();
 
-        // Get MoodleBox image version
+        // Get MoodleBox image version.
         if ( file_exists('/etc/moodlebox-info') ) {
             $moodleboxinfo = file('/etc/moodlebox-info');
             if ( preg_match_all('/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
@@ -296,7 +300,7 @@ class utils {
 
         $surveydata = array(
             'uuid' => $uuid,
-            'osrelease' => utils::parse_config_file('/etc/os-release')['PRETTY_NAME'],
+            'osrelease' => self::parse_config_file('/etc/os-release')['PRETTY_NAME'],
             'kernel' => php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m'),
             'hardware' => $hardware['model'] . ' ' . $hardware['memory'],
             'moodleboxversion' => $moodleboxinfo,
