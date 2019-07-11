@@ -127,12 +127,13 @@ class utils {
      * Parse config files with "setting=value" syntax, ignoring commented lines
      * beginnning with a hash (#).
      *
+     * @SuppressWarnings("unused")
+     *
      * @param file $file to parse
      * @param bool $mode (optional)
      * @param int $scannermode (optional)
      * @return associative array of parameters, value
      */
-    // @codingStandardsIgnoreLine
     public static function parse_config_file($file, $mode = false, $scannermode = INI_SCANNER_NORMAL) {
         return parse_ini_string(preg_replace('/^#.*\\n/m', '', @file_get_contents($file)), $mode, $scannermode);
     }
@@ -188,12 +189,13 @@ class utils {
     /**
      * Find unallocated space on SD card.
      *
+     * @SuppressWarnings("unused")
+     *
      * @return float value if unallocated space, in MB.
      */
     public static function unallocated_free_space() {
         // @codingStandardsIgnoreLine
         $command = "sudo parted /dev/mmcblk0 unit MB print free | tail -n2 | grep 'Free Space' | awk '{print $3}' | sed -e 's/MB$//'";
-        // @codingStandardsIgnoreLine
         $unallocatedfreespace = exec($command, $out);
         return (float)$unallocatedfreespace;
     }
@@ -232,6 +234,8 @@ class utils {
      * | H |  19  | Soft temperature limit has occurred |
      * +---+------+-------------------------------------+
      *
+     * @SuppressWarnings("unused")
+     *
      * @return associative array of parameters, value or false if unsupported hardware.
      */
     public static function get_throttled_state() {
@@ -239,7 +243,6 @@ class utils {
 
         $command = "sudo vcgencmd get_throttled | awk -F'=' '{print $2}'";
         // Get bit pattern from device.
-        // @codingStandardsIgnoreLine
         if ( $throttledstate = exec($command, $out) ) {
             $throttledstate = hexdec($throttledstate);
 

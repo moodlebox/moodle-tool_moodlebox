@@ -30,6 +30,9 @@ require_once($CFG->dirroot.'/admin/tool/moodlebox/forms.php');
 /**
  * Callback to add footer elements.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+ *
  * @return string HTML footer content
  */
 function tool_moodlebox_standard_footer_html() {
