@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['badpowersupply'] = '<p><b>Attention</b> ! L\'alimentation de la MoodleBox est insuffisante, ce qui peut causer divers problèmes, par exemple une limitation du nombre de clients Wi-Fi ou même un arrêt inopiné de l\'appareil.</p><p>Il est vivement recommandé de <b>changer d\'alimentation</b>, en privilégiant l\'<a href="https://www.raspberrypi.org/products/universal-power-supply/" target="_blank">alimentation officielle de la Fondation Raspberry</a>, et d\'utiliser un câble de bonne qualité pour la relier à la MoodleBox.</p>';
 $string['changepassworderror'] = 'Le mot de passe de la MoodleBox n\'a pas été modifié. Les mots de passe donnés ne concordent pas.';
-$string['changepasswordmessage'] = 'Le mot de passe principal de la MoodleBox (compte Unix), de la base de données et de phpMyAdmin ont été modifiés.<br /><br />Attention ! Le mot de passe de l\'utilisateur Admin du Moodle <b>n\'a pas été modifié</b>. Pour le modifier, veuillez passer par la page des préférences de cet utilisateur.';
+$string['changepasswordmessage'] = 'Le mot de passe principal de la MoodleBox (compte Unix) et de la base de données ont été modifiés.<br /><br />Attention ! Le mot de passe de l\'utilisateur Admin du Moodle <b>n\'a pas été modifié</b>. Pour le modifier, veuillez passer par la page des préférences de cet utilisateur.';
 $string['changewifisettings'] = 'Changer les réglages Wi-Fi';
 $string['configuration'] = 'Options MoodleBox';
 $string['cpufrequency'] = 'Fréquence du processeur';
