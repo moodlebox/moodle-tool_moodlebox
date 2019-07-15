@@ -58,6 +58,9 @@ switch ( $hardwaredata['model'] ) {
     case '2B':
         $platform = 'rpi2';
         break;
+    case '3A+':
+        $platform = 'rpi3aplus';
+        break;
     case '3B':
         $platform = 'rpi3';
         break;

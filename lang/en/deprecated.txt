@@ -6,6 +6,7 @@ moodleboxinfofileerror,tool_moodlebox
 moodleboxpluginversion,tool_moodlebox
 newwifipassword,tool_moodlebox
 nopassworddefined,tool_moodlebox
+rpi3,tool_moodlebox
 rpi4onemb,tool_moodlebox
 rpi4twomb,tool_moodlebox
 rpi4fourmb,tool_moodlebox
