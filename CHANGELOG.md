@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/) and follow pr
 ## Version 2.3.0, 2019-07-15
 
 ### Added
-- Raspberry Pi 3A+ is now supported (#73).
+- Raspberry Pi 3A+ is now supported (#73). This enhancement was possible thanks to the sponsoring of Visvanath Ratnaweera (@ratnavis), who kindly offered a Raspberry Pi 3A+.
 
 ### Fixed
 - Lang strings brushed up (#74).
