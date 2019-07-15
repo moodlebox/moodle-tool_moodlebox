@@ -24,9 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['badpowersupply'] = '<p><b>Attention</b> ! L\'alimentation de la MoodleBox est insuffisante, ce qui peut causer divers problèmes, par exemple une limitation du nombre de clients Wi-Fi ou même un arrêt inopiné de l\'appareil.</p><p>Il est vivement recommandé de <b>changer d\'alimentation</b>, en privilégiant l\'<a href="https://www.raspberrypi.org/products/universal-power-supply/" target="_blank">alimentation officielle de la Fondation Raspberry</a>, et d\'utiliser un câble de bonne qualité pour la relier à la MoodleBox.</p>';
-$string['changepassworderror'] = 'Le mot de passe de la MoodleBox n\'a pas été modifié. Les mots de passe donnés ne concordent pas.';
-$string['changepasswordmessage'] = 'Le mot de passe principal de la MoodleBox (compte Unix) et de la base de données ont été modifiés.<br /><br />Attention ! Le mot de passe de l\'utilisateur Admin du Moodle <b>n\'a pas été modifié</b>. Pour le modifier, veuillez passer par la page des préférences de cet utilisateur.';
+$string['badpowersupply'] = '<p><b>Attention</b> ! L\'alimentation de la MoodleBox est insuffisante, ce qui peut causer divers problèmes, par exemple une limitation du nombre de clients Wi-Fi ou même un arrêt inopiné de l\'appareil.</p><p>Il est vivement recommandé de <b>changer d\'alimentation</b>, en privilégiant l\'<a href="https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/" target="_blank">alimentation officielle de la Fondation Raspberry</a>, et d\'utiliser un câble de bonne qualité pour la relier à la MoodleBox.</p>';
+$string['changepassworderror'] = 'Le mot de passe de la MoodleBox n\'a pas été modifié. Les mots de passe saisis ne concordent pas.';
+$string['changepasswordmessage'] = 'Le mot de passe principal de la MoodleBox (compte Unix) et du serveur de base de données ont été modifiés.<br /><br />Attention ! Le mot de passe de l\'utilisateur par défaut du Moodle <b>n\'a pas été modifié</b>. Pour le modifier, veuillez passer par la page des préférences de cet utilisateur.';
 $string['changewifisettings'] = 'Changer les réglages Wi-Fi';
 $string['configuration'] = 'Options MoodleBox';
 $string['cpufrequency'] = 'Fréquence du processeur';
@@ -61,7 +61,7 @@ $string['passwordsetting'] = 'Mot de passe de la MoodleBox';
 $string['passwordsetting_help'] = 'Le mot de passe principal de MoodleBox peut être changé ici. __Il est vivement déconseillé de conserver le mot de passe défini par défaut__. Vous __devez__ absolument le changer comme mesure de sécurité minimale.';
 $string['pluginname'] = 'MoodleBox';
 $string['pluginversion'] = 'Version du plugin MoodleBox';
-$string['privacy:metadata'] = 'Le plugin MoodleBox affiche certaines informations du Raspberry Pi et permet quelques modifications de configuration, mais ne touche ni ne stocke aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin MoodleBox affiche certaines informations de la Raspberry Pi et permet quelques modifications de configuration, mais ne touche ni n\'enregistre aucune donnée personnelle.';
 $string['projectinfo'] = '<p>Le <a href="https://moodlebox.net/fr/" title="Site web MoodleBox" target="_blank">projet MoodleBox</a> est un projet libre et gratuit développé bénévolement et sans but lucratif par <a href="https://blog.martignoni.net/a-propos/" title="Nicolas Martignoni" target="_blank">Nicolas Martignoni</a> sur son temps libre.</p><p>Nous vous remercions d\'utiliser MoodleBox. Vous pouvez manifester votre satisfaction et soutenir ce projet <a href="https://moodlebox.net/fr/donate/" title="Faire un don" target="_blank">en faisant un don</a> ❤. Votre don contribuera au financement du matériel nécessaire au développement de la MoodleBox et à l\'hébergement de sa documentation.</p>';
 $string['resizepartition'] = 'Redimensionner la partition de la carte SD';
 $string['resizepartition_help'] = 'Utiliser ce bouton pour redimensionner la partition de la carte SD.';
@@ -72,7 +72,7 @@ $string['raspbianversion'] = 'Version de Raspbian';
 $string['restart'] = 'Redémarrer la MoodleBox';
 $string['restartmessage'] = 'La MoodleBox va redémarrer. Elle sera à nouveau accessible dans quelques instants.';
 $string['restartstop'] = 'Redémarrage et arrêt';
-$string['restartstop_help'] = 'Utilisez ces boutons pour redémarrer ou éteindre la MoodleBox. Il n\'est pas recommandé de débrancher l\'alimentation pour éteindre la MoodleBox.';
+$string['restartstop_help'] = 'Utilisez ces boutons pour redémarrer ou éteindre la MoodleBox. Il est fortement recommandé de ne pas débrancher l\'alimentation pour éteindre la MoodleBox.';
 $string['rpi1'] = 'Raspberry Pi 1';
 $string['rpi2'] = 'Raspberry Pi 2B';
 $string['rpi3b'] = 'Raspberry Pi 3B';
@@ -83,7 +83,7 @@ $string['rpi4fourgb'] = 'Raspberry Pi 4B (4 Go RAM)';
 $string['rpizerow'] = 'Raspberry Pi Zero W';
 $string['sdcardavailablespace'] = 'Espace libre sur la carte SD';
 $string['showbuttonsinfooter'] = 'Afficher les boutons dans le pied de page';
-$string['showbuttonsinfooter_desc'] = 'Si ce réglage est activé, les boutons de redémarrage et d\'arrêt de la MoodleBox sont affichés dans le pied de toutes les pages du site quand on est connecté comme administateur.';
+$string['showbuttonsinfooter_desc'] = 'Si ce réglage est activé, les boutons de redémarrage et d\'arrêt de la MoodleBox sont affichés dans le pied de toutes les pages du site quand on est connecté comme administateur ou gestionnaire.';
 $string['shutdown'] = 'Arrêter la MoodleBox';
 $string['shutdownmessage'] = 'La MoodleBox va s\'arrêter. Veuillez attendre quelques secondes avant de retirer l\'alimentation.';
 $string['systeminfo'] = 'Informations MoodleBox';
@@ -110,7 +110,7 @@ $string['wifipassworderror'] = 'Le mot de passe du réseau Wi-Fi doit comporter 
 $string['wifipasswordon'] = 'Protection réseau Wi-Fi';
 $string['wifipasswordon_help'] = 'Si ce réglage est activé, les utilisateurs doivent saisir un mot de passe pour se connecter au réseau Wi-Fi de la MoodleBox.';
 $string['wifisettings'] = 'Réglages Wi-Fi';
-$string['wifisettingsmessage'] = 'Les réglages du réseau Wi-Fi ont été modifié. N\'oubliez pas de communiquer le nom du réseau (SSID) et le mot de passe à vos étudiants.';
+$string['wifisettingsmessage'] = 'Les réglages du réseau Wi-Fi ont été modifiés. N\'oubliez pas de communiquer à vos étudiants le nom du réseau (SSID) et le mot de passe.';
 $string['wifissid'] = 'Nom du réseau Wi-Fi';
 $string['wifissid_help'] = 'Le nom du réseau Wi-Fi (SSID) de la MoodleBox. Il doit s\'agir d\'une chaîne de 1 octet au minimum et de 32 octets au maximum. N\'oubliez pas que certains caractères, comme les émojis, utilisent plus d\'un octet.';
 $string['wifissidhidden'] = 'Réseau Wi-Fi caché';

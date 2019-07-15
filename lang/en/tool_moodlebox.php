@@ -24,9 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['badpowersupply'] = '<p><b>Warning</b> ! The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and use a good quality cable to connect it with the MoodleBox.</p>';
+$string['badpowersupply'] = '<p><b>Warning</b> ! The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and to use a good quality cable to connect it with the MoodleBox.</p>';
 $string['changepassworderror'] = 'The MoodleBox password was not changed. The passwords given don\'t match.';
-$string['changepasswordmessage'] = 'The main password of the MoodleBox (Unix account) was changed.<br /><br />Warning! The password of the Admin user of the Moodle <b>was not changed</b>. To change it, please use the preferences page of this user.';
+$string['changepasswordmessage'] = 'The main password of the MoodleBox (Unix account) and of the database server were successfully changed.<br /><br />Warning! The password of the default Moodle user <b>was not changed</b>. To change it, please use the preferences page of this user.';
 $string['changewifisettings'] = 'Change Wi-Fi settings';
 $string['configuration'] = 'MoodleBox settings';
 $string['cpufrequency'] = 'CPU frequency';
@@ -72,7 +72,7 @@ $string['raspbianversion'] = 'Raspbian version';
 $string['restart'] = 'Restart MoodleBox';
 $string['restartmessage'] = 'The MoodleBox is restarting. It will be online again in a moment.';
 $string['restartstop'] = 'Restart and shutdown';
-$string['restartstop_help'] = 'Use these buttons to restart or turn off the MoodleBox. It is not recommended to unplug the power supply to shutdown the MoodleBox.';
+$string['restartstop_help'] = 'Use these buttons to restart or turn off the MoodleBox. It is highly recommended that you do not unplug the power supply to shutdown the MoodleBox.';
 $string['rpi1'] = 'Raspberry Pi 1';
 $string['rpi2'] = 'Raspberry Pi 2B';
 $string['rpi3aplus'] = 'Raspberry Pi 3A+';
@@ -84,7 +84,7 @@ $string['rpi4fourgb'] = 'Raspberry Pi 4B (4 GB RAM)';
 $string['rpizerow'] = 'Raspberry Pi Zero W';
 $string['sdcardavailablespace'] = 'Free space on SD card';
 $string['showbuttonsinfooter'] = 'Show buttons in footer';
-$string['showbuttonsinfooter_desc'] = 'If enabled, the restart and shutdown buttons are displayed in the footer of all pages of the site when logged in as an administrator.';
+$string['showbuttonsinfooter_desc'] = 'If enabled, the restart and shutdown buttons are displayed in the footer of all pages of the site when logged in as an administrator or as a manager.';
 $string['shutdown'] = 'Shutdown MoodleBox';
 $string['shutdownmessage'] = 'The MoodleBox is shutting down. Please wait a few seconds before disconnecting the power supply.';
 $string['systeminfo'] = 'MoodleBox information';
