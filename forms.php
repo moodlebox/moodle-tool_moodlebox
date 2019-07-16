@@ -86,6 +86,9 @@ class changepassword_form extends moodleform {
 
     /**
      * Validate the form.
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @param array $data submitted data
      * @param array $files not used
      * @return array errors
@@ -115,6 +118,9 @@ class wifisettings_form extends moodleform {
 
     /**
      * Define the form.
+     *
+     * @SuppressWarnings(PHPMD.LongVariable)
+     *
      */
     public function definition() {
         global $currentwifissid;

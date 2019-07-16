@@ -10,7 +10,9 @@ A Moodle administration plugin providing a GUI to some settings and management o
 
 This plugin enables a Moodle administrator to monitor some hardware settings, to set the date of the MoodleBox, to allow restart and shutdown of the MoodleBox and changing Raspberry Pi passwords using a GUI. After the installation in Moodle, some steps are required to complete on the Raspberry Pi (see below).
 
-The plugin is compatible with Moodle 3.3 or later. A Raspberry Pi model 3B or 3B+ is recommended.
+Administrators and users with manager role can moreover restart and shutdown the MoodleBox with buttons in the footer of each Moodle page.
+
+The plugin is compatible with Moodle 3.6 or later. A Raspberry Pi model 3A+, 3B, 3B+ or 4B is recommended.
 
 ## Installation
 
@@ -37,6 +39,7 @@ To complete the installation, you have to configure some incron jobs on the Mood
 1. Copy the following line at the end of file `/etc/sudoers`:
     ```bash
     www-data ALL=(ALL) NOPASSWD:/sbin/parted /dev/mmcblk0 unit MB print free
+    www-data ALL=(ALL) NOPASSWD:/usr/bin/vcgencmd
     ```
 
 1. If you use the [PiJuice module](https://github.com/PiSupply/PiJuice), you need to allow www-data to access I2C:
@@ -47,6 +50,7 @@ To complete the installation, you have to configure some incron jobs on the Mood
 ## Features
 
 - Info about the MoodleBox (kernel version, Raspbian version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
+- Warning when under voltage detected.
 - GUI to set the MoodleBox date and time.
 - GUI to set the MoodleBox password.
 - GUI to set the MoodleBox Wi-Fi network password (or remove it), SSID and channel.

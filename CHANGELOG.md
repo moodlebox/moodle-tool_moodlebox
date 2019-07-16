@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.3.0, 2019-07-15
+
+### Added
+- Raspberry Pi 3A+ is now supported (#73). This enhancement was possible thanks to the sponsoring of Visvanath Ratnaweera (@ratnavis), who kindly offered a Raspberry Pi 3A+.
+
+### Fixed
+- Lang strings brushed up (#74).
+
+## Version 2.2.1, 2019-07-13
+### Fixed
+- Raspberry Pi 4B RAM size is displayed with wrong unit (#72).
+
+## Version 2.2.0, 2019-06-10
+### Added
+- Raspberry Pi 4B and other models are now supported (#70).
+
+## Version 2.1.0, 2019-05-29
+### Added
+- Manager can now use restart and shutdown buttons in the footer (#68).
+
+## Version 2.0.1, 2019-05-19
+### Added
+- Plugin is compatible with Moodle 3.7.0 (issue #67).
+
+### Fixed
+- Fix warning in PHP7.2 and later (issue #67).
+
+## Version 2.0.0, 2019-04-19
+### Added
+- Restart and shutdown buttons can be displayed to the administrator on the footer of any Moodle page (issue #33). Warm thanks to [Adrian Perez Rodriguez](https://github.com/adpe) for most of the implementation.
+- A warning is displayed to the administrator on any Moodle page if under voltage is detected (issue #65).
+- Links to documentation website and support forum are displayed on the new MoodleBox settings page (issue #54).
+
+### Changed
+- Moodle 3.6.0 or later is now required (due to implementation of #54).
+- Configuration and dashboard pages were refactored (part of issue #33).
+- Collapsed status of collapsible regions is now saved between sessions (issue #60).
+
+### Fixed
+- Bad permissions on shell script (issue #61).
+- Typos fixed in lang strings (no issue number).
+
 ## Version 1.12.2, 2018-12-01
 ### Added
 - Each section is now collapsible (issue #55)
