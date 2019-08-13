@@ -1,6 +1,9 @@
 language: php
 sudo: false
 
+services:
+  - mysql
+
 notifications:
   email:
     on_success: never # default: change
