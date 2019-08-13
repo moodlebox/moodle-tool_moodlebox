@@ -61,6 +61,7 @@ $string['passwordsetting'] = 'MoodleBox password';
 $string['passwordsetting_help'] = 'MoodleBox main password can be changed here. __It is strongly discouraged to keep the default password__. Your __must__ definitely change it as minimal security measure.';
 $string['pijuicebatterychargelevel'] = 'PiJuice charge level';
 $string['pijuicebatterystatus'] = 'PiJuice battery status';
+$string['pijuicebatterytemp'] = 'PiJuice battery temperature';
 $string['pijuiceisfault'] = 'PiJuice fault';
 $string['pijuicestatuserror'] = 'PiJuice status';
 $string['pluginname'] = 'MoodleBox';
