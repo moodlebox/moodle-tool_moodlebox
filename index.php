@@ -58,11 +58,27 @@ switch ( $hardwaredata['model'] ) {
     case '2B':
         $platform = 'rpi2';
         break;
+    case '3A+':
+        $platform = 'rpi3aplus';
+        break;
     case '3B':
         $platform = 'rpi3';
         break;
     case '3B+':
         $platform = 'rpi3bplus';
+        break;
+    case '4B':
+        switch ($hardwaredata['memory']) {
+            case '1 GB':
+                $platform = 'rpi4onegb';
+                break;
+            case '2 GB':
+                $platform = 'rpi4twogb';
+                break;
+            case '4 GB':
+                $platform = 'rpi4fourgb';
+                break;
+        };
         break;
     case 'ZeroW':
         $platform = 'rpizerow';
@@ -90,7 +106,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     if (filesize('/var/lib/misc/dnsmasq.leases') > 0) {
         $leases = explode(PHP_EOL, trim(file_get_contents('/var/lib/misc/dnsmasq.leases')));
     } else {
-        $leases = null;
+        $leases = array();
     }
     $dhcpclientnumber = count($leases);
 
