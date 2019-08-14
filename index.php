@@ -190,12 +190,13 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)'));
     if ($pijuicepackage) {
         if ($pijuicestatus['status_error'] == "NO_ERROR") {
-            $table->add_data(array(get_string('pijuicebatterychargelevel', 'tool_beekeebox'), $pijuicestatus['charge_level'] . '%'));
-            $table->add_data(array(get_string('pijuicebatterystatus', 'tool_beekeebox'), $pijuicestatus['battery_status']));
+            $table->add_data(array(get_string('pijuicebatterychargelevel', 'tool_moodlebox'), $pijuicestatus['charge_level'] . '%'));
+            $table->add_data(array(get_string('pijuicebatterystatus', 'tool_moodlebox'), $pijuicestatus['battery_status']));
+            $table->add_data(array(get_string('pijuicebatterytemp', 'tool_moodlebox'), $pijuicestatus['battery_temp'] . '°C'));
         } else {
-            $table->add_data(array(get_string('pijuicestatuserror', 'tool_beekeebox'), $pijuicestatus['status_error']));
+            $table->add_data(array(get_string('pijuicestatuserror', 'tool_moodlebox'), $pijuicestatus['status_error']));
         }
-        $table->add_data(array(get_string('pijuiceisfault', 'tool_beekeebox'), $pijuicestatus['is_fault']));
+        $table->add_data(array(get_string('pijuiceisfault', 'tool_moodlebox'), $pijuicestatus['is_fault']));
     }
     $table->add_data(array(get_string('cpuload', 'tool_moodlebox'),
             $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2]));
