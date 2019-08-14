@@ -188,16 +188,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     $table->add_data(array(get_string('sdcardavailablespace', 'tool_moodlebox'), display_size($sdcardfreespace) .
             ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)'));
-    if ($pijuicepackage) {
-        if ($pijuicestatus['status_error'] == "NO_ERROR") {
-            $table->add_data(array(get_string('pijuicebatterychargelevel', 'tool_moodlebox'), $pijuicestatus['charge_level'] . '%'));
-            $table->add_data(array(get_string('pijuicebatterystatus', 'tool_moodlebox'), $pijuicestatus['battery_status']));
-            $table->add_data(array(get_string('pijuicebatterytemp', 'tool_moodlebox'), $pijuicestatus['battery_temp'] . '°C'));
-        } else {
-            $table->add_data(array(get_string('pijuicestatuserror', 'tool_moodlebox'), $pijuicestatus['status_error']));
-        }
-        $table->add_data(array(get_string('pijuiceisfault', 'tool_moodlebox'), $pijuicestatus['is_fault']));
-    }
     $table->add_data(array(get_string('cpuload', 'tool_moodlebox'),
             $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2]));
     $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature));
@@ -219,6 +209,22 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $table->add_data(array(get_string('dhcpclientinfo', 'tool_moodlebox'),
                     $item[2] . ' (' . $item[3] . ')'), 'subinfo');
         }
+    }
+    if ($pijuicepackage) {
+        $table->add_data(array(get_string('pijuiceinfo', 'tool_moodlebox'), ''));
+        if ($pijuicestatus['status_error'] == "NO_ERROR") {
+            $table->add_data(array(get_string('pijuicebatterychargelevel', 'tool_moodlebox'),
+                    $pijuicestatus['charge_level'] . '%'), 'subinfo');
+            $table->add_data(array(get_string('pijuicebatterystatus', 'tool_moodlebox'),
+                    $pijuicestatus['battery_status']), 'subinfo');
+            $table->add_data(array(get_string('pijuicebatterytemp', 'tool_moodlebox'),
+                    $pijuicestatus['battery_temp'] . '°C'), 'subinfo');
+        } else {
+            $table->add_data(array(get_string('pijuicestatuserror', 'tool_moodlebox'),
+                    $pijuicestatus['status_error']), 'subinfo');
+        }
+        $table->add_data(array(get_string('pijuiceisfault', 'tool_moodlebox'),
+                $pijuicestatus['is_fault']), 'subinfo');
     }
     $table->add_data(array(get_string('raspberryhardware', 'tool_moodlebox'), get_string($platform, 'tool_moodlebox')));
     $table->add_data(array(get_string('raspbianversion', 'tool_moodlebox'), $raspbianversion));

@@ -62,6 +62,7 @@ $string['passwordsetting_help'] = 'MoodleBox main password can be changed here. 
 $string['pijuicebatterychargelevel'] = 'PiJuice charge level';
 $string['pijuicebatterystatus'] = 'PiJuice battery status';
 $string['pijuicebatterytemp'] = 'PiJuice battery temperature';
+$string['pijuiceinfo'] = 'PiJuice status info';
 $string['pijuiceisfault'] = 'PiJuice fault';
 $string['pijuicestatuserror'] = 'PiJuice status';
 $string['pluginname'] = 'MoodleBox';
