@@ -124,10 +124,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $sdcardtotalspace = disk_total_space('/');
     $sdcardfreespace = disk_free_space('/');
 
-    // Check if PiJuice package is installed
+    // Check if PiJuice package is installed.
     $pijuicepackage = exec('dpkg-query -W -f=\'${Status}\' pijuice-base 2>/dev/null | grep -c "ok installed"');
 
-    // Get PiJuice Status
+    // Get PiJuice Status.
     if ($pijuicepackage) {
         $pijuicestatusjson = exec('bin/pijuicestatus.py');
         $pijuicestatus = json_decode($pijuicestatusjson, true);
