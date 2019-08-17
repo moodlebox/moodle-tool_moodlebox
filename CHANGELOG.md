@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.4.0, 2019-08-17
+
+## Release notes
+
+### Added
+- Support of [PiJuice HAT](https://uk.pi-supply.com/products/pijuice-standard) (issue #75). This feature was contributed by Vincent Widmer (@smallhacks).
+
+### Fixed
+- Some fixes for CI support (no issue number).
+
 ## Version 2.3.0, 2019-07-15
 
 ### Added
