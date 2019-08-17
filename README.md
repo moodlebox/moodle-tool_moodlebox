@@ -50,6 +50,7 @@ To complete the installation, you have to configure some incron jobs on the Mood
     ```bash
     sudo adduser www-data i2c
     ```
+   and reboot.
 
 ## Features
 
