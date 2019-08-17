@@ -42,7 +42,11 @@ To complete the installation, you have to configure some incron jobs on the Mood
     www-data ALL=(ALL) NOPASSWD:/usr/bin/vcgencmd
     ```
 
-1. If you use the [PiJuice module](https://github.com/PiSupply/PiJuice), you need to allow www-data to access I2C:
+1. If you use the [PiJuice module](https://github.com/PiSupply/PiJuice), you need to install the packages related
+    ```bash
+    sudo apt-get install pijuice-base
+    ```
+   then allow www-data to access I2C:
     ```bash
     sudo adduser www-data i2c
     ```
@@ -64,6 +68,11 @@ The code is available at [https://github.com/moodlebox/moodle-tool_moodlebox](ht
 ### Release notes
 
 See [Release notes](https://github.com/moodlebox/moodle-tool_moodlebox/blob/master/CHANGELOG.md).
+
+## Thanks
+
+- To Adrian Perez (@adpe), for implementing restart and shutdown buttons in footer.
+- To Vincent Widmer (@smallhacks), for implementing PiJuice support.
 
 ## License
 

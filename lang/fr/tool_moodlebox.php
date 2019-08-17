@@ -62,6 +62,7 @@ $string['passwordsetting_help'] = 'Le mot de passe principal de MoodleBox peut �
 $string['pijuicebatterychargelevel'] = 'Niveau de charge de la batterie PiJuice';
 $string['pijuicebatterystatus'] = 'Statut de la batterie PiJuice';
 $string['pijuicebatterytemp'] = 'Température de la batterie PiJuice';
+$string['pijuiceinfo'] = 'Information du PiJuice';
 $string['pijuiceisfault'] = 'Défaut du PiJuice';
 $string['pijuicestatuserror'] = 'Statut du PiJuice';
 $string['pluginname'] = 'MoodleBox';

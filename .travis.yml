@@ -1,3 +1,4 @@
+dist: bionic
 language: php
 sudo: false
 
@@ -14,8 +15,7 @@ addons:
   postgresql: "9.6"
   #apt:
   #  packages:
-  #    - oracle-java8-installer
-  #    - oracle-java8-set-default
+  #    - openjdk-8-jre-headless
 
 cache:
   directories:
@@ -23,7 +23,6 @@ cache:
     - $HOME/.npm
 
 php:
-  - 7.0
   - 7.1
   - 7.2
   - 7.3
@@ -38,15 +37,6 @@ env:
 
 matrix:
   exclude:
-  # Do not test with PHP 7.0 on post-36 branches
-  - php: 7.0
-    env: MOODLE_BRANCH=MOODLE_37_STABLE DB=mysqli
-  - php: 7.0
-    env: MOODLE_BRANCH=MOODLE_37_STABLE DB=pgsql
-  - php: 7.0
-    env: MOODLE_BRANCH=master DB=mysqli
-  - php: 7.0
-    env: MOODLE_BRANCH=master DB=pgsql
 
 before_install:
   - phpenv config-rm xdebug.ini
@@ -60,8 +50,8 @@ jobs:
   include:
     # Prechecks against one configuration (Moodle, PHP, DB) only.
     - stage: prechecks
-      php: 7.1
-      env: DB=pgsql MOODLE_BRANCH=MOODLE_36_STABLE
+      php: 7.3
+      env: DB=pgsql MOODLE_BRANCH=MOODLE_37_STABLE
       install:
       - moodle-plugin-ci install --no-init
       script:
