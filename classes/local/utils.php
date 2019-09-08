@@ -286,8 +286,8 @@ class utils {
                 $serialnumber = end($serialnumber);
             }
         }
-        // Compute device uuid.
-        $uuid = hash('md5', $serialnumber);
+        // Compute device identifier.
+        $deviceid = hash('md5', $serialnumber);
 
         // Get hardware model.
         $hardware = self::get_hardware_model();
@@ -302,7 +302,7 @@ class utils {
         }
 
         $surveydata = array(
-            'uuid' => $uuid,
+            'deviceid' => $deviceid,
             'osrelease' => self::parse_config_file('/etc/os-release')['PRETTY_NAME'],
             'kernel' => php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m'),
             'hardware' => $hardware['model'] . ' ' . $hardware['memory'],
