@@ -3,9 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
-## Version 2.4.0, 2019-08-17
+## Version 2.4.1, 2019-10-05
 
-## Release notes
+### Fixed
+- Wi-Fi password with uppercase characters were rejected (issue #77).
+
+## Version 2.4.0, 2019-08-17
 
 ### Added
 - Support of [PiJuice HAT](https://uk.pi-supply.com/products/pijuice-standard) (issue #75). This feature was contributed by Vincent Widmer (@smallhacks).
