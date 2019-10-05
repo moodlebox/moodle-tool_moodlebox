@@ -41,7 +41,9 @@ ALLOWEDCOUNTRIES="AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF
 # Validate password length and allowed chars. Replace it with 'moodlebox' if invalid.
 # Password must have 8 to 63 characters. Each character must have an encoding in the
 # range of 32 to 126, inclusive, see IEEE Std. 802.11i-2004, Annex H.4.1.
+shopt -s nocasematch
 [[ $NEWPASSWORD =~ ^[\ -z\{\|\}\~]{8,63}$ ]] || NEWPASSWORD="moodlebox"
+shopt -u nocasematch
 # New password is now valid; set it in config file.
 sed -i "/^wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$CONFIGFILE"
 #
