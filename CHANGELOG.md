@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.4.1, 2019-10-07
+
+### Added
+- Wi-Fi password and SSID validation with meaningful message when invalid input, for better UX (issue #79).
+
+### Fixed
+- Moodle forms do not works correctly (issue #78).
+- Wi-Fi password validation to lax ( related to issue #77).
+
 ## Version 2.4.1, 2019-10-05
 
 ### Fixed
