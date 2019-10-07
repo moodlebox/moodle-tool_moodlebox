@@ -124,4 +124,4 @@ $string['wifissid_help'] = 'Le nom du réseau Wi-Fi (SSID) de la MoodleBox. Il d
 $string['wifissidhidden'] = 'Réseau Wi-Fi caché';
 $string['wifissidhiddenstate'] = 'Visibilité du SSID Wi-Fi';
 $string['wifissidhiddenstate_help'] = 'Si ce réglage est activé, le SSID Wi-Fi sera caché pour les utilisateurs, qui ne sauront pas qu\'il y a une MoodleBox aux environs. Ceci diminuera considérablement la convivialité de l\'appareil, mais améliorera très légèrement sa sécurité.';
-$string['wifissidinvalid'] = 'Le nom du réseau Wi-Fi (SSID) indiqué n\'est pas valide. Il doit s\'agir d\'une chaîne de 1 octet au minimum et de 32 octets au maximum';
+$string['wifissidinvalid'] = 'Le nom du réseau Wi-Fi (SSID) indiqué n\'est pas valide. Il doit s\'agir d\'une chaîne de 1 octet au minimum et de 32 octets au maximum.';
