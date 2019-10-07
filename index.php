@@ -278,8 +278,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 file_put_contents($changepasswordtriggerfilename, $data->newpassword1);
                 \core\notification::warning(get_string('changepasswordmessage', 'tool_moodlebox'));
             }
-        } else if ($changepasswordform->is_submitted()) { // Validation failed.
-            \core\notification::error(get_string('changepassworderror', 'tool_moodlebox'));
         }
         $changepasswordform->display();
     } else {
@@ -321,8 +319,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                                   "passwordprotected=" . $data->wifipasswordon . "\n");
                 \core\notification::warning(get_string('wifisettingsmessage', 'tool_moodlebox'));
             }
-        } else if ($wifisettingsform->is_submitted()) { // Validation failed.
-            \core\notification::error(get_string('wifisettingserror', 'tool_moodlebox'));
         }
         $wifisettingsform->display();
     } else {
