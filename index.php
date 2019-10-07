@@ -321,6 +321,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                                   "passwordprotected=" . $data->wifipasswordon . "\n");
                 \core\notification::warning(get_string('wifisettingsmessage', 'tool_moodlebox'));
             }
+        } else if ($wifisettingsform->is_submitted()) { // Validation failed.
+            \core\notification::error(get_string('wifisettingserror', 'tool_moodlebox'));
         }
         $wifisettingsform->display();
     } else {

@@ -183,6 +183,31 @@ class wifisettings_form extends moodleform {
         $this->add_action_buttons(false, get_string('changewifisettings', 'tool_moodlebox'));
     }
 
+    /**
+     * Validate the form.
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
+     * @param array $data submitted data
+     * @param array $files not used
+     * @return array errors
+     */
+    public function validation($data, $files) {
+        $errors = array();
+
+        # SSID must have a length between 1 and 32 bytes.
+        if (mb_strlen($data['wifissid'], '8bit') > 32 or mb_strlen($data['wifissid'], '8bit') < 1) {
+            $errors['wifissid'] = get_string('wifissidinvalid', 'tool_moodlebox');
+        }
+
+        # Password must have 8 to 63 ASCII characters. Each character must have an encoding in the
+        # range of 32 to 126, inclusive, see IEEE Std. 802.11i-2004, Annex H.4.1.
+        if (!preg_match('/^[ -~]{8,63}$/', $data['wifipassword']) ) {
+            $errors['wifipassword'] = get_string('wifipasswordinvalid', 'tool_moodlebox');
+        }
+
+        return $errors;
+    }
 }
 
 /**
