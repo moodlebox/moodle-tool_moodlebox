@@ -246,7 +246,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     if (file_exists($datetimetriggerfilename)) {
         $datetimesetform = new datetimeset_form();
-        $datetimesetform->display();
 
         if ($data = $datetimesetform->get_data()) {
             if (!empty($data->submitbutton)) {
@@ -255,6 +254,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 \core\notification::warning(get_string('datetimemessage', 'tool_moodlebox'));
             }
         }
+        $datetimesetform->display();
     } else {
         echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
@@ -272,7 +272,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     if (file_exists($changepasswordtriggerfilename)) {
         $changepasswordform = new changepassword_form();
-        $changepasswordform->display();
 
         if ($data = $changepasswordform->get_data()) {
             if (!empty($data->submitbutton)) {
@@ -282,6 +281,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         } else if ($changepasswordform->is_submitted()) { // Validation failed.
             \core\notification::error(get_string('changepassworderror', 'tool_moodlebox'));
         }
+        $changepasswordform->display();
     } else {
         echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
@@ -298,7 +298,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     if (file_exists($wifisettingstriggerfilename)) {
         $wifisettingsform = new wifisettings_form();
-        $wifisettingsform->display();
 
         if ($data = $wifisettingsform->get_data()) {
             if (!empty($data->submitbutton)) {
@@ -323,6 +322,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 \core\notification::warning(get_string('wifisettingsmessage', 'tool_moodlebox'));
             }
         }
+        $wifisettingsform->display();
     } else {
         echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
@@ -344,7 +344,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
         if (file_exists($resizepartitiontriggerfilename)) {
             $resizepartitionform = new resizepartition_form(null, null, 'post', '', array('id' => 'formresizepartition'));
-            $resizepartitionform->display();
 
             if ($data = $resizepartitionform->get_data()) {
                 if (!empty($data->resizepartitionbutton)) {
@@ -352,6 +351,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                     \core\notification::warning(get_string('resizepartitionmessage', 'tool_moodlebox'));
                 }
             }
+            $resizepartitionform->display();
         } else {
             echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
         }
@@ -371,7 +371,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     if (file_exists($reboottriggerfilename) and file_exists($shutdowntriggerfilename)) {
         $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));
-        $restartshutdownform->display();
 
         if ($data = $restartshutdownform->get_data()) {
             if (!empty($data->restartbutton)) {
@@ -383,6 +382,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 \core\notification::warning(get_string('shutdownmessage', 'tool_moodlebox'));
             }
         }
+        $restartshutdownform->display();
     } else {
         echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
