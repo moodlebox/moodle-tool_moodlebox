@@ -194,14 +194,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     $table->add_data(array(get_string('sdcardavailablespace', 'tool_moodlebox'), display_size($sdcardfreespace) .
             ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)'));
-    if ($ethernetaddresses) {
-        $table->add_data(array(get_string('networksettings', 'tool_moodlebox'), ''));
-        $table->add_data(array(get_string('ipaddress', 'tool_moodlebox'), $ipaddress), 'subinfo');
-        $table->add_data(array(get_string('defaultgateway', 'tool_moodlebox'), $defaultgatewayaddress), 'subinfo');
-    } else {
-        $table->add_data(array(get_string('networksettings', 'tool_moodlebox'),
-                get_string('ethernetnotconnected', 'tool_moodlebox')));
-    }
     $table->add_data(array(get_string('wifisettings', 'tool_moodlebox'), ''));
     $table->add_data(array(get_string('wifissid', 'tool_moodlebox'), $currentwifissid), 'subinfo');
     $table->add_data(array(get_string('wifissidhiddenstate', 'tool_moodlebox'),
@@ -218,6 +210,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $table->add_data(array(get_string('dhcpclientinfo', 'tool_moodlebox'),
                     $item[2] . ' (' . $item[3] . ')'), 'subinfo');
         }
+    }
+    if ($ethernetaddresses) {
+        $table->add_data(array(get_string('networkinterface', 'tool_moodlebox'), ''));
+        $table->add_data(array(get_string('interfacename', 'tool_moodlebox'),
+                \tool_moodlebox\local\utils::get_ethernet_interface_name()), 'subinfo');
+        $table->add_data(array(get_string('ipaddress', 'tool_moodlebox'), $ipaddress), 'subinfo');
+        $table->add_data(array(get_string('defaultgateway', 'tool_moodlebox'), $defaultgatewayaddress), 'subinfo');
+    } else {
+        $table->add_data(array(get_string('networkinterface', 'tool_moodlebox'),
+                get_string('ethernetdisconnected', 'tool_moodlebox')));
     }
     if ($pijuicepackage) {
         $table->add_data(array(get_string('pijuiceinfo', 'tool_moodlebox'), ''));
