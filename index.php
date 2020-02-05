@@ -171,6 +171,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $currentwifissidhiddenstate = 1;
     }
 
+    // Get ethernet addresses.
+    if ( $ethernetaddresses = \tool_moodlebox\local\utils::get_ethernet_addresses() ) {
+        $ipaddress = $ethernetaddresses['host'];
+        $defaultgatewayaddress = $ethernetaddresses['gateway'];
+    }
+
     // System information section.
     print_collapsible_region_start('systeminfo', 'systeminfo',
         get_string('systeminfo', 'tool_moodlebox') .
@@ -188,11 +194,14 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     $table->add_data(array(get_string('sdcardavailablespace', 'tool_moodlebox'), display_size($sdcardfreespace) .
             ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)'));
-    $table->add_data(array(get_string('cpuload', 'tool_moodlebox'),
-            $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2]));
-    $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature));
-    $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency));
-    $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime));
+    if ($ethernetaddresses) {
+        $table->add_data(array(get_string('networksettings', 'tool_moodlebox'), ''));
+        $table->add_data(array(get_string('ipaddress', 'tool_moodlebox'), $ipaddress), 'subinfo');
+        $table->add_data(array(get_string('defaultgateway', 'tool_moodlebox'), $defaultgatewayaddress), 'subinfo');
+    } else {
+        $table->add_data(array(get_string('networksettings', 'tool_moodlebox'),
+                get_string('ethernetnotconnected', 'tool_moodlebox')));
+    }
     $table->add_data(array(get_string('wifisettings', 'tool_moodlebox'), ''));
     $table->add_data(array(get_string('wifissid', 'tool_moodlebox'), $currentwifissid), 'subinfo');
     $table->add_data(array(get_string('wifissidhiddenstate', 'tool_moodlebox'),
@@ -226,6 +235,11 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $table->add_data(array(get_string('pijuiceisfault', 'tool_moodlebox'),
                 $pijuicestatus['is_fault']), 'subinfo');
     }
+    $table->add_data(array(get_string('cpuload', 'tool_moodlebox'),
+            $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2]));
+    $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature));
+    $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency));
+    $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime));
     $table->add_data(array(get_string('raspberryhardware', 'tool_moodlebox'), get_string($platform, 'tool_moodlebox')));
     $table->add_data(array(get_string('raspbianversion', 'tool_moodlebox'), $raspbianversion));
     $table->add_data(array(get_string('kernelversion', 'tool_moodlebox'), $kernelversion));

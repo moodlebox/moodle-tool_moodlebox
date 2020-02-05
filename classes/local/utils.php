@@ -174,6 +174,26 @@ class utils {
     }
 
     /**
+     * Get default host and gateway addresses.
+     *
+     * @return associative array of parameters, value or false if ethernet not connected.
+     */
+    public static function get_ethernet_addresses() {
+        $iface = self::get_ethernet_interface_name();
+
+        $command = "ip route show 0.0.0.0/0 dev " . $iface;
+        if ( $ethernetaddresses = exec($command, $out) ) {
+            $array = explode(' ', $ethernetaddresses);
+            return array(
+                'host' => $array[6],
+                'gateway' => $array[2]
+            );
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Convert string with hexadecimal code to unicode string.
      * See https://stackoverflow.com/a/12083180.
      *
