@@ -1,6 +1,6 @@
 dist: bionic
 language: php
-sudo: false
+os: linux
 
 services:
   - mysql
@@ -35,9 +35,6 @@ env:
 #  - MOODLE_BRANCH=MOODLE_38_STABLE DB=mysqli
 #  - MOODLE_BRANCH=master DB=pgsql
   - MOODLE_BRANCH=master DB=mysqli
-
-matrix:
-  exclude:
 
 before_install:
   - phpenv config-rm xdebug.ini
