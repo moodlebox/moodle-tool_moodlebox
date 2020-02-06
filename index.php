@@ -247,6 +247,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->add_data(array(get_string('kernelversion', 'tool_moodlebox'), $kernelversion));
     $table->add_data(array(get_string('version', 'tool_moodlebox'), $moodleboxinfo));
     $table->add_data(array(get_string('pluginversion', 'tool_moodlebox'), $moodleboxpluginversion));
+    $table->add_data(array(get_string('moodleversion'), $CFG->release));
 
     $table->print_html();
 
