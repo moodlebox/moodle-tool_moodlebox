@@ -59,7 +59,7 @@ $string['ipaddress'] = 'IP address';
 $string['kernelversion'] = 'Kernel version';
 $string['missingconfigurationerror'] = 'This section isn\'t available. The plugin installation is not complete, so that the setting cannot be handled by the MoodleBox. Please read the <a href="https://github.com/moodlebox/moodle-tool_moodlebox/blob/master/README.md" target="_blank">installation documentation</a> to fix this error.';
 $string['moodlebox:viewbuttonsinfooter'] = 'View restart and shutdown buttons in footer';
-$string['networkinterface'] = 'Network interface';
+$string['networkinterface'] = 'Cabled network interface';
 $string['parameter'] = 'Parameter';
 $string['passwordprotected'] = 'Password protected';
 $string['passwordsetting'] = 'MoodleBox password';
