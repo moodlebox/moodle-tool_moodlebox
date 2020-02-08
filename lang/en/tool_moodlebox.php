@@ -59,6 +59,15 @@ $string['ipaddress'] = 'IP address';
 $string['kernelversion'] = 'Kernel version';
 $string['missingconfigurationerror'] = 'This section isn\'t available. The plugin installation is not complete, so that the setting cannot be handled by the MoodleBox. Please read the <a href="https://github.com/moodlebox/moodle-tool_moodlebox/blob/master/README.md" target="_blank">installation documentation</a> to fix this error.';
 $string['moodlebox:viewbuttonsinfooter'] = 'View restart and shutdown buttons in footer';
+$string['moodleboxsysteminfo'] = 'MoodleBox information';
+$string['moodleboxsysteminfo_help'] = 'The MoodleBox information dashboard displays several important data about the MoodleBox. This info includes:
+
+* Critical MoodleBox operation details, such as remaining disk space on the SD card and processor load, temperature and frequency
+* Current settings of Wi-Fi network supplied by the MoodleBox
+* Number, IP address and name of all devices connected to the MoodleBox
+* Raspberry Pi model and operating system
+* MoodleBox version and MoodleBox plugin version
+';
 $string['networkinterface'] = 'Cabled network interface';
 $string['parameter'] = 'Parameter';
 $string['passwordprotected'] = 'Password protected';
@@ -98,15 +107,8 @@ $string['showbuttonsinfooter'] = 'Show buttons in footer';
 $string['showbuttonsinfooter_desc'] = 'If enabled, the restart and shutdown buttons are displayed in the footer of all pages of the site when logged in as an administrator or as a manager.';
 $string['shutdown'] = 'Shutdown MoodleBox';
 $string['shutdownmessage'] = 'The MoodleBox is shutting down. Please wait a few seconds before disconnecting the power supply.';
-$string['systeminfo'] = 'MoodleBox information';
-$string['systeminfo_help'] = 'The MoodleBox information dashboard displays several important data about the MoodleBox. This info includes:
-
-* Critical MoodleBox operation details, such as remaining disk space on the SD card and processor load, temperature and frequency
-* Current settings of Wi-Fi network supplied by the MoodleBox
-* Number, IP address and name of all devices connected to the MoodleBox
-* Raspberry Pi model and operating system
-* MoodleBox version and MoodleBox plugin version
-';
+$string['softwareversions'] = 'Software versions';
+$string['systeminfo'] = 'System information';
 $string['unknownmodel'] = 'Unknown Raspberry Pi model';
 $string['unsupportedhardware'] = 'Unsupported server hardware detected! This plugin does only work on Raspberry Pi';
 $string['uptime'] = 'System uptime';

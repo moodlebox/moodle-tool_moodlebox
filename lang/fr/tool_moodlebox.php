@@ -59,6 +59,15 @@ $string['ipaddress'] = 'Adresse IP';
 $string['kernelversion'] = 'Version du noyau';
 $string['missingconfigurationerror'] = 'Cette section n\'est pas disponble, car l\'installation du plugin n\'est pas complète. Le réglage ne peut donc pas être traité par la MoodleBox. Veuillez consulter la <a href="https://github.com/moodlebox/moodle-tool_moodlebox/blob/master/README.md" target="_blank">documentation d\'installation</a> afin de corriger cette erreur.';
 $string['moodlebox:viewbuttonsinfooter'] = 'Voir les boutons de redémarrage et d\'arrêt dans le pied de page';
+$string['moodleboxsysteminfo'] = 'Informations MoodleBox';
+$string['moodleboxsysteminfo_help'] = 'Le panneau d\'informations MoodleBox affiche plusieurs données importantes sur la MoodleBox. Ces informations comprennent :
+
+* des données essentielles au fonctionnement de votre MoodleBox, telles que l\'espace disque restant sur la carte SD et la charge, température et fréquence du processeur ;
+* les réglages actuels du réseau Wi-Fi fourni par la MoodleBox ;
+* le nombre, l\'adresse IP et le nom de tous les appareils connectés à la MoodleBox ;
+* le modèle et le système d\'exploitation de la Raspberry Pi ;
+* la version de la MoodleBox et du plugin MoodleBox.
+';
 $string['networkinterface'] = 'Interface de réseau câblé';
 $string['parameter'] = 'Paramètre';
 $string['passwordprotected'] = 'Protégé par mot de passe';
@@ -98,15 +107,8 @@ $string['showbuttonsinfooter'] = 'Afficher les boutons dans le pied de page';
 $string['showbuttonsinfooter_desc'] = 'Si ce réglage est activé, les boutons de redémarrage et d\'arrêt de la MoodleBox sont affichés dans le pied de toutes les pages du site quand on est connecté comme administrateur ou gestionnaire.';
 $string['shutdown'] = 'Arrêter la MoodleBox';
 $string['shutdownmessage'] = 'La MoodleBox va s\'arrêter. Veuillez attendre quelques secondes avant de retirer l\'alimentation.';
-$string['systeminfo'] = 'Informations MoodleBox';
-$string['systeminfo_help'] = 'Le panneau d\'informations MoodleBox affiche plusieurs données importantes sur la MoodleBox. Ces informations comprennent :
-
-* des données essentielles au fonctionnement de votre MoodleBox, telles que l\'espace disque restant sur la carte SD et la charge, température et fréquence du processeur ;
-* les réglages actuels du réseau Wi-Fi fourni par la MoodleBox ;
-* le nombre, l\'adresse IP et le nom de tous les appareils connectés à la MoodleBox ;
-* le modèle et le système d\'exploitation de la Raspberry Pi ;
-* la version de la MoodleBox et du plugin MoodleBox.
-';
+$string['softwareversions'] = 'Versions logicielles';
+$string['systeminfo'] = 'Informations système';
 $string['unknownmodel'] = 'Modèle de Raspberry Pi inconnu';
 $string['unsupportedhardware'] = 'Matériel serveur non compatible détecté ! Ce plugin ne fonctionne que sur Raspberry Pi';
 $string['uptime'] = 'Durée de fonctionnement du système';
