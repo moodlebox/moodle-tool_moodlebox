@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
-## Version 2.5.0, unreleased
+## Version 2.5.0, 2020-02-08
 
 ### Added
 - Dashboard displays MoodleBox ethernet IP and default gateway addresses (issue #82).
@@ -12,9 +12,6 @@ This project adheres to [Semantic Versioning](https://semver.org/) and follow pr
 
 ### Changed
 - Refactor of the dashboard information section (issue #84).
-
-### Fixed
-- Nothing
 
 ## Version 2.4.2, 2019-10-07
 
