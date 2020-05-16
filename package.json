@@ -7,7 +7,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-eslint": "^19.0.0",
     "grunt-load-gruntfile": "0.0.2",
-    "grunt-stylelint": "^0.7.0"
+    "grunt-stylelint": "^0.15.0"
   },
   "engines": {
     "node": ">=8.9 <9"
