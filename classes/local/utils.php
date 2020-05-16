@@ -52,6 +52,10 @@ class utils {
      * |    |    |F   |    |    |    |    |    |
      * |    |   G|    |    |    |    |    |    |
      * |    |  H |    |    |    |    |    |    |
+     * |   I|II  |    |    |    |    |    |    |
+     * |  J |    |    |    |    |    |    |    |
+     * | K  |    |    |    |    |    |    |    |
+     * |L   |    |    |    |    |    |    |    |
      * +----+----+----+----+----+----+----+----+
      * |1098|7654|3210|9876|5432|1098|7654|3210|
      * +----+----+----+----+----+----+----+----+
@@ -66,9 +70,13 @@ class utils {
      * | D | 16-19 | Manufacturer  | Sony UK, Egoman, Embest, Sony Japan,               |
      * |   |       |               | Embest, Stadium                                    |
      * | E | 20-22 | Memory size   | 256 MB, 512 MB, 1 GB, 2 GB, 4 GB                   |
-     * | F | 23-23 | Revision flag | (if set, new-style revision)                       |
-     * | G | 24-24 | Warranty bit  | (if set, warranty void - Pre Pi2)                  |
-     * | H | 25-25 | Warranty bit  | (if set, warranty void - Post Pi2)                 |
+     * | F | 23-23 | Revision flag | If set, new-style revision                         |
+     * | G | 24-24 | Unused        |                                                    |
+     * | H | 25-25 | Warranty bit  | If set, warranty void by overclocking (post Pi2)   |
+     * | I | 26-28 | Unused        |                                                    |
+     * | J | 29-29 | OTP Read      | If set, OTP reading disallowed                     |
+     * | K | 30-30 | OTP Program   | If set, OTP programming disallowed                 |
+     * | L | 31-31 | Overvoltage   | If set, Overvoltage disallowed                     |
      * +---+-------+---------------+----------------------------------------------------+
      *
      * @return associative array of parameters, value or false if unsupported hardware.
