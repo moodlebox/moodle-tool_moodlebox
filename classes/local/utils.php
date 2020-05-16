@@ -222,7 +222,7 @@ class utils {
 
     /**
      * Get Raspberry Pi throttled state
-     * See https://github.com/raspberrypi/documentation/blob/JamesH65-patch-vcgencmd-vcdbg-docs/raspbian/applications/vcgencmd.md.
+     * See https://github.com/raspberrypi/documentation/blob/master/raspbian/applications/vcgencmd.md.
      * See https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=147781&start=50#p972790.
      *
      * +----+----+----+----+----+
