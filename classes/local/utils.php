@@ -38,8 +38,8 @@ class utils {
      * Get Raspberry Pi hardware model
      *
      * Revision field in /proc/cpuinfo. The bit fields are as follows.
-     * See https://www.raspberrypi.org/documentation/hardware/raspberrypi/revision-codes/.
-     * See https://github.com/AndrewFromMelbourne/raspberry_pi_revision/.
+     * @link https://www.raspberrypi.org/documentation/hardware/raspberrypi/revision-codes/.
+     * @link https://github.com/AndrewFromMelbourne/raspberry_pi_revision/.
      *
      * +----+----+----+----+----+----+----+----+
      * |FEDC|BA98|7654|3210|FEDC|BA98|7654|3210|
@@ -203,7 +203,7 @@ class utils {
 
     /**
      * Convert string with hexadecimal code to unicode string.
-     * See https://stackoverflow.com/a/12083180.
+     * @link https://stackoverflow.com/a/12083180.
      *
      * @param string $string to convert
      * @return string converted
@@ -230,8 +230,8 @@ class utils {
 
     /**
      * Get Raspberry Pi throttled state
-     * See https://github.com/raspberrypi/documentation/blob/master/raspbian/applications/vcgencmd.md.
-     * See https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=147781&start=50#p972790.
+     * @link https://github.com/raspberrypi/documentation/blob/master/raspbian/applications/vcgencmd.md.
+     * @link https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=147781&start=50#p972790.
      *
      * +----+----+----+----+----+
      * |3210|FEDC|BA98|7654|3210|

@@ -14,7 +14,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
- * @see        https://github.com/moodlebox/moodle-tool_moodlebox
+ * @link       https://github.com/moodlebox/moodle-tool_moodlebox
  * @package    tool_moodlebox
  * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

@@ -25,7 +25,7 @@
  *  - resize the microSD card partition,
  *  - restart and shutdown.
  *
- * @see        https://github.com/moodlebox/moodle-tool_moodlebox
+ * @link       https://github.com/moodlebox/moodle-tool_moodlebox
  * @package    tool_moodlebox
  * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -157,7 +157,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $currentwifissid = $wifiinfo['ssid'];
     } else {
         $currentwifissid = $wifiinfo['ssid2'];
-        // Convert $currentwifissid from hex. See https://stackoverflow.com/a/46344675.
+        // Convert $currentwifissid from hex {@link https://stackoverflow.com/a/46344675}.
         $currentwifissid = pack("H*", $currentwifissid);
     }
     $currentwifipassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
@@ -334,7 +334,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 if (!isset($data->wifissidhiddenstate)) {
                     $data->wifissidhiddenstate = 0;
                 }
-                // Convert $data->wifissid to hex. See https://stackoverflow.com/a/46344675.
+                // Convert $data->wifissid to hex {@link https://stackoverflow.com/a/46344675}.
                 $data->wifissid = implode(unpack("H*", $data->wifissid));
                 file_put_contents($wifisettingstriggerfilename,
                                   "channel=" . $data->wifichannel . "\n" .
