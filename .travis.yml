@@ -1,21 +1,17 @@
-dist: bionic
 language: php
-os: linux
+
+addons:
+  postgresql: "9.6"
 
 services:
   - mysql
+  - postgresql
+  - docker
 
 notifications:
   email:
     on_success: never # default: change
     on_failure: always # default: always
-
-addons:
-  #firefox: "47.0.1"
-  postgresql: "9.6"
-  #apt:
-  #  packages:
-  #    - openjdk-8-jre-headless
 
 cache:
   directories:
@@ -27,11 +23,14 @@ php:
   - 7.3
 
 env:
-  - MOODLE_BRANCH=MOODLE_36_STABLE DB=mysqli
-  - MOODLE_BRANCH=MOODLE_37_STABLE DB=mysqli
-  - MOODLE_BRANCH=MOODLE_38_STABLE DB=mysqli
-#   - MOODLE_BRANCH=MOODLE_39_STABLE DB=mysqli
-  - MOODLE_BRANCH=master DB=mysqli
+  global:
+    - MOODLE_BRANCH=MOODLE_37_STABLE DB=mysqli
+    - MOODLE_BRANCH=MOODLE_38_STABLE DB=mysqli
+#     - MOODLE_BRANCH=MOODLE_39_STABLE DB=mysqli
+    - MOODLE_BRANCH=master
+  matrix:
+#     - DB=pgsql
+    - DB=mysqli
 
 before_install:
   - phpenv config-rm xdebug.ini
@@ -40,6 +39,7 @@ before_install:
   - cd ../..
   - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
+  - docker run -d -p 127.0.0.1:4444:4444 --net=host -v /dev/shm:/dev/shm selenium/standalone-firefox:3
 
 jobs:
   include:
@@ -51,13 +51,14 @@ jobs:
       - moodle-plugin-ci install --no-init
       script:
       - moodle-plugin-ci phplint
-      #- moodle-plugin-ci phpcpd #disable cpd for now - reports duplicates as failures - would be nice to fix.
+      - moodle-plugin-ci phpcpd
       - moodle-plugin-ci phpmd
       - moodle-plugin-ci codechecker
       - moodle-plugin-ci validate
       - moodle-plugin-ci savepoints
       - moodle-plugin-ci mustache
-      # - moodle-plugin-ci grunt
+      - moodle-plugin-ci grunt
+      - moodle-plugin-ci phpdoc
 
 # Unit tests and behat tests against full matrix (Implicit "test" stage).
 install:
@@ -65,12 +66,8 @@ install:
 
 script:
   - moodle-plugin-ci phpunit
-#  - moodle-plugin-ci behat
-#  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - moodle-plugin-ci behat
 
 stages:
   - prechecks
   - test
-
-# after_success:
-#  - bash <(curl -s https://codecov.io/bash)
