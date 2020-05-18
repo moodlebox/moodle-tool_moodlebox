@@ -184,6 +184,8 @@ class utils {
     /**
      * Get default host and gateway addresses.
      *
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     *
      * @return associative array of parameters, value or false if ethernet not connected.
      */
     public static function get_ethernet_addresses() {
