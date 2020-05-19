@@ -63,7 +63,7 @@ install:
 
 script:
   - moodle-plugin-ci phpunit
-  - moodle-plugin-ci behat
+#   - moodle-plugin-ci behat
 
 stages:
   - prechecks
