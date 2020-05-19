@@ -1,3 +1,4 @@
+badpowersupply,tool_moodlebox
 changepasswordsetting,tool_moodlebox
 changewifipassword,tool_moodlebox
 currentwifipassword,tool_moodlebox

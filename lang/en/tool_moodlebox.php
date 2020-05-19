@@ -24,7 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['badpowersupply'] = '<p><b>Warning</b> ! The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and to use a good quality cable to connect it with the MoodleBox.</p>';
+$string['undervoltagedetected'] = '<p><b>Warning: under-voltage detected!</b> The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and to use a good quality cable to connect it with the MoodleBox.</p>';
+$string['undervoltageoccurred'] = '<p>An under-voltage situation has occurred since last boot of the MoodleBox. This could indicate the power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and to use a good quality cable to connect it with the MoodleBox.</p>';
 $string['changepassworderror'] = 'The MoodleBox password was not changed. The passwords given don\'t match.';
 $string['changepasswordmessage'] = 'The main password of the MoodleBox (Unix account) and of the database server were successfully changed.<br /><br />Warning! The password of the default Moodle user <b>was not changed</b>. To change it, please use the preferences page of this user.';
 $string['changewifisettings'] = 'Change Wi-Fi settings';
@@ -134,6 +135,7 @@ $string['wifissidhiddenstate_help'] = 'If enabled, Wi-Fi SSID will be hidden fro
 $string['wifissidinvalid'] = 'The name of the Wi-Fi network (SSID) provided is invalid. It must be a string of at least 1 byte and at most 32 bytes.';
 
 // Deprecated.
+$string['badpowersupply'] = '<p><b>Warning: under-voltage detected!</b> The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and to use a good quality cable to connect it with the MoodleBox.</p>';
 $string['changepasswordsetting'] = 'MoodleBox password change';
 $string['changewifipassword'] = 'Change Wi-Fi password';
 $string['currentwifipassword'] = 'Current Wi-Fi password';

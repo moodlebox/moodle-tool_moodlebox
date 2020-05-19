@@ -43,8 +43,10 @@ function tool_moodlebox_standard_footer_html() {
     if ( has_capability('tool/moodlebox:viewbuttonsinfooter', context_system::instance()) ) {
         // Get throttled state and print warning if throttling is active or has occurred.
         if ( $throttledstate = \tool_moodlebox\local\utils::get_throttled_state() ) {
-            if ( $throttledstate['undervoltagedetected'] || $throttledstate['undervoltageoccurred'] ) {
-                \core\notification::error(get_string('badpowersupply', 'tool_moodlebox'));
+            if ( $throttledstate['undervoltagedetected'] ) {
+                \core\notification::error(get_string('undervoltagedetected', 'tool_moodlebox'));
+            } elseif ( $throttledstate['undervoltageoccurred'] ) {
+                \core\notification::warning(get_string('undervoltageoccurred', 'tool_moodlebox'));
             }
         }
     }
