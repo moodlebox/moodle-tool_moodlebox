@@ -45,7 +45,7 @@ function tool_moodlebox_standard_footer_html() {
         if ( $throttledstate = \tool_moodlebox\local\utils::get_throttled_state() ) {
             if ( $throttledstate['undervoltagedetected'] ) {
                 \core\notification::error(get_string('undervoltagedetected', 'tool_moodlebox'));
-            } elseif ( $throttledstate['undervoltageoccurred'] ) {
+            } else if ( $throttledstate['undervoltageoccurred'] ) {
                 \core\notification::warning(get_string('undervoltageoccurred', 'tool_moodlebox'));
             }
         }
