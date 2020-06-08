@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.6.0, 2020-06-08
+
+### Added
+- Raspberry Pi 4B+ model with 8GB supported (issue #82).
+- Tested for upcoming Moodle version 3.9 (no issue number).
+
+### Changed
+- Different messages are displayed depending on undervoltage situation (issue #86).
+
+### Fixed
+- Coding style adapted to new standard (no issue number).
+
 ## Version 2.5.0, 2020-02-08
 
 ### Added
