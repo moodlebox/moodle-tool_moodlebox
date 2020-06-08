@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/moodlebox/moodle-tool_moodlebox.svg?branch=master)](https://travis-ci.org/moodlebox/moodle-tool_moodlebox)
 [![GitHub release](https://img.shields.io/github/release/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/moodle-tool_moodlebox/releases/latest)
 [![GitHub Release Date](https://img.shields.io/github/release-date/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/moodle-tool_moodlebox/releases/latest)
-[![GitHub last commit](https://img.shields.io/github/last-commit/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/moodlebox/commits/)
+[![GitHub last commit](https://img.shields.io/github/last-commit/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/tool_moodlebox/commits/)
 
 
 A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://moodlebox.net/), a Moodle server installed on a [Raspberry Pi](https://www.raspberrypi.org/).
