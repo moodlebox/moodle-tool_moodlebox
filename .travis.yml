@@ -16,16 +16,17 @@ cache:
     - $HOME/.npm
     - $HOME/.nvm
 
-# php:
-#   - 7.2
-#   - 7.3
+php:
+  - 7.2
+  - 7.3
 
-# env:
-#   global:
-#     - MOODLE_BRANCH=MOODLE_37_STABLE DB=mysqli
-#     - MOODLE_BRANCH=MOODLE_38_STABLE DB=mysqli
-#     - MOODLE_BRANCH=MOODLE_39_STABLE DB=mysqli
-#     - MOODLE_BRANCH=master DB=mysqli
+env:
+  # Unit tests and behat tests against full matrix (Implicit "test" stage).
+  global:
+    - MOODLE_BRANCH=MOODLE_37_STABLE DB=mysqli
+    - MOODLE_BRANCH=MOODLE_38_STABLE DB=mysqli
+    - MOODLE_BRANCH=MOODLE_39_STABLE DB=mysqli
+    - MOODLE_BRANCH=master DB=mysqli
 
 jobs:
   include:
@@ -45,20 +46,6 @@ jobs:
       - moodle-plugin-ci mustache
       - moodle-plugin-ci grunt || true
       - moodle-plugin-ci phpdoc || true
-    # Unit tests and behat tests against full matrix (Implicit "test" stage).
-    - php: 7.3
-      MOODLE_BRANCH=master DB=mysqli
-    - php: 7.3
-      MOODLE_BRANCH=MOODLE_38_STABLE DB=mysqli
-    - php: 7.3
-      MOODLE_BRANCH=MOODLE_37_STABLE DB=mysqli
-
-    - php: 7.2
-      MOODLE_BRANCH=master DB=mysqli
-    - php: 7.2
-      MOODLE_BRANCH=MOODLE_38_STABLE DB=mysqli
-    - php: 7.2
-      MOODLE_BRANCH=MOODLE_37_STABLE DB=mysqli
 
 before_install:
   - phpenv config-rm xdebug.ini
