@@ -54,7 +54,7 @@ To complete the installation, you have to configure some incron jobs on the Mood
 
 ## Features
 
-- Info about the MoodleBox (kernel version, Raspbian version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
+- Info about the MoodleBox (kernel version, Raspberry Pi OS version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
 - Warning when under voltage detected.
 - GUI to set the MoodleBox date and time.
 - GUI to set the MoodleBox password.
