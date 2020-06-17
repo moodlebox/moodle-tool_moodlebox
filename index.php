@@ -95,9 +95,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // Get kernel version.
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
 
-    // Get Raspbian distribution version.
+    // Get Raspberry Pi OS distribution version.
     $releaseinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/os-release');
-    $raspbianversion = $releaseinfo['PRETTY_NAME'];
+    $rpiosversion = $releaseinfo['PRETTY_NAME'];
 
     // Get CPU load.
     $cpuload = sys_getloadavg();
@@ -252,7 +252,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime), 'subinfo');
     // Software versions.
     $table->add_data(array(get_string('softwareversions', 'tool_moodlebox'), ''));
-    $table->add_data(array(get_string('raspbianversion', 'tool_moodlebox'), $raspbianversion), 'subinfo');
+    $table->add_data(array(get_string('rpiosversion', 'tool_moodlebox'), $rpiosversion), 'subinfo');
     $table->add_data(array(get_string('kernelversion', 'tool_moodlebox'), $kernelversion), 'subinfo');
     $table->add_data(array(get_string('version', 'tool_moodlebox'), $moodleboxinfo), 'subinfo');
     $table->add_data(array(get_string('pluginversion', 'tool_moodlebox'), $moodleboxpluginversion), 'subinfo');
