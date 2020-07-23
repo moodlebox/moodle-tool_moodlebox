@@ -4,7 +4,6 @@ os: linux
 dist: xenial
 
 addons:
-  firefox: "47.0.1"
   postgresql: "9.5"
 
 services:
@@ -35,7 +34,7 @@ jobs:
       php: 7.3
       env: DB=pgsql MOODLE_BRANCH=MOODLE_39_STABLE
       install:
-      - moodle-plugin-ci install --no-init
+      - moodle-plugin-ci install
       script:
       - moodle-plugin-ci phplint
       - moodle-plugin-ci phpcpd
@@ -49,15 +48,9 @@ jobs:
 
 before_install:
   - phpenv config-rm xdebug.ini
-  - if [ -z $NODE ]; then
-      export NODE=14;
-    fi
-  - nvm install $NODE
-  - nvm use $NODE
   - cd ../..
-  - composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^2
+  - composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
-  - export IGNORE_PATHS=moodle/tests/fixtures,moodle/Sniffs
   - export BEHAT=no
 
 install:
