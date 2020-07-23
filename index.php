@@ -78,6 +78,9 @@ switch ( $hardwaredata['model'] ) {
             case '4 GB':
                 $platform = 'rpi4fourgb';
                 break;
+            case '8 GB':
+                $platform = 'rpi4eightgb';
+                break;
         };
         break;
     case 'ZeroW':

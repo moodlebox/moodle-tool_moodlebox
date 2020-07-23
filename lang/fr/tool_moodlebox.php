@@ -99,6 +99,7 @@ $string['rpi3bplus'] = 'Raspberry Pi 3B+';
 $string['rpi4onegb'] = 'Raspberry Pi 4B (1 Go RAM)';
 $string['rpi4twogb'] = 'Raspberry Pi 4B (2 Go RAM)';
 $string['rpi4fourgb'] = 'Raspberry Pi 4B (4 Go RAM)';
+$string['rpi4eightgb'] = 'Raspberry Pi 4B (8 Go RAM)';
 $string['rpiosversion'] = 'Version de Raspberry Pi OS';
 $string['rpizerow'] = 'Raspberry Pi Zero W';
 $string['sdcardavailablespace'] = 'Espace libre sur la carte SD';
