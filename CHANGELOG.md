@@ -3,10 +3,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.7.0, 2020-07-23
+
+### Changed
+- New Raspberry Pi OS name adopted (issue #88).
+- Travis configuration updated (no issue number).
+
+### Fixed
+- Raspberry Pi 4B+ model with 8GB detection works now correctly (issue #89).
+- Typo in string (no issue number)
+
 ## Version 2.6.0, 2020-06-08
 
 ### Added
-- Raspberry Pi 4B+ model with 8GB supported (issue #82).
+- Raspberry Pi 4B+ model with 8GB supported (issue #87).
 - Tested for upcoming Moodle version 3.9 (no issue number).
 
 ### Changed
