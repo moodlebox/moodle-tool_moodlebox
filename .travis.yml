@@ -4,7 +4,7 @@ os: linux
 dist: xenial
 
 addons:
-  postgresql: "9.5"
+  postgresql: "9.6"
 
 services:
   - mysql
