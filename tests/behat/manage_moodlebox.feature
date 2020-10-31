@@ -3,7 +3,7 @@ Feature: Manage MoodleBox settings
   In order to control MoodleBox settings
   As an administrator
   I need to see the list of options
-  
+
   @javascript
   Scenario: Display list of options
     # Check the report doesn't show when not enabled.
