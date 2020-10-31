@@ -108,14 +108,14 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // Get DHCP leases.
     $moodleboxleasesfile = '/var/lib/misc/dnsmasq.leases';
     if ( file_exists($moodleboxleasesfile) ) {
-      if ( filesize($moodleboxleasesfile) > 0 ) {
-          $leases = explode(PHP_EOL, trim(file_get_contents($moodleboxleasesfile)));
-      } else {
-          $leases = array();
-      }
-      $dhcpclientnumber = count($leases);
+        if ( filesize($moodleboxleasesfile) > 0 ) {
+            $leases = explode(PHP_EOL, trim(file_get_contents($moodleboxleasesfile)));
+        } else {
+            $leases = array();
+        }
+        $dhcpclientnumber = count($leases);
     } else {
-      $dhcpclientnumber = 0;
+        $dhcpclientnumber = 0;
     }
 
     // Get CPU temperature.
