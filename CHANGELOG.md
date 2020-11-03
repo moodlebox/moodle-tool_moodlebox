@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.8.0, 2020-11-03
+
+### Changed
+- Tested against upcoming Moodle 3.10 (issue #91).
+- Detection of Raspberry Pi CM4 module (issue #90).
+- Travis configuration updated (no issue number).
+
+### Fixed
+- PHP warning raised when no dnsmasq lease yet (issue #92).
+
 ## Version 2.7.0, 2020-07-23
 
 ### Changed
