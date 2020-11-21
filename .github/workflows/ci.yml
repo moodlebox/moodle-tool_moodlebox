@@ -11,6 +11,7 @@ jobs:
     env:
       MOODLE_BRANCH: MOODLE_310_STABLE
       DB: pgsql
+      CHECK_GRUNT: no
 
     services:
       postgres:
