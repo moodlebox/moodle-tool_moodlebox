@@ -1,0 +1,84 @@
+name: Run all tests
+
+# Run this workflow every time a new commit pushed to your repository
+on: push
+
+jobs:
+  moodle-310:
+    name: With Moodle 3.10
+    runs-on: ubuntu-latest
+
+    env:
+      MOODLE_BRANCH: MOODLE_310_STABLE
+      DB: pgsql
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: moodleuser
+          POSTGRES_PASSWORD: moodle
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Create required locale
+        run: sudo locale-gen en_AU.UTF-8
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: this-plugin
+
+      - name: Checkout my custom moodle-plugin-ci
+        uses: actions/checkout@v2
+        with:
+          repository: timhunt/moodle-plugin-ci
+          path: ci
+
+      - name: Composer install
+        run: cd ci; composer install
+
+      - name: Set path 1
+        run: echo "$(cd ci/bin; pwd)" >> $GITHUB_PATH
+
+      - name: Set path 2
+        run: echo "$(cd ci/vendor/bin; pwd)" >> $GITHUB_PATH
+
+      - name: Install Moodle
+        run: moodle-plugin-ci install --db-user moodleuser --db-pass moodle --plugin this-plugin
+
+      - name: phplint
+        run: moodle-plugin-ci phplint
+
+      - name: phpcpd
+        run: moodle-plugin-ci phpcpd || true
+
+      - name: phpmd
+        run: moodle-plugin-ci phpmd
+
+      - name: codechecker
+        run: moodle-plugin-ci codechecker
+
+      - name: validate
+        run: moodle-plugin-ci validate
+
+      - name: savepoints
+        run: moodle-plugin-ci savepoints
+
+      - name: mustache
+        run: moodle-plugin-ci mustache
+
+      - name: grunt
+        run: moodle-plugin-ci grunt || [ "$CHECK_GRUNT" = 'no' ]
+
+      - name: phpunit
+        run: moodle-plugin-ci phpunit
+
+      - name: behat
+        run: moodle-plugin-ci behat --profile chrome
