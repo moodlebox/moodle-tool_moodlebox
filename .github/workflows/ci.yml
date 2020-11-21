@@ -87,7 +87,7 @@ jobs:
       env:
         DB: ${{ matrix.database }}
         # TODO: Omitted MOODLE_BRANCH results in regex failure, investigate.
-        MOODLE_BRANCH: $MOODLE_BRANCH
+        MOODLE_BRANCH: ${{ env.MOODLE_BRANCH }}
 
     - name: Run Integration tests
       run: |
