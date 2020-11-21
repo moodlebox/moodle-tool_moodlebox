@@ -12,6 +12,7 @@ jobs:
       MOODLE_BRANCH: MOODLE_310_STABLE
       DB: pgsql
       CHECK_GRUNT: no
+      CHECK_BEHAT: no
 
     services:
       postgres:
@@ -82,4 +83,4 @@ jobs:
         run: moodle-plugin-ci phpunit
 
       - name: behat
-        run: moodle-plugin-ci behat --profile chrome
+        run: moodle-plugin-ci behat --profile chrome || [ "$CHECK_BEHAT" = 'no' ]
