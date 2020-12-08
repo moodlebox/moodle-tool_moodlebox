@@ -20,8 +20,8 @@ jobs:
       postgres:
         image: postgres:9.6
         env:
-          POSTGRES_USER: moodleuser
-          POSTGRES_PASSWORD: moodle
+          POSTGRES_USER: 'postgres'
+          POSTGRES_HOST_AUTH_METHOD: 'trust'
         ports:
           - 5432:5432
         options: >-
