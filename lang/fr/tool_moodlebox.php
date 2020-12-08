@@ -96,6 +96,7 @@ $string['rpi2'] = 'Raspberry Pi 2B';
 $string['rpi3aplus'] = 'Raspberry Pi 3A+';
 $string['rpi3b'] = 'Raspberry Pi 3B';
 $string['rpi3bplus'] = 'Raspberry Pi 3B+';
+$string['rpi400'] = 'Raspberry Pi 400';
 $string['rpi4onegb'] = 'Raspberry Pi 4B (1 Go RAM)';
 $string['rpi4twogb'] = 'Raspberry Pi 4B (2 Go RAM)';
 $string['rpi4fourgb'] = 'Raspberry Pi 4B (4 Go RAM)';

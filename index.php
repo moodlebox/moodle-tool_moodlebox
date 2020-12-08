@@ -51,6 +51,7 @@ echo $OUTPUT->header();
 $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model();
 
 switch ( $hardwaredata['model'] ) {
+    // $platform string MUST contain 'rpi'.
     case 'A+':
     case 'B+':
         $platform = 'rpi1';
@@ -85,6 +86,9 @@ switch ( $hardwaredata['model'] ) {
         break;
     case 'ZeroW':
         $platform = 'rpizerow';
+        break;
+    case '400':
+        $platform = 'rpi400';
         break;
     default: // Anything else is not a RPi.
         $platform = 'unknownmodel';
