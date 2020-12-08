@@ -38,7 +38,7 @@ class utils {
      * Get Raspberry Pi hardware model
      *
      * Revision field in /proc/cpuinfo. The bit fields are as follows.
-     * @link https://github.com/raspberrypi/documentation/tree/master/hardware/raspberrypi/revision-codes.
+     * @link https://github.com/raspberrypi/documentation/tree/master/hardware/raspberrypi/revision-codes/.
      * @link https://github.com/AndrewFromMelbourne/raspberry_pi_revision/.
      *
      * +----+----+----+----+----+----+----+----+
@@ -66,7 +66,7 @@ class utils {
      * | A | 00-03 | PCB Revision  | The PCB revision number                            |
      * | B | 04-11 | Model name    | A, B, A+, B+, 2B, Alpha, CM1, unknown, 3B, Zero,   |
      * |   |       |               | CM3, unknown, Zero W, 3B+, 3A+, internal, CM3+,    |
-     * |   |       |               | 4B, CM4                                            |
+     * |   |       |               | 4B, unknown, 400, CM4                                            |
      * | C | 12-15 | Processor     | BCM2835, BCM2836, BCM2837, BCM2711                 |
      * | D | 16-19 | Manufacturer  | Sony UK, Egoman, Embest, Sony Japan,               |
      * |   |       |               | Embest, Stadium                                    |
@@ -98,7 +98,7 @@ class utils {
         $memorysizes = array('256 MB', '512 MB', '1 GB', '2 GB', '4 GB', '8 GB');
         $models = array('A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
                 '3B', 'Zero', 'CM3', 'Unknown', 'ZeroW', '3B+', '3A+', 'Internal use',
-                'CM3+', '4B', 'Unknown', 'Unknown', 'CM4');
+                'CM3+', '4B', 'Unknown', '400', 'CM4');
         $processors = array('BCM2835', 'BCM2836', 'BCM2837', 'BCM2711');
         $manufacturers = array('Sony UK', 'Egoman', 'Embest', 'Sony Japan',
                 'Embest', 'Stadium');
