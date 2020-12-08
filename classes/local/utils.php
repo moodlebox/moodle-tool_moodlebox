@@ -66,7 +66,7 @@ class utils {
      * | A | 00-03 | PCB Revision  | The PCB revision number                            |
      * | B | 04-11 | Model name    | A, B, A+, B+, 2B, Alpha, CM1, unknown, 3B, Zero,   |
      * |   |       |               | CM3, unknown, Zero W, 3B+, 3A+, internal, CM3+,    |
-     * |   |       |               | 4B, unknown, 400, CM4                                            |
+     * |   |       |               | 4B, unknown, 400, CM4                              |
      * | C | 12-15 | Processor     | BCM2835, BCM2836, BCM2837, BCM2711                 |
      * | D | 16-19 | Manufacturer  | Sony UK, Egoman, Embest, Sony Japan,               |
      * |   |       |               | Embest, Stadium                                    |
