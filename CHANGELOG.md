@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.9.0, 2021-02-21
+
+### Added
+- Detection of Raspberry Pi 400, preliminary tentative (issue #93).
+
+### Changed
+- Travis CI dropped in favor of Github actions (no issue number, see commits 602560e, a300850, da73b9c, f0fcdd2, f3c3fda, 596adc8 and 123e7f7).
+
 ## Version 2.8.0, 2020-11-03
 
 ### Changed
