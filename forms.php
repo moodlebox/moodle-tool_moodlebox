@@ -128,6 +128,7 @@ class wifisettings_form extends moodleform {
         global $currentwifichannel;
         global $currentwifipassword;
         global $currentwificountry;
+        global $staticipaddress;
 
         $mform = $this->_form;
 
@@ -180,6 +181,11 @@ class wifisettings_form extends moodleform {
         $mform->setDefault('wifipassword', ($currentwifipassword == null) ? 'moodlebox' : $currentwifipassword);
         $mform->addHelpButton('wifipassword', 'wifipassword', 'tool_moodlebox');
 
+        // IP setting.
+        $mform->addElement('text', 'newipaddress', get_string('newipaddress'));
+        $mform->addRule('newipaddress', get_string('required'), 'required', null, 'client');
+        $mform->setDefault('newipaddress', $staticipaddress);
+
         $this->add_action_buttons(false, get_string('changewifisettings', 'tool_moodlebox'));
     }
 
@@ -204,6 +210,11 @@ class wifisettings_form extends moodleform {
         // See IEEE Std. 802.11i-2004, Annex H.4.1.
         if (!preg_match('/^[ -~]{8,63}$/', $data['wifipassword']) ) {
             $errors['wifipassword'] = get_string('wifipasswordinvalid', 'tool_moodlebox');
+        }
+
+        // Validate IP address
+        if (!\core\ip_utils::is_ipv4_address($data['newipaddress'])) {
+            $errors['newipaddress'] = get_string('invalidipaddress');
         }
 
         return $errors;

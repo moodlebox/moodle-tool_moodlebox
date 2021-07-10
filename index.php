@@ -122,6 +122,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $dhcpclientnumber = 0;
     }
 
+    // Get local static IP address.
+    $staticipaddress = getHostByName(getHostName());
+
     // Get CPU temperature.
     $cputemperature = intval(file_get_contents('/sys/class/thermal/thermal_zone0/temp')) / 1000 . ' °C';
 
@@ -213,6 +216,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->add_data(array(get_string('wifichannel', 'tool_moodlebox'), $currentwifichannel), 'subinfo');
     $table->add_data(array(get_string('wificountry', 'tool_moodlebox'), $currentwificountry), 'subinfo');
     $table->add_data(array(get_string('wifipassword', 'tool_moodlebox'), $currentwifipassword), 'subinfo');
+    $table->add_data(array(get_string('staticipaddress', 'tool_moodlebox'), $staticipaddress), 'subinfo');
+
     // DHCP client info.
     if ($dhcpclientnumber > 0) {
         $table->add_data(array(get_string('dhcpclients', 'tool_moodlebox') .
@@ -346,6 +351,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 if (!isset($data->wifissidhiddenstate)) {
                     $data->wifissidhiddenstate = 0;
                 }
+                if (!isset($data->newipaddress)) {
+                    $data->newipaddress = $staticipaddress;
+                }
                 // Convert $data->wifissid to hex {@link https://stackoverflow.com/a/46344675}.
                 $data->wifissid = implode(unpack("H*", $data->wifissid));
                 file_put_contents($wifisettingstriggerfilename,
@@ -354,7 +362,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                                   "password=" . $data->wifipassword . "\n" .
                                   "ssid=" . $data->wifissid . "\n" .
                                   "ssidhiddenstate=" . $data->wifissidhiddenstate . "\n" .
-                                  "passwordprotected=" . $data->wifipasswordon . "\n");
+                                  "passwordprotected=" . $data->wifipasswordon . "\n" .
+                                  "ipaddress=" . $data->newipaddress . "\n");
                 \core\notification::warning(get_string('wifisettingsmessage', 'tool_moodlebox'));
             }
         }
