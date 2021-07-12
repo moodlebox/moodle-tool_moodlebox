@@ -185,6 +185,7 @@ class wifisettings_form extends moodleform {
         $mform->addElement('text', 'newipaddress', get_string('newipaddress', 'tool_moodlebox'));
         $mform->addRule('newipaddress', get_string('required'), 'required', null, 'client');
         $mform->setDefault('newipaddress', $staticipaddress);
+        $mform->addHelpButton('newipaddress', 'newipaddress', 'tool_moodlebox');
 
         $this->add_action_buttons(false, get_string('changewifisettings', 'tool_moodlebox'));
     }
