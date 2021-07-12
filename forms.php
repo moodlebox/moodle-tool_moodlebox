@@ -214,7 +214,7 @@ class wifisettings_form extends moodleform {
 
         // Validate IP address
         if (!\core\ip_utils::is_ipv4_address($data['newipaddress'])) {
-            $errors['newipaddress'] = get_string('invalidipaddress', 'tool_moodlebox');
+            $errors['newipaddress'] = get_string('staticipaddressinvalid', 'tool_moodlebox');
         }
 
         return $errors;
