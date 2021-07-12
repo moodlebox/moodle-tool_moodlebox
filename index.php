@@ -233,7 +233,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $table->add_data(array(get_string('networkinterface', 'tool_moodlebox'), ''));
         $table->add_data(array(get_string('interfacename', 'tool_moodlebox'),
                 \tool_moodlebox\local\utils::get_ethernet_interface_name()), 'subinfo');
-        $table->add_data(array(get_string('ipaddress', 'tool_moodlebox'), $ipaddress), 'subinfo');
+        $table->add_data(array(get_string('dynamicipaddress', 'tool_moodlebox'), $ipaddress), 'subinfo');
         $table->add_data(array(get_string('defaultgateway', 'tool_moodlebox'), $defaultgatewayaddress), 'subinfo');
     } else {
         $table->add_data(array(get_string('networkinterface', 'tool_moodlebox'),

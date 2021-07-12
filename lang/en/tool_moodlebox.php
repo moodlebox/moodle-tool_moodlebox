@@ -44,6 +44,7 @@ $string['dhcpclientnumber'] = 'number of clients';
 $string['dhcpclients'] = 'DHCP clients';
 $string['documentation'] = 'MoodleBox documentation';
 $string['documentation_desc'] = '<p>For support questions, browse the complete <a href="https://moodlebox.net/en/help/" title="MoodleBox documentation" target="_blank">MoodleBox documentation</a>.</p>';
+$string['dynamicipaddress'] = 'IP address (dynamic)';
 $string['ethernetdisconnected'] = 'Ethernet disconnected';
 $string['forum'] = 'MoodleBox support forum';
 $string['forum_desc'] = '<p>If you can\'t find an answer to your question in the <a href="https://moodlebox.net/en/help/" title="MoodleBox documentation" target="_blank">MoodleBox documentation</a>, search the <a href="https://discuss.moodlebox.net/" title="MoodleBox forum" target="_blank">MoodleBox support forum</a> to see if your question has already been answered. Otherwise, feel free to open a new discussion.</p>';
@@ -54,7 +55,7 @@ $string['information'] = 'Information';
 $string['ihavedonated'] = 'I have donated! 🎉';
 $string['ihavedonated_desc'] = 'Check this box if <a href="https://moodlebox.net/en/donate/" title="Make a donation" target="_blank">you\'ve donated</a> to the MoodleBox project.<br />This setting has no effect at all. It simply allows you to show your pride in having contributed to the <a href="https://moodlebox.net/en/" title="MoodleBox website" target="_blank">MoodleBox project</a>. Many thanks!';
 $string['interfacename'] = 'Interface name';
-$string['ipaddress'] = 'IP address';
+$string['invalidipaddress'] = 'This IP address is invalid. It should be a valid IP address.';
 $string['kernelversion'] = 'Kernel version';
 $string['missingconfigurationerror'] = 'This section isn\'t available. The plugin installation is not complete, so that the setting cannot be handled by the MoodleBox. Please read the <a href="https://github.com/moodlebox/moodle-tool_moodlebox/blob/master/README.md" target="_blank">installation documentation</a> to fix this error.';
 $string['moodlebox:viewbuttonsinfooter'] = 'View restart and shutdown buttons in footer';
@@ -68,6 +69,7 @@ $string['moodleboxsysteminfo_help'] = 'The MoodleBox information dashboard displ
 * MoodleBox version and MoodleBox plugin version
 ';
 $string['networkinterface'] = 'Cabled network interface';
+$string['newipaddress'] = 'New IP address';
 $string['parameter'] = 'Parameter';
 $string['passwordprotected'] = 'Password protected';
 $string['passwordsetting'] = 'MoodleBox password';
@@ -109,6 +111,7 @@ $string['showbuttonsinfooter_desc'] = 'If enabled, the restart and shutdown butt
 $string['shutdown'] = 'Shutdown MoodleBox';
 $string['shutdownmessage'] = 'The MoodleBox is shutting down. Please wait a few seconds before disconnecting the power supply.';
 $string['softwareversions'] = 'Software versions';
+$string['staticipaddress'] = 'IP address (static)';
 $string['systeminfo'] = 'System information';
 $string['undervoltagedetected'] = '<p><b>Warning: under-voltage detected!</b> The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and to use a good quality cable to connect it with the MoodleBox.</p>';
 $string['undervoltageoccurred'] = '<p>An under-voltage situation has occurred since last boot of the MoodleBox. This could indicate the power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and to use a good quality cable to connect it with the MoodleBox.</p>';
@@ -141,6 +144,7 @@ $string['badpowersupply'] = '<p><b>Warning: under-voltage detected!</b> The powe
 $string['changepasswordsetting'] = 'MoodleBox password change';
 $string['changewifipassword'] = 'Change Wi-Fi password';
 $string['currentwifipassword'] = 'Current Wi-Fi password';
+$string['ipaddress'] = 'IP address';
 $string['moodleboxinfo'] = 'MoodleBox version';
 $string['moodleboxinfofileerror'] = 'Information not available';
 $string['moodleboxpluginversion'] = 'MoodleBox plugin version';

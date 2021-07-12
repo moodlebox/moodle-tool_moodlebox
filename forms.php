@@ -182,7 +182,7 @@ class wifisettings_form extends moodleform {
         $mform->addHelpButton('wifipassword', 'wifipassword', 'tool_moodlebox');
 
         // IP setting.
-        $mform->addElement('text', 'newipaddress', get_string('newipaddress'));
+        $mform->addElement('text', 'newipaddress', get_string('newipaddress', 'tool_moodlebox'));
         $mform->addRule('newipaddress', get_string('required'), 'required', null, 'client');
         $mform->setDefault('newipaddress', $staticipaddress);
 
@@ -214,7 +214,7 @@ class wifisettings_form extends moodleform {
 
         // Validate IP address
         if (!\core\ip_utils::is_ipv4_address($data['newipaddress'])) {
-            $errors['newipaddress'] = get_string('invalidipaddress');
+            $errors['newipaddress'] = get_string('invalidipaddress', 'tool_moodlebox');
         }
 
         return $errors;
