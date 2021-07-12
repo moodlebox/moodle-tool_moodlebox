@@ -303,6 +303,19 @@ class utils {
     }
 
     /**
+     * Syntax validation for private and not reserved IPv4 addresses.
+     *
+     * @param string $address the address to check.
+     * @return bool true if the address is a valid, private and not reserved IPv4 address,
+     * false otherwise.
+     */
+    public static function is_private_ipv4_address($address) {
+        return (filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) &&
+            filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_RES_RANGE) &&
+            !filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE)) !== false;
+    }
+
+    /**
      * Get survey data.
      *
      * @return associative array of parameters, value

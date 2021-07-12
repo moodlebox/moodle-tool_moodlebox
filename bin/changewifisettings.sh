@@ -117,8 +117,10 @@ else
 fi
 #
 # Static IP setting.
-# Validate IP address. Replace it with '10.0.0.1' if invalid.
-[[ $NEWSTATICIP =~ ^[01]$ ]] || NEWSTATICIP="10.0.0.1"
+# Validate IP address. Replace it with '10.0.0.1' if invalid or not private
+# RFC 1918 {@link https://datatracker.ietf.org/doc/html/rfc1918#section-3 }.
+# Regex shamelessly taken from {@link https://stackoverflow.com/a/44333761/}.
+[[ $NEWSTATICIP =~ ^(10(\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){3}|((172\.(1[6-9]|2[0-9]|3[01]))|192\.168)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){2})$ ]] || NEWSTATICIP="10.0.0.1"
 # New static IP is now valid; set it in all needed files.
 
 # End of actions.
