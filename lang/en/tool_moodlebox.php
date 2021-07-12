@@ -68,7 +68,6 @@ $string['moodleboxsysteminfo_help'] = 'The MoodleBox information dashboard displ
 * MoodleBox version and MoodleBox plugin version
 ';
 $string['networkinterface'] = 'Cabled network interface';
-$string['newipaddress'] = 'New IP address';
 $string['parameter'] = 'Parameter';
 $string['passwordprotected'] = 'Password protected';
 $string['passwordsetting'] = 'MoodleBox password';

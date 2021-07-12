@@ -182,10 +182,10 @@ class wifisettings_form extends moodleform {
         $mform->addHelpButton('wifipassword', 'wifipassword', 'tool_moodlebox');
 
         // IP setting.
-        $mform->addElement('text', 'newipaddress', get_string('newipaddress', 'tool_moodlebox'));
-        $mform->addRule('newipaddress', get_string('required'), 'required', null, 'client');
-        $mform->setDefault('newipaddress', $staticipaddress);
-        $mform->addHelpButton('newipaddress', 'newipaddress', 'tool_moodlebox');
+        $mform->addElement('text', 'staticipaddress', get_string('staticipaddress', 'tool_moodlebox'));
+        $mform->addRule('staticipaddress', get_string('required'), 'required', null, 'client');
+        $mform->setDefault('staticipaddress', $staticipaddress);
+        $mform->addHelpButton('staticipaddress', 'staticipaddress', 'tool_moodlebox');
 
         $this->add_action_buttons(false, get_string('changewifisettings', 'tool_moodlebox'));
     }
@@ -214,8 +214,8 @@ class wifisettings_form extends moodleform {
         }
 
         // Validate IP address
-        if (!\core\ip_utils::is_ipv4_address($data['newipaddress'])) {
-            $errors['newipaddress'] = get_string('staticipaddressinvalid', 'tool_moodlebox');
+        if (!\core\ip_utils::is_ipv4_address($data['staticipaddress'])) {
+            $errors['staticipaddress'] = get_string('staticipaddressinvalid', 'tool_moodlebox');
         }
 
         return $errors;

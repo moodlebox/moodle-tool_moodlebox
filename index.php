@@ -351,8 +351,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 if (!isset($data->wifissidhiddenstate)) {
                     $data->wifissidhiddenstate = 0;
                 }
-                if (!isset($data->newipaddress)) {
-                    $data->newipaddress = $staticipaddress;
+                if (!isset($data->staticipaddress)) {
+                    $data->staticipaddress = $staticipaddress;
                 }
                 // Convert $data->wifissid to hex {@link https://stackoverflow.com/a/46344675}.
                 $data->wifissid = implode(unpack("H*", $data->wifissid));
@@ -363,7 +363,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                                   "ssid=" . $data->wifissid . "\n" .
                                   "ssidhiddenstate=" . $data->wifissidhiddenstate . "\n" .
                                   "passwordprotected=" . $data->wifipasswordon . "\n" .
-                                  "ipaddress=" . $data->newipaddress . "\n");
+                                  "ipaddress=" . $data->staticipaddress . "\n");
                 \core\notification::warning(get_string('wifisettingsmessage', 'tool_moodlebox'));
             }
         }
