@@ -23,8 +23,12 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Path of file containing the new settings (plain text).
 FILE=${DIR%/*}/.wifisettings
-# Path of hostapd config file.
-CONFIGFILE="/etc/hostapd/hostapd.conf"
+# Path of various config files.
+HOSTAPDCONFIGFILE="/etc/hostapd/hostapd.conf"
+DHCPCDCONFIGFILE="/etc/dhcpcd.conf"
+DNSMASQCONFIGFILE="/etc/dnsmasq.conf"
+HOSTSFILE="/etc/hosts"
+NODOGSPLASHCONFIGFILE="/etc/nodogsplash/nodogsplash.conf"
 # New values taken from $FILE.
 NEWCHANNEL="$(grep '^channel\b' $FILE | cut -d= -f2)"
 NEWCOUNTRY="$(grep '^country\b' $FILE | cut -d= -f2)"
@@ -44,13 +48,13 @@ ALLOWEDCOUNTRIES="AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF
 # range of 32 to 126, inclusive, see IEEE Std. 802.11i-2004, Annex H.4.1.
 [[ "$NEWPASSWORD" == "$(grep -oP '^[\x20-\x7e]{8,63}$' <<< $NEWPASSWORD)" ]] || NEWPASSWORD="moodlebox"
 # New password is now valid; set it in config file.
-sed -i "/^wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$CONFIGFILE"
+sed -i "/^wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$HOSTAPDCONFIGFILE"
 #
 # Country setting.
 # Validate new country. Replace it with 'CH' if invalid.
 [[ $ALLOWEDCOUNTRIES =~ $NEWCOUNTRY ]] || NEWCOUNTRY="CH"
 # New channel is now valid; set it in config file.
-sed -i "/^country_code=/c\country_code=$NEWCOUNTRY" "$CONFIGFILE"
+sed -i "/^country_code=/c\country_code=$NEWCOUNTRY" "$HOSTAPDCONFIGFILE"
 #
 # Channel setting.
 # Validate new channel. Replace it with 11 if invalid.
@@ -60,7 +64,7 @@ if [[ $NEWCOUNTRY =~ ^(CA|US)$ ]] && [[ $NEWCHANNEL =~ ^1[23]$ ]]; then
     NEWCHANNEL="11"
 fi
 # New channel is now valid; set it in config file.
-sed -i "/^channel=/c\channel=$NEWCHANNEL" "$CONFIGFILE"
+sed -i "/^channel=/c\channel=$NEWCHANNEL" "$HOSTAPDCONFIGFILE"
 #
 # SSID setting.
 # Validate new SSID. Replace it with 'MoodleBox' if invalid.
@@ -69,10 +73,10 @@ sed -i "/^channel=/c\channel=$NEWCHANNEL" "$CONFIGFILE"
 [[ $NEWSSID =~ ^([0-9a-fA-F]{2}){1,32}$ ]] || NEWSSID="4d6f6f646c65426f78" # "MoodleBox"
 # New SSID is now valid; set it in config file.
 # Change ssid to ssid2
-sed -i "/^ssid=/c\ssid2=$NEWSSID" "$CONFIGFILE"
-sed -i "/^ssid2=/c\ssid2=$NEWSSID" "$CONFIGFILE"
-if [[ -z $(grep "^utf8_ssid=1$" "$CONFIGFILE") ]]; then # add utf8_ssid param.
-    sed -i "/ssid2/a utf8_ssid=1" "$CONFIGFILE"
+sed -i "/^ssid=/c\ssid2=$NEWSSID" "$HOSTAPDCONFIGFILE"
+sed -i "/^ssid2=/c\ssid2=$NEWSSID" "$HOSTAPDCONFIGFILE"
+if [[ -z $(grep "^utf8_ssid=1$" "$HOSTAPDCONFIGFILE") ]]; then # add utf8_ssid param.
+    sed -i "/ssid2/a utf8_ssid=1" "$HOSTAPDCONFIGFILE"
 fi
 #
 # SSID hiding setting.
@@ -81,10 +85,10 @@ fi
 # SSID hiding setting is now valid; set it in config file.
 # Check if line "ignore_broadcast_ssid=..." exist uncommented in config file.
 STRING="^ignore_broadcast_ssid=\b"
-if [ -z $(grep "$STRING" "$CONFIGFILE") ]; then # Line not found, so we write it at end of file.
-    sed -i "\$a# Show or hide SSID\nignore_broadcast_ssid=$SSIDHIDDEN" "$CONFIGFILE"
+if [ -z $(grep "$STRING" "$HOSTAPDCONFIGFILE") ]; then # Line not found, so we write it at end of file.
+    sed -i "\$a# Show or hide SSID\nignore_broadcast_ssid=$SSIDHIDDEN" "$HOSTAPDCONFIGFILE"
 else # Line found, we change the setting as needed.
-    sed -i "/^ignore_broadcast_ssid=/c\ignore_broadcast_ssid=$SSIDHIDDEN" "$CONFIGFILE"
+    sed -i "/^ignore_broadcast_ssid=/c\ignore_broadcast_ssid=$SSIDHIDDEN" "$HOSTAPDCONFIGFILE"
 fi
 #
 # Password protection setting.
@@ -93,7 +97,7 @@ fi
 # Check if line "wpa_passphrase=..." exist uncommented in config file.
 # If found, the Wi-Fi network is currently password protected.
 STRING="^wpa_passphrase=\b"
-if [ -z $(grep "$STRING" "$CONFIGFILE") ]; then # Line not found, we're not password protected.
+if [ -z $(grep "$STRING" "$HOSTAPDCONFIGFILE") ]; then # Line not found, we're not password protected.
     ISCURRENTLYPROTECTED=false
 else # Line found, we're password protected.
     ISCURRENTLYPROTECTED=true
@@ -101,28 +105,30 @@ fi
 if [ "$PASSWORDPROTECTED" -eq 1 ]; then
     if [[ "$ISCURRENTLYPROTECTED" == false ]]; then
         # echo "Would like to protect and is NOT protected"
-        sed -i "/#*wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$CONFIGFILE"
-        sed -i "/#*wpa=/c\wpa=2" "$CONFIGFILE"
-        sed -i "/#*wpa_key_mgmt=/c\wpa_key_mgmt=WPA-PSK" "$CONFIGFILE"
-        sed -i "/#*rsn_pairwise=/c\rsn_pairwise=CCMP" "$CONFIGFILE"
+        sed -i "/#*wpa_passphrase=/c\wpa_passphrase=$NEWPASSWORD" "$HOSTAPDCONFIGFILE"
+        sed -i "/#*wpa=/c\wpa=2" "$HOSTAPDCONFIGFILE"
+        sed -i "/#*wpa_key_mgmt=/c\wpa_key_mgmt=WPA-PSK" "$HOSTAPDCONFIGFILE"
+        sed -i "/#*rsn_pairwise=/c\rsn_pairwise=CCMP" "$HOSTAPDCONFIGFILE"
     fi
 else
     if [[ "$ISCURRENTLYPROTECTED" == true ]]; then
         # echo "Would NOT like to protect but is protected"
-        sed -i "/^wpa_passphrase=/c\#wpa_passphrase=moodlebox" "$CONFIGFILE"
-        sed -i "/^wpa=/c\#wpa=2" "$CONFIGFILE"
-        sed -i "/^wpa_key_mgmt=/c\#wpa_key_mgmt=WPA-PSK" "$CONFIGFILE"
-        sed -i "/^rsn_pairwise=/c\#rsn_pairwise=CCMP" "$CONFIGFILE"
+        sed -i "/^wpa_passphrase=/c\#wpa_passphrase=moodlebox" "$HOSTAPDCONFIGFILE"
+        sed -i "/^wpa=/c\#wpa=2" "$HOSTAPDCONFIGFILE"
+        sed -i "/^wpa_key_mgmt=/c\#wpa_key_mgmt=WPA-PSK" "$HOSTAPDCONFIGFILE"
+        sed -i "/^rsn_pairwise=/c\#rsn_pairwise=CCMP" "$HOSTAPDCONFIGFILE"
     fi
 fi
 #
 # Static IP setting.
-# Validate IP address. Replace it with '10.0.0.1' if invalid or not private
+# Validate IP address. Replace it with '10.0.0.1' if invalid, reserved or public.
 # RFC 1918 {@link https://datatracker.ietf.org/doc/html/rfc1918#section-3 }.
 # Regex shamelessly taken from {@link https://stackoverflow.com/a/44333761/}.
 [[ $NEWSTATICIP =~ ^(10(\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){3}|((172\.(1[6-9]|2[0-9]|3[01]))|192\.168)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){2})$ ]] || NEWSTATICIP="10.0.0.1"
-# New static IP is now valid; set it in all needed files.
-
+# New static IP is now valid; compute DHCP range and set ip and range in all needed files.
+sed -i "/^static ip_address=/c\static ip_address=$NEWSTATICIP/24" "$DHCPCDCONFIGFILE"
+sed -i "/^listen-address=(?!127)/c\listen-address=$NEWSTATICIP" "$DNSMASQCONFIGFILE"
+sed -i "/^address=\/home\//c\address=\/home\/$NEWSTATICIP" "$DNSMASQCONFIGFILE"
 # End of actions.
 #
 # Restart hostapd service.
