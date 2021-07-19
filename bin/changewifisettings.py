@@ -109,7 +109,7 @@ ssid_pattern = re.compile('^(?:[0-9a-fA-F]{2}){1,32}$')
 if not bool(ssid_pattern.search(new_ssid)):
     new_ssid = default_ssid
 # New SSID is now valid; set it in config file. We change ssid to ssid2 too.
-file_replace_line(hostapd_conf_file, 'ssid2?=.*', 'ssid2=' + new_ssid)
+file_replace_line(hostapd_conf_file, '^ssid2?=.*', 'ssid2=' + new_ssid)
 # Check if hostapd config file defines a 'utf8_ssid' key and add it if false.
 if not is_regex_in_file(hostapd_conf_file, r'^utf8_ssid=\b'):
     file_replace_line(hostapd_conf_file,
