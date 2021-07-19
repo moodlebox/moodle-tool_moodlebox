@@ -10,12 +10,12 @@ on:
 
 jobs:
   test:
-    name: With Moodle 3.10
+    name: With Moodle 3.11
     runs-on: ubuntu-latest
 
     services:
       postgres:
-        image: postgres:9.6
+        image: postgres:10
         env:
           POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
@@ -27,7 +27,7 @@ jobs:
           --health-timeout 5s
           --health-retries 3
       mariadb:
-        image: mariadb:10
+        image: mariadb:10.5
         env:
           MYSQL_USER: 'root'
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
@@ -45,8 +45,9 @@ jobs:
         php:
           - '7.3'
           - '7.4'
+          - '8.0'
         moodle-branch:
-          - 'MOODLE_310_STABLE'
+          - 'MOODLE_311_STABLE'
         database:
           - 'pgsql'
           - 'mariadb'
@@ -58,19 +59,13 @@ jobs:
         # Clone in plugin subdir, so we can setup CI in default directory.
         path: plugin
 
-#     - name: Install node
-#       uses: actions/setup-node@v1
-#       with:
-#         # TODO: Check if we can support .nvmrc
-#         node-version: '14.15.0'
-
-    - name: Setup PHP environment
+    - name: Setup PHP ${{ matrix.php }}
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
+        extensions: ${{ matrix.extensions }}
+        ini-values: max_input_vars=5000
         coverage: none
-#         extensions: mbstring, pgsql
-#         tools: phpunit
 
     - name: Initialise moodle-plugin-ci
       run: |
