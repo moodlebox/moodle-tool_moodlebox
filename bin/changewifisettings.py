@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this script.  If not, see <https://www.gnu.org/licenses/>.
 """
-import os, sys, re, configparser, fileinput, ipaddress
+import os, sys, re, configparser, fileinput, ipaddress, subprocess
 
 # This script MUST be run as root.
 if not os.geteuid() == 0:
@@ -193,16 +193,10 @@ file_replace_line(nodogsplash_conf_file,
         '^GatewayAddress\s+' + ip_regex,
         'GatewayAddress ' + new_static_ip)
 
-"""
 # End of actions.
 #
-# Restart hostapd service.
-systemctl restart hostapd
-# Restart again after 1 second; workaround some wifi driver bug.
-sleep 1
-systemctl restart hostapd
-
-*/
+# Restart networking and hostapd service.
+subprocess.call(['systemctl', 'restart', 'networking.service'])
+subprocess.call(['systemctl', 'restart', 'hostapd.service'])
 
 # The end.
-"""
