@@ -172,7 +172,7 @@ new_static_ip = str(new_static_ip)
 ip_regex = "(?:10(\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){3}|((172\.(1[6-9]|2[0-9]|3[01]))|192\.168)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){2})"
 # Set IP and range in all needed files.
 file_replace_line(hosts_file,
-        '^' + ip_regex + '\t(?P<host>[a-zA-Z0-9][-a-zA-Z0-9]{0,62})$',
+        '^' + ip_regex + '\s+(?P<host>([a-zA-Z0-9][-a-zA-Z0-9]{0,62}\s*)+)$',
         new_static_ip + '\t\g<host>')
 file_replace_line(dhcpcd_conf_file,
         '^static ip_address=.*$',
