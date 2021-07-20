@@ -198,5 +198,6 @@ file_replace_line(nodogsplash_conf_file,
 # Restart networking and hostapd service.
 subprocess.call(['systemctl', 'restart', 'networking.service'])
 subprocess.call(['systemctl', 'restart', 'hostapd.service'])
+subprocess.call(['systemctl', 'restart', 'dnsmasq.service'])
 
 # The end.
