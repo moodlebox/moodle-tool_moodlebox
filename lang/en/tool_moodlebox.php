@@ -110,7 +110,7 @@ $string['shutdown'] = 'Shutdown MoodleBox';
 $string['shutdownmessage'] = 'The MoodleBox is shutting down. Please wait a few seconds before disconnecting the power supply.';
 $string['softwareversions'] = 'Software versions';
 $string['staticipaddress'] = 'IP address (static)';
-$string['staticipaddress_help'] = 'This is the static IP address of the MoodleBox Wi-Fi access point. It also defines the DHCP range of IP addresses given to Wi-Fi clients. It must be a valid <strong>private</strong> IP address; its last segment will be forced to 1.';
+$string['staticipaddress_help'] = 'This is the static IP address of the MoodleBox Wi-Fi access point. It also defines the DHCP range of IP addresses given to Wi-Fi clients. It must be a valid <strong>private</strong> IP address, e.g. "10.10.1.1", "172.23.222.1" or "192.168.222.1". Its last segment will be forced to 1.';
 $string['staticipaddressinvalid'] = 'This IP address is invalid. It must be a valid <strong>private</strong> IP address, e.g. "10.10.1.1", "172.23.222.1" or "192.168.222.1".';
 $string['systeminfo'] = 'System information';
 $string['undervoltagedetected'] = '<p><b>Warning: under-voltage detected!</b> The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and to use a good quality cable to connect it with the MoodleBox.</p>';
