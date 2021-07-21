@@ -184,6 +184,7 @@ class wifisettings_form extends moodleform {
         // IP setting.
         $mform->addElement('text', 'staticipaddress', get_string('staticipaddress', 'tool_moodlebox'));
         $mform->addRule('staticipaddress', get_string('required'), 'required', null, 'client');
+        $mform->setType('staticipaddress', PARAM_RAW);
         $mform->setDefault('staticipaddress', $staticipaddress);
         $mform->addHelpButton('staticipaddress', 'staticipaddress', 'tool_moodlebox');
 
