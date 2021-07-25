@@ -43,6 +43,7 @@ settings_file = os.path.join(os.path.dirname(this_dir), '.wifisettings')
 hostapd_conf_file = "/etc/hostapd/hostapd.conf"
 dhcpcd_conf_file = "/etc/dhcpcd.conf"
 dnsmasq_conf_file = "/etc/dnsmasq.conf"
+dnsmasq_lease_file = "/var/lib/misc/dnsmasq.leases"
 hosts_file = "/etc/hosts"
 nodogsplash_conf_file = "/etc/nodogsplash/nodogsplash.conf"
 
@@ -195,6 +196,12 @@ file_replace_line(nodogsplash_conf_file,
 
 # End of actions.
 #
+# Empty lease file to clean clients list.
+try:
+    open(dnsmasq_lease_file, 'w').close()
+except IOError:
+    pass
+
 # Restart networking and hostapd service.
 subprocess.call(['systemctl', 'restart', 'networking.service'])
 subprocess.call(['systemctl', 'restart', 'hostapd.service'])
