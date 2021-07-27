@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.10.0, 2021-07-27
+
+### Added
+- Add workflow to release plugin in the Moodle's plugins directory (no issue number, see commits f3d4b2 and ec444a8).
+- New setting allowing to set the fixed IP address and DHCP range of the Wi-Fi network (issue #96).
+
+### Changed
+- Test plugin against Moodle 3.11 (issue #95).
+- Empty lease file when updating WiFi settings (issue #98).
+
 ## Version 2.9.0, 2021-02-21
 
 ### Added

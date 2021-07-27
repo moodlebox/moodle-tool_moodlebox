@@ -58,8 +58,8 @@ To complete the installation, you have to configure some incron jobs on the Mood
 - Warning when under voltage detected.
 - GUI to set the MoodleBox date and time.
 - GUI to set the MoodleBox password.
-- GUI to set the MoodleBox Wi-Fi network password (or remove it), SSID and channel.
-- GUI to resize the partition of the SD card of the MoodleBox.
+- GUI to set the MoodleBox Wi-Fi settings: SSID and its visibility, regulatory country, channel, password (or remove password) and fixed IP address.
+- GUI to resize the partition of the SD card of the MoodleBox, when needed.
 - GUI to restart and shutdown the MoodleBox.
 
 ## Availability
