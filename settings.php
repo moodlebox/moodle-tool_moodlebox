@@ -27,37 +27,39 @@ defined('MOODLE_INTERNAL') || die;
 if ($hassiteconfig) { // Speedup for non-admins.
 
     // Add new admin sub-category to category 'server' in admin tree.
-    $ADMIN->add('server', new admin_category('moodlebox', get_string('pluginname', 'tool_moodlebox')));
+    $ADMIN->add('server', new admin_category('moodlebox', new lang_string('pluginname', 'tool_moodlebox')));
 
     // Add admin external page 'dashboard' to sub-category 'moodlebox'.
     $moodleboxadminpage = new admin_externalpage('tool_moodlebox',
-            get_string('dashboard', 'tool_moodlebox'),
+            new lang_string('dashboard', 'tool_moodlebox'),
             new moodle_url('/admin/tool/moodlebox/index.php'));
     $ADMIN->add('moodlebox', $moodleboxadminpage);
 
     // Add admin setting page to sub-category 'moodlebox'.
     $moodleboxsettingpage = new admin_settingpage('tool_moodlebox_settings',
-            get_string('configuration', 'tool_moodlebox'));
+            new lang_string('configuration', 'tool_moodlebox'));
 
-    // Add info.
-    $moodleboxsettingpage->add(new admin_setting_heading('moodlebox_infoheading',
-            get_string('infoheading', 'tool_moodlebox'), get_string('projectinfo', 'tool_moodlebox')));
-    $moodleboxsettingpage->add(new admin_setting_description('moodlebox_documentation',
-            get_string('documentation', 'tool_moodlebox'),
-            get_string('documentation_desc', 'tool_moodlebox')));
-    $moodleboxsettingpage->add(new admin_setting_description('moodlebox_forum',
-            get_string('forum', 'tool_moodlebox'),
-            get_string('forum_desc', 'tool_moodlebox')));
+    if ($ADMIN->fulltree) {
+        // Add info.
+        $moodleboxsettingpage->add(new admin_setting_heading('moodlebox_infoheading',
+                new lang_string('infoheading', 'tool_moodlebox'), new lang_string('projectinfo', 'tool_moodlebox')));
+        $moodleboxsettingpage->add(new admin_setting_description('moodlebox_documentation',
+                new lang_string('documentation', 'tool_moodlebox'),
+                new lang_string('documentation_desc', 'tool_moodlebox')));
+        $moodleboxsettingpage->add(new admin_setting_description('moodlebox_forum',
+                new lang_string('forum', 'tool_moodlebox'),
+                new lang_string('forum_desc', 'tool_moodlebox')));
 
-    // Add settings.
-    $moodleboxsettingpage->add(new admin_setting_heading('moodlebox_settingheading',
-            get_string('configuration', 'tool_moodlebox'), ''));
-    $moodleboxsettingpage->add(new admin_setting_configcheckbox('tool_moodlebox/buttonsinfooter',
-            get_string('showbuttonsinfooter', 'tool_moodlebox'),
-            get_string('showbuttonsinfooter_desc', 'tool_moodlebox'), 0));
-    $moodleboxsettingpage->add(new admin_setting_configcheckbox('tool_moodlebox/ihavedonated',
-            get_string('ihavedonated', 'tool_moodlebox'),
-            get_string('ihavedonated_desc', 'tool_moodlebox'), 0));
+        // Add settings.
+        $moodleboxsettingpage->add(new admin_setting_heading('moodlebox_settingheading',
+                new lang_string('configuration', 'tool_moodlebox'), ''));
+        $moodleboxsettingpage->add(new admin_setting_configcheckbox('tool_moodlebox/buttonsinfooter',
+                new lang_string('showbuttonsinfooter', 'tool_moodlebox'),
+                new lang_string('showbuttonsinfooter_desc', 'tool_moodlebox'), 0));
+        $moodleboxsettingpage->add(new admin_setting_configcheckbox('tool_moodlebox/ihavedonated',
+                new lang_string('ihavedonated', 'tool_moodlebox'),
+                new lang_string('ihavedonated_desc', 'tool_moodlebox'), 0));
+    }
     $ADMIN->add('moodlebox', $moodleboxsettingpage);
 
 }
