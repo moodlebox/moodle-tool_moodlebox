@@ -293,7 +293,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         if ($data = $datetimesetform->get_data()) {
             if (!empty($data->submitbutton)) {
                 $datecommand = "date +%s -s @$data->currentdatetime";
-                file_put_contents($datetimetriggerfilename, "date +%s -s @$data->currentdatetime");
+                file_put_contents($datetimetriggerfilename, "#!/bin/sh\n" . $datecommand . "\nexit 0\n");
                 \core\notification::warning(get_string('datetimemessage', 'tool_moodlebox'));
             }
         }
