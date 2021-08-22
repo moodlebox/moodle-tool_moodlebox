@@ -32,7 +32,7 @@ To complete the installation, you have to configure some incron jobs on the Mood
     /var/www/moodle/admin/tool/moodlebox/.shutdown-server IN_CLOSE_WRITE /sbin/shutdown -h now
     /var/www/moodle/admin/tool/moodlebox/.set-server-datetime IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/.set-server-datetime
     /var/www/moodle/admin/tool/moodlebox/.newpassword IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/bin/changepassword.sh
-    /var/www/moodle/admin/tool/moodlebox/.wifisettings IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/bin/changewifisettings.sh
+    /var/www/moodle/admin/tool/moodlebox/.wifisettings IN_CLOSE_WRITE /usr/bin/python3 /var/www/moodle/admin/tool/moodlebox/bin/changewifisettings.py
     /var/www/moodle/admin/tool/moodlebox/.resize-partition IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/bin/resizepartition.sh
     ```
 
