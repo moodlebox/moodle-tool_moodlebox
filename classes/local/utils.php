@@ -38,7 +38,7 @@ class utils {
      * Get Raspberry Pi hardware model
      *
      * Revision field in /proc/cpuinfo. The bit fields are as follows.
-     * @link https://github.com/raspberrypi/documentation/tree/master/hardware/raspberrypi/revision-codes/.
+     * @link https://github.com/raspberrypi/documentation/blob/develop/documentation/asciidoc/computers/raspberry-pi/revision-codes.adoc.
      * @link https://github.com/AndrewFromMelbourne/raspberry_pi_revision/.
      *
      * +----+----+----+----+----+----+----+----+
