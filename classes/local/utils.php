@@ -233,7 +233,7 @@ class utils {
 
     /**
      * Get Raspberry Pi throttled state
-     * @link https://github.com/raspberrypi/documentation/blob/master/raspbian/applications/vcgencmd.md.
+     * @link https://github.com/raspberrypi/documentation/blob/develop/documentation/asciidoc/computers/os/graphics-utilities.adoc.
      * @link https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=147781&start=50#p972790.
      *
      * +----+----+----+----+----+
