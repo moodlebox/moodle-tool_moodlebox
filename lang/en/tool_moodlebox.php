@@ -102,6 +102,7 @@ $string['rpi4twogb'] = 'Raspberry Pi 4B (2 GB RAM)';
 $string['rpi4fourgb'] = 'Raspberry Pi 4B (4 GB RAM)';
 $string['rpi4eightgb'] = 'Raspberry Pi 4B (8 GB RAM)';
 $string['rpiosversion'] = 'Raspberry Pi OS version';
+$string['rpizero2w'] = 'Raspberry Pi Zero 2 W';
 $string['rpizerow'] = 'Raspberry Pi Zero W';
 $string['sdcardavailablespace'] = 'Free space on SD card';
 $string['showbuttonsinfooter'] = 'Show buttons in footer';
