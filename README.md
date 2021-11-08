@@ -5,38 +5,77 @@
 [![GitHub Release Date](https://img.shields.io/github/release-date/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/moodle-tool_moodlebox/releases/latest)
 [![GitHub last commit](https://img.shields.io/github/last-commit/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/moodle-tool_moodlebox/commits/)
 
-
 A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://moodlebox.net/), a Moodle server installed on a [Raspberry Pi](https://www.raspberrypi.org/).
 
 This plugin enables a Moodle administrator to monitor some hardware settings, to set the date of the MoodleBox, to allow restart and shutdown of the MoodleBox and changing Raspberry Pi passwords using a GUI. After the installation in Moodle, some steps are required to complete on the Raspberry Pi (see below).
 
 Administrators and users with manager role can moreover restart and shutdown the MoodleBox with buttons in the footer of each Moodle page.
 
-The plugin is compatible with Moodle 3.6 or later. A Raspberry Pi model 3A+, 3B, 3B+ or 4B is recommended.
+The plugin is compatible with Moodle 3.6 or later. A Raspberry Pi model Zero 2 W, 3A+, 3B, 3B+ or 4B is recommended.
 
 ## Installation
 
 The MoodleBox plugin must be installed in the Moodle tree of the MoodleBox, in the _tool_ folder. Once installed, an new option _MoodleBox_ will be available in Moodle, under _Site administration > Server_ in the _Administration_ block.
 
-To complete the installation, you have to configure some incron jobs on the MoodleBox.
+To complete the installation, you have to configure some `direvent` jobs on the MoodleBox.
 
-1. Install `incron` package and allow `root` to run it:
+1. Install `direvent` package:
     ```bash
-    sudo apt-get install incron
-    echo root | sudo tee -a /etc/incron.allow
+    sudo apt-get install direvent
     ```
 
-1. Add following lines to `incrontab`:
+1. Add following lines to file `/etc/direvent.conf`:
     ```bash
-    /var/www/moodle/admin/tool/moodlebox/.reboot-server IN_CLOSE_WRITE /sbin/shutdown -r now
-    /var/www/moodle/admin/tool/moodlebox/.shutdown-server IN_CLOSE_WRITE /sbin/shutdown -h now
-    /var/www/moodle/admin/tool/moodlebox/.set-server-datetime IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/.set-server-datetime
-    /var/www/moodle/admin/tool/moodlebox/.newpassword IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/bin/changepassword.sh
-    /var/www/moodle/admin/tool/moodlebox/.wifisettings IN_CLOSE_WRITE /usr/bin/python3 /var/www/moodle/admin/tool/moodlebox/bin/changewifisettings.py
-    /var/www/moodle/admin/tool/moodlebox/.resize-partition IN_CLOSE_WRITE /bin/bash /var/www/moodle/admin/tool/moodlebox/bin/resizepartition.sh
+    # This is the configuration file for direvent. Read
+    # direvent.conf(5) for more information about how to
+    # fill this file.
+
+    debug 0;
+
+    watcher {
+      path /var/www/moodle/admin/tool/moodlebox/;
+      file .reboot-server;
+      event CLOSE_WRITE;
+      command "/sbin/shutdown -r now";
+    }
+
+    watcher {
+      path /var/www/moodle/admin/tool/moodlebox/;
+      file .shutdown-server;
+      event CLOSE_WRITE;
+      command "/sbin/shutdown -h now";
+    }
+
+    watcher {
+      path /var/www/moodle/admin/tool/moodlebox/;
+      file .set-server-datetime;
+      event CLOSE_WRITE;
+      command "/bin/bash /var/www/moodle/admin/tool/moodlebox/.set-server-datetime";
+    }
+
+    watcher {
+      path /var/www/moodle/admin/tool/moodlebox/;
+      file .newpassword;
+      event CLOSE_WRITE;
+      command "/bin/bash /var/www/moodle/admin/tool/moodlebox/bin/changepassword.sh";
+    }
+
+    watcher {
+      path /var/www/moodle/admin/tool/moodlebox/;
+      file .wifisettings;
+      event CLOSE_WRITE;
+      command "/usr/bin/python3 /var/www/moodle/admin/tool/moodlebox/bin/changewifisettings.py";
+    }
+
+    watcher {
+      path /var/www/moodle/admin/tool/moodlebox/;
+      file .resize-partition;
+      event CLOSE_WRITE;
+      command "/bin/bash /var/www/moodle/admin/tool/moodlebox/bin/resizepartition.sh";
+    }
     ```
 
-1. Copy the following line at the end of file `/etc/sudoers`:
+1. Copy the following line at the end of file `/etc/sudoers.d/020_www-data-nopasswd` (create it if it's not here):
     ```bash
     www-data ALL=(ALL) NOPASSWD:/sbin/parted /dev/mmcblk0 unit MB print free
     www-data ALL=(ALL) NOPASSWD:/usr/bin/vcgencmd
@@ -54,7 +93,7 @@ To complete the installation, you have to configure some incron jobs on the Mood
 
 ## Features
 
-- Info about the MoodleBox (kernel version, Raspberry Pi OS version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients).
+- Info about the MoodleBox (kernel version, Raspberry Pi OS version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients and more).
 - Warning when under voltage detected.
 - GUI to set the MoodleBox date and time.
 - GUI to set the MoodleBox password.
