@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.11.0, 2021-11-08
+
+### Added
+- Add detection of Raspberry Pi Zero 2 W (issue #99).
+
+### Changed
+- Update installation instructions (no issue number, commits 2ebaa0f, ec09ab7).
+- Update date/time command for robustness (no issue number, commit a1b8fc5).
+
+### Fixed
+- Optimize admin tree loading (no issue number, commit 8f524c6).
+- Remove French language file (issue #100).
+
 ## Version 2.10.0, 2021-07-27
 
 ### Added
