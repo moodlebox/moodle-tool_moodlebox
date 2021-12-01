@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.11.1, 2021-12-01
+
+### Fixed
+- Fix `changepassword.sh` script, which was buggy (issue #102).
+
 ## Version 2.11.0, 2021-11-08
 
 ### Added
