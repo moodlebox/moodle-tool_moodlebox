@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](https://semver.org/) and follow pr
 
 ### Fixed
 - Fix multiple warnings when running on incompatible hardware (no issue number, commits f028c19 and 25feec4).
+
+### Changed
 - Tested against upcoming Moodle 4.0 (issue #91).
 
 ## Version 2.11.1, 2021-12-01
