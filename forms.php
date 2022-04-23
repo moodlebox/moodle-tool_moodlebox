@@ -214,7 +214,7 @@ class wifisettings_form extends moodleform {
             $errors['wifipassword'] = get_string('wifipasswordinvalid', 'tool_moodlebox');
         }
 
-        // Validate IP address
+        // Validate IP address.
         if (!\tool_moodlebox\local\utils::is_private_ipv4_address($data['staticipaddress'])) {
             $errors['staticipaddress'] = get_string('staticipaddressinvalid', 'tool_moodlebox');
         }
