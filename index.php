@@ -189,7 +189,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $currentwifipassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
         $currentwificountry = $wifiinfo['country_code'];
         if ( $currentwifissidhiddenstate = array_key_exists('ignore_broadcast_ssid', $wifiinfo) ) {
-            $currentwifissidhiddenstate = $wifiinfo['ignore_broadcast_ssid']
+            $currentwifissidhiddenstate = $wifiinfo['ignore_broadcast_ssid'];
         } else {
             $currentwifissidhiddenstate = '0';
         }
