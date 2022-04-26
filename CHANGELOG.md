@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.12.0, 2022-04-23
+
+### Fixed
+- Fix multiple warnings when running on incompatible hardware (no issue number, commits f028c19 and 25feec4).
+
+### Changed
+- Tested against upcoming Moodle 4.0 (issue #91).
+
 ## Version 2.11.1, 2021-12-01
 
 ### Fixed

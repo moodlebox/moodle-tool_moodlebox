@@ -48,53 +48,55 @@ $PAGE->set_heading($strheading);
 
 echo $OUTPUT->header();
 
-$hardwaredata = \tool_moodlebox\local\utils::get_hardware_model();
-
-switch ( $hardwaredata['model'] ) {
-    // String $platform MUST contain 'rpi'.
-    case 'A+':
-    case 'B+':
-        $platform = 'rpi1';
-        break;
-    case '2B':
-        $platform = 'rpi2';
-        break;
-    case '3A+':
-        $platform = 'rpi3aplus';
-        break;
-    case '3B':
-        $platform = 'rpi3';
-        break;
-    case '3B+':
-        $platform = 'rpi3bplus';
-        break;
-    case '4B':
-        switch ($hardwaredata['memory']) {
-            case '1 GB':
-                $platform = 'rpi4onegb';
-                break;
-            case '2 GB':
-                $platform = 'rpi4twogb';
-                break;
-            case '4 GB':
-                $platform = 'rpi4fourgb';
-                break;
-            case '8 GB':
-                $platform = 'rpi4eightgb';
-                break;
-        };
-        break;
-    case 'ZeroW':
-        $platform = 'rpizerow';
-        break;
-    case 'Zero2W':
-        $platform = 'rpizero2w';
-        break;
-    case '400':
-        $platform = 'rpi400';
-        break;
-    default: // Anything else is not a RPi.
-        $platform = 'unknownmodel';
+if ( $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model() ) {
+    switch ( $hardwaredata['model'] ) {
+        // String $platform MUST contain 'rpi'.
+        case 'A+':
+        case 'B+':
+            $platform = 'rpi1';
+            break;
+        case '2B':
+            $platform = 'rpi2';
+            break;
+        case '3A+':
+            $platform = 'rpi3aplus';
+            break;
+        case '3B':
+            $platform = 'rpi3';
+            break;
+        case '3B+':
+            $platform = 'rpi3bplus';
+            break;
+        case '4B':
+            switch ($hardwaredata['memory']) {
+                case '1 GB':
+                    $platform = 'rpi4onegb';
+                    break;
+                case '2 GB':
+                    $platform = 'rpi4twogb';
+                    break;
+                case '4 GB':
+                    $platform = 'rpi4fourgb';
+                    break;
+                case '8 GB':
+                    $platform = 'rpi4eightgb';
+                    break;
+            };
+            break;
+        case 'ZeroW':
+            $platform = 'rpizerow';
+            break;
+        case 'Zero2W':
+            $platform = 'rpizero2w';
+            break;
+        case '400':
+            $platform = 'rpi400';
+            break;
+        default: // Anything else is not a RPi.
+            $platform = 'unknownmodel';
+    }
+} else {
+    $platform = 'unknownmodel';
 }
 
 if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
@@ -106,8 +108,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
 
     // Get Raspberry Pi OS distribution version.
-    $releaseinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/os-release');
-    $rpiosversion = $releaseinfo['PRETTY_NAME'];
+    if ( $releaseinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/os-release') ) {
+        $rpiosversion = $releaseinfo['PRETTY_NAME'];
+    }
 
     // Get CPU load.
     $cpuload = sys_getloadavg();
@@ -126,17 +129,23 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     // Get local static IP address.
-    $staticipaddress = getHostByName(getHostName());
+    $staticipaddress = gethostbyname(gethostname());
 
     // Get CPU temperature.
-    $cputemperature = intval(file_get_contents('/sys/class/thermal/thermal_zone0/temp')) / 1000 . ' °C';
+    if ( file_exists('/sys/class/thermal/thermal_zone0/temp') ) {
+        $cputemperature = intval(file_get_contents('/sys/class/thermal/thermal_zone0/temp')) / 1000 . ' °C';
+    }
 
     // Get CPU frequency.
-    $cpufrequency = intval(file_get_contents('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')) / 1000 . ' MHz';
+    if ( file_exists('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq') ) {
+        $cpufrequency = intval(file_get_contents('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')) / 1000 . ' MHz';
+    }
 
     // Get system uptime.
-    $rawuptime = intval(file_get_contents('/proc/uptime'));
-    $uptime = format_time($rawuptime);
+    if ( file_exists('/proc/uptime') ) {
+        $rawuptime = intval(file_get_contents('/proc/uptime'));
+        $uptime = format_time($rawuptime);
+    }
 
     // Get SD card space and memory used.
     $sdcardtotalspace = disk_total_space('/');
@@ -168,25 +177,27 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     // Get current Wi-Fi SSID, channel and password.
-    $wifiinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/hostapd/hostapd.conf', false, INI_SCANNER_RAW);
-
-    $currentwifichannel = $wifiinfo['channel'];
-    if ( array_key_exists('ssid', $wifiinfo) ) {
-        $currentwifissid = $wifiinfo['ssid'];
-    } else {
-        $currentwifissid = $wifiinfo['ssid2'];
-        // Convert $currentwifissid from hex {@link https://stackoverflow.com/a/46344675}.
-        $currentwifissid = pack("H*", $currentwifissid);
-    }
-    $currentwifipassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
-    $currentwificountry = $wifiinfo['country_code'];
-    $currentwifissidhiddenstate = array_key_exists('ignore_broadcast_ssid', $wifiinfo) ? $wifiinfo['ignore_broadcast_ssid'] : '0';
-    if ( $currentwifissidhiddenstate === '0') {
-        // SSID is visible.
-        $currentwifissidhiddenstate = 0;
-    } else {
-        // SSID is hidden.
-        $currentwifissidhiddenstate = 1;
+    if ( $wifiinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/hostapd/hostapd.conf', false, INI_SCANNER_RAW) ) {
+        $currentwifichannel = $wifiinfo['channel'];
+        if ( array_key_exists('ssid', $wifiinfo) ) {
+            $currentwifissid = $wifiinfo['ssid'];
+        } else {
+            $currentwifissid = $wifiinfo['ssid2'];
+            // Convert $currentwifissid from hex {@link https://stackoverflow.com/a/46344675}.
+            $currentwifissid = pack("H*", $currentwifissid);
+        }
+        $currentwifipassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
+        $currentwificountry = $wifiinfo['country_code'];
+        if ( $currentwifissidhiddenstate = array_key_exists('ignore_broadcast_ssid', $wifiinfo) ) {
+            $currentwifissidhiddenstate = $wifiinfo['ignore_broadcast_ssid'];
+        } else {
+            $currentwifissidhiddenstate = '0';
+        }
+        if ( $currentwifissidhiddenstate === '0') { // SSID is visible.
+            $currentwifissidhiddenstate = 0;
+        } else { // SSID is hidden.
+            $currentwifissidhiddenstate = 1;
+        }
     }
 
     // Get ethernet addresses.
@@ -211,15 +222,17 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->setup();
 
     // Wireless info.
-    $table->add_data(array(get_string('wifisettings', 'tool_moodlebox'), ''));
-    $table->add_data(array(get_string('wifissid', 'tool_moodlebox'), $currentwifissid), 'subinfo');
-    $table->add_data(array(get_string('wifissidhiddenstate', 'tool_moodlebox'),
-            ($currentwifissidhiddenstate == 0) ?
-                get_string('visible', 'tool_moodlebox') : get_string('hidden', 'tool_moodlebox')), 'subinfo');
-    $table->add_data(array(get_string('wifichannel', 'tool_moodlebox'), $currentwifichannel), 'subinfo');
-    $table->add_data(array(get_string('wificountry', 'tool_moodlebox'), $currentwificountry), 'subinfo');
-    $table->add_data(array(get_string('wifipassword', 'tool_moodlebox'), $currentwifipassword), 'subinfo');
-    $table->add_data(array(get_string('staticipaddress', 'tool_moodlebox'), $staticipaddress), 'subinfo');
+    if ( $wifiinfo) {
+        $table->add_data(array(get_string('wifisettings', 'tool_moodlebox'), ''));
+        $table->add_data(array(get_string('wifissid', 'tool_moodlebox'), $currentwifissid), 'subinfo');
+        $table->add_data(array(get_string('wifissidhiddenstate', 'tool_moodlebox'),
+                ($currentwifissidhiddenstate == 0) ?
+                    get_string('visible', 'tool_moodlebox') : get_string('hidden', 'tool_moodlebox')), 'subinfo');
+        $table->add_data(array(get_string('wifichannel', 'tool_moodlebox'), $currentwifichannel), 'subinfo');
+        $table->add_data(array(get_string('wificountry', 'tool_moodlebox'), $currentwificountry), 'subinfo');
+        $table->add_data(array(get_string('wifipassword', 'tool_moodlebox'), $currentwifipassword), 'subinfo');
+        $table->add_data(array(get_string('staticipaddress', 'tool_moodlebox'), $staticipaddress), 'subinfo');
+    }
 
     // DHCP client info.
     if ($dhcpclientnumber > 0) {
@@ -267,12 +280,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)'), 'subinfo');
     $table->add_data(array(get_string('cpuload', 'tool_moodlebox'),
             $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2]), 'subinfo');
-    $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature), 'subinfo');
-    $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency), 'subinfo');
-    $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime), 'subinfo');
+    if ( $platform !== 'unknownmodel' ) {
+        $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature), 'subinfo');
+        $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency), 'subinfo');
+        $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime), 'subinfo');
+    }
     // Software versions.
     $table->add_data(array(get_string('softwareversions', 'tool_moodlebox'), ''));
-    $table->add_data(array(get_string('rpiosversion', 'tool_moodlebox'), $rpiosversion), 'subinfo');
+    if ( $releaseinfo ) {
+        $table->add_data(array(get_string('rpiosversion', 'tool_moodlebox'), $rpiosversion), 'subinfo');
+    }
     $table->add_data(array(get_string('kernelversion', 'tool_moodlebox'), $kernelversion), 'subinfo');
     $table->add_data(array(get_string('version', 'tool_moodlebox'), $moodleboxinfo), 'subinfo');
     $table->add_data(array(get_string('pluginversion', 'tool_moodlebox'), $moodleboxpluginversion), 'subinfo');

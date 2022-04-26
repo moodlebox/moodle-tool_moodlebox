@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: With Moodle 3.11
+    name: With Moodle 3.11 and Moodle 4.0
     runs-on: ubuntu-latest
 
     services:
@@ -31,8 +31,10 @@ jobs:
         env:
           MYSQL_USER: 'root'
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+          MYSQL_CHARACTER_SET_SERVER: "utf8mb4"
+          MYSQL_COLLATION_SERVER: "utf8mb4_unicode_ci"
         ports:
-        - 3306:3306
+          - 3306:3306
         options: >-
           --health-cmd="mysqladmin ping"
           --health-interval 10s
@@ -48,6 +50,7 @@ jobs:
           - '8.0'
         moodle-branch:
           - 'MOODLE_311_STABLE'
+          - 'MOODLE_400_STABLE'
         database:
           - 'pgsql'
           - 'mariadb'

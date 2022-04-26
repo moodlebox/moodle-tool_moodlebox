@@ -141,28 +141,34 @@ class utils {
      * @param file $file to parse
      * @param bool $mode (optional)
      * @param int $scannermode (optional)
-     * @return associative array of parameters, value
+     * @return associative array of parameters, value or false if no match.
      */
     public static function parse_config_file($file, $mode = false, $scannermode = INI_SCANNER_NORMAL) {
-        return parse_ini_string(preg_replace('/^#.*\\n/m', '', @file_get_contents($file)), $mode, $scannermode);
+        $result = parse_ini_string(preg_replace('/^#.*\\n/m', '', @file_get_contents($file)), $mode, $scannermode);
+        if (!empty($result)) {
+            return $result;
+        } else {
+            return false;
+        }
     }
 
     /**
      * Get ethernet interface name. Usually 'eth0'.
      *
-     * @return string containing interface name
+     * @return string containing interface name or false if no interface found.
      */
     public static function get_ethernet_interface_name() {
-        $path = realpath('/sys/class/net');
-
-        $iter = new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS +
-                \RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
-        $iter = new \RecursiveIteratorIterator($iter, \RecursiveIteratorIterator::CHILD_FIRST);
-        $iter = new \RegexIterator($iter, '|^.*/device$|i', \RecursiveRegexIterator::GET_MATCH);
-        $iter->setMaxDepth(2);
-        $matches = array_values(preg_grep('#^.*/(eth|en).*$#i', array_keys(iterator_to_array($iter))))[0];
-
-        return explode('/', $matches)[4];
+        if ( $path = realpath('/sys/class/net') ) {
+            $iter = new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS +
+                    \RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
+            $iter = new \RecursiveIteratorIterator($iter, \RecursiveIteratorIterator::CHILD_FIRST);
+            $iter = new \RegexIterator($iter, '|^.*/device$|i', \RecursiveRegexIterator::GET_MATCH);
+            $iter->setMaxDepth(2);
+            $matches = array_values(preg_grep('#^.*/(eth|en).*$#i', array_keys(iterator_to_array($iter))))[0];
+            return explode('/', $matches)[4];
+        } else {
+            return false;
+        }
     }
 
     /**
