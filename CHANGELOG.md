@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.13.0, 2022-08-02
+
+### Changed
+- Make the footer buttons visible again (issue #103).
+
 ## Version 2.12.0, 2022-04-23
 
 ### Fixed

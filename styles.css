@@ -40,31 +40,12 @@ table#moodleboxstatus tr.subinfo td.c0 {
 }
 
 input#id_restartbutton, input#id_resizepartitionbutton {
-    color: #fff;
-    background-color: #faa732;
-    background-image: -moz-linear-gradient(top, #fbb450, #f89406);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
-    background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
-    background-image: -o-linear-gradient(top, #fbb450, #f89406);
-    background-image: linear-gradient(to bottom, #fbb450, #f89406);
-    background-repeat: repeat-x;
-    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
-    border-color: rgba(248, 148, 6, 0.1) rgba(248, 148, 6, 0.1) rgba(173, 103, 4, 0.25);
-    filter: progid:dximagetransform.microsoft.gradient(enabled = false);
+    color: #1d2125;
+    background-color: #ced4da;
+    border-color: #ced4da;
 }
 
 input#id_shutdownbutton {
-    color: #fff;
-    background-color: #da4f49;
-    background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
-    background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
-    background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
-    background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
-    background-repeat: repeat-x;
-    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0);
-    border-color: rgba(189, 54, 47, 0.1) rgba(189, 54, 47, 0.1) rgba(128, 36, 32, 0.25);
-    filter: progid:dximagetransform.microsoft.gradient(enabled = false);
 }
 
 #footerbuttons {
