@@ -35,7 +35,7 @@ require_once($CFG->dirroot.'/admin/tool/moodlebox/forms.php');
  *
  * @return string HTML footer content
  */
-function tool_moodlebox_standard_footer_html() {
+function tool_moodlebox_before_footer() {
 
     global $CFG;
 
@@ -72,7 +72,7 @@ function tool_moodlebox_standard_footer_html() {
             }
         }
 
-        $output = $restartshutdownform->render();
+        $output = html_writer::div($restartshutdownform->render(), "", array('id' => 'footerbuttons'));
 
         return $output;
     }
