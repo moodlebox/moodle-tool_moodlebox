@@ -21,8 +21,8 @@
  */
 
 /**
-  * @module tool_moodlebox/timediff
-  */
+ * @module tool_moodlebox/timediff
+ */
 define(['core/str', 'core/notification'], function(str, notification) {
 
     return /** @alias module:tool/moodlebox */ {
