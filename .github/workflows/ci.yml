@@ -15,7 +15,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:10
+        image: postgres:12
         env:
           POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
@@ -27,7 +27,7 @@ jobs:
           --health-timeout 5s
           --health-retries 3
       mariadb:
-        image: mariadb:10.5
+        image: mariadb:10
         env:
           MYSQL_USER: 'root'
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
@@ -68,6 +68,7 @@ jobs:
         php-version: ${{ matrix.php }}
         extensions: ${{ matrix.extensions }}
         ini-values: max_input_vars=5000
+        # none to use phpdbg fallback. Specify pcov (Moodle 3.10 and up) or xdebug to use them instead.
         coverage: none
 
     - name: Initialise moodle-plugin-ci
@@ -132,7 +133,7 @@ jobs:
 
     - name: PHPUnit tests
       if: ${{ always() }}
-      run: moodle-plugin-ci phpunit || true
+      run: moodle-plugin-ci phpunit --fail-on-warning || true
 
     - name: Behat features
       if: ${{ always() }}
