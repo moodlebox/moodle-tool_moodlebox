@@ -24,8 +24,6 @@
 
 namespace tool_moodlebox\local;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Utilities for tool_moodlebox
  *

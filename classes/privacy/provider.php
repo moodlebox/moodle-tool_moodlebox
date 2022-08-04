@@ -24,8 +24,6 @@
 
 namespace tool_moodlebox\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy Subsystem for tool_moodlebox implementing null_provider.
  *
