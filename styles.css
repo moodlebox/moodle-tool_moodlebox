@@ -39,13 +39,11 @@ table#moodleboxstatus tr.subinfo td.c0 {
     padding-left: 3em;
 }
 
-input#id_restartbutton, input#id_resizepartitionbutton {
+input#id_restartbutton,
+input#id_resizepartitionbutton {
     color: #1d2125;
     background-color: #ced4da;
     border-color: #ced4da;
-}
-
-input#id_shutdownbutton {
 }
 
 #footerbuttons {
