@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.13.1, 2022-08-04
+
+### Changed
+- Remote deprecated strings (issue #106).
+- Update code to up-to-date Moodle coding style (issue #107).
+
+### Fixed
+- Update strings with up-to-date info about RPi power supplies (isse #105).
+
 ## Version 2.13.0, 2022-08-02
 
 ### Changed
