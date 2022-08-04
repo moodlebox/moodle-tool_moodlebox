@@ -142,21 +142,5 @@ $string['wifissidinvalid'] = 'The name of the Wi-Fi network (SSID) provided is i
 
 // Deprecated.
 $string['badpowersupply'] = '<p><b>Warning: under-voltage detected!</b> The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and to use a good quality cable to connect it with the MoodleBox.</p>';
-$string['changepasswordsetting'] = 'MoodleBox password change';
-$string['changewifipassword'] = 'Change Wi-Fi password';
-$string['currentwifipassword'] = 'Current Wi-Fi password';
 $string['ipaddress'] = 'IP address';
-$string['moodleboxinfo'] = 'MoodleBox version';
-$string['moodleboxinfofileerror'] = 'Information not available';
-$string['moodleboxpluginversion'] = 'MoodleBox plugin version';
-$string['newwifipassword'] = 'New Wi-Fi password';
-$string['nopassworddefined'] = 'No Wi-Fi password defined';
 $string['raspbianversion'] = 'Raspbian version';
-$string['rpi3'] = 'Raspberry Pi 3B';
-$string['rpi4onemb'] = 'Raspberry Pi 4B (1 MB RAM)';
-$string['rpi4twomb'] = 'Raspberry Pi 4B (2 MB RAM)';
-$string['rpi4fourmb'] = 'Raspberry Pi 4B (4 MB RAM)';
-$string['wifipassworderror'] = 'The Wi-Fi network password must have between 8 and 63 characters.';
-$string['wifipasswordmessage'] = 'The Wi-Fi network password was changed. Don\'t forget to communicate it to your students.';
-$string['wifipasswordonhelp'] = 'If enabled, users have to type a password to connect to the MoodleBox Wi-Fi network.';
-$string['wifipasswordsetting'] = 'Wi-Fi network password change';
