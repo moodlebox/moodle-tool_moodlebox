@@ -147,7 +147,7 @@ class wifisettings_form extends moodleform {
         $mform->addHelpButton('wifissidhiddenstate', 'wifissidhiddenstate', 'tool_moodlebox');
 
         // Channel setting.
-        if ($currentwificountry == 'US' or $currentwificountry == 'CA') {
+        if ($currentwificountry == 'US' || $currentwificountry == 'CA') {
             $wifichannelrange = range(1, 11);
         } else {
             $wifichannelrange = range(1, 13);
@@ -204,7 +204,7 @@ class wifisettings_form extends moodleform {
         $errors = array();
 
         // SSID must have a length between 1 and 32 bytes.
-        if (mb_strlen($data['wifissid'], '8bit') > 32 or mb_strlen($data['wifissid'], '8bit') < 1) {
+        if (mb_strlen($data['wifissid'], '8bit') > 32 || mb_strlen($data['wifissid'], '8bit') < 1) {
             $errors['wifissid'] = get_string('wifissidinvalid', 'tool_moodlebox');
         }
 
@@ -254,7 +254,7 @@ class resizepartition_form extends moodleform {
  *
  * @package    tool_moodlebox
  * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 w later
  */
 class restartshutdown_form extends moodleform {
 

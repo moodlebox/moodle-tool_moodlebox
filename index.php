@@ -434,7 +434,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $reboottriggerfilename = '.reboot-server';
     $shutdowntriggerfilename = '.shutdown-server';
 
-    if (file_exists($reboottriggerfilename) and file_exists($shutdowntriggerfilename)) {
+    if (file_exists($reboottriggerfilename) && file_exists($shutdowntriggerfilename)) {
         $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));
 
         if ($data = $restartshutdownform->get_data()) {
