@@ -72,7 +72,8 @@ function tool_moodlebox_before_footer() {
             }
         }
 
-        $output = html_writer::div($restartshutdownform->render(), "", array('id' => 'footerbuttons'));
+        $output = html_writer::empty_tag("hr", array('id' => 'footerbuttonsspacer'));
+        $output .= html_writer::div($restartshutdownform->render(), "", array('id' => 'footerbuttons'));
 
         return $output;
     }

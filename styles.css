@@ -46,6 +46,6 @@ input#id_resizepartitionbutton {
     border-color: #ced4da;
 }
 
-#footerbuttons {
+hr#footerbuttonsspacer {
     margin-top: 2rem;
 }
