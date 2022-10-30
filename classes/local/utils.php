@@ -357,6 +357,7 @@ class utils {
             'moodleboxversion' => $moodleboxinfo,
             'pluginversion' => $plugin->release . ' (' . $plugin->version . ')',
             'sdsize' => disk_total_space('/'),
+            'timestamp' => time(),
         );
 
         return $surveydata;
