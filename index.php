@@ -69,16 +69,16 @@ if ( $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model() ) {
             break;
         case '4B':
             switch ($hardwaredata['memory']) {
-                case '1 GB':
+                case '1GB':
                     $platform = 'rpi4onegb';
                     break;
-                case '2 GB':
+                case '2GB':
                     $platform = 'rpi4twogb';
                     break;
-                case '4 GB':
+                case '4GB':
                     $platform = 'rpi4fourgb';
                     break;
-                case '8 GB':
+                case '8GB':
                     $platform = 'rpi4eightgb';
                     break;
             };

@@ -68,7 +68,7 @@ class utils {
      * | C | 12-15 | Processor     | BCM2835, BCM2836, BCM2837, BCM2711                 |
      * | D | 16-19 | Manufacturer  | Sony UK, Egoman, Embest, Sony Japan,               |
      * |   |       |               | Embest, Stadium                                    |
-     * | E | 20-22 | Memory size   | 256 MB, 512 MB, 1 GB, 2 GB, 4 GB, 8 GB             |
+     * | E | 20-22 | Memory size   | 256MB, 512MB, 1GB, 2GB, 4GB, 8GB                   |
      * | F | 23-23 | Revision flag | If set, new-style revision                         |
      * | G | 24-24 | Unused        |                                                    |
      * | H | 25-25 | Warranty bit  | If set, warranty void by overclocking (post Pi2)   |
@@ -93,7 +93,7 @@ class utils {
         $revisionnumber = hexdec($revisionnumber);
 
         // Define arrays of various hardware parameter values.
-        $memorysizes = array('256 MB', '512 MB', '1 GB', '2 GB', '4 GB', '8 GB');
+        $memorysizes = array('256MB', '512MB', '1GB', '2GB', '4GB', '8GB');
         $models = array('A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
                 '3B', 'Zero', 'CM3', 'Unknown', 'ZeroW', '3B+', '3A+', 'Internal use',
                 'CM3+', '4B', 'Zero2W', '400', 'CM4');
