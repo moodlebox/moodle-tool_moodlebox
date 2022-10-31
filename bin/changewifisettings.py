@@ -138,7 +138,7 @@ if password_protected not in ['0','1']:
     password_protected = True
 else:
     password_protected = (password_protected == '1')
-# Check if line "wpa_passphrase=..." exist uncommented in config file.
+# Check if line "wpa_passphrase=..." exists uncommented in config file.
 # If found, the Wi-Fi network is currently password protected.
 is_currently_protected = bool(is_regex_in_file(hostapd_conf_file, r'^wpa_passphrase=\b'))
 # Set parameters adequately.
