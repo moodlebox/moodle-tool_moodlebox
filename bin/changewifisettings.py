@@ -104,7 +104,7 @@ file_replace_line(hostapd_conf_file, 'channel=.*', 'channel=' + new_channel)
 
 # SSID setting.
 # Validate new SSID. At this point, new_ssid is a string of hex values,
-# e.g. "74657374" for "test". We want to check that it is valid, and
+# e.g. "44756D6D79" for "Dummy". We want to check that it is valid, and
 # between 1 and 32 bytes.
 ssid_pattern = re.compile('^(?:[0-9a-fA-F]{2}){1,32}$')
 if not bool(ssid_pattern.search(new_ssid)):
