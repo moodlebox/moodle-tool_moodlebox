@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: With Moodle 3.11 and Moodle 4.0
+    name: With Moodle 3.11, Moodle 4.0 and Moodle 4.1
     runs-on: ubuntu-latest
 
     services:
@@ -51,7 +51,7 @@ jobs:
         moodle-branch:
           - 'MOODLE_311_STABLE'
           - 'MOODLE_400_STABLE'
-          - 'MOODLE_410_STABLE'
+          - 'master'
         database:
           - 'pgsql'
           - 'mariadb'
