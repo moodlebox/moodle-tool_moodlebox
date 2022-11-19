@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.14.0, 2022-11-19
+
+### Add
+- Add better graphical separation of footer buttons (no issue number, commit 21da4fadf108b76e467690ac06d5c2db6c8c01a1).
+
+### Changed
+- Tested against upcoming Moodle 4.1. (issue #109).
+
+### Fixed
+- Fix several strings (no issue number, commits 1057305479a9778a4d6f11c9dbcf83d9e8c945c0, b1c8ae4c53a89e9a5bcb6a1673d8f4c9104bb598).
+- Fix comments (no issue number, commits 08af42ecbe7d386de45548c8e32050693e5cfd89, 61c09dc0cc7a6090475fe9e812e0ee129dc310d8).
+
 ## Version 2.13.1, 2022-08-04
 
 ### Changed
