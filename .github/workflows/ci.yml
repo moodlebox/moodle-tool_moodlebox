@@ -51,7 +51,6 @@ jobs:
         moodle-branch:
           - 'MOODLE_311_STABLE'
           - 'MOODLE_400_STABLE'
-          - 'master'
         database:
           - 'pgsql'
           - 'mariadb'
