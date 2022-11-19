@@ -51,13 +51,14 @@ jobs:
         moodle-branch:
           - 'MOODLE_311_STABLE'
           - 'MOODLE_400_STABLE'
+          - 'MOODLE_410_STABLE'
         database:
           - 'pgsql'
           - 'mariadb'
 
     steps:
     - name: Check out repository code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         # Clone in plugin subdir, so we can setup CI in default directory.
         path: plugin
