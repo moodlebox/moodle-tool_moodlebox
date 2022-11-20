@@ -62,7 +62,7 @@ if ( $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model() ) {
             $platform = 'rpi3aplus';
             break;
         case '3B':
-            $platform = 'rpi3';
+            $platform = 'rpi3b';
             break;
         case '3B+':
             $platform = 'rpi3bplus';
