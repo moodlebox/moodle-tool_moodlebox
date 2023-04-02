@@ -81,16 +81,16 @@ class utils {
      * @return associative array of parameters, value or false if unsupported hardware.
      */
     public static function get_hardware_model() {
-        $revisionnumber = null;
+        $revisioncode = null;
 
         // Read revision number from device.
         if ( $cpuinfo = @file_get_contents('/proc/cpuinfo') ) {
             if ( preg_match_all('/^Revision.*/m', $cpuinfo, $revisionmatch) > 0 ) {
-                $revisionnumber = explode(' ', $revisionmatch[0][0]);
-                $revisionnumber = end($revisionnumber);
+                $revisioncode = explode(' ', $revisionmatch[0][0]);
+                $revisioncode = end($revisioncode);
             }
         }
-        $revisionnumber = hexdec($revisionnumber);
+        $revisionnumber = hexdec($revisioncode);
 
         // Define arrays of various hardware parameter values.
         $memorysizes = array('256MB', '512MB', '1GB', '2GB', '4GB', '8GB');
@@ -119,6 +119,7 @@ class utils {
             $memorysize = $memorysizes[$rawmemory];
 
             return array(
+                'revisioncode' => $revisioncode,
                 'revision' => $revision,
                 'model' => $model,
                 'processor' => $processor,

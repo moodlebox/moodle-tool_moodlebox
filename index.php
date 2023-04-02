@@ -274,8 +274,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
     // System info.
     $table->add_data(array(get_string('systeminfo', 'tool_moodlebox'), ''));
-    $table->add_data(array(get_string('raspberryhardware', 'tool_moodlebox'),
-            get_string($platform, 'tool_moodlebox')), 'subinfo');
     $table->add_data(array(get_string('sdcardavailablespace', 'tool_moodlebox'), display_size($sdcardfreespace) .
             ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)'), 'subinfo');
     $table->add_data(array(get_string('cpuload', 'tool_moodlebox'),
@@ -285,6 +283,11 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency), 'subinfo');
         $table->add_data(array(get_string('uptime', 'tool_moodlebox'), $uptime), 'subinfo');
     }
+    // Hardware info.
+    $table->add_data(array(get_string('hardwareinfo', 'tool_moodlebox'), ''));
+    $table->add_data(array(get_string('raspberryhardware', 'tool_moodlebox'), get_string($platform, 'tool_moodlebox')), 'subinfo');
+    $table->add_data(array(get_string('revision', 'tool_moodlebox'), $hardwaredata['revision']), 'subinfo');
+    $table->add_data(array(get_string('revisioncode', 'tool_moodlebox'), $hardwaredata['revisioncode']), 'subinfo');
     // Software versions.
     $table->add_data(array(get_string('softwareversions', 'tool_moodlebox'), ''));
     if ( $releaseinfo ) {
