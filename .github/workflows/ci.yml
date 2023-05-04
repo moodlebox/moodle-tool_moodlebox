@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: With Moodle 4.1 and Moodle 4.2
+    name: CI
     runs-on: ubuntu-22.04
 
     services:
@@ -45,11 +45,9 @@ jobs:
       fail-fast: false
       matrix:
         php:
-          - '7.4'
           - '8.0'
           - '8.1'
         moodle-branch:
-          - 'MOODLE_311_STABLE'
           - 'MOODLE_401_STABLE'
         database:
           - 'pgsql'
