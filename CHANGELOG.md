@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.15.0, 2023-05-04
+
+### Add
+- Detect CM4S model (issue #112).
+
+### Changed
+- Tested against upcoming Moodle 4.2 (issue #113).
+
+### Fixed
+- Fix regression introduced when fixing #73 (issue #110).
+
 ## Version 2.14.2, 2022-11-20
 
 ### Fixed
