@@ -10,12 +10,12 @@ on:
 
 jobs:
   test:
-    name: With Moodle 3.11, Moodle 4.0 and Moodle 4.1
-    runs-on: ubuntu-latest
+    name: With Moodle 4.1 and Moodle 4.2
+    runs-on: ubuntu-22.04
 
     services:
       postgres:
-        image: postgres:12
+        image: postgres:13
         env:
           POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
@@ -45,12 +45,12 @@ jobs:
       fail-fast: false
       matrix:
         php:
-          - '7.3'
           - '7.4'
           - '8.0'
+          - '8.1'
         moodle-branch:
-          - 'MOODLE_311_STABLE'
-          - 'MOODLE_400_STABLE'
+          - 'MOODLE_401_STABLE'
+          - 'MOODLE_402_STABLE'
         database:
           - 'pgsql'
           - 'mariadb'
@@ -68,12 +68,13 @@ jobs:
         php-version: ${{ matrix.php }}
         extensions: ${{ matrix.extensions }}
         ini-values: max_input_vars=5000
-        # none to use phpdbg fallback. Specify pcov (Moodle 3.10 and up) or xdebug to use them instead.
+          # If you are not using code coverage, keep "none". Otherwise, use "pcov" (Moodle 3.10 and up) or "xdebug".
+          # If you try to use code coverage with "none", it will fallback to phpdbg (which has known problems).
         coverage: none
 
     - name: Initialise moodle-plugin-ci
       run: |
-        composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
+        composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
         # Add dirs to $PATH
         echo $(cd ci/bin; pwd) >> $GITHUB_PATH
         echo $(cd ci/vendor/bin; pwd) >> $GITHUB_PATH
@@ -109,7 +110,7 @@ jobs:
 
     - name: Moodle Code Checker
       if: ${{ always() }}
-      run: moodle-plugin-ci codechecker --max-warnings 0 || true
+      run: moodle-plugin-ci phpcs --max-warnings 0 || true
 
     - name: Moodle PHPDoc Checker
       if: ${{ always() }}
