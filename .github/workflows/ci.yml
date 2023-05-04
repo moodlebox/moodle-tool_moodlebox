@@ -49,8 +49,8 @@ jobs:
           - '8.0'
           - '8.1'
         moodle-branch:
+          - 'MOODLE_311_STABLE'
           - 'MOODLE_401_STABLE'
-          - 'MOODLE_402_STABLE'
         database:
           - 'pgsql'
           - 'mariadb'
