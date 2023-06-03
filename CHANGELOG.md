@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.16.0, unreleased
+
+### Add
+- Nothing
+
+### Changed
+- Nothing
+
+### Fixed
+- Change `dnsmasq` config file name (issue #114).
+
 ## Version 2.15.0, 2023-05-04
 
 ### Add
