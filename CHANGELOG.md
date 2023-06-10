@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/) and follow pr
 ## Version 2.16.0, unreleased
 
 ### Add
-- Nothing
+- Add date and time buttons to footer (issue #94).
 
 ### Changed
 - Nothing
