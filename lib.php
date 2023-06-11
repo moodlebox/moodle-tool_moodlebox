@@ -51,11 +51,11 @@ function tool_moodlebox_before_footer() {
         }
     }
 
-    // Check that logged in user has admin or manager role and option is enabled.
-    if (has_capability('tool/moodlebox:viewbuttonsinfooter', context_system::instance()) &&
-            get_config('tool_moodlebox', 'buttonsinfooter')) {
+    $output = '';
+    $thisplugindir = $CFG->dirroot . '/admin/tool/moodlebox/';
 
-        $thisplugindir = $CFG->dirroot . '/admin/tool/moodlebox/';
+    if (has_capability('tool/moodlebox:viewbuttonsinfooter', context_system::instance()) &&
+            get_config('tool_moodlebox', 'datetimebuttonsinfooter')) {
 
         // Display date and time setting buttons
         $datetimetriggerfilename = $thisplugindir . '.set-server-datetime';
@@ -69,8 +69,12 @@ function tool_moodlebox_before_footer() {
             }
         }
 
-        $output = html_writer::empty_tag("hr", array('id' => 'datetimesetbuttonsspacer'));
+        $output .= html_writer::empty_tag("hr", array('id' => 'datetimesetbuttonsspacer'));
         $output .= html_writer::div($datetimesetform->render(), "", array('id' => 'datetimesetbuttons'));
+    }
+
+    if (has_capability('tool/moodlebox:viewbuttonsinfooter', context_system::instance()) &&
+            get_config('tool_moodlebox', 'restartshutdownbuttonsinfooter')) {
 
         // Display restart and shutdown buttons
         $reboottriggerfilename = $thisplugindir . '.reboot-server';
@@ -91,7 +95,9 @@ function tool_moodlebox_before_footer() {
         $output .= html_writer::empty_tag("hr", array('id' => 'footerbuttonsspacer'));
         $output .= html_writer::div($restartshutdownform->render(), "", array('id' => 'footerbuttons'));
 
-        return $output;
     }
+
+        return $output;
+
 
 }
