@@ -26,8 +26,10 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) { // Speedup for non-admins.
 
-    // Add new admin sub-category to category 'server' in admin tree.
-    $ADMIN->add('server', new admin_category('moodlebox', new lang_string('pluginname', 'tool_moodlebox')));
+    // Add new admin top category 'moodleboxcat' in admin tree.
+    $ADMIN->add('root', new admin_category('moodleboxcat', new lang_string('pluginname', 'tool_moodlebox')));
+    // Add new admin sub-category to category 'moodleboxcat' in admin tree.
+    $ADMIN->add('moodleboxcat', new admin_category('moodlebox', new lang_string('pluginname', 'tool_moodlebox')));
 
     // Add admin external page 'dashboard' to sub-category 'moodlebox'.
     $moodleboxadminpage = new admin_externalpage('tool_moodlebox',
