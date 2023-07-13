@@ -1,14 +1,20 @@
 @tool @tool_moodlebox
-Feature: Manage MoodleBox settings
-  In order to control MoodleBox settings
-  As an administrator
-  I need to see the list of options
+Feature: MoodleBox buttons appears in the footer
+  Whenever I navigate to site administration page
+  As an admin
+  I want the GUI buttons to display at the bottom of each page
 
-  @javascript
-  Scenario: Display list of options
-    # Check the report doesn't show when not enabled.
+  Background:
     Given I log in as "admin"
-    Then I should see "MoodleBox"
+
+  Scenario: Enable date and time setting buttons in the footer
+    Given I navigate to "MoodleBox > MoodleBox settings" in site administration
+    And I should see "Show date and time setting in footer"
+    And I set the field "Show date and time setting in footer" to 1
+    And I press "Save changes"
+    And I navigate to "General > Notifications" in site administration
+    And I should see "Date and time"
+
 #     Then I should see "System information"
 #     And I should see "Date and time setting"
 #     And I should see "MoodleBox password change"
