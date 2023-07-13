@@ -12,7 +12,14 @@ Feature: MoodleBox buttons appears in the footer
     And I set the field "Show date and time setting in footer" to "1"
     And I press "Save changes"
     And I am on site homepage
-    And I should see "Date and time"
+    Then I should see "Date and time"
+
+  Scenario: Enable restart and shutdown buttons in the footer
+    Given I navigate to "MoodleBox > MoodleBox settings" in site administration
+    And I set the field "Show restart and shutdown buttons in footer" to "1"
+    And I press "Save changes"
+    And I am on site homepage
+    Then I should see "Restart MoodleBox"
 
 #     Then I should see "System information"
 #     And I should see "Date and time setting"
