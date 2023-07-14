@@ -1,8 +1,8 @@
 @tool @tool_moodlebox
 Feature: MoodleBox buttons appears in the footer
-  Whenever I navigate to site administration page
+  Whenever I navigate to the home page
   As an admin
-  I want the GUI buttons to display at the bottom of each page
+  I want the MoodleBox GUI buttons to display at the bottom of each page
 
   Background:
     Given I log in as "admin"
@@ -20,9 +20,3 @@ Feature: MoodleBox buttons appears in the footer
     And I press "Save changes"
     And I am on site homepage
     And I press "Restart MoodleBox"
-
-#     Then I should see "System information"
-#     And I should see "Date and time setting"
-#     And I should see "MoodleBox password change"
-#     And I should see "Wi-Fi network password change"
-#     And I should see "Restart and shutdown"
