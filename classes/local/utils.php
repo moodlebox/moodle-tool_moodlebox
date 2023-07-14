@@ -81,7 +81,7 @@ class utils {
      * @return associative array of parameters, value or false if unsupported hardware.
      */
     public static function get_hardware_model() {
-        $revisioncode = null;
+        $revisioncode = '';
 
         // Read revision number from device.
         if ( $cpuinfo = @file_get_contents('/proc/cpuinfo') ) {
