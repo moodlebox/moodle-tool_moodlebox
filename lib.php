@@ -97,7 +97,7 @@ function tool_moodlebox_before_footer() {
 
     }
 
-        return $output;
+    return $output;
 
 
 }
