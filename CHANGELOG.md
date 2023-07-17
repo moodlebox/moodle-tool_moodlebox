@@ -6,13 +6,16 @@ This project adheres to [Semantic Versioning](https://semver.org/) and follow pr
 ## Version 2.16.0, unreleased
 
 ### Add
-- Add date and time buttons to footer (issue #94).
+- Enable displaying date and time buttons in the footer of any page for users with adequate role (issue #94).
 
 ### Changed
-- Nothing
+- Move MoodleBox settings to top level of administration navigation (issue #115).
+- Adapt wireless edit script for MoodleBox image change (issue #114).
 
 ### Fixed
 - Change `dnsmasq` config file name (issue #114).
+- Fix deprecation error when using PHP8.2 (issue #116).
+- Behat tests corrected (no issue number).
 
 ## Version 2.15.0, 2023-05-04
 
