@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
-## Version 2.16.0, unreleased
+## Version 2.16.0, 2023-07-30
 
 ### Add
 - Enable displaying date and time buttons in the footer of any page for users with adequate role (issue #94).
