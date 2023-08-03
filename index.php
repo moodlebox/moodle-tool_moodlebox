@@ -188,16 +188,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         }
         $currentwifipassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
         $currentwificountry = $wifiinfo['country_code'];
-        if ( $currentwifissidhiddenstate = array_key_exists('ignore_broadcast_ssid', $wifiinfo) ) {
-            $currentwifissidhiddenstate = $wifiinfo['ignore_broadcast_ssid'];
+        if ( $currentwifissidhidden = array_key_exists('ignore_broadcast_ssid', $wifiinfo) ) {
+            $currentwifissidhidden = $wifiinfo['ignore_broadcast_ssid'];
         } else {
-            $currentwifissidhiddenstate = '0';
+            $currentwifissidhidden = '0';
         }
-        if ( $currentwifissidhiddenstate === '0') { // SSID is visible.
-            $currentwifissidhiddenstate = 0;
-        } else { // SSID is hidden.
-            $currentwifissidhiddenstate = 1;
-        }
+        $currentwifissidhidden = ($currentwifissidhidden === 1);
     }
 
     // Get ethernet addresses.
@@ -222,12 +218,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->setup();
 
     // Wireless info.
-    if ( $wifiinfo) {
+    if ($wifiinfo) {
         $table->add_data(array(get_string('wifisettings', 'tool_moodlebox'), ''));
         $table->add_data(array(get_string('wifissid', 'tool_moodlebox'), $currentwifissid), 'subinfo');
         $table->add_data(array(get_string('wifissidhiddenstate', 'tool_moodlebox'),
-                ($currentwifissidhiddenstate == 0) ?
-                    get_string('visible', 'tool_moodlebox') : get_string('hidden', 'tool_moodlebox')), 'subinfo');
+                ($currentwifissidhidden) ?
+                    get_string('hidden', 'tool_moodlebox') : get_string('visible', 'tool_moodlebox')), 'subinfo');
         $table->add_data(array(get_string('wifichannel', 'tool_moodlebox'), $currentwifichannel), 'subinfo');
         $table->add_data(array(get_string('wificountry', 'tool_moodlebox'), $currentwificountry), 'subinfo');
         $table->add_data(array(get_string('wifipassword', 'tool_moodlebox'), $currentwifipassword), 'subinfo');
@@ -372,7 +368,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                     $data->wifipassword = null;
                 }
                 if (!isset($data->wifissidhiddenstate)) {
-                    $data->wifissidhiddenstate = 0;
+                    $data->wifissidhiddenstate = false;
                 }
                 if (!isset($data->staticipaddress)) {
                     $data->staticipaddress = $staticipaddress;
