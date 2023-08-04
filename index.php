@@ -183,7 +183,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $currentwifichannel = exec('nmcli -g 802-11-wireless.channel con show WifiAP', $wifiinfodata);
             $currentwifissid = exec('nmcli -g 802-11-wireless.ssid con show WifiAP', $wifiinfodata);
             $currentwifipassword = exec('sudo nmcli -s -g 802-11-wireless-security.psk con show WifiAP', $wifiinfodata);
-            $currentwificountry = exec('iw reg get | awk "/country/{print $2; exit}" | cut -d":" -f1', $wifiinfodata);
+            $currentwificountry = exec('iw reg get | awk \'/country/{print $2; exit}\' | cut -d\':\' -f1', $wifiinfodata);
             $currentwifissidhidden = exec('nmcli -g 802-11-wireless.hidden con show WifiAP', $wifiinfodata);
             $wifiinfo = array_combine(
                 $wifiinfokeys,
