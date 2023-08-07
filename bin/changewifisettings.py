@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this script.  If not, see <https://www.gnu.org/licenses/>.
 """
-import os, sys, re, configparser, fileinput, ipaddress, subprocess
+import os, sys, re, configparser, fileinput, ipaddress, subprocess, mmap
 
 # This script MUST be run as root.
 if not os.geteuid() == 0:
