@@ -36,18 +36,18 @@ def is_regex_in_file(file_name, search_pattern):
 
 # Get directory of this script.
 this_dir = os.path.dirname(os.path.realpath(__file__))
-# Path of file containing the new settings (plain text).
+# Path of file containing the new access point settings (plain text).
 settings_file = os.path.join(os.path.dirname(this_dir), '.wifisettings')
 
 # Path of various config files.
 hostapd_conf_file = "/etc/hostapd/hostapd.conf"
 dhcpcd_conf_file = "/etc/dhcpcd.conf"
 dnsmasq_conf_file = "/etc/dnsmasq.d/uap0.conf"
-dnsmasq_lease_file = "/var/lib/misc/dnsmasq.leases"
 hosts_file = "/etc/hosts"
 nodogsplash_conf_file = "/etc/nodogsplash/nodogsplash.conf"
+dnsmasq_lease_file = "/var/lib/misc/dnsmasq.leases"
 
-# Default settings.
+# Default access point settings.
 default_channel = '11'
 default_country = 'CH'
 default_password = 'moodlebox'
@@ -82,14 +82,15 @@ if not bool(password_pattern.search(new_password)):
 # New password is now valid; set it in config file.
 file_replace_line(hostapd_conf_file, '^wpa_passphrase=.*$', 'wpa_passphrase=' + new_password)
 
-# Country setting.
-# Valid country codes {@link https://www.iso.org/iso-3166-country-codes.html}.
-allowed_countries = ['AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AX', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BQ', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ', 'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CW', 'CX', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'EH', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FK', 'FM', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GL', 'GM', 'GN', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GW', 'GY', 'HK', 'HM', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IO', 'IQ', 'IR', 'IS', 'IT', 'JE', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NF', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PS', 'PT', 'PW', 'PY', 'QA', 'RE', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SD', 'SE', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'SS', 'ST', 'SV', 'SX', 'SY', 'SZ', 'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'UM', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW']
-# Country setting.
+# Registration country setting.
 # Validate new country. Replace it with 'CH' if invalid.
-if not new_country in allowed_countries:
+# Check if new country is in list of ISO 3166 alpha-2 country codes.
+regex = re.compile(bytes('\n' + new_country + '\s', 'ascii'))
+with open('/usr/share/zoneinfo/iso3166.tab') as iso3166file:
+    data = mmap.mmap(iso3166file.fileno(), 0, access=mmap.ACCESS_READ)
+if not re.search(regex, data):
     new_country = default_country
-# New channel is now valid; set it in config file.
+# New country is now valid; set it in config file.
 file_replace_line(hostapd_conf_file, 'country_code=.*', 'country_code=' + new_country)
 
 # Channel setting.
@@ -117,11 +118,11 @@ if not is_regex_in_file(hostapd_conf_file, r'^utf8_ssid=\b'):
             '^(?P<ssid>ssid2?=(?:[0-9a-fA-F]{2}){1,32}).*$',
             '\g<ssid>\nutf8_ssid=1')
 
-# SSID hiding setting.
-# Validate SSID hiding setting. Replace it with 0 if invalid.
+# SSID hidden status setting.
+# Validate SSID hidden status setting. Replace it with 0 if invalid.
 if ssid_hidden not in ['0','1']:
     ssid_hidden = '0'
-# SSID hiding setting is now valid; set it in config file.
+# SSID hidden status setting is now valid; set it in config file.
 # Check if line "ignore_broadcast_ssid=..." exist uncommented in config file.
 if not is_regex_in_file(hostapd_conf_file, r'^ignore_broadcast_ssid=\b'):
     file_replace_line(hostapd_conf_file,
