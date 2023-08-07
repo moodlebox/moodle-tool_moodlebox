@@ -57,7 +57,7 @@ function tool_moodlebox_before_footer() {
     if (has_capability('tool/moodlebox:viewbuttonsinfooter', context_system::instance()) &&
             get_config('tool_moodlebox', 'datetimebuttonsinfooter')) {
 
-        // Display date and time setting buttons
+        // Display date and time setting buttons.
         $datetimetriggerfilename = $thisplugindir . '.set-server-datetime';
         $datetimesetform = new datetimeset_form();
 
@@ -76,7 +76,7 @@ function tool_moodlebox_before_footer() {
     if (has_capability('tool/moodlebox:viewbuttonsinfooter', context_system::instance()) &&
             get_config('tool_moodlebox', 'restartshutdownbuttonsinfooter')) {
 
-        // Display restart and shutdown buttons
+        // Display restart and shutdown buttons.
         $reboottriggerfilename = $thisplugindir . '.reboot-server';
         $shutdowntriggerfilename = $thisplugindir . '.shutdown-server';
         $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));
@@ -98,6 +98,5 @@ function tool_moodlebox_before_footer() {
     }
 
     return $output;
-
 
 }
