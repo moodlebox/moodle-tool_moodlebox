@@ -112,11 +112,6 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $rpiosversion = $releaseinfo['PRETTY_NAME'];
     }
 
-    // Get MoodleBox image version.
-    if ( $moodleboxinfo = \tool_moodlebox\local\utils::get_moodlebox_info() ) {
-        $moodleboxversion = $moodleboxinfo['version'];
-    }
-
     // We using NetworkManager for network management if MoodleBox version is greater than '4.5.0'.
     $networkmanager = version_compare($moodleboxversion, '4.5.0', '>');
 
@@ -174,6 +169,13 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     // Get plugin version.
     $moodleboxpluginversion = $plugin->release . ' (' . $plugin->version . ')';
+
+    // Get MoodleBox image version and date.
+    if ( $moodleboxinfo = \tool_moodlebox\local\utils::get_moodlebox_info() ) {
+        $moodleboxinfo = $moodleboxinfo['version'] . ' (' . $moodleboxinfo['date'] . ')';
+    } else {
+        $moodleboxinfo = get_string('infofileerror', 'tool_moodlebox');
+    }
 
     if ($networkmanager) {
         // Get current wireless access point data with NetworkManager.
@@ -311,8 +313,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $table->add_data(array(get_string('rpiosversion', 'tool_moodlebox'), $rpiosversion), 'subinfo');
     }
     $table->add_data(array(get_string('kernelversion', 'tool_moodlebox'), $kernelversion), 'subinfo');
-    $table->add_data(array(get_string('version', 'tool_moodlebox'),
-        $moodleboxinfo['version'] . ' (' . $moodleboxinfo['date'] . ')'), 'subinfo');
+    $table->add_data(array(get_string('version', 'tool_moodlebox'), $moodleboxinfo), 'subinfo');
     $table->add_data(array(get_string('pluginversion', 'tool_moodlebox'), $moodleboxpluginversion), 'subinfo');
     $table->add_data(array(get_string('moodleversion'), $CFG->release), 'subinfo');
 
