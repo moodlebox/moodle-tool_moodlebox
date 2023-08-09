@@ -164,14 +164,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $moodleboxpluginversion = $plugin->release . ' (' . $plugin->version . ')';
 
     // Get MoodleBox image version and date.
-    $moodleboxinfo = null;
-    $moodleboxinfofile = '/etc/moodlebox-info';
-    if ( file_exists($moodleboxinfofile) ) {
-        $moodleboxinfo = file($moodleboxinfofile);
-        if ( preg_match_all('/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
-                $moodleboxinfo[0], $moodleboxinfomatch) > 0 ) {
-            $moodleboxinfo = $moodleboxinfomatch[1][0] . ' (' . $moodleboxinfomatch[4][0] . ')';
-        }
+    if ( $moodleboxinfo = \tool_moodlebox\local\utils::get_moodlebox_info() ) {
+        $moodleboxinfo = $moodleboxinfo['version'] . ' (' . $moodleboxinfo['date'] . ')';
     } else {
         $moodleboxinfo = get_string('infofileerror', 'tool_moodlebox');
     }
@@ -222,7 +216,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->setup();
 
     // Wireless info.
-    if ( $wifiinfo) {
+    if ($wifiinfo) {
         $table->add_data(array(get_string('wifisettings', 'tool_moodlebox'), ''));
         $table->add_data(array(get_string('wifissid', 'tool_moodlebox'), $currentwifissid), 'subinfo');
         $table->add_data(array(get_string('wifissidhiddenstate', 'tool_moodlebox'),
