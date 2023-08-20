@@ -31,6 +31,8 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+putenv('LC_ALL=en_GB.utf-8');
+
 require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
 require_once($CFG->dirroot.'/admin/tool/moodlebox/forms.php');
 require_once($CFG->libdir.'/moodlelib.php');
@@ -112,6 +114,11 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $rpiosversion = $releaseinfo['PRETTY_NAME'];
     }
 
+    // Get MoodleBox image version.
+    if ( $moodleboxinfo = \tool_moodlebox\local\utils::get_moodlebox_info() ) {
+        $moodleboxversion = $moodleboxinfo['version'];
+    }
+
     // We using NetworkManager for network management if MoodleBox version is greater than '4.5.0'.
     $networkmanager = version_compare($moodleboxversion, '4.5.0', '>');
 
@@ -170,21 +177,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // Get plugin version.
     $moodleboxpluginversion = $plugin->release . ' (' . $plugin->version . ')';
 
-    // Get MoodleBox image version and date.
-    if ( $moodleboxinfo = \tool_moodlebox\local\utils::get_moodlebox_info() ) {
-        $moodleboxinfo = $moodleboxinfo['version'] . ' (' . $moodleboxinfo['date'] . ')';
-    } else {
-        $moodleboxinfo = get_string('infofileerror', 'tool_moodlebox');
-    }
-
     if ($networkmanager) {
         // Get current wireless access point data with NetworkManager.
         if ( $wifiinfo = exec('nmcli -g 802-11-wireless.mode con show WifiAP') ) {
             $wifiinfodata = array();
-            $wifiinfokeys = array('channel', 'ssid', 'password', 'country', 'hidden');
+            $wifiinfokeys = array('channel', 'ssid', 'password', 'countrycode', 'hidden');
             $currentwifichannel = exec('nmcli -g 802-11-wireless.channel con show WifiAP', $wifiinfodata);
             $currentwifissid = exec('nmcli -g 802-11-wireless.ssid con show WifiAP', $wifiinfodata);
-            $currentwifipassword = exec('sudo nmcli -s -g 802-11-wireless-security.psk con show WifiAP', $wifiinfodata);
+            if (!$currentwifipassword = exec('sudo nmcli -s -g 802-11-wireless-security.psk con show WifiAP', $wifiinfodata)) {
+                array_push($wifiinfodata, null);
+            }
             $currentwificountry = exec('iw reg get | awk \'/country/{print $2; exit}\' | cut -d\':\' -f1', $wifiinfodata);
             $currentwifissidhidden = exec('nmcli -g 802-11-wireless.hidden con show WifiAP', $wifiinfodata);
             $wifiinfo = array_combine(
@@ -194,7 +196,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $currentwifichannel = $wifiinfo['channel'];
             $currentwifissid = $wifiinfo['ssid'];
             $currentwifipassword = $wifiinfo['password'];
-            $currentwificountry = $wifiinfo['country'];
+            $currentwificountry = $wifiinfo['countrycode'];
             $currentwifissidhidden = ($wifiinfo['hidden'] === 'yes');
         }
     } else {
@@ -313,7 +315,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $table->add_data(array(get_string('rpiosversion', 'tool_moodlebox'), $rpiosversion), 'subinfo');
     }
     $table->add_data(array(get_string('kernelversion', 'tool_moodlebox'), $kernelversion), 'subinfo');
-    $table->add_data(array(get_string('version', 'tool_moodlebox'), $moodleboxinfo), 'subinfo');
+    $table->add_data(array(get_string('version', 'tool_moodlebox'),
+        $moodleboxinfo['version'] . ' (' . $moodleboxinfo['date'] . ')'), 'subinfo');
     $table->add_data(array(get_string('pluginversion', 'tool_moodlebox'), $moodleboxpluginversion), 'subinfo');
     $table->add_data(array(get_string('moodleversion'), $CFG->release), 'subinfo');
 
