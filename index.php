@@ -156,7 +156,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     // Get PiJuice Status.
     if ($pijuicepackage) {
-        $pijuicestatusjson = exec('bin/pijuicestatus.py');
+        $pijuicestatusjson = exec('python3 bin/pijuicestatus.py');
         $pijuicestatus = json_decode($pijuicestatusjson, true);
     }
 
