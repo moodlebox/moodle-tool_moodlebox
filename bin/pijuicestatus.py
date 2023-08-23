@@ -16,7 +16,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this script.  If not, see <https://www.gnu.org/licenses/>.
 """
-from pijuice import PiJuice
+import sys
+
+try:
+    from pijuice import PiJuice
+except ModuleNotFoundError:
+    print('{"status_error": "Installation problem", "is_fault": "No module named \'pijuice\' installed"}')
+    sys.exit(1)
 
 # Instantiate PiJuice interface object.
 pijuice = PiJuice(1, 0x14)
@@ -32,4 +38,6 @@ charge_level_error = pijuice.status.GetChargeLevel()['error']
 charge_level = str(pijuice.status.GetChargeLevel()['data'])
 
 # Print the result as JSON format.
-print ('{"status_error": "'+status_error+'", "is_fault": "'+is_fault+'", "battery_status": "'+battery_status+'", "battery_temp": "'+battery_temp+'", "charge_level_error": "'+charge_level_error+'", "charge_level": "'+charge_level+'"}')
+print('{"status_error": "'+status_error+'", "is_fault": "'+is_fault+'", "battery_status": "'+battery_status+'", "battery_temp": "'+battery_temp+'", "charge_level_error": "'+charge_level_error+'", "charge_level": "'+charge_level+'"}')
+
+sys.exit(0)
