@@ -134,6 +134,7 @@ class utils {
     /**
      * Get MoodleBox version and date.
      *
+     * @param file $file to parse (optional)
      * @return associative array of parameters, value or false in case of error.
      */
     public static function get_moodlebox_info($file = '/etc/moodlebox-info') {
