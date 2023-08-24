@@ -117,8 +117,6 @@ class wifisettings_form extends moodleform {
     /**
      * Define the form.
      *
-     * @SuppressWarnings(PHPMD.LongVariable)
-     *
      */
     public function definition() {
         global $currentwifissid;
