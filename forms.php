@@ -87,14 +87,12 @@ class changepassword_form extends moodleform {
     /**
      * Validate the form.
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     *
      * @param array $data submitted data
      * @param array $files not used
      * @return array errors
      */
     public function validation($data, $files) {
-        $errors = array();
+        $errors = parent::validation($data, $files);
 
         if ($data['newpassword1'] <> $data['newpassword2']) {
             $errors['newpassword1'] = get_string('passwordsdiffer');
@@ -194,14 +192,12 @@ class wifisettings_form extends moodleform {
     /**
      * Validate the form.
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     *
      * @param array $data submitted data
      * @param array $files not used
      * @return array errors
      */
     public function validation($data, $files) {
-        $errors = array();
+        $errors = parent::validation($data, $files);
 
         // SSID must have a length between 1 and 32 bytes.
         if (mb_strlen($data['wifissid'], '8bit') > 32 || mb_strlen($data['wifissid'], '8bit') < 1) {
