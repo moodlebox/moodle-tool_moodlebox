@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.16.1, 2023-08-24
+
+### Changed
+- Update routine to check registration country (no issue number, commits  (no issue number, commit bdb9ab7 and ae25ffa).
+- Add function to get MoodleBox version and date (no issue number, commit 3ee5edd).
+- Update dependencies (no issue number, commit 496a1f4).
+
+### Fixed
+- Workaround potential execution permission (issue #118).
+- Fix coding style issues (no issue number, commit 1d33e7a).
+
 ## Version 2.16.0, 2023-07-30
 
 ### Add
