@@ -155,19 +155,17 @@ class utils {
         }
     }
 
-    /** @var bool Whether sections should be processed */
-    protected bool $process_sections = false;
     /**
      * Parse config files with "setting=value" syntax, ignoring commented lines
      * beginnning with a hash (#).
      *
      * @param file $file to parse
-     * @param bool $process_sections
+     * @param bool $processsections (optional)
      * @param int $scannermode (optional)
      * @return associative array of parameters, value or false if no match.
      */
-    public static function parse_config_file($file, $process_sections, $scannermode = INI_SCANNER_NORMAL) {
-        $result = parse_ini_string(preg_replace('/^#.*\\n/m', '', @file_get_contents($file)), $process_sections, $scannermode);
+    public static function parse_config_file($file, $processsections = false, $scannermode = INI_SCANNER_NORMAL) {
+        $result = parse_ini_string(preg_replace('/^#.*\\n/m', '', @file_get_contents($file)), $processsections, $scannermode);
         if (!empty($result)) {
             return $result;
         } else {
