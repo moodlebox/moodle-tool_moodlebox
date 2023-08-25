@@ -134,6 +134,7 @@ class utils {
     /**
      * Get MoodleBox version and date.
      *
+     * @param file $file to parse (optional)
      * @return associative array of parameters, value or false in case of error.
      */
     public static function get_moodlebox_info($file = '/etc/moodlebox-info') {
@@ -158,15 +159,13 @@ class utils {
      * Parse config files with "setting=value" syntax, ignoring commented lines
      * beginnning with a hash (#).
      *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
-     *
      * @param file $file to parse
-     * @param bool $mode (optional)
+     * @param bool $processsections (optional)
      * @param int $scannermode (optional)
      * @return associative array of parameters, value or false if no match.
      */
-    public static function parse_config_file($file, $mode = false, $scannermode = INI_SCANNER_NORMAL) {
-        $result = parse_ini_string(preg_replace('/^#.*\\n/m', '', @file_get_contents($file)), $mode, $scannermode);
+    public static function parse_config_file($file, $processsections = false, $scannermode = INI_SCANNER_NORMAL) {
+        $result = parse_ini_string(preg_replace('/^#.*\\n/m', '', @file_get_contents($file)), $processsections, $scannermode);
         if (!empty($result)) {
             return $result;
         } else {
@@ -213,15 +212,13 @@ class utils {
     /**
      * Get default host and gateway addresses.
      *
-     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
-     *
      * @return associative array of parameters, value or false if ethernet not connected.
      */
     public static function get_ethernet_addresses() {
         $iface = self::get_ethernet_interface_name();
 
         $command = "ip route show 0.0.0.0/0 dev " . $iface;
-        if ( $ethernetaddresses = exec($command, $out) ) {
+        if ( $ethernetaddresses = exec($command) ) {
             $array = explode(' ', $ethernetaddresses);
             return array(
                 'host' => $array[6],
@@ -248,14 +245,12 @@ class utils {
     /**
      * Find unallocated space on SD card.
      *
-     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
-     *
      * @return float value if unallocated space, in MB.
      */
     public static function unallocated_free_space() {
         // @codingStandardsIgnoreLine
         $command = "sudo parted /dev/mmcblk0 unit MB print free | tail -n2 | grep 'Free Space' | awk '{print $3}' | sed -e 's/MB$//'";
-        $unallocatedfreespace = exec($command, $out);
+        $unallocatedfreespace = exec($command);
         return (float)$unallocatedfreespace;
     }
 
@@ -293,8 +288,6 @@ class utils {
      * | H |  19  | Soft temperature limit has occurred |
      * +---+------+-------------------------------------+
      *
-     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
-     *
      * @return associative array of parameters, value or false if unsupported hardware.
      */
     public static function get_throttled_state() {
@@ -302,7 +295,7 @@ class utils {
 
         $command = "sudo vcgencmd get_throttled | awk -F'=' '{print $2}'";
         // Get bit pattern from device.
-        if ( $throttledstate = exec($command, $out) ) {
+        if ( $throttledstate = exec($command) ) {
             $throttledstate = hexdec($throttledstate);
 
             // Get raw values using bitwise operations.

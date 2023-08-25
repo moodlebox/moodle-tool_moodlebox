@@ -87,14 +87,12 @@ class changepassword_form extends moodleform {
     /**
      * Validate the form.
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     *
      * @param array $data submitted data
      * @param array $files not used
      * @return array errors
      */
     public function validation($data, $files) {
-        $errors = array();
+        $errors = parent::validation($data, $files);
 
         if ($data['newpassword1'] <> $data['newpassword2']) {
             $errors['newpassword1'] = get_string('passwordsdiffer');
@@ -119,15 +117,13 @@ class wifisettings_form extends moodleform {
     /**
      * Define the form.
      *
-     * @SuppressWarnings(PHPMD.LongVariable)
-     *
      */
     public function definition() {
-        global $currentwifissid;
-        global $currentwifissidhidden;
-        global $currentwifichannel;
-        global $currentwifipassword;
-        global $currentwificountry;
+        global $currentssid;
+        global $currentssidhidden;
+        global $currentapchannel;
+        global $currentappassword;
+        global $currentregcountry;
         global $staticipaddress;
 
         $mform = $this->_form;
@@ -136,18 +132,18 @@ class wifisettings_form extends moodleform {
         $mform->addElement('text', 'wifissid', get_string('wifissid', 'tool_moodlebox'));
         $mform->addRule('wifissid', get_string('required'), 'required', null, 'client');
         $mform->setType('wifissid', PARAM_RAW_TRIMMED);
-        $mform->setDefault('wifissid', $currentwifissid);
+        $mform->setDefault('wifissid', $currentssid);
         $mform->addHelpButton('wifissid', 'wifissid', 'tool_moodlebox');
 
         // SSID hiding setting.
         $mform->addElement('checkbox', 'wifissidhiddenstate', get_string('wifissidhiddenstate', 'tool_moodlebox'),
             ' ' . get_string('wifissidhidden', 'tool_moodlebox'));
-        $mform->setDefault('wifissidhiddenstate', $currentwifissidhidden ? 1 : 0);
+        $mform->setDefault('wifissidhiddenstate', $currentssidhidden ? 1 : 0);
         $mform->setType('wifissidhiddenstate', PARAM_INT);
         $mform->addHelpButton('wifissidhiddenstate', 'wifissidhiddenstate', 'tool_moodlebox');
 
         // Channel setting.
-        if ($currentwificountry == 'US' || $currentwificountry == 'CA') {
+        if ($currentregcountry == 'US' || $currentregcountry == 'CA') {
             $wifichannelrange = range(1, 11);
         } else {
             $wifichannelrange = range(1, 13);
@@ -156,7 +152,7 @@ class wifisettings_form extends moodleform {
                 array_combine($wifichannelrange, $wifichannelrange));
         $mform->addRule('wifichannel', get_string('required'), 'required', null, 'client');
         $mform->setType('wifichannel', PARAM_INT);
-        $mform->setDefault('wifichannel', $currentwifichannel);
+        $mform->setDefault('wifichannel', $currentapchannel);
         $mform->addHelpButton('wifichannel', 'wifichannel', 'tool_moodlebox');
 
         // Regulatory country setting.
@@ -164,13 +160,13 @@ class wifisettings_form extends moodleform {
                 get_string_manager()->get_list_of_countries(true));
         $mform->addRule('wificountry', get_string('required'), 'required', null, 'client');
         $mform->setType('wificountry', PARAM_RAW);
-        $mform->setDefault('wificountry', $currentwificountry);
+        $mform->setDefault('wificountry', $currentregcountry);
         $mform->addHelpButton('wificountry', 'wificountry', 'tool_moodlebox');
 
         // Password protection setting.
         $mform->addElement('checkbox', 'wifipasswordon', get_string('wifipasswordon', 'tool_moodlebox'),
             ' ' . get_string('passwordprotected', 'tool_moodlebox'));
-        $mform->setDefault('wifipasswordon', ($currentwifipassword == null) ? 0 : 1);
+        $mform->setDefault('wifipasswordon', ($currentappassword == null) ? 0 : 1);
         $mform->setType('wifipasswordon', PARAM_INT);
         $mform->addHelpButton('wifipasswordon', 'wifipasswordon', 'tool_moodlebox');
 
@@ -178,7 +174,7 @@ class wifisettings_form extends moodleform {
         $mform->addElement('text', 'wifipassword', get_string('wifipassword', 'tool_moodlebox'));
         $mform->disabledIf('wifipassword', 'wifipasswordon');
         $mform->setType('wifipassword', PARAM_RAW_TRIMMED);
-        $mform->setDefault('wifipassword', ($currentwifipassword == null) ? 'moodlebox' : $currentwifipassword);
+        $mform->setDefault('wifipassword', ($currentappassword == null) ? 'moodlebox' : $currentappassword);
         $mform->addHelpButton('wifipassword', 'wifipassword', 'tool_moodlebox');
 
         // IP setting.
@@ -194,14 +190,12 @@ class wifisettings_form extends moodleform {
     /**
      * Validate the form.
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     *
      * @param array $data submitted data
      * @param array $files not used
      * @return array errors
      */
     public function validation($data, $files) {
-        $errors = array();
+        $errors = parent::validation($data, $files);
 
         // SSID must have a length between 1 and 32 bytes.
         if (mb_strlen($data['wifissid'], '8bit') > 32 || mb_strlen($data['wifissid'], '8bit') < 1) {
