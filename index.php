@@ -172,25 +172,25 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     // Get current Wi-Fi SSID, channel and password.
     if ( $wifiinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/hostapd/hostapd.conf', false, INI_SCANNER_RAW) ) {
-        $currentwifichannel = $wifiinfo['channel'];
+        $currentapchannel = $wifiinfo['channel'];
         if ( array_key_exists('ssid', $wifiinfo) ) {
-            $currentwifissid = $wifiinfo['ssid'];
+            $currentssid = $wifiinfo['ssid'];
         } else {
-            $currentwifissid = $wifiinfo['ssid2'];
-            // Convert $currentwifissid from hex {@link https://stackoverflow.com/a/46344675}.
-            $currentwifissid = pack("H*", $currentwifissid);
+            $currentssid = $wifiinfo['ssid2'];
+            // Convert $currentssid from hex {@link https://stackoverflow.com/a/46344675}.
+            $currentssid = pack("H*", $currentssid);
         }
-        $currentwifipassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
-        $currentwificountry = $wifiinfo['country_code'];
-        if ( $currentwifissidhiddenstate = array_key_exists('ignore_broadcast_ssid', $wifiinfo) ) {
-            $currentwifissidhiddenstate = $wifiinfo['ignore_broadcast_ssid'];
+        $currentappassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
+        $currentregcountry = $wifiinfo['country_code'];
+        if ( $currentssidstate = array_key_exists('ignore_broadcast_ssid', $wifiinfo) ) {
+            $currentssidstate = $wifiinfo['ignore_broadcast_ssid'];
         } else {
-            $currentwifissidhiddenstate = '0';
+            $currentssidstate = '0';
         }
-        if ( $currentwifissidhiddenstate === '0') { // SSID is visible.
-            $currentwifissidhiddenstate = 0;
+        if ( $currentssidstate === '0') { // SSID is visible.
+            $currentssidstate = 0;
         } else { // SSID is hidden.
-            $currentwifissidhiddenstate = 1;
+            $currentssidstate = 1;
         }
     }
 
@@ -218,13 +218,13 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // Wireless info.
     if ($wifiinfo) {
         $table->add_data(array(get_string('wifisettings', 'tool_moodlebox'), ''));
-        $table->add_data(array(get_string('wifissid', 'tool_moodlebox'), $currentwifissid), 'subinfo');
+        $table->add_data(array(get_string('wifissid', 'tool_moodlebox'), $currentssid), 'subinfo');
         $table->add_data(array(get_string('wifissidhiddenstate', 'tool_moodlebox'),
-                ($currentwifissidhiddenstate == 0) ?
+                ($currentssidstate == 0) ?
                     get_string('visible', 'tool_moodlebox') : get_string('hidden', 'tool_moodlebox')), 'subinfo');
-        $table->add_data(array(get_string('wifichannel', 'tool_moodlebox'), $currentwifichannel), 'subinfo');
-        $table->add_data(array(get_string('wificountry', 'tool_moodlebox'), $currentwificountry), 'subinfo');
-        $table->add_data(array(get_string('wifipassword', 'tool_moodlebox'), $currentwifipassword), 'subinfo');
+        $table->add_data(array(get_string('wifichannel', 'tool_moodlebox'), $currentapchannel), 'subinfo');
+        $table->add_data(array(get_string('wificountry', 'tool_moodlebox'), $currentregcountry), 'subinfo');
+        $table->add_data(array(get_string('wifipassword', 'tool_moodlebox'), $currentappassword), 'subinfo');
         $table->add_data(array(get_string('staticipaddress', 'tool_moodlebox'), $staticipaddress), 'subinfo');
     }
 
@@ -302,15 +302,15 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         get_string('datetimesetting', 'tool_moodlebox'), 'moodleboxdatetimesection');
     echo $OUTPUT->box_start('generalbox');
 
-    $datetimetriggerfilename = '.set-server-datetime';
+    $datetimetriggerfile = '.set-server-datetime';
 
-    if (file_exists($datetimetriggerfilename)) {
+    if (file_exists($datetimetriggerfile)) {
         $datetimesetform = new datetimeset_form();
 
         if ($data = $datetimesetform->get_data()) {
             if (!empty($data->submitbutton)) {
                 $datecommand = "date +%s -s @$data->currentdatetime";
-                file_put_contents($datetimetriggerfilename, "#!/bin/sh\n" . $datecommand . "\nexit 0\n");
+                file_put_contents($datetimetriggerfile, "#!/bin/sh\n" . $datecommand . "\nexit 0\n");
                 \core\notification::warning(get_string('datetimemessage', 'tool_moodlebox'));
             }
         }
@@ -328,14 +328,14 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $OUTPUT->help_icon('passwordsetting', 'tool_moodlebox'), 'moodleboxpasswordsection');
     echo $OUTPUT->box_start('generalbox');
 
-    $changepasswordtriggerfilename = '.newpassword';
+    $passwordtriggerfile = '.newpassword';
 
-    if (file_exists($changepasswordtriggerfilename)) {
+    if (file_exists($passwordtriggerfile)) {
         $changepasswordform = new changepassword_form();
 
         if ($data = $changepasswordform->get_data()) {
             if (!empty($data->submitbutton)) {
-                file_put_contents($changepasswordtriggerfilename, $data->newpassword1);
+                file_put_contents($passwordtriggerfile, $data->newpassword1);
                 \core\notification::warning(get_string('changepasswordmessage', 'tool_moodlebox'));
             }
         }
@@ -352,9 +352,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         get_string('wifisettings', 'tool_moodlebox'), 'moodleboxwifisection');
     echo $OUTPUT->box_start('generalbox');
 
-    $wifisettingstriggerfilename = '.wifisettings';
+    $aptriggerfile = '.wifisettings';
 
-    if (file_exists($wifisettingstriggerfilename)) {
+    if (file_exists($aptriggerfile)) {
         $wifisettingsform = new wifisettings_form();
 
         if ($data = $wifisettingsform->get_data()) {
@@ -373,7 +373,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 }
                 // Convert $data->wifissid to hex {@link https://stackoverflow.com/a/46344675}.
                 $data->wifissid = implode(unpack("H*", $data->wifissid));
-                file_put_contents($wifisettingstriggerfilename,
+                file_put_contents($aptriggerfile,
                                   "channel=" . $data->wifichannel . "\n" .
                                   "country=" . $data->wificountry . "\n" .
                                   "password=" . $data->wifipassword . "\n" .
@@ -402,14 +402,14 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 $OUTPUT->help_icon('resizepartition', 'tool_moodlebox'), 'moodleboxresizepartitionsection');
         echo $OUTPUT->box_start('generalbox');
 
-        $resizepartitiontriggerfilename = '.resize-partition';
+        $resizetriggerfile = '.resize-partition';
 
-        if (file_exists($resizepartitiontriggerfilename)) {
+        if (file_exists($resizetriggerfile)) {
             $resizepartitionform = new resizepartition_form(null, null, 'post', '', array('id' => 'formresizepartition'));
 
             if ($data = $resizepartitionform->get_data()) {
                 if (!empty($data->resizepartitionbutton)) {
-                    file_put_contents($resizepartitiontriggerfilename, 'Resize partition');
+                    file_put_contents($resizetriggerfile, 'Resize partition');
                     \core\notification::warning(get_string('resizepartitionmessage', 'tool_moodlebox'));
                 }
             }
@@ -428,19 +428,19 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             $OUTPUT->help_icon('restartstop', 'tool_moodlebox'), 'moodleboxrestartstopsection');
     echo $OUTPUT->box_start('generalbox');
 
-    $reboottriggerfilename = '.reboot-server';
-    $shutdowntriggerfilename = '.shutdown-server';
+    $reboottriggerfile = '.reboot-server';
+    $shutdowntriggerfile = '.shutdown-server';
 
-    if (file_exists($reboottriggerfilename) && file_exists($shutdowntriggerfilename)) {
+    if (file_exists($reboottriggerfile) && file_exists($shutdowntriggerfile)) {
         $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));
 
         if ($data = $restartshutdownform->get_data()) {
             if (!empty($data->restartbutton)) {
-                file_put_contents($reboottriggerfilename, 'reboot');
+                file_put_contents($reboottriggerfile, 'reboot');
                 \core\notification::warning(get_string('restartmessage', 'tool_moodlebox'));
             }
             if (!empty($data->shutdownbutton)) {
-                file_put_contents($shutdowntriggerfilename, 'shutdown');
+                file_put_contents($shutdowntriggerfile, 'shutdown');
                 \core\notification::warning(get_string('shutdownmessage', 'tool_moodlebox'));
             }
         }

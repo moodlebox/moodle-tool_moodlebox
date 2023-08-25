@@ -55,13 +55,13 @@ function tool_moodlebox_before_footer() {
             get_config('tool_moodlebox', 'datetimebuttonsinfooter')) {
 
         // Display date and time setting buttons.
-        $datetimetriggerfilename = $thisplugindir . '.set-server-datetime';
+        $datetimetriggerfile = $thisplugindir . '.set-server-datetime';
         $datetimesetform = new datetimeset_form();
 
         if ($data = $datetimesetform->get_data()) {
             if (!empty($data->submitbutton)) {
                 $datecommand = "date +%s -s @$data->currentdatetime";
-                file_put_contents($datetimetriggerfilename, "#!/bin/sh\n" . $datecommand . "\nexit 0\n");
+                file_put_contents($datetimetriggerfile, "#!/bin/sh\n" . $datecommand . "\nexit 0\n");
                 \core\notification::warning(get_string('datetimemessage', 'tool_moodlebox'));
             }
         }
@@ -74,17 +74,17 @@ function tool_moodlebox_before_footer() {
             get_config('tool_moodlebox', 'restartshutdownbuttonsinfooter')) {
 
         // Display restart and shutdown buttons.
-        $reboottriggerfilename = $thisplugindir . '.reboot-server';
-        $shutdowntriggerfilename = $thisplugindir . '.shutdown-server';
+        $reboottriggerfile = $thisplugindir . '.reboot-server';
+        $shutdowntriggerfile = $thisplugindir . '.shutdown-server';
         $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));
 
         if ($data = $restartshutdownform->get_data()) {
             if (!empty($data->restartbutton)) {
-                file_put_contents($reboottriggerfilename, 'reboot');
+                file_put_contents($reboottriggerfile, 'reboot');
                 \core\notification::warning(get_string('restartmessage', 'tool_moodlebox'));
             }
             if (!empty($data->shutdownbutton)) {
-                file_put_contents($shutdowntriggerfilename, 'shutdown');
+                file_put_contents($shutdowntriggerfile, 'shutdown');
                 \core\notification::warning(get_string('shutdownmessage', 'tool_moodlebox'));
             }
         }
