@@ -298,7 +298,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->add_data(array(get_string('sdcardavailablespace', 'tool_moodlebox'), display_size($sdcardfreespace) .
             ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)'), 'subinfo');
     $table->add_data(array(get_string('cpuload', 'tool_moodlebox'),
-            $cpuload[0] . ', ' . $cpuload[1] . ', ' . $cpuload[2]), 'subinfo');
+            round($cpuload[0], 3) . ', ' . round($cpuload[1], 3) . ', ' . round($cpuload[2], 3)), 'subinfo');
     if ( $platform !== 'unknownmodel' ) {
         $table->add_data(array(get_string('cputemperature', 'tool_moodlebox'), $cputemperature), 'subinfo');
         $table->add_data(array(get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency), 'subinfo');
