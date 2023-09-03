@@ -72,15 +72,14 @@ jobs:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
 
-      # For testing purposes at this stage, just assume each command succeeds.
       - name: PHP Lint
         if: ${{ always() }}
-        run: moodle-plugin-ci phplint || true
+        run: moodle-plugin-ci phplint
 
       - name: PHP Copy/Paste Detector
         continue-on-error: true # This step will show errors but will not fail
         if: ${{ always() }}
-        run: moodle-plugin-ci phpcpd || true
+        run: moodle-plugin-ci phpcpd
 
       - name: PHP Mess Detector
         continue-on-error: true # This step will show errors but will not fail
@@ -89,32 +88,33 @@ jobs:
 
       - name: Moodle Code Checker
         if: ${{ always() }}
-        run: moodle-plugin-ci phpcs --max-warnings 0 || true
+        run: moodle-plugin-ci phpcs --max-warnings 0
 
       - name: Moodle PHPDoc Checker
         if: ${{ always() }}
-        run: moodle-plugin-ci phpdoc --max-warnings 0 || true
+        run: moodle-plugin-ci phpdoc --max-warnings 0
 
       - name: Validating
         if: ${{ always() }}
-        run: moodle-plugin-ci validate || true
+        run: moodle-plugin-ci validate
 
       - name: Check upgrade savepoints
         if: ${{ always() }}
-        run: moodle-plugin-ci savepoints || true
+        run: moodle-plugin-ci savepoints
 
       - name: Mustache Lint
         if: ${{ always() }}
-        run: moodle-plugin-ci mustache || true
+        run: moodle-plugin-ci mustache
 
+      # At this stage, assume this succeeds.
       - name: Grunt
         if: ${{ always() }}
         run: moodle-plugin-ci grunt --max-lint-warnings 0 || true
 
       - name: PHPUnit tests
         if: ${{ always() }}
-        run: moodle-plugin-ci phpunit --fail-on-warning || true
+        run: moodle-plugin-ci phpunit --fail-on-warning
 
       - name: Behat features
         if: ${{ always() }}
-        run: moodle-plugin-ci behat --profile chrome || true
+        run: moodle-plugin-ci behat --profile chrome
