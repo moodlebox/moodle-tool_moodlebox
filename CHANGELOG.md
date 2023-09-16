@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.16.2, 2023-09-16
+
+### Fixed
+- CPU load formatting problem in MoodleBox dashboard (issue #119).
+- Multiple issues with PHPDocs in plugin validation (issue #120).
+
 ## Version 2.16.1, 2023-08-24
 
 ### Changed
