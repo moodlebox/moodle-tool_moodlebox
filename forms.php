@@ -43,13 +43,13 @@ class datetimeset_form extends moodleform {
     public function definition() {
         $mform = $this->_form;
         $mform->addElement('date_time_selector', 'currentdatetime', get_string('datetime', 'tool_moodlebox'),
-                            array(
+                            [
                                 'startyear' => date("Y") - 2,
                                 'stopyear'  => date("Y") + 2,
                                 'timezone'  => 99,
                                 'step'      => 1,
-                                'optional'  => true)
-                            );
+                                'optional'  => true,
+                            ]);
         $mform->addHelpButton('currentdatetime', 'datetime', 'tool_moodlebox');
 
         $this->add_action_buttons(false, get_string('datetimeset', 'tool_moodlebox'));
@@ -233,10 +233,10 @@ class resizepartition_form extends moodleform {
      */
     public function definition() {
         $mform = $this->_form;
-        $buttonarray = array();
+        $buttonarray = [];
         $buttonarray[] = & $mform->createElement('submit', 'resizepartitionbutton',
                                                   get_string('resizepartition', 'tool_moodlebox'));
-        $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
+        $mform->addGroup($buttonarray, 'buttonar', '', [' '], false);
         $mform->closeHeaderBefore('buttonar');
     }
 }
@@ -257,12 +257,12 @@ class restartshutdown_form extends moodleform {
      */
     public function definition() {
         $mform = $this->_form;
-        $buttonarray = array();
+        $buttonarray = [];
         $buttonarray[] = & $mform->createElement('submit', 'restartbutton',
                                                   get_string('restart', 'tool_moodlebox'));
         $buttonarray[] = & $mform->createElement('submit', 'shutdownbutton',
                                                   get_string('shutdown', 'tool_moodlebox'));
-        $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
+        $mform->addGroup($buttonarray, 'buttonar', '', [' '], false);
         $mform->closeHeaderBefore('buttonar');
     }
 }

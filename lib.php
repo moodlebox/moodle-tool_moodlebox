@@ -66,8 +66,8 @@ function tool_moodlebox_before_footer() {
             }
         }
 
-        $output .= html_writer::empty_tag("hr", array('id' => 'datetimesetbuttonsspacer'));
-        $output .= html_writer::div($datetimesetform->render(), "", array('id' => 'datetimesetbuttons'));
+        $output .= html_writer::empty_tag("hr", ['id' => 'datetimesetbuttonsspacer']);
+        $output .= html_writer::div($datetimesetform->render(), "", ['id' => 'datetimesetbuttons']);
     }
 
     if (has_capability('tool/moodlebox:viewbuttonsinfooter', context_system::instance()) &&
@@ -76,7 +76,7 @@ function tool_moodlebox_before_footer() {
         // Display restart and shutdown buttons.
         $reboottriggerfile = $thisplugindir . '.reboot-server';
         $shutdowntriggerfile = $thisplugindir . '.shutdown-server';
-        $restartshutdownform = new restartshutdown_form(null, null, 'post', '', array('id' => 'formrestartstop'));
+        $restartshutdownform = new restartshutdown_form(null, null, 'post', '', ['id' => 'formrestartstop']);
 
         if ($data = $restartshutdownform->get_data()) {
             if (!empty($data->restartbutton)) {
@@ -89,8 +89,8 @@ function tool_moodlebox_before_footer() {
             }
         }
 
-        $output .= html_writer::empty_tag("hr", array('id' => 'footerbuttonsspacer'));
-        $output .= html_writer::div($restartshutdownform->render(), "", array('id' => 'footerbuttons'));
+        $output .= html_writer::empty_tag("hr", ['id' => 'footerbuttonsspacer']);
+        $output .= html_writer::div($restartshutdownform->render(), "", ['id' => 'footerbuttons']);
 
     }
 
