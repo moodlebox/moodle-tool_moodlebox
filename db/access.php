@@ -25,16 +25,16 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
+$capabilities = [
 
     /* allows the user to view the restart/shutdown buttons in the footer */
-    'tool/moodlebox:viewbuttonsinfooter' => array(
+    'tool/moodlebox:viewbuttonsinfooter' => [
         'riskbitmask' => RISK_CONFIG | RISK_DATALOSS,
         'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
+        'archetypes' => [
             'manager' => CAP_ALLOW,
-        ),
-    ),
+        ],
+    ],
 
-);
+];

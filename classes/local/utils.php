@@ -93,13 +93,13 @@ class utils {
         $revisionnumber = hexdec($revisioncode);
 
         // Define arrays of various hardware parameter values.
-        $memorysizes = array('256MB', '512MB', '1GB', '2GB', '4GB', '8GB');
-        $models = array('A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
+        $memorysizes = ['256MB', '512MB', '1GB', '2GB', '4GB', '8GB'];
+        $models = ['A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
                 '3B', 'Zero', 'CM3', 'Unknown', 'ZeroW', '3B+', '3A+', 'Internal use',
-                'CM3+', '4B', 'Zero2W', '400', 'CM4', 'CM4S');
-        $processors = array('BCM2835', 'BCM2836', 'BCM2837', 'BCM2711');
-        $manufacturers = array('Sony UK', 'Egoman', 'Embest', 'Sony Japan',
-                'Embest', 'Stadium');
+                'CM3+', '4B', 'Zero2W', '400', 'CM4', 'CM4S'];
+        $processors = ['BCM2835', 'BCM2836', 'BCM2837', 'BCM2711'];
+        $manufacturers = ['Sony UK', 'Egoman', 'Embest', 'Sony Japan',
+                'Embest', 'Stadium'];
 
         // Get raw values of hardware parameters using bitwise operations.
         $rawrevision = ($revisionnumber & 0xf);
@@ -118,14 +118,14 @@ class utils {
             $manufacturer = $manufacturers[$rawmanufacturer];
             $memorysize = $memorysizes[$rawmemory];
 
-            return array(
+            return [
                 'revisioncode' => $revisioncode,
                 'revision' => $revision,
                 'model' => $model,
                 'processor' => $processor,
                 'manufacturer' => $manufacturer,
                 'memory' => $memorysize
-            );
+            ];
         } else {
             return false;
         }
@@ -144,10 +144,10 @@ class utils {
             $moodleboxinfo = file($file);
             if ( preg_match_all('/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
                     $moodleboxinfo[0], $moodleboxinfomatch) > 0 ) {
-                return array(
+                return [
                     'version' => $moodleboxinfomatch[1][0],
                     'date' => $moodleboxinfomatch[4][0],
-                );
+                ];
                 return $moodleboxinfo;
             }
         } else {
@@ -220,10 +220,10 @@ class utils {
         $command = "ip route show 0.0.0.0/0 dev " . $iface;
         if ( $ethernetaddresses = exec($command) ) {
             $array = explode(' ', $ethernetaddresses);
-            return array(
+            return [
                 'host' => $array[6],
                 'gateway' => $array[2]
-            );
+            ];
         } else {
             return false;
         }
@@ -308,7 +308,7 @@ class utils {
             $throttlingoccurred = ($throttledstate & 0x40000) >> 18;
             $templimitoccurred = ($throttledstate & 0x80000) >> 19;
 
-            return array(
+            return [
                 'undervoltagedetected' => ($undervoltagedetected == 1),
                 'armfrequencycapped' => ($armfreqcapped == 1),
                 'currentlythrottled' => ($currentlythrottled == 1),
@@ -317,7 +317,7 @@ class utils {
                 'armfrequencycappedoccurred' => ($armfreqwascapped == 1),
                 'throttlingoccurred' => ($throttlingoccurred == 1),
                 'templimitoccurred' => ($templimitoccurred == 1),
-            );
+            ];
         } else {
             return false;
         }
@@ -366,7 +366,7 @@ class utils {
             }
         }
 
-        $surveydata = array(
+        $surveydata = [
             'deviceid' => $deviceid,
             'osrelease' => self::parse_config_file('/etc/os-release')['PRETTY_NAME'],
             'kernel' => php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m'),
@@ -375,7 +375,7 @@ class utils {
             'pluginversion' => $plugin->release . ' (' . $plugin->version . ')',
             'sdsize' => disk_total_space('/'),
             'timestamp' => time(),
-        );
+        ];
 
         return $surveydata;
     }
