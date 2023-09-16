@@ -48,7 +48,7 @@ class datetimeset_form extends moodleform {
                                 'stopyear'  => date("Y") + 2,
                                 'timezone'  => 99,
                                 'step'      => 1,
-                                'optional'  => true)
+                                'optional'  => true,
                             ];
         $mform->addHelpButton('currentdatetime', 'datetime', 'tool_moodlebox');
 
