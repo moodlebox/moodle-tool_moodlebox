@@ -124,7 +124,7 @@ class utils {
                 'model' => $model,
                 'processor' => $processor,
                 'manufacturer' => $manufacturer,
-                'memory' => $memorysize
+                'memory' => $memorysize,
             ];
         } else {
             return false;
@@ -222,7 +222,7 @@ class utils {
             $array = explode(' ', $ethernetaddresses);
             return [
                 'host' => $array[6],
-                'gateway' => $array[2]
+                'gateway' => $array[2],
             ];
         } else {
             return false;
