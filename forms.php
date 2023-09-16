@@ -49,7 +49,7 @@ class datetimeset_form extends moodleform {
                                 'timezone'  => 99,
                                 'step'      => 1,
                                 'optional'  => true,
-                            ];
+                            ]);
         $mform->addHelpButton('currentdatetime', 'datetime', 'tool_moodlebox');
 
         $this->add_action_buttons(false, get_string('datetimeset', 'tool_moodlebox'));
