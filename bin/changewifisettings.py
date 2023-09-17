@@ -42,7 +42,10 @@ settings_file = os.path.join(os.path.dirname(this_dir), '.wifisettings')
 # Path of various config files.
 hostapd_conf_file = "/etc/hostapd/hostapd.conf"
 dhcpcd_conf_file = "/etc/dhcpcd.conf"
-dnsmasq_conf_file = "/etc/dnsmasq.d/uap0.conf"
+if os.path.exists("/etc/dnsmasq.d/uap0.conf"):
+    dnsmasq_conf_file = "/etc/dnsmasq.d/uap0.conf"
+else:
+    dnsmasq_conf_file = "/etc/dnsmasq.conf"
 hosts_file = "/etc/hosts"
 nodogsplash_conf_file = "/etc/nodogsplash/nodogsplash.conf"
 dnsmasq_lease_file = "/var/lib/misc/dnsmasq.leases"
