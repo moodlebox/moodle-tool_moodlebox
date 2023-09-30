@@ -104,6 +104,8 @@ $string['rpi4onegb'] = 'Raspberry Pi 4B (1GB RAM)';
 $string['rpi4twogb'] = 'Raspberry Pi 4B (2GB RAM)';
 $string['rpi4fourgb'] = 'Raspberry Pi 4B (4GB RAM)';
 $string['rpi4eightgb'] = 'Raspberry Pi 4B (8GB RAM)';
+$string['rpi5fourgb'] = 'Raspberry Pi 5 (4GB RAM)';
+$string['rpi5eightgb'] = 'Raspberry Pi 5 (8GB RAM)';
 $string['rpiosversion'] = 'Raspberry Pi OS version';
 $string['rpizero2w'] = 'Raspberry Pi Zero 2 W';
 $string['rpizerow'] = 'Raspberry Pi Zero W';
@@ -121,7 +123,7 @@ $string['staticipaddressinvalid'] = 'This IP address is invalid. It must be a va
 $string['systeminfo'] = 'System information';
 $string['undervoltagedetected'] = '<p><b>Warning: under-voltage detected!</b> The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change your power supply</b>, giving preference to the official <a href="https://www.raspberrypi.com/products/micro-usb-power-supply/" target="_blank">Raspberry Pi 12.5W Micro USB Power Supply</a> for Raspberry Pi 3A+, 3B, 3B+, Zero W and Zero 2 W, or <a href="https://www.raspberrypi.com/products/type-c-power-supply/" target="_blank">Raspberry Pi 15W USB-C Power Supply</a> for Raspberry Pi 4B.</p>';
 $string['undervoltageoccurred'] = '<p>An under-voltage situation has occurred since last boot of the MoodleBox. This could indicate the power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change your power supply</b>, giving preference to the official <a href="https://www.raspberrypi.com/products/micro-usb-power-supply/" target="_blank">Raspberry Pi 12.5W Micro USB Power Supply</a> for Raspberry Pi 3A+, 3B, 3B+, Zero W and Zero 2 W, or <a href="https://www.raspberrypi.com/products/type-c-power-supply/" target="_blank">Raspberry Pi 15W USB-C Power Supply</a> for Raspberry Pi 4B.</p>';
-$string['unknownmodel'] = 'Unknown Raspberry Pi model';
+$string['unknownmodel'] = 'Unknown or unsupported Raspberry Pi model';
 $string['unsupportedhardware'] = 'Unsupported server hardware detected! This plugin does only work on Raspberry Pi';
 $string['uptime'] = 'System uptime';
 $string['version'] = 'MoodleBox version';
