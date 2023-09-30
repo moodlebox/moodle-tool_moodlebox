@@ -65,7 +65,10 @@ if is_networkmanager():
     dnsmasq_conf_file = "/etc/NetworkManager/dnsmasq-shared.d/00-dhcp.conf"
 else:
     dnsmasq_lease_file = "/var/lib/misc/dnsmasq.leases"
-    dnsmasq_conf_file = "/etc/dnsmasq.d/uap0.conf"
+    if os.path.exists("/etc/dnsmasq.d/uap0.conf"):
+        dnsmasq_conf_file = "/etc/dnsmasq.d/uap0.conf"
+    else:
+        dnsmasq_conf_file = "/etc/dnsmasq.conf"
 hostapd_conf_file = "/etc/hostapd/hostapd.conf"
 dhcpcd_conf_file = "/etc/dhcpcd.conf"
 
