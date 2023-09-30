@@ -120,7 +120,7 @@ class wifisettings_form extends moodleform {
      */
     public function definition() {
         global $currentssid;
-        global $currentssidstate;
+        global $currentssidhidden;
         global $currentapchannel;
         global $currentappassword;
         global $currentregcountry;
@@ -138,7 +138,7 @@ class wifisettings_form extends moodleform {
         // SSID hiding setting.
         $mform->addElement('checkbox', 'wifissidhiddenstate', get_string('wifissidhiddenstate', 'tool_moodlebox'),
             ' ' . get_string('wifissidhidden', 'tool_moodlebox'));
-        $mform->setDefault('wifissidhiddenstate', ($currentssidstate == 0) ? 0 : 1);
+        $mform->setDefault('wifissidhiddenstate', $currentssidhidden ? 1 : 0);
         $mform->setType('wifissidhiddenstate', PARAM_INT);
         $mform->addHelpButton('wifissidhiddenstate', 'wifissidhiddenstate', 'tool_moodlebox');
 

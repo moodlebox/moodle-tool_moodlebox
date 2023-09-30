@@ -31,6 +31,8 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+putenv('LC_ALL=en_GB.utf-8');
+
 require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
 require_once($CFG->dirroot.'/admin/tool/moodlebox/forms.php');
 require_once($CFG->libdir.'/moodlelib.php');
@@ -112,11 +114,23 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $rpiosversion = $releaseinfo['PRETTY_NAME'];
     }
 
+    // Get MoodleBox image version.
+    if ( $moodleboxinfo = \tool_moodlebox\local\utils::get_moodlebox_info() ) {
+        $moodleboxversion = $moodleboxinfo['version'];
+    }
+
+    // We using NetworkManager for network management if MoodleBox version is greater than '4.5.0'.
+    $networkmanager = version_compare($moodleboxversion, '4.5.0', '>');
+
     // Get CPU load.
     $cpuload = sys_getloadavg();
 
     // Get DHCP leases.
-    $moodleboxleasesfile = '/var/lib/misc/dnsmasq.leases';
+    if ($networkmanager) {
+        $moodleboxleasesfile = '/tmp/dnsmasq.leases';
+    } else {
+        $moodleboxleasesfile = '/var/lib/misc/dnsmasq.leases';
+    }
     if ( file_exists($moodleboxleasesfile) ) {
         if ( filesize($moodleboxleasesfile) > 0 ) {
             $leases = explode(PHP_EOL, trim(file_get_contents($moodleboxleasesfile)));
@@ -163,34 +177,47 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // Get plugin version.
     $moodleboxpluginversion = $plugin->release . ' (' . $plugin->version . ')';
 
-    // Get MoodleBox image version and date.
-    if ( $moodleboxinfo = \tool_moodlebox\local\utils::get_moodlebox_info() ) {
-        $moodleboxinfo = $moodleboxinfo['version'] . ' (' . $moodleboxinfo['date'] . ')';
-    } else {
-        $moodleboxinfo = get_string('infofileerror', 'tool_moodlebox');
-    }
-
-    // Get current Wi-Fi SSID, channel and password.
-    if ( $wifiinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/hostapd/hostapd.conf', false, INI_SCANNER_RAW) ) {
-        $currentapchannel = $wifiinfo['channel'];
-        if ( array_key_exists('ssid', $wifiinfo) ) {
+    if ($networkmanager) {
+        // Get current wireless access point data with NetworkManager.
+        if ( $wifiinfo = exec('nmcli -g 802-11-wireless.mode con show WifiAP') ) {
+            $wifiinfodata = [];
+            $wifiinfokeys = ['channel', 'ssid', 'password', 'countrycode', 'hidden'];
+            $currentapchannel = exec('nmcli -g 802-11-wireless.channel con show WifiAP', $wifiinfodata);
+            $currentssid = exec('nmcli -g 802-11-wireless.ssid con show WifiAP', $wifiinfodata);
+            if (!$currentappassword = exec('sudo nmcli -s -g 802-11-wireless-security.psk con show WifiAP', $wifiinfodata)) {
+                array_push($wifiinfodata, null);
+            }
+            $currentregcountry = exec('iw reg get | awk \'/country/{print $2; exit}\' | cut -d\':\' -f1', $wifiinfodata);
+            $currentssidhidden = exec('nmcli -g 802-11-wireless.hidden con show WifiAP', $wifiinfodata);
+            $wifiinfo = array_combine(
+                $wifiinfokeys,
+                $wifiinfodata,
+            );
+            $currentapchannel = $wifiinfo['channel'];
             $currentssid = $wifiinfo['ssid'];
-        } else {
-            $currentssid = $wifiinfo['ssid2'];
-            // Convert $currentssid from hex {@link https://stackoverflow.com/a/46344675}.
-            $currentssid = pack("H*", $currentssid);
+            $currentappassword = $wifiinfo['password'];
+            $currentregcountry = $wifiinfo['countrycode'];
+            $currentssidhidden = ($wifiinfo['hidden'] === 'yes');
         }
-        $currentappassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
-        $currentregcountry = $wifiinfo['country_code'];
-        if ( $currentssidstate = array_key_exists('ignore_broadcast_ssid', $wifiinfo) ) {
-            $currentssidstate = $wifiinfo['ignore_broadcast_ssid'];
-        } else {
-            $currentssidstate = '0';
-        }
-        if ( $currentssidstate === '0') { // SSID is visible.
-            $currentssidstate = 0;
-        } else { // SSID is hidden.
-            $currentssidstate = 1;
+    } else {
+        // Get current Wi-Fi SSID, channel and password with dhcpcd and hostapd.
+        if ( $wifiinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/hostapd/hostapd.conf', false, INI_SCANNER_RAW) ) {
+            $currentapchannel = $wifiinfo['channel'];
+            if ( array_key_exists('ssid', $wifiinfo) ) {
+                $currentssid = $wifiinfo['ssid'];
+            } else {
+                $currentssid = $wifiinfo['ssid2'];
+                // Convert $currentssid from hex {@link https://stackoverflow.com/a/46344675}.
+                $currentssid = pack("H*", $currentssid);
+            }
+            $currentappassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
+            $currentregcountry = $wifiinfo['country_code'];
+            if ( $currentssidhidden = array_key_exists('ignore_broadcast_ssid', $wifiinfo) ) {
+                $currentssidhidden = $wifiinfo['ignore_broadcast_ssid'];
+            } else {
+                $currentssidhidden = '0';
+            }
+            $currentssidhidden = ($currentssidhidden === 1);
         }
     }
 
@@ -220,8 +247,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $table->add_data([get_string('wifisettings', 'tool_moodlebox'), '']);
         $table->add_data([get_string('wifissid', 'tool_moodlebox'), $currentssid], 'subinfo');
         $table->add_data([get_string('wifissidhiddenstate', 'tool_moodlebox'),
-                ($currentssidstate == 0) ?
-                    get_string('visible', 'tool_moodlebox') : get_string('hidden', 'tool_moodlebox')], 'subinfo');
+                ($currentssidhidden) ?
+                    get_string('hidden', 'tool_moodlebox') : get_string('visible', 'tool_moodlebox')], 'subinfo');
         $table->add_data([get_string('wifichannel', 'tool_moodlebox'), $currentapchannel], 'subinfo');
         $table->add_data([get_string('wificountry', 'tool_moodlebox'), $currentregcountry], 'subinfo');
         $table->add_data([get_string('wifipassword', 'tool_moodlebox'), $currentappassword], 'subinfo');
@@ -288,7 +315,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $table->add_data([get_string('rpiosversion', 'tool_moodlebox'), $rpiosversion], 'subinfo');
     }
     $table->add_data([get_string('kernelversion', 'tool_moodlebox'), $kernelversion], 'subinfo');
-    $table->add_data([get_string('version', 'tool_moodlebox'), $moodleboxinfo], 'subinfo');
+    $table->add_data([get_string('version', 'tool_moodlebox'),
+        $moodleboxinfo['version'] . ' (' . $moodleboxinfo['date'] . ')'], 'subinfo');
     $table->add_data([get_string('pluginversion', 'tool_moodlebox'), $moodleboxpluginversion], 'subinfo');
     $table->add_data([get_string('moodleversion'), $CFG->release], 'subinfo');
 
@@ -366,7 +394,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                     $data->wifipassword = null;
                 }
                 if (!isset($data->wifissidhiddenstate)) {
-                    $data->wifissidhiddenstate = 0;
+                    $data->wifissidhiddenstate = false;
                 }
                 if (!isset($data->staticipaddress)) {
                     $data->staticipaddress = $staticipaddress;
