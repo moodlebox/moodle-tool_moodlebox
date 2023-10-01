@@ -258,7 +258,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $table->add_data([get_string('wifissid', 'tool_moodlebox'), $currentssid], 'subinfo');
         $table->add_data([get_string('wifissidhiddenstate', 'tool_moodlebox'),
                 ($currentssidhidden) ?
-                    get_string('hidden', 'tool_moodlebox') : get_string('visible', 'tool_moodlebox'),], 'subinfo');
+                    get_string('hidden', 'tool_moodlebox') : get_string('visible', 'tool_moodlebox'), ], 'subinfo');
         $table->add_data([get_string('wifichannel', 'tool_moodlebox'), $currentapchannel], 'subinfo');
         $table->add_data([get_string('wificountry', 'tool_moodlebox'), $currentregcountry], 'subinfo');
         $table->add_data([get_string('wifipassword', 'tool_moodlebox'), $currentappassword], 'subinfo');
@@ -268,47 +268,47 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // DHCP client info.
     if ($dhcpclientnumber > 0) {
         $table->add_data([get_string('dhcpclients', 'tool_moodlebox') .
-                ' (' . get_string('dhcpclientnumber', 'tool_moodlebox') . ': ' . $dhcpclientnumber . ')', '',]);
+                ' (' . get_string('dhcpclientnumber', 'tool_moodlebox') . ': ' . $dhcpclientnumber . ')', '', ]);
         foreach ($leases as $row) {
             $item = explode(' ', $row);
             $table->add_data([get_string('dhcpclientinfo', 'tool_moodlebox'),
-                    $item[2] . ' (' . $item[3] . ')',], 'subinfo');
+                    $item[2] . ' (' . $item[3] . ')', ], 'subinfo');
         }
     }
     // Ethernet info.
     if ($ethernetaddresses) {
         $table->add_data([get_string('networkinterface', 'tool_moodlebox'), '']);
         $table->add_data([get_string('interfacename', 'tool_moodlebox'),
-                \tool_moodlebox\local\utils::get_ethernet_interface_name(),], 'subinfo');
+                \tool_moodlebox\local\utils::get_ethernet_interface_name(), ], 'subinfo');
         $table->add_data([get_string('dynamicipaddress', 'tool_moodlebox'), $ipaddress], 'subinfo');
         $table->add_data([get_string('defaultgateway', 'tool_moodlebox'), $defaultgatewayaddress], 'subinfo');
     } else {
         $table->add_data([get_string('networkinterface', 'tool_moodlebox'),
-                get_string('ethernetdisconnected', 'tool_moodlebox'),]);
+                get_string('ethernetdisconnected', 'tool_moodlebox'), ]);
     }
     // PiJuice info.
     if ($pijuicepackage) {
         $table->add_data([get_string('pijuiceinfo', 'tool_moodlebox'), '']);
         if ($pijuicestatus['status_error'] == "NO_ERROR") {
             $table->add_data([get_string('pijuicebatterychargelevel', 'tool_moodlebox'),
-                    $pijuicestatus['charge_level'] . '%',], 'subinfo');
+                    $pijuicestatus['charge_level'] . '%', ], 'subinfo');
             $table->add_data([get_string('pijuicebatterystatus', 'tool_moodlebox'),
-                    $pijuicestatus['battery_status'],], 'subinfo');
+                    $pijuicestatus['battery_status'], ], 'subinfo');
             $table->add_data([get_string('pijuicebatterytemp', 'tool_moodlebox'),
-                    $pijuicestatus['battery_temp'] . '°C',], 'subinfo');
+                    $pijuicestatus['battery_temp'] . '°C', ], 'subinfo');
         } else {
             $table->add_data([get_string('pijuicestatuserror', 'tool_moodlebox'),
-                    $pijuicestatus['status_error'],], 'subinfo');
+                    $pijuicestatus['status_error'], ], 'subinfo');
         }
         $table->add_data([get_string('pijuiceisfault', 'tool_moodlebox'),
-                $pijuicestatus['is_fault'],], 'subinfo');
+                $pijuicestatus['is_fault'], ], 'subinfo');
     }
     // System info.
     $table->add_data([get_string('systeminfo', 'tool_moodlebox'), '']);
     $table->add_data([get_string('sdcardavailablespace', 'tool_moodlebox'), display_size($sdcardfreespace) .
-            ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)',], 'subinfo');
+            ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)', ], 'subinfo');
     $table->add_data([get_string('cpuload', 'tool_moodlebox'),
-            round($cpuload[0], 3) . ', ' . round($cpuload[1], 3) . ', ' . round($cpuload[2], 3),], 'subinfo');
+            round($cpuload[0], 3) . ', ' . round($cpuload[1], 3) . ', ' . round($cpuload[2], 3), ], 'subinfo');
     if ( $platform !== 'unknownmodel' ) {
         $table->add_data([get_string('cputemperature', 'tool_moodlebox'), $cputemperature], 'subinfo');
         $table->add_data([get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency], 'subinfo');
@@ -326,7 +326,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
     $table->add_data([get_string('kernelversion', 'tool_moodlebox'), $kernelversion], 'subinfo');
     $table->add_data([get_string('version', 'tool_moodlebox'),
-        $moodleboxinfo['version'] . ' (' . $moodleboxinfo['date'] . ')',], 'subinfo');
+        $moodleboxinfo['version'] . ' (' . $moodleboxinfo['date'] . ')', ], 'subinfo');
     $table->add_data([get_string('pluginversion', 'tool_moodlebox'), $moodleboxpluginversion], 'subinfo');
     $table->add_data([get_string('moodleversion'), $CFG->release], 'subinfo');
 

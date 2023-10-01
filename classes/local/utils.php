@@ -93,13 +93,13 @@ class utils {
         $revisionnumber = hexdec($revisioncode);
 
         // Define arrays of various hardware parameter values.
-        $memorysizes = ['256MB', '512MB', '1GB', '2GB', '4GB', '8GB',];
+        $memorysizes = ['256MB', '512MB', '1GB', '2GB', '4GB', '8GB'];
         $models = ['A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
                 '3B', 'Zero', 'CM3', 'Unknown', 'ZeroW', '3B+', '3A+', 'Internal use',
-                'CM3+', '4B', 'Zero2W', '400', 'CM4', 'CM4S', 'Unknown', '5',];
-        $processors = ['BCM2835', 'BCM2836', 'BCM2837', 'BCM2711', 'BCM2712',];
+                'CM3+', '4B', 'Zero2W', '400', 'CM4', 'CM4S', 'Unknown', '5', ];
+        $processors = ['BCM2835', 'BCM2836', 'BCM2837', 'BCM2711', 'BCM2712'];
         $manufacturers = ['Sony UK', 'Egoman', 'Embest', 'Sony Japan',
-                'Embest', 'Stadium',];
+                'Embest', 'Stadium', ];
 
         // Get raw values of hardware parameters using bitwise operations.
         $rawrevision = ($revisionnumber & 0xf);
