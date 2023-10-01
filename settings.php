@@ -26,18 +26,16 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) { // Speedup for non-admins.
 
-    // Add new admin top category 'moodleboxcat' in admin tree.
-    $ADMIN->add('root', new admin_category('moodleboxcat', new lang_string('pluginname', 'tool_moodlebox')));
-    // Add new admin sub-category to category 'moodleboxcat' in admin tree.
-    $ADMIN->add('moodleboxcat', new admin_category('moodlebox', new lang_string('pluginname', 'tool_moodlebox')));
+    // Add new admin top category 'moodlebox' in admin tree.
+    $ADMIN->add('root', new admin_category('moodlebox', new lang_string('pluginname', 'tool_moodlebox')));
 
-    // Add admin external page 'dashboard' to sub-category 'moodlebox'.
+    // Add admin external page 'dashboard' to category 'moodlebox'.
     $moodleboxadminpage = new admin_externalpage('tool_moodlebox',
             new lang_string('dashboard', 'tool_moodlebox'),
             new moodle_url('/admin/tool/moodlebox/index.php'));
     $ADMIN->add('moodlebox', $moodleboxadminpage);
 
-    // Add admin setting page to sub-category 'moodlebox'.
+    // Add admin setting page to category 'moodlebox'.
     $moodleboxsettingpage = new admin_settingpage('tool_moodlebox_settings',
             new lang_string('configuration', 'tool_moodlebox'));
 
@@ -66,5 +64,11 @@ if ($hassiteconfig) { // Speedup for non-admins.
                 new lang_string('ihavedonated_desc', 'tool_moodlebox'), 0));
     }
     $ADMIN->add('moodlebox', $moodleboxsettingpage);
+
+    // Workaround Moodle insisting having a subcategory in top level admin tree category.
+    // We add a dummy hidden sub-category with a dummy settingpage.
+    $moodleboxsettingpagedummy = new admin_settingpage('tool_moodlebox_dummy', 'dummy');
+    $ADMIN->add('moodlebox', new admin_category('moodlebox_dummy', 'hidden', true));
+    $ADMIN->add('moodlebox_dummy', $moodleboxsettingpagedummy);
 
 }
