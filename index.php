@@ -129,8 +129,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $moodleboxversion = $moodleboxinfo['version'];
     }
 
-    // We using NetworkManager for network management if MoodleBox version is greater than '4.5.0'.
-    $networkmanager = version_compare($moodleboxversion, '4.5.0', '>');
+    // We use NetworkManager for network management if MoodleBox version is greater than '4.5.1'.
+    $networkmanager = version_compare($moodleboxversion, '4.5.1', '>');
 
     // Get CPU load.
     $cpuload = sys_getloadavg();
