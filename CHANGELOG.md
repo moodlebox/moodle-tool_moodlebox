@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.17.0, 2023-10-01
+
+### Add
+- Add support of NetworkManager for upcoming Bookworm-based RPi OS version (PR #123).
+- Add detection of just announced new Raspberry Pi 5 (issue #122).
+
+### Changed
+- Better implementation of MoodleBox settings at top level of administration navigation (see #115, commit b4c94dc).
+
+### Fixed
+- Fix completely script to work with released versions of MoodleBox image (issue #114).
+- Prevent more PHPDocs errors (no issue number, commits dd38ff0, 9915274 and 04aaf38).
+
+## Version 2.16.3, 2023-09-17
+
+### Fixed
+- Fix script to work with released versions of MoodleBox image (issue #114).
+- Multiple PHPDocs warnings for deprecated syntax (issue #121).
+
 ## Version 2.16.2, 2023-09-16
 
 ### Fixed
