@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/) and follow pr
 - Add detection of just announced new Raspberry Pi 5 (issue #122).
 
 ### Changed
+- Tested against upcoming Moodle 4.3 (issue #124).
 - Better implementation of MoodleBox settings at top level of administration navigation (see #115, commit b4c94dc).
 
 ### Fixed
