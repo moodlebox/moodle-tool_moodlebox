@@ -298,8 +298,20 @@ def do_ip_address():
                 '^dhcp-option=wifi,6,' + ip_regex + '(?P<end>.*)$',
                 'dhcp-option=wifi,6,' + new_static_ip + '\g<end>')
 
+def fix_wrong_kernel_cmdline():
+    """Fix buggy file produced by buggy script in version 2.17.0 and 2.17.1."""
+    kernel_cmdline_tofix = "/boot/cmdline.txt"
+    if os.path.exists(kernel_cmdline_tofix) and not os.path.islink(kernel_cmdline_tofix):
+        os.remove(kernel_cmdline_tofix)
+        os.symlink(
+            os.path.relpath(kernel_cmdline_file, "/boot/"),
+            kernel_cmdline_tofix
+        )
+
 # Actions.
 
+if is_networkmanager():
+    fix_wrong_kernel_cmdline()
 do_regulatory_country()
 do_channel()
 do_ssid()
