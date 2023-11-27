@@ -57,7 +57,7 @@ default_max_range = 254
 
 # Path of various config files.
 
-kernel_cmdline_file = "/boot/cmdline.txt"
+kernel_cmdline_file = "/boot/firmware/cmdline.txt"
 hosts_file = "/etc/hosts"
 nodogsplash_conf_file = "/etc/nodogsplash/nodogsplash.conf"
 if is_networkmanager():
