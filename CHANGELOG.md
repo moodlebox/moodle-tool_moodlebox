@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.17.2, 2023-11-28
+
+### Add
+- New code added to workaround a bug with wifi protocol on RPi3B (issue https://github.com/moodlebox/moodlebox/issues/319).
+
+### Fixed
+- Rename wrong filename in script and add routine to fix the buggy filename on devices (issue #127).
+
 ## Version 2.17.1, 2023-10-05
 
 ### Fixed
