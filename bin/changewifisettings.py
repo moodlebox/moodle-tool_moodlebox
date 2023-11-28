@@ -42,6 +42,10 @@ def is_regex_in_file(file_name, search_pattern):
 def is_networkmanager():
     return subprocess.run(['systemctl', '-q', 'is-active', 'NetworkManager']).returncode == 0
 
+def is_pi3():
+    """True if this is a Pi 3 B (not Plus!)."""
+    return "Pi 3 Model B Rev" in open('/proc/device-tree/model').read()
+
 # Default access point settings.
 
 default_channel = '11'
@@ -54,6 +58,13 @@ else:
 default_ip_address = '10.0.0.1'
 default_min_range = 10
 default_max_range = 254
+
+# Workaround a bug with WPA2 protocol on RPi3B.
+# See https://github.com/moodlebox/moodlebox/issues/319.
+if is_pi3():
+    proto = 'rsn,wpa'
+else:
+    proto = 'rsn'
 
 # Path of various config files.
 
@@ -213,7 +224,7 @@ def do_password_protected():
             subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.psk', new_password])
             subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.group', 'ccmp'])
             subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.pairwise', 'ccmp'])
-            subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', 'rsn'])
+            subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', proto])
     else:
         # Set parameters adequately in hostapd config file.
         if not password_protected and is_currently_protected:
@@ -244,7 +255,7 @@ def do_password():
         subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.psk', new_password])
         subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.group', 'ccmp'])
         subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.pairwise', 'ccmp'])
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', 'rsn'])
+        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', proto])
     else:
         # Set password in hostapd config file.
         file_replace_line(hostapd_conf_file, '^wpa_passphrase=.*$', 'wpa_passphrase=' + new_password)
