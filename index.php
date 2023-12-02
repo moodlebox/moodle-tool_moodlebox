@@ -135,22 +135,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // Get CPU load.
     $cpuload = sys_getloadavg();
 
-    // Get DHCP leases.
-    if ($networkmanager) {
-        $moodleboxleasesfile = '/tmp/dnsmasq.leases';
-    } else {
-        $moodleboxleasesfile = '/var/lib/misc/dnsmasq.leases';
-    }
-    if ( file_exists($moodleboxleasesfile) ) {
-        if ( filesize($moodleboxleasesfile) > 0 ) {
-            $leases = explode(PHP_EOL, trim(file_get_contents($moodleboxleasesfile)));
-        } else {
-            $leases = [];
-        }
-        $dhcpclientnumber = count($leases);
-    } else {
-        $dhcpclientnumber = 0;
-    }
+    // Get IP addresses of connected clients.
+    $interface = 'uap0';
+    $leases = \tool_moodlebox\local\utils::get_connected_ip_adresses($interface);
+    $dhcpclientnumber = count($leases);
 
     // Get local static IP address.
     $staticipaddress = gethostbyname(gethostname());
@@ -269,10 +257,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     if ($dhcpclientnumber > 0) {
         $table->add_data([get_string('dhcpclients', 'tool_moodlebox') .
                 ' (' . get_string('dhcpclientnumber', 'tool_moodlebox') . ': ' . $dhcpclientnumber . ')', '', ]);
-        foreach ($leases as $row) {
-            $item = explode(' ', $row);
+        foreach ($leases as $mac => $ip) {
             $table->add_data([get_string('dhcpclientinfo', 'tool_moodlebox'),
-                    $item[2] . ' (' . $item[3] . ')', ], 'subinfo');
+                    $ip . ' (' . $mac . ')', ], 'subinfo');
         }
     }
     // Ethernet info.
