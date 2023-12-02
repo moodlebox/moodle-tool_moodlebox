@@ -358,9 +358,9 @@ class utils {
 
         // Compare the sorted MAC addresses and populate array of pairs.
         $connectedmacippairs = [];
-        foreach ($iwmacadresses as $mac_address) {
-            if (isset($arpmacippairs[$mac_address])) {
-                $connectedmacippairs[$mac_address] = $arpmacippairs[$mac_address];
+        foreach ($iwmacadresses as $macaddress) {
+            if (isset($arpmacippairs[$macaddress])) {
+                $connectedmacippairs[$macaddress] = $arpmacippairs[$macaddress];
             }
         }
         return $connectedmacippairs;
