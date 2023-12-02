@@ -344,26 +344,26 @@ class utils {
      * if no clients connected.
      */
     public static function get_connected_ip_adresses($interface) {
-        $iw_output = shell_exec('iw dev ' . $interface . ' station dump');
-        $arp_output = shell_exec('arp -ai ' . $interface);
+        $iwoutput = shell_exec('iw dev ' . $interface . ' station dump');
+        $arpoutput = shell_exec('arp -ai ' . $interface);
 
         // Extract MAC and IP addresses.
-        preg_match_all('/Station\s+([a-fA-F0-9:]+)/', $iw_output, $iw_matches);
-        preg_match_all('/\(([^)]+)\)\s+at\s+([a-fA-F0-9:]+)/', $arp_output, $arp_matches);
+        preg_match_all('/Station\s+([a-fA-F0-9:]+)/', $iwoutput, $iwmatches);
+        preg_match_all('/\(([^)]+)\)\s+at\s+([a-fA-F0-9:]+)/', $arpoutput, $arpmatches);
 
         // Get the matched MAC and IP addresses from the regular expression matches.
-        $iw_mac_adresses = $iw_matches[1];
-        sort($iw_mac_adresses);
-        $arp_mac_ip_pairs = array_combine($arp_matches[2], $arp_matches[1]);
+        $iwmacadresses = $iwmatches[1];
+        sort($iwmacadresses);
+        $arpmacippairs = array_combine($arpmatches[2], $arpmatches[1]);
 
         // Compare the sorted MAC addresses and populate array of pairs.
-        $connected_mac_ip_pairs = [];
-        foreach ($iw_mac_adresses as $mac_address) {
-            if (isset($arp_mac_ip_pairs[$mac_address])) {
-                $connected_mac_ip_pairs[$mac_address] = $arp_mac_ip_pairs[$mac_address];
+        $connectedmacippairs = [];
+        foreach ($iwmacadresses as $mac_address) {
+            if (isset($arpmacippairs[$mac_address])) {
+                $connectedmacippairs[$mac_address] = $arpmacippairs[$mac_address];
             }
         }
-        return $connected_mac_ip_pairs;
+        return $connectedmacippairs;
     }
 
     /**
