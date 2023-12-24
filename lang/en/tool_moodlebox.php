@@ -148,8 +148,6 @@ $string['wifissidhiddenstate_help'] = 'If enabled, Wi-Fi SSID will be hidden fro
 $string['wifissidinvalid'] = 'The name of the Wi-Fi network (SSID) provided is invalid. It must be a string of at least 1 byte and at most 32 bytes.';
 
 // Deprecated.
-$string['badpowersupply'] = '<p><b>Warning: under-voltage detected!</b> The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change the power supply</b>, giving preference to the <a href="https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/" target="_blank">official Raspberry Foundation power supply</a>, and to use a good quality cable to connect it with the MoodleBox.</p>';
 $string['ipaddress'] = 'IP address';
-$string['raspbianversion'] = 'Raspbian version';
 $string['showbuttonsinfooter'] = 'Show restart and shutdown buttons in footer';
 $string['showbuttonsinfooter_desc'] = 'If enabled, the restart and shutdown buttons are displayed in the footer of all pages of the site when logged in as an administrator or as a manager.';
