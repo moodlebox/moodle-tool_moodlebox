@@ -11,7 +11,7 @@ This plugin enables a Moodle administrator to monitor some hardware settings, to
 
 Administrators and users with manager role can moreover restart and shutdown the MoodleBox with buttons in the footer of each Moodle page.
 
-The plugin is compatible with Moodle 3.6 or later. A Raspberry Pi model Zero 2 W, 3A+, 3B, 3B+ or 4B is recommended.
+The plugin is compatible with Moodle 3.6 or later. A Raspberry Pi model Zero 2 W, 3A+, 3B, 3B+, 4B or 5 is recommended.
 
 ## Installation
 

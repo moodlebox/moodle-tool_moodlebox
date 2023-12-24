@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.17.3, 2023-12-24
+
+### Changed
+- New code for displaying the wireless clients info, which is now immediately updated upon client connexion; the info displayed is now the IP address and MAC address of the client, and the client name isn't displayed anymore (issue #128).
+
 ## Version 2.17.2, 2023-11-28
 
 ### Add
