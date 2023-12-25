@@ -39,7 +39,7 @@ $string['datetimeset'] = 'Set date and time';
 $string['datetimesetmessage'] = 'The clock of the MoodleBox isn\'t on time. It\'s highly recommended to set the date and time to the current time.';
 $string['datetimesetting'] = 'Date and time';
 $string['defaultgateway'] = 'Default gateway';
-$string['dhcpclientinfo'] = 'Client IP address and name';
+$string['dhcpclientinfo'] = 'Client IP MAC addresses';
 $string['dhcpclientnumber'] = 'number of clients';
 $string['dhcpclients'] = 'DHCP clients';
 $string['documentation'] = 'MoodleBox documentation';
@@ -64,7 +64,7 @@ $string['moodleboxsysteminfo_help'] = 'The MoodleBox information dashboard displ
 
 * Critical MoodleBox operation details, such as remaining disk space on the SD card and processor load, temperature and frequency
 * Current settings of Wi-Fi network supplied by the MoodleBox
-* Number, IP address and name of all devices connected to the MoodleBox
+* Number, IP and MAC addresses of all devices connected to the MoodleBox
 * Raspberry Pi model and operating system
 * MoodleBox version and MoodleBox plugin version
 ';
