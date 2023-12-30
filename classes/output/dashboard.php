@@ -36,19 +36,19 @@ use stdClass;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class dashboard implements renderable, templatable {
-    /** @var string $sometext Some text to show how to pass data to a template. */
-    var $sometext = null;
+    /** @var string $sometext Some text to pass data to a template. */
+    private $sometext = null;
 
     public function __construct($sometext): void {
         $this->sometext = $sometext;
     }
 
     /**
-     * Export this data so it can be used as the context for a mustache template.
+     * Export data to be used as the context for a mustache template.
      *
      * @return stdClass
      */
-    public function export_for_template(renderer_base $output) {
+    public function export_for_template(renderer_base $output): stdClass {
         $data = new stdClass();
         $data->sometext = $this->sometext;
 
