@@ -48,7 +48,9 @@ $strheading = get_string('pluginname', 'tool_moodlebox');
 $PAGE->set_title($strheading);
 $PAGE->set_heading($strheading);
 
-echo $OUTPUT->header();
+$output = $PAGE->get_renderer('tool_moodlebox');
+
+echo $output->header();
 
 if ( $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model() ) {
     switch ( $hardwaredata['model'] ) {
@@ -228,8 +230,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // System information section.
     print_collapsible_region_start('moodleboxsysteminfo', 'moodleboxsysteminfo',
         get_string('moodleboxsysteminfo', 'tool_moodlebox') .
-            $OUTPUT->help_icon('moodleboxsysteminfo', 'tool_moodlebox'), 'moodleboxsysteminfosection');
-    echo $OUTPUT->box_start('generalbox');
+            $output->help_icon('moodleboxsysteminfo', 'tool_moodlebox'), 'moodleboxsysteminfosection');
+    echo $output->box_start('generalbox');
 
     $table = new flexible_table('moodleboxstatus_table');
     $table->define_columns(['parameter', 'information']);
@@ -319,13 +321,13 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     $table->print_html();
 
-    echo $OUTPUT->box_end();
+    echo $output->box_end();
     print_collapsible_region_end();
 
     // Time setting section.
     print_collapsible_region_start('datetimesetting', 'datetimesetting',
         get_string('datetimesetting', 'tool_moodlebox'), 'moodleboxdatetimesection');
-    echo $OUTPUT->box_start('generalbox');
+    echo $output->box_start('generalbox');
 
     $datetimetriggerfile = '.set-server-datetime';
 
@@ -341,17 +343,17 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         }
         $datetimesetform->display();
     } else {
-        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
+        echo $output->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
 
-    echo $OUTPUT->box_end();
+    echo $output->box_end();
     print_collapsible_region_end();
 
     // Change password section.
     print_collapsible_region_start('passwordsetting', 'passwordsetting',
         get_string('passwordsetting', 'tool_moodlebox') .
-            $OUTPUT->help_icon('passwordsetting', 'tool_moodlebox'), 'moodleboxpasswordsection');
-    echo $OUTPUT->box_start('generalbox');
+            $output->help_icon('passwordsetting', 'tool_moodlebox'), 'moodleboxpasswordsection');
+    echo $output->box_start('generalbox');
 
     $passwordtriggerfile = '.newpassword';
 
@@ -366,16 +368,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         }
         $changepasswordform->display();
     } else {
-        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
+        echo $output->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
 
-    echo $OUTPUT->box_end();
+    echo $output->box_end();
     print_collapsible_region_end();
 
     // Wi-Fi configuration section.
     print_collapsible_region_start('wifisettings', 'wifisettings',
         get_string('wifisettings', 'tool_moodlebox'), 'moodleboxwifisection');
-    echo $OUTPUT->box_start('generalbox');
+    echo $output->box_start('generalbox');
 
     $aptriggerfile = '.wifisettings';
 
@@ -411,10 +413,10 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         }
         $wifisettingsform->display();
     } else {
-        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
+        echo $output->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
 
-    echo $OUTPUT->box_end();
+    echo $output->box_end();
     print_collapsible_region_end();
 
     // Resize partition section.
@@ -424,8 +426,8 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     if ($unallocatedfreespace) {
         print_collapsible_region_start('resizepartition', 'resizepartition',
             get_string('resizepartition', 'tool_moodlebox') .
-                $OUTPUT->help_icon('resizepartition', 'tool_moodlebox'), 'moodleboxresizepartitionsection');
-        echo $OUTPUT->box_start('generalbox');
+                $output->help_icon('resizepartition', 'tool_moodlebox'), 'moodleboxresizepartitionsection');
+        echo $output->box_start('generalbox');
 
         $resizetriggerfile = '.resize-partition';
 
@@ -440,18 +442,18 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             }
             $resizepartitionform->display();
         } else {
-            echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
+            echo $output->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
         }
 
-        echo $OUTPUT->box_end();
+        echo $output->box_end();
         print_collapsible_region_end();
     }
 
     // Restart-shutdown section.
     print_collapsible_region_start('restartstop', 'restartstop',
         get_string('restartstop', 'tool_moodlebox') .
-            $OUTPUT->help_icon('restartstop', 'tool_moodlebox'), 'moodleboxrestartstopsection');
-    echo $OUTPUT->box_start('generalbox');
+            $output->help_icon('restartstop', 'tool_moodlebox'), 'moodleboxrestartstopsection');
+    echo $output->box_start('generalbox');
 
     $reboottriggerfile = '.reboot-server';
     $shutdowntriggerfile = '.shutdown-server';
@@ -471,13 +473,13 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         }
         $restartshutdownform->display();
     } else {
-        echo $OUTPUT->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
+        echo $output->notification(get_string('missingconfigurationerror', 'tool_moodlebox'));
     }
 
-    echo $OUTPUT->box_end();
+    echo $output->box_end();
     print_collapsible_region_end();
 } else { // We're not on a Raspberry Pi.
     \core\notification::error(get_string('unsupportedhardware', 'tool_moodlebox'));
 }
 
-echo $OUTPUT->footer();
+echo $output->footer();
