@@ -42,7 +42,7 @@ class renderer extends plugin_renderer_base {
      * @param dashboard $page
      * @return string html for the page
      */
-    public function render_dashboard($page) {
+    public function render_dashboard($page): string {
         $data = $page->export_for_template($this);
         return parent::render_from_template('tool_moodlebox/dashboard', $data);
     }
