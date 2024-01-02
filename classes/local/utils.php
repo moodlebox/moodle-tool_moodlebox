@@ -344,8 +344,8 @@ class utils {
      * if no clients connected.
      */
     public static function get_connected_ip_adresses($interface) {
-        $iwoutput = shell_exec('iw dev ' . $interface . ' station dump');
-        $arpoutput = shell_exec('arp -ai ' . $interface);
+        $iwoutput = shell_exec('iw dev ' . $interface . ' station dump') || '';
+        $arpoutput = shell_exec('arp -ai ' . $interface) || '';
 
         // Extract MAC and IP addresses.
         preg_match_all('/Station\s+([a-fA-F0-9:]+)/', $iwoutput, $iwmatches);
