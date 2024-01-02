@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.17.4, 2024-01-02
+
+### Changed
+- Remove deprecated strings (issue #129).
+- Update several strings (no issue number, commits 131fa61, a778c32 and 5f0112a).
+
+### Fixed
+- Fix deprecation warning in function `get_connected_ip_adresses()` (issue #130).
+
 ## Version 2.17.3, 2023-12-24
 
 ### Changed
