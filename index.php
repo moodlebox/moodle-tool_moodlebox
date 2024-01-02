@@ -52,6 +52,10 @@ $output = $PAGE->get_renderer('tool_moodlebox');
 
 echo $output->header();
 
+$sometext = 'Here is some content but it can be anything else, too.';
+$renderable = new \tool_moodlebox\output\dashboard($sometext);
+echo $output->render($renderable);
+
 if ( $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model() ) {
     switch ( $hardwaredata['model'] ) {
         // String $platform MUST contain 'rpi'.
