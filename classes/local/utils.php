@@ -365,7 +365,7 @@ class utils {
         foreach ($iwmacadresses as $macaddress) {
             if (isset($arpmacippairs[$macaddress])) {
                 // Find MAC and IP addresses in lease file, and get matching device name.
-                if ($m = preg_grep('/^.*' . $macaddress . '\s' . $arpmacippairs[$mac_address] . '.*$/i', $leases)) {
+                if ($m = preg_grep('/^.*' . $macaddress . '\s' . $arpmacippairs[$macaddress] . '.*$/i', $leases)) {
                     $name = explode(' ', reset($m))[3];
                 } else {
                     $name = '*';
