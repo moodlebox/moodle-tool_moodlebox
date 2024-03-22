@@ -377,7 +377,7 @@ class utils {
             }
         }
 
-        return $connected_data;
+        return $connecteddata;
     }
 
     /**
