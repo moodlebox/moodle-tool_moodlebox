@@ -361,17 +361,17 @@ class utils {
         $leases = explode("\n", file_get_contents($leasesfile));
 
         // Compare the sorted MAC addresses and populate array of connection data.
-        $connected_data = [];
-        foreach ($iw_mac_adresses as $mac_address) {
-            if (isset($arp_mac_ip_pairs[$mac_address])) {
+        $connecteddata = [];
+        foreach ($iwmacadresses as $macaddress) {
+            if (isset($arpmacippairs[$macaddress])) {
                 // Find MAC and IP addresses in lease file, and get matching device name.
-                if ($m = preg_grep('/^.*' . $mac_address . '\s' . $arp_mac_ip_pairs[$mac_address] . '.*$/i', $leases)) {
+                if ($m = preg_grep('/^.*' . $macaddress . '\s' . $arpmacippairs[$mac_address] . '.*$/i', $leases)) {
                     $name = explode(' ', reset($m))[3];
                 } else {
                     $name = '*';
                 }
-                $connected_data[$mac_address] = [
-                    'ip' => $arp_mac_ip_pairs[$mac_address],
+                $connecteddata[$macaddress] = [
+                    'ip' => $arpmacippairs[$macaddress],
                     'name' => explode(' ', reset($m))[3]
                 ];
             }
