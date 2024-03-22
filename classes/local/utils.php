@@ -340,10 +340,11 @@ class utils {
      * Get IP addresses of wireless connected clients.
      *
      * @param string $interface the network interface to check.
+     * @param string $leasesfile the file containing the dnsmasq leases.
      * @return associative array of MAC address, IP address or empty array
      * if no clients connected.
      */
-    public static function get_connected_ip_adresses($interface) {
+    public static function get_connected_ip_adresses($interface, $leasesfile) {
         $iwoutput = shell_exec('iw dev ' . $interface . ' station dump') ?: '';
         $arpoutput = shell_exec('arp -ai ' . $interface) ?: '';
 
@@ -356,14 +357,27 @@ class utils {
         sort($iwmacadresses);
         $arpmacippairs = array_combine($arpmatches[2], $arpmatches[1]);
 
-        // Compare the sorted MAC addresses and populate array of pairs.
-        $connectedmacippairs = [];
-        foreach ($iwmacadresses as $macaddress) {
-            if (isset($arpmacippairs[$macaddress])) {
-                $connectedmacippairs[$macaddress] = $arpmacippairs[$macaddress];
+        // Get leases from `dnsmasq` lease file.
+        $leases = explode("\n", file_get_contents($leasesfile));
+
+        // Compare the sorted MAC addresses and populate array of connection data.
+        $connected_data = [];
+        foreach ($iw_mac_adresses as $mac_address) {
+            if (isset($arp_mac_ip_pairs[$mac_address])) {
+                // Find MAC and IP addresses in lease file, and get matching device name.
+                if ($m = preg_grep('/^.*' . $mac_address . '\s' . $arp_mac_ip_pairs[$mac_address] . '.*$/i', $leases)) {
+                    $name = explode(' ', reset($m))[3];
+                } else {
+                    $name = '*';
+                }
+                $connected_data[$mac_address] = [
+                    'ip' => $arp_mac_ip_pairs[$mac_address],
+                    'name' => explode(' ', reset($m))[3]
+                ];
             }
         }
-        return $connectedmacippairs;
+
+        return $connected_data;
     }
 
     /**
