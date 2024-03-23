@@ -372,7 +372,7 @@ class utils {
                 }
                 $connecteddata[$macaddress] = [
                     'ip' => $arpmacippairs[$macaddress],
-                    'name' => explode(' ', reset($m))[3]
+                    'name' => explode(' ', reset($m))[3],
                 ];
             }
         }
