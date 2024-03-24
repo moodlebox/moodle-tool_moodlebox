@@ -364,6 +364,8 @@ class utils {
             } else {
                 $leases = [];
             }
+        } else {
+            $leases = [];
         }
 
         // Compare the sorted MAC addresses and populate array of connection data.
