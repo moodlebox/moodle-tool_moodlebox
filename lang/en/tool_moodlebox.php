@@ -50,7 +50,7 @@ $string['forum'] = 'MoodleBox support forum';
 $string['forum_desc'] = '<p>If you can\'t find an answer to your question in the <a href="https://moodlebox.net/en/help/" title="MoodleBox documentation" target="_blank">MoodleBox documentation</a>, search the <a href="https://discuss.moodlebox.net/" title="MoodleBox forum" target="_blank">MoodleBox support forum</a> to see if your question has already been answered. Otherwise, feel free to open a new discussion.</p>';
 $string['hardwareinfo'] = 'Hardware information';
 $string['hidden'] = 'Hidden';
-$string['hiddendhcpname'] = '<HIDDEN>';
+$string['hiddendhcpname'] = '--hidden--';
 $string['infofileerror'] = 'Information not available';
 $string['infoheading'] = 'MoodleBox support information';
 $string['information'] = 'Information';
@@ -124,7 +124,7 @@ $string['staticipaddressinvalid'] = 'This IP address is invalid. It must be a va
 $string['systeminfo'] = 'System information';
 $string['undervoltagedetected'] = '<p><b>Warning: under-voltage detected!</b> The power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change your power supply</b>, giving preference to the official <a href="https://www.raspberrypi.com/products/micro-usb-power-supply/" target="_blank">Raspberry Pi 12.5W Micro USB Power Supply</a> for Raspberry Pi 3A+, 3B, 3B+ and Zero 2 W, or <a href="https://www.raspberrypi.com/products/type-c-power-supply/" target="_blank">Raspberry Pi 15W USB-C Power Supply</a> for Raspberry Pi 4B, or <a href="https://www.raspberrypi.com/products/27w-power-supply/" target="_blank">Raspberry Pi 27W USB-C Power Supply</a> for Raspberry Pi 5.</p>';
 $string['undervoltageoccurred'] = '<p>An under-voltage situation has occurred since last boot of the MoodleBox. This could indicate the power supply of the MoodleBox is inadequate, which can cause various problems, for example a limitation of the number of Wi-Fi clients or even an unexpected shutdown of the device.</p><p>It is strongly recommended to <b>change your power supply</b>, giving preference to the official <a href="https://www.raspberrypi.com/products/micro-usb-power-supply/" target="_blank">Raspberry Pi 12.5W Micro USB Power Supply</a> for Raspberry Pi 3A+, 3B, 3B+ and Zero 2 W, or <a href="https://www.raspberrypi.com/products/type-c-power-supply/" target="_blank">Raspberry Pi 15W USB-C Power Supply</a> for Raspberry Pi 4B, or <a href="https://www.raspberrypi.com/products/27w-power-supply/" target="_blank">Raspberry Pi 27W USB-C Power Supply</a> for Raspberry Pi 5.</p>';
-$string['unknowndhcpname'] = '<UNKNOWN>';
+$string['unknowndhcpname'] = '--unknown--';
 $string['unknownmodel'] = 'Unknown or unsupported Raspberry Pi model';
 $string['unsupportedhardware'] = 'Unsupported server hardware detected! This plugin does only work on Raspberry Pi';
 $string['uptime'] = 'System uptime';
