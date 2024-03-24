@@ -358,7 +358,13 @@ class utils {
         $arpmacippairs = array_combine($arpmatches[2], $arpmatches[1]);
 
         // Get leases from `dnsmasq` lease file.
-        $leases = explode("\n", file_get_contents($leasesfile));
+        if ( file_exists($leasesfile) ) {
+            if ( filesize($leasesfile) > 0 ) {
+                $leases = explode("\n", trim(file_get_contents($leasesfile)));
+            } else {
+                $leases = [];
+            }
+        }
 
         // Compare the sorted MAC addresses and populate array of connection data.
         $connecteddata = [];
