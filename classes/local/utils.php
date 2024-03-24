@@ -375,8 +375,11 @@ class utils {
                 // Find MAC and IP addresses in lease file, and get matching device name.
                 if ($m = preg_grep('/^.*' . $macaddress . '\s' . $arpmacippairs[$macaddress] . '.*$/i', $leases)) {
                     $name = explode(' ', reset($m))[3];
+                    if ( $name == '*') {
+                        $name = get_string('hiddendhcpname', 'tool_moodlebox');
+                    }
                 } else {
-                    $name = '*';
+                    $name = get_string('unknowndhcpname', 'tool_moodlebox');
                 }
                 $connecteddata[$macaddress] = [
                     'ip' => $arpmacippairs[$macaddress],
