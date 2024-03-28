@@ -346,7 +346,7 @@ class utils {
      */
     public static function get_connected_ip_adresses($interface, $leasesfile) {
         $iwoutput = shell_exec('iw dev ' . $interface . ' station dump') ?: '';
-        $arpoutput = shell_exec('arp -ai ' . $interface) ?: '';
+        $arpoutput = shell_exec('arp -ani ' . $interface) ?: '';
 
         // Extract MAC and IP addresses.
         preg_match_all('/Station\s+([a-fA-F0-9:]+)/', $iwoutput, $iwmatches);
