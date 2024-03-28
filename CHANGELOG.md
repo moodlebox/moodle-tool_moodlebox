@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
-## Version 2.17.5, unreleased
+## Version 2.17.5, 2024-03-28
 
 ### Changed
 -  Re-add the client name when displaying wireless client info in the dashboard (issue #132; related issue #128).
