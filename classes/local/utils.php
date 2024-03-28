@@ -340,12 +340,13 @@ class utils {
      * Get IP addresses of wireless connected clients.
      *
      * @param string $interface the network interface to check.
+     * @param string $leasesfile the file containing the dnsmasq leases.
      * @return associative array of MAC address, IP address or empty array
      * if no clients connected.
      */
-    public static function get_connected_ip_adresses($interface) {
+    public static function get_connected_ip_adresses($interface, $leasesfile) {
         $iwoutput = shell_exec('iw dev ' . $interface . ' station dump') ?: '';
-        $arpoutput = shell_exec('arp -ai ' . $interface) ?: '';
+        $arpoutput = shell_exec('arp -ani ' . $interface) ?: '';
 
         // Extract MAC and IP addresses.
         preg_match_all('/Station\s+([a-fA-F0-9:]+)/', $iwoutput, $iwmatches);
@@ -356,14 +357,38 @@ class utils {
         sort($iwmacadresses);
         $arpmacippairs = array_combine($arpmatches[2], $arpmatches[1]);
 
-        // Compare the sorted MAC addresses and populate array of pairs.
-        $connectedmacippairs = [];
+        // Get leases from `dnsmasq` lease file.
+        if ( file_exists($leasesfile) ) {
+            if ( filesize($leasesfile) > 0 ) {
+                $leases = explode("\n", trim(file_get_contents($leasesfile)));
+            } else {
+                $leases = [];
+            }
+        } else {
+            $leases = [];
+        }
+
+        // Compare the sorted MAC addresses and populate array of connection data.
+        $connecteddata = [];
         foreach ($iwmacadresses as $macaddress) {
             if (isset($arpmacippairs[$macaddress])) {
-                $connectedmacippairs[$macaddress] = $arpmacippairs[$macaddress];
+                // Find MAC and IP addresses in lease file, and get matching device name.
+                if ($m = preg_grep('/^.*' . $macaddress . '\s' . $arpmacippairs[$macaddress] . '.*$/i', $leases)) {
+                    $name = explode(' ', reset($m))[3];
+                    if ( $name == '*') {
+                        $name = get_string('hiddendhcpname', 'tool_moodlebox');
+                    }
+                } else {
+                    $name = get_string('unknowndhcpname', 'tool_moodlebox');
+                }
+                $connecteddata[$macaddress] = [
+                    'ip' => $arpmacippairs[$macaddress],
+                    'name' => $name,
+                ];
             }
         }
-        return $connectedmacippairs;
+
+        return $connecteddata;
     }
 
     /**
