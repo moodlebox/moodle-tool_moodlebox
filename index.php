@@ -32,7 +32,6 @@
  */
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
-require_once($CFG->dirroot.'/admin/tool/moodlebox/forms.php');
 require_once($CFG->libdir.'/moodlelib.php');
 require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->libdir.'/tablelib.php');
@@ -110,7 +109,7 @@ if ( $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model() ) {
 } else {
     $platform = 'unknownmodel';
 }
-
+$platform = 'rpi5eightgb';
 if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     $systemtime = usergetdate(time())[0];
@@ -337,7 +336,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $datetimetriggerfile = '.set-server-datetime';
 
     if (file_exists($datetimetriggerfile)) {
-        $datetimesetform = new datetimeset_form();
+        $datetimesetform = new \tool_moodlebox\form\datetimeset_form();
 
         if ($data = $datetimesetform->get_data()) {
             if (!empty($data->submitbutton)) {
@@ -363,7 +362,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $passwordtriggerfile = '.newpassword';
 
     if (file_exists($passwordtriggerfile)) {
-        $changepasswordform = new changepassword_form();
+        $changepasswordform = new \tool_moodlebox\form\changepassword_form();
 
         if ($data = $changepasswordform->get_data()) {
             if (!empty($data->submitbutton)) {
@@ -387,7 +386,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $aptriggerfile = '.wifisettings';
 
     if (file_exists($aptriggerfile)) {
-        $wifisettingsform = new wifisettings_form();
+        $wifisettingsform = new \tool_moodlebox\form\wifisettings_form();
 
         if ($data = $wifisettingsform->get_data()) {
             if (!empty($data->submitbutton)) {
@@ -437,7 +436,13 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $resizetriggerfile = '.resize-partition';
 
         if (file_exists($resizetriggerfile)) {
-            $resizepartitionform = new resizepartition_form(null, null, 'post', '', ['id' => 'formresizepartition']);
+            $resizepartitionform = new \tool_moodlebox\form\resizepartition_form(
+                null,
+                null,
+                'post',
+                '',
+                ['id' => 'formresizepartition'],
+            );
 
             if ($data = $resizepartitionform->get_data()) {
                 if (!empty($data->resizepartitionbutton)) {
@@ -464,7 +469,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $shutdowntriggerfile = '.shutdown-server';
 
     if (file_exists($reboottriggerfile) && file_exists($shutdowntriggerfile)) {
-        $restartshutdownform = new restartshutdown_form(null, null, 'post', '', ['id' => 'formrestartstop']);
+        $restartshutdownform = new \tool_moodlebox\form\restartshutdown_form(null, null, 'post', '', ['id' => 'formrestartstop']);
 
         if ($data = $restartshutdownform->get_data()) {
             if (!empty($data->restartbutton)) {
