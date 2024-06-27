@@ -109,7 +109,7 @@ if ( $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model() ) {
 } else {
     $platform = 'unknownmodel';
 }
-$platform = 'rpi5eightgb';
+
 if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
 
     $systemtime = usergetdate(time())[0];
