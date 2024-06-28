@@ -74,8 +74,8 @@ class hook_callbacks {
                 }
             }
 
-            $output .= \core\html_writer::empty_tag("hr", ['id' => 'datetimesetbuttonsspacer']);
-            $output .= \core\html_writer::div($datetimesetform->render(), "", ['id' => 'datetimesetbuttons']);
+            $output .= html_writer::empty_tag("hr", ['id' => 'datetimesetbuttonsspacer']);
+            $output .= html_writer::div($datetimesetform->render(), "", ['id' => 'datetimesetbuttons']);
         }
 
         if (has_capability('tool/moodlebox:viewbuttonsinfooter', $context) &&
