@@ -1,3 +1,2 @@
-ipaddress,tool_moodlebox
 showbuttonsinfooter,tool_moodlebox
 showbuttonsinfooter_desc,tool_moodlebox

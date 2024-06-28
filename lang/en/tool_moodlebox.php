@@ -149,7 +149,6 @@ $string['wifissidhiddenstate'] = 'Wi-Fi SSID visibility';
 $string['wifissidhiddenstate_help'] = 'If enabled, Wi-Fi SSID will be hidden from users, who won\'t know that there\'s a MoodleBox around. This will notably reduce the usability of the device, but improve slightly its security.';
 $string['wifissidinvalid'] = 'The name of the Wi-Fi network (SSID) provided is invalid. It must be a string of at least 1 byte and at most 32 bytes.';
 
-// Deprecated.
-$string['ipaddress'] = 'IP address';
+// Deprecated since 2023-06-11.
 $string['showbuttonsinfooter'] = 'Show restart and shutdown buttons in footer';
 $string['showbuttonsinfooter_desc'] = 'If enabled, the restart and shutdown buttons are displayed in the footer of all pages of the site when logged in as an administrator or as a manager.';
