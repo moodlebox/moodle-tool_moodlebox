@@ -18,7 +18,7 @@
  * Hook callbacks for MoodleBox plugin
  *
  * @package    tool_moodlebox
- * @copyright  2024 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
+ * @copyright  2024 onwards Patrick Lemaire
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

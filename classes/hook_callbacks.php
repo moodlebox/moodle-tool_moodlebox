@@ -14,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * MoodleBox hooks callbacks.
+ *
+ * @package    tool_moodlebox
+ * @copyright  2024 onwards Patrick Lemaire
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace tool_moodlebox;
 use core\hook\output\before_footer_html_generation;
 use html_writer;
@@ -23,6 +31,7 @@ use html_writer;
  *
  * @package    tool_moodlebox
  * @copyright  2024 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
+ * @copyright  2024 onwards Patrick Lemaire
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class hook_callbacks {

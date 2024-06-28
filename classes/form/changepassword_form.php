@@ -14,6 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * MoodleBox change password form definition.
+ *
+ * @package    tool_moodlebox
+ * @copyright  2018 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
+ * @copyright  2024 onwards Patrick Lemaire
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace tool_moodlebox\form;
 use moodleform;
 defined('MOODLE_INTERNAL') || die();
