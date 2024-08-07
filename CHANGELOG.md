@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.18.0, 2024-08-07
+
+__This version is not compatible with versions of Moodle prior to Moodle 4.4!__
+
+### Changed
+-  Migrate legacy libphp callbacks to hooks (issue #135), enabling Moodle 4.4.x support.
+
 ## Version 2.17.5, 2024-03-28
 
 ### Changed
