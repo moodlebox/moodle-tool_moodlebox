@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,20 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details.
+ * Hook callbacks for MoodleBox plugin
  *
  * @package    tool_moodlebox
- * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2024 onwards Patrick Lemaire
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
-$plugin = new stdClass();
-
-$plugin->version  = 2024062801;
-$plugin->release = '2.17.6';
-$plugin->requires = 2018120300;
-$plugin->supported = [36, 403];
-$plugin->maturity = MATURITY_BETA;
-$plugin->component = 'tool_moodlebox';
+$callbacks = [
+    [
+        'hook' => \core\hook\output\before_footer_html_generation::class,
+        'callback' => \tool_moodlebox\hook_callbacks::class . '::before_footer_html_generation',
+        'priority' => 0,
+    ],
+];

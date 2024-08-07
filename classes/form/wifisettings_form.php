@@ -15,93 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * MoodleBox dashboard form definition.
+ * MoodleBox wifi settings form definition.
  *
  * @package    tool_moodlebox
  * @copyright  2018 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
+ * @copyright  2024 onwards Patrick Lemaire
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace tool_moodlebox\form;
+use moodleform;
 defined('MOODLE_INTERNAL') || die();
-
-require_once($CFG->dirroot . '/lib/formslib.php');
-
-/**
- * Class datetimeset_form
- *
- * Form class to set time and date.
- *
- * @package    tool_moodlebox
- * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-class datetimeset_form extends moodleform {
-
-    /**
-     * Define the form.
-     */
-    public function definition() {
-        $mform = $this->_form;
-        $mform->addElement('date_time_selector', 'currentdatetime', get_string('datetime', 'tool_moodlebox'),
-                            [
-                                'startyear' => date("Y") - 2,
-                                'stopyear'  => date("Y") + 2,
-                                'timezone'  => 99,
-                                'step'      => 1,
-                                'optional'  => true,
-                            ]);
-        $mform->addHelpButton('currentdatetime', 'datetime', 'tool_moodlebox');
-
-        $this->add_action_buttons(false, get_string('datetimeset', 'tool_moodlebox'));
-    }
-}
-
-/**
- * Class changepassword_form
- *
- * Form class to change MoodleBox password.
- *
- * @package    tool_moodlebox
- * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-class changepassword_form extends moodleform {
-
-    /**
-     * Define the form.
-     */
-    public function definition() {
-        $mform = $this->_form;
-
-        $mform->addElement('passwordunmask', 'newpassword1', get_string('newpassword'));
-        $mform->addRule('newpassword1', get_string('required'), 'required', null, 'client');
-        $mform->setType('newpassword1', PARAM_RAW_TRIMMED);
-
-        $mform->addElement('passwordunmask', 'newpassword2', get_string('newpassword').' ('.get_string('again').')');
-        $mform->addRule('newpassword2', get_string('required'), 'required', null, 'client');
-        $mform->setType('newpassword2', PARAM_RAW_TRIMMED);
-
-        $this->add_action_buttons(false, get_string('changepassword'));
-    }
-
-    /**
-     * Validate the form.
-     *
-     * @param array $data submitted data
-     * @param array $files not used
-     * @return array errors
-     */
-    public function validation($data, $files) {
-        $errors = parent::validation($data, $files);
-
-        if ($data['newpassword1'] <> $data['newpassword2']) {
-            $errors['newpassword1'] = get_string('passwordsdiffer');
-            $errors['newpassword2'] = get_string('passwordsdiffer');
-        }
-
-        return $errors;
-    }
-}
+require_once($CFG->libdir . '/formslib.php');
 
 /**
  * Class wifisettings_form
@@ -214,55 +139,5 @@ class wifisettings_form extends moodleform {
         }
 
         return $errors;
-    }
-}
-
-/**
- * Class resizepartition_form
- *
- * Form class to resize the partition of the MoodleBox.
- *
- * @package    tool_moodlebox
- * @copyright  2018 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-class resizepartition_form extends moodleform {
-
-    /**
-     * Define the form.
-     */
-    public function definition() {
-        $mform = $this->_form;
-        $buttonarray = [];
-        $buttonarray[] = & $mform->createElement('submit', 'resizepartitionbutton',
-                                                  get_string('resizepartition', 'tool_moodlebox'));
-        $mform->addGroup($buttonarray, 'buttonar', '', [' '], false);
-        $mform->closeHeaderBefore('buttonar');
-    }
-}
-
-/**
- * Class restartshutdown_form
- *
- * Form class to restart and shutdown the MoodleBox.
- *
- * @package    tool_moodlebox
- * @copyright  2016 onwards Nicolas Martignoni {@link mailto:nicolas@martignoni.net}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 w later
- */
-class restartshutdown_form extends moodleform {
-
-    /**
-     * Define the form.
-     */
-    public function definition() {
-        $mform = $this->_form;
-        $buttonarray = [];
-        $buttonarray[] = & $mform->createElement('submit', 'restartbutton',
-                                                  get_string('restart', 'tool_moodlebox'));
-        $buttonarray[] = & $mform->createElement('submit', 'shutdownbutton',
-                                                  get_string('shutdown', 'tool_moodlebox'));
-        $mform->addGroup($buttonarray, 'buttonar', '', [' '], false);
-        $mform->closeHeaderBefore('buttonar');
     }
 }
