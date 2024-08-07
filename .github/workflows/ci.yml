@@ -1,5 +1,5 @@
 name: Moodle Plugin CI
-# Based on version gha.dist.yml version 4.5.2
+# Based on version gha.dist.yml version 4.5.3
 
 on:
   push:
@@ -81,7 +81,7 @@ jobs:
       - name: PHP Mess Detector
         continue-on-error: true # This step will show errors but will not fail
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci phpmd || true
+        run: moodle-plugin-ci phpmd
 
       - name: Moodle Code Checker
         if: ${{ !cancelled() }}
@@ -105,8 +105,9 @@ jobs:
 
       # For now, assume this succeeds.
       - name: Grunt
+        continue-on-error: true # This step will show errors but will not fail
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci grunt --max-lint-warnings 0 || true
+        run: moodle-plugin-ci grunt --max-lint-warnings 0
 
       - name: PHPUnit tests
         if: ${{ !cancelled() }}
