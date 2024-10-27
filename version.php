@@ -26,9 +26,9 @@ defined('MOODLE_INTERNAL') || die;
 
 $plugin = new stdClass();
 
-$plugin->version  = 2024101300;
-$plugin->release = '2.18.1';
+$plugin->version  = 2024102700;
+$plugin->release = '2.18.2-beta';
 $plugin->requires = 2018120300;
 $plugin->supported = [404, 405];
-$plugin->maturity = MATURITY_STABLE;
+$plugin->maturity = MATURITY_BETA;
 $plugin->component = 'tool_moodlebox';
