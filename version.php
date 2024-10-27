@@ -28,7 +28,7 @@ $plugin = new stdClass();
 
 $plugin->version  = 2024102700;
 $plugin->release = '2.18.2-beta';
-$plugin->requires = 2018120300;
+$plugin->requires = 2024042200;
 $plugin->supported = [404, 405];
 $plugin->maturity = MATURITY_BETA;
 $plugin->component = 'tool_moodlebox';
