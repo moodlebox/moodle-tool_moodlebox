@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.18.1, 2024-10-13
+
+__This version is not compatible with versions of Moodle prior to Moodle 4.4!__
+
+### Changed
+- Tested against upcoming Moodle 4.5 (issue #141).
+
 ## Version 2.18.0, 2024-08-07
 
 __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
