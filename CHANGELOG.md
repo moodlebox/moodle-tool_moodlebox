@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/) and follow pr
 __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
 
 ### Fixed
-- Channels 12 and 13 for wireless AP can be selected (issue #144).
+- Channels 12 and 13 for wireless AP can be selected (issue #143).
 
 ## Version 2.18.1, 2024-10-13
 
