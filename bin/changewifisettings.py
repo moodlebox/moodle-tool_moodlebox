@@ -134,10 +134,6 @@ def do_channel():
         new_channel = default_channel
     # new_channel is now valid.
     if is_networkmanager():
-        # Workaround bug in NetworkManager: country_code is not used, so if new_channel is 12 and 13,
-        # we revert to default_channel (11).
-        # See https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/issues/960.
-        new_channel = str(min(int(default_channel), int(new_channel)))
         # Set channel with nmcli
         subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.channel', new_channel])
     else:

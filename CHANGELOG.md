@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.18.2, unreleased
+
+__This version is not compatible with versions of Moodle prior to Moodle 4.4!__
+
+### Fixed
+- Channels 12 and 13 for wireless AP can be selected (issue #144).
+
 ## Version 2.18.1, 2024-10-13
 
 __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
