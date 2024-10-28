@@ -185,8 +185,11 @@ class utils {
             $iter = new \RecursiveIteratorIterator($iter, \RecursiveIteratorIterator::CHILD_FIRST);
             $iter = new \RegexIterator($iter, '|^.*/device$|i', \RecursiveRegexIterator::GET_MATCH);
             $iter->setMaxDepth(2);
-            $matches = array_values(preg_grep('#^.*/(eth|en).*$#i', array_keys(iterator_to_array($iter))))[0];
-            return explode('/', $matches)[4];
+            if ( $matches = array_values(preg_grep('#^.*/(eth|en).*$#i', array_keys(iterator_to_array($iter)))) ) {
+                return explode('/', $matches[0])[4];
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

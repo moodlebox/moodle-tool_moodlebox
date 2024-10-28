@@ -26,8 +26,8 @@ defined('MOODLE_INTERNAL') || die;
 
 $plugin = new stdClass();
 
-$plugin->version  = 2024102700;
-$plugin->release = '2.18.2-beta';
+$plugin->version  = 2024102800;
+$plugin->release = '2.18.2-beta2';
 $plugin->requires = 2024042200;
 $plugin->supported = [404, 405];
 $plugin->maturity = MATURITY_BETA;
