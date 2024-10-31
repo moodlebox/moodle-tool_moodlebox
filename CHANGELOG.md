@@ -10,6 +10,7 @@ __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
 ### Fixed
 - Channels 12 and 13 for wireless AP can be selected (issue #143).
 - Avoid warnings when not Ethernet interface on device (issue #148).
+- Match Moodle required version with Moodle minimum supported version (issue #147).
 
 ## Version 2.18.1, 2024-10-13
 
