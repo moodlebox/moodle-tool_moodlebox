@@ -48,7 +48,7 @@ __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
 ## Version 2.17.2, 2023-11-28
 
 ### Add
-- New code added to workaround a bug with wifi protocol on RPi3B (issue https://github.com/moodlebox/moodlebox/issues/319).
+- New code added to workaround a bug with wifi protocol on RPi3B (issue #145).
 
 ### Fixed
 - Rename wrong filename in script and add routine to fix the buggy filename on devices (issue #127).

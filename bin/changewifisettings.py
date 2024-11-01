@@ -60,7 +60,7 @@ default_min_range = 10
 default_max_range = 254
 
 # Workaround a bug with WPA2 protocol on RPi3B.
-# See https://github.com/moodlebox/moodlebox/issues/319.
+# See https://github.com/moodlebox/moodle-tool_moodlebox/issues/145.
 if is_pi3():
     proto = 'rsn,wpa'
 else:
