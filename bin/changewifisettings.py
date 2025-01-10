@@ -83,7 +83,7 @@ else:
 hostapd_conf_file = "/etc/hostapd/hostapd.conf"
 dhcpcd_conf_file = "/etc/dhcpcd.conf"
 
-# New values taken from $settings_file.
+# New values taken from settings_file.
 with open(settings_file, 'r') as f:
     config_string = '[dummy_section]\n' + f.read()
 settings = configparser.ConfigParser()
