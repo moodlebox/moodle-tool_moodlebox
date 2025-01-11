@@ -94,7 +94,7 @@ class utils {
         $revisionnumber = hexdec($revisioncode);
 
         // Define arrays of various hardware parameter values.
-        $memorysizes = ['256MB', '512MB', '1GB', '2GB', '4GB', '8GB', '16GB', ];
+        $memorysizes = ['256MB', '512MB', '1GB', '2GB', '4GB', '8GB', '16GB' ];
         $models = ['A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
                 '3B', 'Zero', 'CM3', 'Unknown', 'ZeroW', '3B+', '3A+', 'Internal use',
                 'CM3+', '4B', 'Zero2W', '400', 'CM4', 'CM4S', 'Internal use', '5',
