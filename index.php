@@ -93,6 +93,9 @@ if ( $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model() ) {
                 case '8GB':
                     $platform = 'rpi5eightgb';
                     break;
+                case '16GB':
+                     $platform = 'rpi5sixteengb';
+                    break;
             };
             break;
         case 'ZeroW':
