@@ -107,6 +107,7 @@ $string['rpi4onegb'] = 'Raspberry Pi 4B (1GB RAM)';
 $string['rpi4twogb'] = 'Raspberry Pi 4B (2GB RAM)';
 $string['rpi5eightgb'] = 'Raspberry Pi 5 (8GB RAM)';
 $string['rpi5fourgb'] = 'Raspberry Pi 5 (4GB RAM)';
+$string['rpi5sixteengb'] = 'Raspberry Pi 5 (16GB RAM)';
 $string['rpiosversion'] = 'Raspberry Pi OS version';
 $string['rpizero2w'] = 'Raspberry Pi Zero 2 W';
 $string['rpizerow'] = 'Raspberry Pi Zero W';
