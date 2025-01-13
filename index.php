@@ -87,6 +87,9 @@ if ( $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model() ) {
             break;
         case '5':
             switch ($hardwaredata['memory']) {
+                case '2GB':
+                    $platform = 'rpi5twogb';
+                    break;
                 case '4GB':
                     $platform = 'rpi5fourgb';
                     break;
