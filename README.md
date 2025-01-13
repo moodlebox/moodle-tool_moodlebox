@@ -112,8 +112,9 @@ See [Release notes](https://github.com/moodlebox/moodle-tool_moodlebox/blob/mast
 ## Thanks
 
 - To Patrick Lemaire (@patlemaire), for the migration of legacy libphp callbacks to Moodle hooks.
-- To Adrian Perez (@adpe), for implementing restart and shutdown buttons in footer.
-- To Vincent Widmer (@smallhacks), for implementing PiJuice support.
+- To Marcus Green (@marcusgreen), for helping implementing RPi 5 16GB support.
+- To Adrian Perez (@adpe), for the first implementation of restart and shutdown buttons in footer.
+- To Vincent Widmer (@smallhacks), for the implementation of PiJuice support.
 - To Visvanath Ratnaweera (@ratnavis), who kindly donated a Raspberry Pi 3A+ and loaned a Raspberry Pi 4 8GB, enabling support of these Raspberry Pi models.
 
 ## License
