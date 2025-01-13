@@ -64,11 +64,12 @@ class utils {
      * | A | 00-03 | PCB Revision  | The PCB revision number                            |
      * | B | 04-11 | Model name    | A, B, A+, B+, 2B, Alpha, CM1, unknown, 3B, Zero,   |
      * |   |       |               | CM3, unknown, Zero W, 3B+, 3A+, internal, CM3+,    |
-     * |   |       |               | 4B, Zero 2 W, 400, CM4, CM4S, internal, 5          |
+     * |   |       |               | 4B, Zero 2 W, 400, CM4, CM4S, internal, 5, CM5,    |
+     * |   |       |               | 500, CM5 Lite,                                     |
      * | C | 12-15 | Processor     | BCM2835, BCM2836, BCM2837, BCM2711, BCM2712        |
      * | D | 16-19 | Manufacturer  | Sony UK, Egoman, Embest, Sony Japan,               |
      * |   |       |               | Embest, Stadium                                    |
-     * | E | 20-22 | Memory size   | 256MB, 512MB, 1GB, 2GB, 4GB, 8GB                   |
+     * | E | 20-22 | Memory size   | 256MB, 512MB, 1GB, 2GB, 4GB, 8GB, 16GB             |
      * | F | 23-23 | Revision flag | If set, new-style revision                         |
      * | G | 24-24 | Unused        |                                                    |
      * | H | 25-25 | Warranty bit  | If set, warranty void by overclocking (post Pi2)   |
@@ -93,10 +94,11 @@ class utils {
         $revisionnumber = hexdec($revisioncode);
 
         // Define arrays of various hardware parameter values.
-        $memorysizes = ['256MB', '512MB', '1GB', '2GB', '4GB', '8GB'];
+        $memorysizes = ['256MB', '512MB', '1GB', '2GB', '4GB', '8GB', '16GB' ];
         $models = ['A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
                 '3B', 'Zero', 'CM3', 'Unknown', 'ZeroW', '3B+', '3A+', 'Internal use',
-                'CM3+', '4B', 'Zero2W', '400', 'CM4', 'CM4S', 'Internal use', '5', ];
+                'CM3+', '4B', 'Zero2W', '400', 'CM4', 'CM4S', 'Internal use', '5',
+                'CM5', '500', 'CM5 Lite', ];
         $processors = ['BCM2835', 'BCM2836', 'BCM2837', 'BCM2711', 'BCM2712'];
         $manufacturers = ['Sony UK', 'Egoman', 'Embest', 'Sony Japan',
                 'Embest', 'Stadium', ];
