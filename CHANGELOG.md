@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 2.19.0, unreleased
+
+__This version is not compatible with versions of Moodle prior to Moodle 4.4!__
+
+### Added
+- Add detection of Raspberry Pi 5 16GB model (issue #152).
+- Add detection of Raspberry Pi 5 2GB model (issue #154).
+
 ## Version 2.18.2, 2024-10-31
 
 __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
@@ -47,7 +55,7 @@ __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
 
 ## Version 2.17.2, 2023-11-28
 
-### Add
+### Added
 - New code added to workaround a bug with wifi protocol on RPi3B (issue #145).
 
 ### Fixed
@@ -60,7 +68,7 @@ __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
 
 ## Version 2.17.0, 2023-10-01
 
-### Add
+### Added
 - Add support of NetworkManager for upcoming Bookworm-based RPi OS version (PR #123).
 - Add detection of just announced new Raspberry Pi 5 (issue #122).
 
@@ -97,7 +105,7 @@ __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
 
 ## Version 2.16.0, 2023-07-30
 
-### Add
+### Added
 - Enable displaying date and time buttons in the footer of any page for users with adequate role (issue #94).
 
 ### Changed
@@ -111,7 +119,7 @@ __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
 
 ## Version 2.15.0, 2023-05-04
 
-### Add
+### Added
 - Detect CM4S model (issue #112).
 
 ### Changed
@@ -127,7 +135,7 @@ __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
 
 ## Version 2.14.1, 2022-11-19
 
-### Add
+### Added
 - Add better graphical separation of footer buttons (no issue number, commit 21da4fadf108b76e467690ac06d5c2db6c8c01a1).
 
 ### Changed
