@@ -102,7 +102,7 @@ def do_regulatory_country():
     """Regulatory country setting."""
     global new_country
     # Check if new_country is in list of ISO 3166 alpha-2 country codes.
-    regex = re.compile(bytes('\n' + new_country + '\s', 'ascii'))
+    regex = re.compile(bytes('\\n' + new_country + '\\s', 'ascii'))
     with open('/usr/share/zoneinfo/iso3166.tab') as iso3166file:
         data = mmap.mmap(iso3166file.fileno(), 0, access=mmap.ACCESS_READ)
     # Replace new_country with default_country if invalid.
@@ -162,7 +162,7 @@ def do_ssid():
         if not is_regex_in_file(hostapd_conf_file, r'^utf8_ssid=\b'):
             file_replace_line(hostapd_conf_file,
                     '^(?P<ssid>ssid2?=(?:[0-9a-fA-F]{2}){1,32}).*$',
-                    '\g<ssid>\nutf8_ssid=1')
+                    '\\g<ssid>\nutf8_ssid=1')
 
 def do_ssid_hidden_state():
     """SSID hidden state setting."""
@@ -183,7 +183,7 @@ def do_ssid_hidden_state():
         if not is_regex_in_file(hostapd_conf_file, r'^ignore_broadcast_ssid=\b'):
             file_replace_line(hostapd_conf_file,
                     '^(?P<hidden>utf8_ssid=[01]).*$',
-                    '\g<hidden>\n# Show or hide SSID\nignore_broadcast_ssid=' + ssid_hidden_state)
+                    '\\g<hidden>\n# Show or hide SSID\nignore_broadcast_ssid=' + ssid_hidden_state)
         else:
             file_replace_line(hostapd_conf_file,
                     'ignore_broadcast_ssid=.*',
@@ -274,23 +274,23 @@ def do_ip_address():
     max_range = str(new_static_ip + default_max_range - 1)
     new_static_ip = str(new_static_ip)
 
-    ip_regex = "(?:10(\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){3}|((172\.(1[6-9]|2[0-9]|3[01]))|192\.168)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){2})"
+    ip_regex = "(?:10(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){3}|((172\\.(1[6-9]|2[0-9]|3[01]))|192\\.168)(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){2})"
     # Set IP and range in all needed files.
     file_replace_line(hosts_file,
-            '^' + ip_regex + '\s+(?P<host>([a-zA-Z0-9][-a-zA-Z0-9]{0,62}\s*)+)$',
-            new_static_ip + '\t\g<host>')
+            '^' + ip_regex + '\\s+(?P<host>([a-zA-Z0-9][-a-zA-Z0-9]{0,62}\\s*)+)$',
+            new_static_ip + '\\t\\g<host>')
     file_replace_line(nodogsplash_conf_file,
-            '^GatewayAddress\s+' + ip_regex,
+            '^GatewayAddress\\s+' + ip_regex,
             'GatewayAddress ' + new_static_ip)
     file_replace_line(dnsmasq_conf_file,
-            '^address=\/home\/.*$',
+            '^address=\\/home\\/.*$',
             'address=/home/' + new_static_ip)
     if is_networkmanager():
         subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'ipv4.addresses', new_static_ip + '/24'])
         subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'ipv4.gateway', new_static_ip])
         file_replace_line(dnsmasq_conf_file,
                 '^dhcp-option=6,' + ip_regex + '(?P<end>.*)$',
-                'dhcp-option=6,' + new_static_ip + '\g<end>')
+                'dhcp-option=6,' + new_static_ip + '\\g<end>')
     else:
         file_replace_line(dhcpcd_conf_file,
                 '^static ip_address=.*$',
@@ -300,10 +300,10 @@ def do_ip_address():
                 'listen-address=' + new_static_ip)
         file_replace_line(dnsmasq_conf_file,
                 '^dhcp-range=wifi,' + ip_regex + ',' + ip_regex + ',(?P<end>.*)$',
-                'dhcp-range=wifi,' + min_range + ',' + max_range + ',\g<end>')
+                'dhcp-range=wifi,' + min_range + ',' + max_range + ',\\g<end>')
         file_replace_line(dnsmasq_conf_file,
                 '^dhcp-option=wifi,6,' + ip_regex + '(?P<end>.*)$',
-                'dhcp-option=wifi,6,' + new_static_ip + '\g<end>')
+                'dhcp-option=wifi,6,' + new_static_ip + '\\g<end>')
 
 def fix_wrong_kernel_cmdline():
     """Fix buggy file produced by buggy script in version 2.17.0 and 2.17.1."""
