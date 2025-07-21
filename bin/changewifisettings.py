@@ -85,16 +85,22 @@ dhcpcd_conf_file = "/etc/dhcpcd.conf"
 
 # New values taken from settings_file.
 with open(settings_file, 'r') as f:
-    config_string = '[dummy_section]\n' + f.read()
+    # Inject section manually and read all file.
+    # Needed as configparser 3.11 cannot read INI files without sections.
+    config_string = '[wifi]\n' + f.read()
 settings = configparser.ConfigParser()
-settings.read_string(config_string)
-new_channel = settings['dummy_section']['channel']
-new_country = settings['dummy_section']['country']
-new_password = settings['dummy_section']['password']
-new_ssid = settings['dummy_section']['ssid']
-password_protected = settings['dummy_section']['passwordprotected']
-ssid_hidden_state = settings['dummy_section']['ssidhiddenstate']
-new_static_ip = settings['dummy_section']['ipaddress']
+try:
+    settings.read_string(config_string)
+    section = settings['wifi']
+    new_channel = section.get('channel', default_channel)
+    new_country = section.get('country', default_country)
+    new_password = section.get('password', default_password)
+    new_ssid = section.get('ssid', default_ssid)
+    password_protected = section.get('passwordprotected', '1')
+    ssid_hidden_state = section.get('ssidhiddenstate', '0')
+    new_static_ip = section.get('ipaddress', default_ip_address)
+except (KeyError, configparser.Error) as e:
+    sys.exit(f"Invalid settings file: {e}")
 
 # Action functions.
 
