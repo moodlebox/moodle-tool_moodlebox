@@ -21,7 +21,7 @@
 # Configuration.
 # Get directory of this script and Moodle source directory.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-MOODLEDIR="$( echo $DIR | sed 's/\/admin.*//g' )"
+MOODLEDIR="$( echo $DIR | sed -E 's/(\/public)?\/admin.*//g' )"
 # Path of file containing the new password (plain text).
 FILE=${DIR%/*}/.newpassword
 # Set username.
