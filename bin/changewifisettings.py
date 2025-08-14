@@ -35,13 +35,6 @@ def file_replace_line(file_name, search_pattern, replace_pattern):
         line = re.sub(search_pattern, replace_pattern, line)
         print(line)
 
-def is_regex_in_file(file_name, search_pattern):
-    the_file = open(file_name, 'r')
-    return re.findall(search_pattern, the_file.read(), re.MULTILINE)
-
-def is_networkmanager():
-    return subprocess.run(['systemctl', '-q', 'is-active', 'NetworkManager']).returncode == 0
-
 def is_pi3():
     """True if this is a Pi 3 B (not Plus!)."""
     return "Pi 3 Model B Rev" in open('/proc/device-tree/model').read()
@@ -51,10 +44,7 @@ def is_pi3():
 default_channel = '11'
 default_country = 'CH'
 default_password = 'moodlebox'
-if is_networkmanager():
-    default_ssid = 'MoodleBox'
-else:
-    default_ssid = '4d6f6f646c65426f78' # This means 'MoodleBox'.
+default_ssid = 'MoodleBox'
 default_ip_address = '10.0.0.1'
 default_min_range = 10
 default_max_range = 254
@@ -71,17 +61,8 @@ else:
 kernel_cmdline_file = "/boot/firmware/cmdline.txt"
 hosts_file = "/etc/hosts"
 nodogsplash_conf_file = "/etc/nodogsplash/nodogsplash.conf"
-if is_networkmanager():
-    dnsmasq_lease_file = "/tmp/dnsmasq.leases"
-    dnsmasq_conf_file = "/etc/NetworkManager/dnsmasq-shared.d/00-dhcp.conf"
-else:
-    dnsmasq_lease_file = "/var/lib/misc/dnsmasq.leases"
-    if os.path.exists("/etc/dnsmasq.d/uap0.conf"):
-        dnsmasq_conf_file = "/etc/dnsmasq.d/uap0.conf"
-    else:
-        dnsmasq_conf_file = "/etc/dnsmasq.conf"
-hostapd_conf_file = "/etc/hostapd/hostapd.conf"
-dhcpcd_conf_file = "/etc/dhcpcd.conf"
+dnsmasq_lease_file = "/tmp/dnsmasq.leases"
+dnsmasq_conf_file = "/etc/NetworkManager/dnsmasq-shared.d/00-dhcp.conf"
 
 # New values taken from settings_file.
 try:
@@ -118,19 +99,15 @@ def do_regulatory_country():
     if not re.search(regex, data):
         new_country = default_country
     # new_country is now valid.
-    if is_networkmanager():
-        # Set regulatory country in kernel command line.
-        file_replace_line(kernel_cmdline_file,
-                r'\s*cfg80211.ieee80211_regdom=\S*',
-                r'')
-        file_replace_line(kernel_cmdline_file,
-                r'^(.*)$',
-                r'\1 cfg80211.ieee80211_regdom=' + new_country)
-        # Set regulatory country with iw.
-        subprocess.run(['sudo', 'iw', 'reg', 'set', new_country])
-    else:
-        # Set regulatory country in hostapd config file.
-        file_replace_line(hostapd_conf_file, 'country_code=.*', 'country_code=' + new_country)
+    # Set regulatory country in kernel command line.
+    file_replace_line(kernel_cmdline_file,
+            r'\s*cfg80211.ieee80211_regdom=\S*',
+            r'')
+    file_replace_line(kernel_cmdline_file,
+            r'^(.*)$',
+            r'\1 cfg80211.ieee80211_regdom=' + new_country)
+    # Set regulatory country with iw.
+    subprocess.run(['sudo', 'iw', 'reg', 'set', new_country])
 
 def do_channel():
     """Channel setting."""
@@ -142,12 +119,8 @@ def do_channel():
     if new_country in ['CA','US'] and int(new_channel) > 11:
         new_channel = default_channel
     # new_channel is now valid.
-    if is_networkmanager():
-        # Set channel with nmcli
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.channel', new_channel])
-    else:
-        # Set channel in hostapd config file.
-        file_replace_line(hostapd_conf_file, 'channel=.*', 'channel=' + new_channel)
+    # Set channel with nmcli
+    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.channel', new_channel])
 
 def do_ssid():
     """SSID setting."""
@@ -159,19 +132,10 @@ def do_ssid():
     if not bool(ssid_pattern.search(new_ssid)):
         new_ssid = default_ssid
     # new_ssid is now valid.
-    if is_networkmanager():
-        # Convert new_ssid into plain string.
-        new_ssid = binascii.unhexlify(new_ssid).decode()
-        # Set SSID with nmcli.
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.ssid', new_ssid])
-    else:
-        # Set SSID in hostapd config file. We change ssid to ssid2 too.
-        file_replace_line(hostapd_conf_file, '^ssid2?=.*', 'ssid2=' + new_ssid)
-        # Check if hostapd config file defines a 'utf8_ssid' key and add it when missing.
-        if not is_regex_in_file(hostapd_conf_file, r'^utf8_ssid=\b'):
-            file_replace_line(hostapd_conf_file,
-                    '^(?P<ssid>ssid2?=(?:[0-9a-fA-F]{2}){1,32}).*$',
-                    '\\g<ssid>\nutf8_ssid=1')
+    # Convert new_ssid into plain string.
+    new_ssid = binascii.unhexlify(new_ssid).decode()
+    # Set SSID with nmcli.
+    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.ssid', new_ssid])
 
 def do_ssid_hidden_state():
     """SSID hidden state setting."""
@@ -180,23 +144,11 @@ def do_ssid_hidden_state():
     if ssid_hidden_state not in ['0','1']:
         ssid_hidden_state = '0'
     # SSID hidden status setting is now valid.
-    if is_networkmanager():
-        # Set ssid_hidden_state with nmcli.
-        if ssid_hidden_state == '1':
-            subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.hidden', 'yes'])
-        else:
-            subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.hidden', 'no'])
+    # Set ssid_hidden_state with nmcli.
+    if ssid_hidden_state == '1':
+        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.hidden', 'yes'])
     else:
-        # Set ssid_hidden_state in hostapd config file.
-        # Check if line "ignore_broadcast_ssid=..." exist uncommented in hostapd config file.
-        if not is_regex_in_file(hostapd_conf_file, r'^ignore_broadcast_ssid=\b'):
-            file_replace_line(hostapd_conf_file,
-                    '^(?P<hidden>utf8_ssid=[01]).*$',
-                    '\\g<hidden>\n# Show or hide SSID\nignore_broadcast_ssid=' + ssid_hidden_state)
-        else:
-            file_replace_line(hostapd_conf_file,
-                    'ignore_broadcast_ssid=.*',
-                    'ignore_broadcast_ssid=' + ssid_hidden_state)
+        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.hidden', 'no'])
 
 def do_password_protected():
     """Password protection setting."""
@@ -206,42 +158,23 @@ def do_password_protected():
         password_protected = True
     else:
         password_protected = (password_protected == '1')
-    # Check if access point is currently password protected.
-    if is_networkmanager():
-        # Check with nmcli if access point is currently password protected.
-        output = subprocess.run(
-            ['sudo', 'nmcli', '-g', '802-11-wireless-security.psk', 'con', 'show', 'WifiAP'],
-            capture_output = True,
-            text = True,
-        ).stdout
-        # If output isn't empty (falsy), access point is currently password protected.
-        is_currently_protected = bool(output)
-    else:
-        # Check if line "wpa_passphrase=..." exists uncommented in hostapd config file.
-        # If found, the access point is currently password protected.
-        is_currently_protected = bool(is_regex_in_file(hostapd_conf_file, r'^wpa_passphrase=\b'))
-    if is_networkmanager():
-        # Set parameters adequately with nmcli.
-        if not password_protected and is_currently_protected:
-            subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'remove', 'wifi-sec'])
-        elif password_protected and not is_currently_protected:
-            subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.key-mgmt', 'wpa-psk'])
-            subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.psk', new_password])
-            subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.group', 'ccmp'])
-            subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.pairwise', 'ccmp'])
-            subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', proto])
-    else:
-        # Set parameters adequately in hostapd config file.
-        if not password_protected and is_currently_protected:
-            file_replace_line(hostapd_conf_file, '^wpa_passphrase=.*', '# wpa_passphrase=moodlebox')
-            file_replace_line(hostapd_conf_file, '^wpa=.*', '# wpa=2')
-            file_replace_line(hostapd_conf_file, '^wpa_key_mgmt=.*', '# wpa_key_mgmt=WPA-PSK')
-            file_replace_line(hostapd_conf_file, '^rsn_pairwise=.*', '# rsn_pairwise=CCMP')
-        elif password_protected and not is_currently_protected:
-            file_replace_line(hostapd_conf_file, '^#.*wpa_passphrase=.*', 'wpa_passphrase=' + new_password)
-            file_replace_line(hostapd_conf_file, '^#.*wpa=.*', 'wpa=2')
-            file_replace_line(hostapd_conf_file, '^#.*wpa_key_mgmt=.*', 'wpa_key_mgmt=WPA-PSK')
-            file_replace_line(hostapd_conf_file, '^#.*rsn_pairwise=.*', 'rsn_pairwise=CCMP')
+    # Check with nmcli if access point is currently password protected.
+    output = subprocess.run(
+        ['sudo', 'nmcli', '-g', '802-11-wireless-security.psk', 'con', 'show', 'WifiAP'],
+        capture_output = True,
+        text = True,
+    ).stdout
+    # If output isn't empty (falsy), access point is currently password protected.
+    is_currently_protected = bool(output)
+    # Set parameters adequately with nmcli.
+    if not password_protected and is_currently_protected:
+        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'remove', 'wifi-sec'])
+    elif password_protected and not is_currently_protected:
+        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.key-mgmt', 'wpa-psk'])
+        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.psk', new_password])
+        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.group', 'ccmp'])
+        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.pairwise', 'ccmp'])
+        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', proto])
 
 def do_password():
     """Password setting."""
@@ -254,16 +187,12 @@ def do_password():
     if not bool(password_pattern.search(new_password)):
         new_password = default_password
     # new_password is now valid.
-    if is_networkmanager():
-        # Set password with nmcli.
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.key-mgmt', 'wpa-psk'])
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.psk', new_password])
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.group', 'ccmp'])
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.pairwise', 'ccmp'])
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', proto])
-    else:
-        # Set password in hostapd config file.
-        file_replace_line(hostapd_conf_file, '^wpa_passphrase=.*$', 'wpa_passphrase=' + new_password)
+    # Set password with nmcli.
+    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.key-mgmt', 'wpa-psk'])
+    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.psk', new_password])
+    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.group', 'ccmp'])
+    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.pairwise', 'ccmp'])
+    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', proto])
 
 def do_ip_address():
     """Static IP setting."""
@@ -294,25 +223,11 @@ def do_ip_address():
     file_replace_line(dnsmasq_conf_file,
             '^address=\\/home\\/.*$',
             'address=/home/' + new_static_ip)
-    if is_networkmanager():
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'ipv4.addresses', new_static_ip + '/24'])
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'ipv4.gateway', new_static_ip])
-        file_replace_line(dnsmasq_conf_file,
-                '^dhcp-option=6,' + ip_regex + '(?P<end>.*)$',
-                'dhcp-option=6,' + new_static_ip + '\\g<end>')
-    else:
-        file_replace_line(dhcpcd_conf_file,
-                '^static ip_address=.*$',
-                'static ip_address=' + new_static_ip + '/24')
-        file_replace_line(dnsmasq_conf_file,
-                '^listen-address=(?!127).*$',
-                'listen-address=' + new_static_ip)
-        file_replace_line(dnsmasq_conf_file,
-                '^dhcp-range=wifi,' + ip_regex + ',' + ip_regex + ',(?P<end>.*)$',
-                'dhcp-range=wifi,' + min_range + ',' + max_range + ',\\g<end>')
-        file_replace_line(dnsmasq_conf_file,
-                '^dhcp-option=wifi,6,' + ip_regex + '(?P<end>.*)$',
-                'dhcp-option=wifi,6,' + new_static_ip + '\\g<end>')
+    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'ipv4.addresses', new_static_ip + '/24'])
+    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'ipv4.gateway', new_static_ip])
+    file_replace_line(dnsmasq_conf_file,
+            '^dhcp-option=6,' + ip_regex + '(?P<end>.*)$',
+            'dhcp-option=6,' + new_static_ip + '\\g<end>')
 
 def fix_wrong_kernel_cmdline():
     """Fix buggy file produced by buggy script in version 2.17.0 and 2.17.1."""
@@ -326,8 +241,7 @@ def fix_wrong_kernel_cmdline():
 
 # Actions.
 
-if is_networkmanager():
-    fix_wrong_kernel_cmdline()
+fix_wrong_kernel_cmdline()
 do_regulatory_country()
 do_channel()
 do_ssid()
@@ -346,11 +260,6 @@ except IOError:
     pass
 
 # Restart networking and hostapd service.
-if is_networkmanager():
-    subprocess.call(['systemctl', 'restart', 'NetworkManager.service'])
-else:
-    subprocess.call(['systemctl', 'restart', 'hostapd.service'])
-    subprocess.call(['systemctl', 'restart', 'dnsmasq.service'])
-subprocess.call(['systemctl', 'restart', 'networking.service'])
+subprocess.call(['systemctl', 'restart', 'NetworkManager.service'])
 
 # The end.
