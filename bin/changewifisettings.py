@@ -107,7 +107,7 @@ def do_regulatory_country():
             r'^(.*)$',
             r'\1 cfg80211.ieee80211_regdom=' + new_country)
     # Set regulatory country with iw.
-    subprocess.run(['sudo', 'iw', 'reg', 'set', new_country])
+    subprocess.run(['iw', 'reg', 'set', new_country])
 
 def do_channel():
     """Channel setting."""
@@ -120,7 +120,7 @@ def do_channel():
         new_channel = default_channel
     # new_channel is now valid.
     # Set channel with nmcli
-    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.channel', new_channel])
+    subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi.channel', new_channel])
 
 def do_ssid():
     """SSID setting."""
@@ -135,7 +135,7 @@ def do_ssid():
     # Convert new_ssid into plain string.
     new_ssid = binascii.unhexlify(new_ssid).decode()
     # Set SSID with nmcli.
-    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.ssid', new_ssid])
+    subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi.ssid', new_ssid])
 
 def do_ssid_hidden_state():
     """SSID hidden state setting."""
@@ -146,9 +146,9 @@ def do_ssid_hidden_state():
     # SSID hidden status setting is now valid.
     # Set ssid_hidden_state with nmcli.
     if ssid_hidden_state == '1':
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.hidden', 'yes'])
+        subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi.hidden', 'yes'])
     else:
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi.hidden', 'no'])
+        subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi.hidden', 'no'])
 
 def do_password_protected():
     """Password protection setting."""
@@ -160,7 +160,7 @@ def do_password_protected():
         password_protected = (password_protected == '1')
     # Check with nmcli if access point is currently password protected.
     output = subprocess.run(
-        ['sudo', 'nmcli', '-g', '802-11-wireless-security.psk', 'con', 'show', 'WifiAP'],
+        ['nmcli', '-g', '802-11-wireless-security.psk', 'con', 'show', 'WifiAP'],
         capture_output = True,
         text = True,
     ).stdout
@@ -168,13 +168,13 @@ def do_password_protected():
     is_currently_protected = bool(output)
     # Set parameters adequately with nmcli.
     if not password_protected and is_currently_protected:
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'remove', 'wifi-sec'])
+        subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'remove', 'wifi-sec'])
     elif password_protected and not is_currently_protected:
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.key-mgmt', 'wpa-psk'])
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.psk', new_password])
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.group', 'ccmp'])
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.pairwise', 'ccmp'])
-        subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', proto])
+        subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.key-mgmt', 'wpa-psk'])
+        subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.psk', new_password])
+        subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.group', 'ccmp'])
+        subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.pairwise', 'ccmp'])
+        subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', proto])
 
 def do_password():
     """Password setting."""
@@ -188,11 +188,11 @@ def do_password():
         new_password = default_password
     # new_password is now valid.
     # Set password with nmcli.
-    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.key-mgmt', 'wpa-psk'])
-    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.psk', new_password])
-    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.group', 'ccmp'])
-    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.pairwise', 'ccmp'])
-    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', proto])
+    subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.key-mgmt', 'wpa-psk'])
+    subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.psk', new_password])
+    subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.group', 'ccmp'])
+    subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.pairwise', 'ccmp'])
+    subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'wifi-sec.proto', proto])
 
 def do_ip_address():
     """Static IP setting."""
@@ -223,14 +223,14 @@ def do_ip_address():
     file_replace_line(dnsmasq_conf_file,
             '^address=\\/home\\/.*$',
             'address=/home/' + new_static_ip)
-    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'ipv4.addresses', new_static_ip + '/24'])
-    subprocess.run(['sudo', 'nmcli', 'con', 'mod', 'WifiAP', 'ipv4.gateway', new_static_ip])
+    subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'ipv4.addresses', new_static_ip + '/24'])
+    subprocess.run(['nmcli', 'con', 'mod', 'WifiAP', 'ipv4.gateway', new_static_ip])
     file_replace_line(dnsmasq_conf_file,
             '^dhcp-option=6,' + ip_regex + '(?P<end>.*)$',
             'dhcp-option=6,' + new_static_ip + '\\g<end>')
 
 def fix_wrong_kernel_cmdline():
-    """Fix buggy file produced by buggy script in version 2.17.0 and 2.17.1."""
+    """Fix buggy file produced by buggy script in versions 2.17.0 and 2.17.1."""
     kernel_cmdline_tofix = "/boot/cmdline.txt"
     if os.path.exists(kernel_cmdline_tofix) and not os.path.islink(kernel_cmdline_tofix):
         os.remove(kernel_cmdline_tofix)
