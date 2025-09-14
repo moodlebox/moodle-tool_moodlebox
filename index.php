@@ -135,18 +135,11 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
         $moodleboxversion = $moodleboxinfo['version'];
     }
 
-    // We use NetworkManager for network management if MoodleBox version is greater than '4.5.1'.
-    $networkmanager = version_compare($moodleboxversion, '4.5.1', '>');
-
     // Get CPU load.
     $cpuload = sys_getloadavg();
 
     // Get DHCP leases file name.
-    if ($networkmanager) {
-        $leasesfile = '/tmp/dnsmasq.leases';
-    } else {
-        $leasesfile = '/var/lib/misc/dnsmasq.leases';
-    }
+    $leasesfile = '/tmp/dnsmasq.leases';
 
     // Get IP addresses of connected clients.
     $interface = 'uap0';
@@ -188,48 +181,26 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     // Get plugin version.
     $moodleboxpluginversion = $plugin->release . ' (' . $plugin->version . ')';
 
-    if ($networkmanager) {
-        // Get current wireless access point data with NetworkManager.
-        if ( $wifiinfo = exec('nmcli -g 802-11-wireless.mode con show WifiAP') ) {
-            $wifiinfodata = [];
-            $wifiinfokeys = ['channel', 'ssid', 'password', 'countrycode', 'hidden'];
-            $currentapchannel = exec('nmcli -g 802-11-wireless.channel con show WifiAP', $wifiinfodata);
-            $currentssid = exec('nmcli -g 802-11-wireless.ssid con show WifiAP', $wifiinfodata);
-            if (!$currentappassword = exec('sudo nmcli -s -g 802-11-wireless-security.psk con show WifiAP', $wifiinfodata)) {
-                array_push($wifiinfodata, null);
-            }
-            $currentregcountry = exec('iw reg get | awk \'/country/{print $2; exit}\' | cut -d\':\' -f1', $wifiinfodata);
-            $currentssidhidden = exec('nmcli -g 802-11-wireless.hidden con show WifiAP', $wifiinfodata);
-            $wifiinfo = array_combine(
-                $wifiinfokeys,
-                $wifiinfodata,
-            );
-            $currentapchannel = $wifiinfo['channel'];
-            $currentssid = $wifiinfo['ssid'];
-            $currentappassword = $wifiinfo['password'];
-            $currentregcountry = $wifiinfo['countrycode'];
-            $currentssidhidden = ($wifiinfo['hidden'] === 'yes');
+    // Get current wireless access point data.
+    if ( $wifiinfo = exec('nmcli -g 802-11-wireless.mode con show WifiAP') ) {
+        $wifiinfodata = [];
+        $wifiinfokeys = ['channel', 'ssid', 'password', 'countrycode', 'hidden'];
+        $currentapchannel = exec('nmcli -g 802-11-wireless.channel con show WifiAP', $wifiinfodata);
+        $currentssid = exec('nmcli -g 802-11-wireless.ssid con show WifiAP', $wifiinfodata);
+        if (!$currentappassword = exec('sudo nmcli -s -g 802-11-wireless-security.psk con show WifiAP', $wifiinfodata)) {
+            array_push($wifiinfodata, null);
         }
-    } else {
-        // Get current Wi-Fi SSID, channel and password with dhcpcd and hostapd.
-        if ( $wifiinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/hostapd/hostapd.conf', false, INI_SCANNER_RAW) ) {
-            $currentapchannel = $wifiinfo['channel'];
-            if ( array_key_exists('ssid', $wifiinfo) ) {
-                $currentssid = $wifiinfo['ssid'];
-            } else {
-                $currentssid = $wifiinfo['ssid2'];
-                // Convert $currentssid from hex {@link https://stackoverflow.com/a/46344675}.
-                $currentssid = pack("H*", $currentssid);
-            }
-            $currentappassword = array_key_exists('wpa_passphrase', $wifiinfo) ? $wifiinfo['wpa_passphrase'] : null;
-            $currentregcountry = $wifiinfo['country_code'];
-            if ( $currentssidhidden = array_key_exists('ignore_broadcast_ssid', $wifiinfo) ) {
-                $currentssidhidden = $wifiinfo['ignore_broadcast_ssid'];
-            } else {
-                $currentssidhidden = '0';
-            }
-            $currentssidhidden = ($currentssidhidden === 1);
-        }
+        $currentregcountry = exec('iw reg get | awk \'/country/{print $2; exit}\' | cut -d\':\' -f1', $wifiinfodata);
+        $currentssidhidden = exec('nmcli -g 802-11-wireless.hidden con show WifiAP', $wifiinfodata);
+        $wifiinfo = array_combine(
+            $wifiinfokeys,
+            $wifiinfodata,
+        );
+        $currentapchannel = $wifiinfo['channel'];
+        $currentssid = $wifiinfo['ssid'];
+        $currentappassword = $wifiinfo['password'];
+        $currentregcountry = $wifiinfo['countrycode'];
+        $currentssidhidden = ($wifiinfo['hidden'] === 'yes');
     }
 
     // Get ethernet addresses.
