@@ -1,5 +1,5 @@
 name: Moodle Plugin CI
-# Based on version gha.dist.yml version 4.5.8
+# Based on version gha.dist.yml version 4.5.10
 
 on:
   push:
