@@ -32,11 +32,11 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
-require_once($CFG->libdir.'/moodlelib.php');
-require_once($CFG->libdir.'/adminlib.php');
-require_once($CFG->libdir.'/tablelib.php');
-require_once(dirname(__FILE__).'/version.php');
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
+require_once($CFG->libdir . '/moodlelib.php');
+require_once($CFG->libdir . '/adminlib.php');
+require_once($CFG->libdir . '/tablelib.php');
+require_once(dirname(__FILE__) . '/version.php');
 
 putenv('LC_ALL=en_GB.utf-8');
 
@@ -50,8 +50,8 @@ $PAGE->set_heading($strheading);
 
 echo $OUTPUT->header();
 
-if ( $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model() ) {
-    switch ( $hardwaredata['model'] ) {
+if ($hardwaredata = \tool_moodlebox\local\utils::get_hardware_model()) {
+    switch ($hardwaredata['model']) {
         // String $platform MUST contain 'rpi'.
         case 'A+':
         case 'B+':
@@ -117,8 +117,7 @@ if ( $hardwaredata = \tool_moodlebox\local\utils::get_hardware_model() ) {
     $platform = 'unknownmodel';
 }
 
-if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
-
+if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     $systemtime = usergetdate(time())[0];
     $PAGE->requires->js_call_amd('tool_moodlebox/timediff', 'init', [$systemtime]);
 
@@ -126,12 +125,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
 
     // Get Raspberry Pi OS distribution version.
-    if ( $releaseinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/os-release') ) {
+    if ($releaseinfo = \tool_moodlebox\local\utils::parse_config_file('/etc/os-release')) {
         $rpiosversion = $releaseinfo['PRETTY_NAME'];
     }
 
     // Get MoodleBox image version.
-    if ( $moodleboxinfo = \tool_moodlebox\local\utils::get_moodlebox_info() ) {
+    if ($moodleboxinfo = \tool_moodlebox\local\utils::get_moodlebox_info()) {
         $moodleboxversion = $moodleboxinfo['version'];
     }
 
@@ -147,22 +146,22 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $dhcpclientnumber = count($leases);
 
     // Get local static IP address.
-    if ( $staticipaddress = exec('nmcli -g ip4.address con show WifiAP') ) {
+    if ($staticipaddress = exec('nmcli -g ip4.address con show WifiAP')) {
         $staticipaddress = explode('/', $staticipaddress)[0];
     }
 
     // Get CPU temperature.
-    if ( file_exists('/sys/class/thermal/thermal_zone0/temp') ) {
+    if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
         $cputemperature = intval(file_get_contents('/sys/class/thermal/thermal_zone0/temp')) / 1000 . ' °C';
     }
 
     // Get CPU frequency.
-    if ( file_exists('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq') ) {
+    if (file_exists('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')) {
         $cpufrequency = intval(file_get_contents('/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')) / 1000 . ' MHz';
     }
 
     // Get system uptime.
-    if ( file_exists('/proc/uptime') ) {
+    if (file_exists('/proc/uptime')) {
         $rawuptime = intval(file_get_contents('/proc/uptime'));
         $uptime = format_time($rawuptime);
     }
@@ -184,7 +183,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $moodleboxpluginversion = $plugin->release . ' (' . $plugin->version . ')';
 
     // Get current wireless access point data.
-    if ( $wifiinfo = exec('nmcli -g 802-11-wireless.mode con show WifiAP') ) {
+    if ($wifiinfo = exec('nmcli -g 802-11-wireless.mode con show WifiAP')) {
         $wifiinfodata = [];
         $wifiinfokeys = ['channel', 'ssid', 'password', 'countrycode', 'hidden'];
         $currentapchannel = exec('nmcli -g 802-11-wireless.channel con show WifiAP', $wifiinfodata);
@@ -206,15 +205,18 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     }
 
     // Get ethernet addresses.
-    if ( $ethernetaddresses = \tool_moodlebox\local\utils::get_ethernet_addresses() ) {
+    if ($ethernetaddresses = \tool_moodlebox\local\utils::get_ethernet_addresses()) {
         $ipaddress = $ethernetaddresses['host'];
         $defaultgatewayaddress = $ethernetaddresses['gateway'];
     }
 
     // System information section.
-    print_collapsible_region_start('moodleboxsysteminfo', 'moodleboxsysteminfo',
-        get_string('moodleboxsysteminfo', 'tool_moodlebox') .
-            $OUTPUT->help_icon('moodleboxsysteminfo', 'tool_moodlebox'), 'moodleboxsysteminfosection');
+    print_collapsible_region_start(
+        'moodleboxsysteminfo',
+        'moodleboxsysteminfo',
+        get_string('moodleboxsysteminfo', 'tool_moodlebox') . $OUTPUT->help_icon('moodleboxsysteminfo', 'tool_moodlebox'),
+        'moodleboxsysteminfosection'
+    );
     echo $OUTPUT->box_start('generalbox');
 
     $table = new flexible_table('moodleboxstatus_table');
@@ -282,7 +284,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
             ' (' . 100 * round($sdcardfreespace / $sdcardtotalspace, 3) . '%)', ], 'subinfo');
     $table->add_data([get_string('cpuload', 'tool_moodlebox'),
             round($cpuload[0], 3) . ', ' . round($cpuload[1], 3) . ', ' . round($cpuload[2], 3), ], 'subinfo');
-    if ( $platform !== 'unknownmodel' ) {
+    if ($platform !== 'unknownmodel') {
         $table->add_data([get_string('cputemperature', 'tool_moodlebox'), $cputemperature], 'subinfo');
         $table->add_data([get_string('cpufrequency', 'tool_moodlebox'), $cpufrequency], 'subinfo');
         $table->add_data([get_string('uptime', 'tool_moodlebox'), $uptime], 'subinfo');
@@ -294,7 +296,7 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $table->add_data([get_string('revisioncode', 'tool_moodlebox'), $hardwaredata['revisioncode']], 'subinfo');
     // Software versions.
     $table->add_data([get_string('softwareversions', 'tool_moodlebox'), '']);
-    if ( $releaseinfo ) {
+    if ($releaseinfo) {
         $table->add_data([get_string('rpiosversion', 'tool_moodlebox'), $rpiosversion], 'subinfo');
     }
     $table->add_data([get_string('kernelversion', 'tool_moodlebox'), $kernelversion], 'subinfo');
@@ -309,8 +311,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     print_collapsible_region_end();
 
     // Time setting section.
-    print_collapsible_region_start('datetimesetting', 'datetimesetting',
-        get_string('datetimesetting', 'tool_moodlebox'), 'moodleboxdatetimesection');
+    print_collapsible_region_start(
+        'datetimesetting',
+        'datetimesetting',
+        get_string('datetimesetting', 'tool_moodlebox'),
+        'moodleboxdatetimesection'
+    );
     echo $OUTPUT->box_start('generalbox');
 
     $datetimetriggerfile = '.set-server-datetime';
@@ -334,9 +340,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     print_collapsible_region_end();
 
     // Change password section.
-    print_collapsible_region_start('passwordsetting', 'passwordsetting',
-        get_string('passwordsetting', 'tool_moodlebox') .
-            $OUTPUT->help_icon('passwordsetting', 'tool_moodlebox'), 'moodleboxpasswordsection');
+    print_collapsible_region_start(
+        'passwordsetting',
+        'passwordsetting',
+        get_string('passwordsetting', 'tool_moodlebox') . $OUTPUT->help_icon('passwordsetting', 'tool_moodlebox'),
+        'moodleboxpasswordsection'
+    );
     echo $OUTPUT->box_start('generalbox');
 
     $passwordtriggerfile = '.newpassword';
@@ -359,8 +368,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     print_collapsible_region_end();
 
     // Wi-Fi configuration section.
-    print_collapsible_region_start('wifisettings', 'wifisettings',
-        get_string('wifisettings', 'tool_moodlebox'), 'moodleboxwifisection');
+    print_collapsible_region_start(
+        'wifisettings',
+        'wifisettings',
+        get_string('wifisettings', 'tool_moodlebox'),
+        'moodleboxwifisection'
+    );
     echo $OUTPUT->box_start('generalbox');
 
     $aptriggerfile = '.wifisettings';
@@ -384,14 +397,16 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
                 }
                 // Convert $data->wifissid to hex {@link https://stackoverflow.com/a/46344675}.
                 $data->wifissid = implode(unpack("H*", $data->wifissid));
-                file_put_contents($aptriggerfile,
-                                  "channel=" . $data->wifichannel . "\n" .
-                                  "country=" . $data->wificountry . "\n" .
-                                  "password=" . $data->wifipassword . "\n" .
-                                  "ssid=" . $data->wifissid . "\n" .
-                                  "ssidhiddenstate=" . $data->wifissidhiddenstate . "\n" .
-                                  "passwordprotected=" . $data->wifipasswordon . "\n" .
-                                  "ipaddress=" . $data->staticipaddress . "\n");
+                file_put_contents(
+                    $aptriggerfile,
+                    "channel=" . $data->wifichannel . "\n" .
+                    "country=" . $data->wificountry . "\n" .
+                    "password=" . $data->wifipassword . "\n" .
+                    "ssid=" . $data->wifissid . "\n" .
+                    "ssidhiddenstate=" . $data->wifissidhiddenstate . "\n" .
+                    "passwordprotected=" . $data->wifipasswordon . "\n" .
+                    "ipaddress=" . $data->staticipaddress . "\n"
+                );
                 \core\notification::warning(get_string('wifisettingsmessage', 'tool_moodlebox'));
             }
         }
@@ -408,9 +423,12 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $unallocatedfreespace = \tool_moodlebox\local\utils::unallocated_free_space();
 
     if ($unallocatedfreespace) {
-        print_collapsible_region_start('resizepartition', 'resizepartition',
-            get_string('resizepartition', 'tool_moodlebox') .
-                $OUTPUT->help_icon('resizepartition', 'tool_moodlebox'), 'moodleboxresizepartitionsection');
+        print_collapsible_region_start(
+            'resizepartition',
+            'resizepartition',
+            get_string('resizepartition', 'tool_moodlebox') . $OUTPUT->help_icon('resizepartition', 'tool_moodlebox'),
+            'moodleboxresizepartitionsection'
+        );
         echo $OUTPUT->box_start('generalbox');
 
         $resizetriggerfile = '.resize-partition';
