@@ -147,7 +147,9 @@ if ( strpos($platform, 'rpi') !== false ) { // We are on a RPi.
     $dhcpclientnumber = count($leases);
 
     // Get local static IP address.
-    $staticipaddress = gethostbyname(gethostname());
+    if ( $staticipaddress = exec('nmcli -g ip4.address con show WifiAP') ) {
+        $staticipaddress = explode('/', $staticipaddress)[0];
+    }
 
     // Get CPU temperature.
     if ( file_exists('/sys/class/thermal/thermal_zone0/temp') ) {
