@@ -38,17 +38,22 @@ require_once($CFG->libdir . '/formslib.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class restartshutdown_form extends moodleform {
-
     /**
      * Define the form.
      */
     public function definition() {
         $mform = $this->_form;
         $buttonarray = [];
-        $buttonarray[] = & $mform->createElement('submit', 'restartbutton',
-                                                  get_string('restart', 'tool_moodlebox'));
-        $buttonarray[] = & $mform->createElement('submit', 'shutdownbutton',
-                                                  get_string('shutdown', 'tool_moodlebox'));
+        $buttonarray[] = & $mform->createElement(
+            'submit',
+            'restartbutton',
+            get_string('restart', 'tool_moodlebox')
+        );
+        $buttonarray[] = & $mform->createElement(
+            'submit',
+            'shutdownbutton',
+            get_string('shutdown', 'tool_moodlebox')
+        );
         $mform->addGroup($buttonarray, 'buttonar', '', [' '], false);
         $mform->closeHeaderBefore('buttonar');
     }

@@ -38,7 +38,6 @@ require_once($CFG->libdir . '/formslib.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class changepassword_form extends moodleform {
-
     /**
      * Define the form.
      */
@@ -49,7 +48,7 @@ class changepassword_form extends moodleform {
         $mform->addRule('newpassword1', get_string('required'), 'required', null, 'client');
         $mform->setType('newpassword1', PARAM_RAW_TRIMMED);
 
-        $mform->addElement('passwordunmask', 'newpassword2', get_string('newpassword').' ('.get_string('again').')');
+        $mform->addElement('passwordunmask', 'newpassword2', get_string('newpassword') . ' (' . get_string('again') . ')');
         $mform->addRule('newpassword2', get_string('required'), 'required', null, 'client');
         $mform->setType('newpassword2', PARAM_RAW_TRIMMED);
 

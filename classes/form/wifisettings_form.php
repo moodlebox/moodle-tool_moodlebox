@@ -38,10 +38,8 @@ require_once($CFG->libdir . '/formslib.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class wifisettings_form extends moodleform {
-
     /**
      * Define the form.
-     *
      */
     public function definition() {
         global $currentssid;
@@ -61,8 +59,12 @@ class wifisettings_form extends moodleform {
         $mform->addHelpButton('wifissid', 'wifissid', 'tool_moodlebox');
 
         // SSID hiding setting.
-        $mform->addElement('checkbox', 'wifissidhiddenstate', get_string('wifissidhiddenstate', 'tool_moodlebox'),
-            ' ' . get_string('wifissidhidden', 'tool_moodlebox'));
+        $mform->addElement(
+            'checkbox',
+            'wifissidhiddenstate',
+            get_string('wifissidhiddenstate', 'tool_moodlebox'),
+            ' ' . get_string('wifissidhidden', 'tool_moodlebox')
+        );
         $mform->setDefault('wifissidhiddenstate', $currentssidhidden ? 1 : 0);
         $mform->setType('wifissidhiddenstate', PARAM_INT);
         $mform->addHelpButton('wifissidhiddenstate', 'wifissidhiddenstate', 'tool_moodlebox');
@@ -73,24 +75,35 @@ class wifisettings_form extends moodleform {
         } else {
             $wifichannelrange = range(1, 13);
         }
-        $mform->addElement('select', 'wifichannel', get_string('wifichannel', 'tool_moodlebox'),
-                array_combine($wifichannelrange, $wifichannelrange));
+        $mform->addElement('select',
+            'wifichannel',
+            get_string('wifichannel', 'tool_moodlebox'),
+            array_combine($wifichannelrange, $wifichannelrange)
+        );
         $mform->addRule('wifichannel', get_string('required'), 'required', null, 'client');
         $mform->setType('wifichannel', PARAM_INT);
         $mform->setDefault('wifichannel', $currentapchannel);
         $mform->addHelpButton('wifichannel', 'wifichannel', 'tool_moodlebox');
 
         // Regulatory country setting.
-        $mform->addElement('select', 'wificountry', get_string('wificountry', 'tool_moodlebox'),
-                get_string_manager()->get_list_of_countries(true));
+        $mform->addElement(
+            'select',
+            'wificountry',
+            get_string('wificountry', 'tool_moodlebox'),
+            get_string_manager()->get_list_of_countries(true)
+        );
         $mform->addRule('wificountry', get_string('required'), 'required', null, 'client');
         $mform->setType('wificountry', PARAM_RAW);
         $mform->setDefault('wificountry', $currentregcountry);
         $mform->addHelpButton('wificountry', 'wificountry', 'tool_moodlebox');
 
         // Password protection setting.
-        $mform->addElement('checkbox', 'wifipasswordon', get_string('wifipasswordon', 'tool_moodlebox'),
-            ' ' . get_string('passwordprotected', 'tool_moodlebox'));
+        $mform->addElement(
+          'checkbox',
+          'wifipasswordon',
+          get_string('wifipasswordon', 'tool_moodlebox'),
+          ' ' . get_string('passwordprotected', 'tool_moodlebox')
+        );
         $mform->setDefault('wifipasswordon', ($currentappassword == null) ? 0 : 1);
         $mform->setType('wifipasswordon', PARAM_INT);
         $mform->addHelpButton('wifipasswordon', 'wifipasswordon', 'tool_moodlebox');
@@ -129,7 +142,7 @@ class wifisettings_form extends moodleform {
 
         // Password must have 8 to 63 ASCII printable characters.
         // See IEEE Std. 802.11i-2004, Annex H.4.1.
-        if (!preg_match('/^[ -~]{8,63}$/', $data['wifipassword']) ) {
+        if (!preg_match('/^[ -~]{8,63}$/', $data['wifipassword'])) {
             $errors['wifipassword'] = get_string('wifipasswordinvalid', 'tool_moodlebox');
         }
 

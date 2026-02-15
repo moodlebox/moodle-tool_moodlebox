@@ -31,7 +31,6 @@ namespace tool_moodlebox\local;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class utils {
-
     /**
      * Get Raspberry Pi hardware model
      *
@@ -85,8 +84,8 @@ class utils {
         $revisioncode = '';
 
         // Read revision number from device.
-        if ( $cpuinfo = @file_get_contents('/proc/cpuinfo') ) {
-            if ( preg_match_all('/^Revision.*/m', $cpuinfo, $revisionmatch) > 0 ) {
+        if ($cpuinfo = @file_get_contents('/proc/cpuinfo')) {
+            if (preg_match_all('/^Revision.*/m', $cpuinfo, $revisionmatch) > 0) {
                 $revisioncode = explode(' ', $revisionmatch[0][0]);
                 $revisioncode = end($revisioncode);
             }
@@ -144,8 +143,11 @@ class utils {
         $file = '/etc/moodlebox-info';
         if ( file_exists($file) ) {
             $moodleboxinfo = file($file);
-            if ( preg_match_all('/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
-                    $moodleboxinfo[0], $moodleboxinfomatch) > 0 ) {
+            if (preg_match_all(
+                '/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
+                $moodleboxinfo[0],
+                $moodleboxinfomatch
+            ) > 0) {
                 return [
                     'version' => $moodleboxinfomatch[1][0],
                     'date' => $moodleboxinfomatch[4][0],
@@ -181,13 +183,13 @@ class utils {
      * @return string containing interface name or false if no interface found.
      */
     public static function get_ethernet_interface_name() {
-        if ( $path = realpath('/sys/class/net') ) {
+        if ($path = realpath('/sys/class/net')) {
             $iter = new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS +
                     \RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
             $iter = new \RecursiveIteratorIterator($iter, \RecursiveIteratorIterator::CHILD_FIRST);
             $iter = new \RegexIterator($iter, '|^.*/device$|i', \RecursiveRegexIterator::GET_MATCH);
             $iter->setMaxDepth(2);
-            if ( $matches = array_values(preg_grep('#^.*/(eth|en).*$#i', array_keys(iterator_to_array($iter)))) ) {
+            if ($matches = array_values(preg_grep('#^.*/(eth|en).*$#i', array_keys(iterator_to_array($iter))))) {
                 return explode('/', $matches[0])[4];
             } else {
                 return false;
@@ -223,7 +225,7 @@ class utils {
         $iface = self::get_ethernet_interface_name();
 
         $command = "ip route show 0.0.0.0/0 dev " . $iface;
-        if ( $ethernetaddresses = exec($command) ) {
+        if ($ethernetaddresses = exec($command)) {
             $array = explode(' ', $ethernetaddresses);
             return [
                 'host' => $array[6],
@@ -242,7 +244,7 @@ class utils {
      * @return string converted
      */
     public static function convert_hex_string($string) {
-        return preg_replace_callback('#\\\\x([[:xdigit:]]{2})#ism', function($matches) {
+        return preg_replace_callback('#\\\\x([[:xdigit:]]{2})#ism', function ($matches) {
             return chr(hexdec($matches[1]));
         }, $string);
     }
@@ -300,7 +302,7 @@ class utils {
 
         $command = "sudo vcgencmd get_throttled | awk -F'=' '{print $2}'";
         // Get bit pattern from device.
-        if ( $throttledstate = exec($command) ) {
+        if ($throttledstate = exec($command)) {
             $throttledstate = hexdec($throttledstate);
 
             // Get raw values using bitwise operations.
@@ -363,8 +365,8 @@ class utils {
         $arpmacippairs = array_combine($arpmatches[2], $arpmatches[1]);
 
         // Get leases from `dnsmasq` lease file.
-        if ( file_exists($leasesfile) ) {
-            if ( filesize($leasesfile) > 0 ) {
+        if (file_exists($leasesfile)) {
+            if (filesize($leasesfile) > 0) {
                 $leases = explode("\n", trim(file_get_contents($leasesfile)));
             } else {
                 $leases = [];
@@ -380,7 +382,7 @@ class utils {
                 // Find MAC and IP addresses in lease file, and get matching device name.
                 if ($m = preg_grep('/^.*' . $macaddress . '\s' . $arpmacippairs[$macaddress] . '.*$/i', $leases)) {
                     $name = explode(' ', reset($m))[3];
-                    if ( $name == '*') {
+                    if ($name == '*') {
                         $name = get_string('hiddendhcpname', 'tool_moodlebox');
                     }
                 } else {
@@ -402,11 +404,11 @@ class utils {
      * @return associative array of parameters, value
      */
     public static function get_survey_data() {
-        require(dirname(dirname(dirname(__FILE__))).'/version.php');
+        require(dirname(dirname(dirname(__FILE__))) . '/version.php');
 
         // Read serial number from device.
-        if ( $cpuinfo = @file_get_contents('/proc/cpuinfo') ) {
-            if ( preg_match_all('/^Serial.*/m', $cpuinfo, $serialmatch) > 0 ) {
+        if ($cpuinfo = @file_get_contents('/proc/cpuinfo')) {
+            if (preg_match_all('/^Serial.*/m', $cpuinfo, $serialmatch) > 0) {
                 $serialnumber = explode(' ', $serialmatch[0][0]);
                 $serialnumber = end($serialnumber);
             }
@@ -418,10 +420,13 @@ class utils {
         $hardware = self::get_hardware_model();
 
         // Get MoodleBox image version.
-        if ( file_exists('/etc/moodlebox-info') ) {
+        if (file_exists('/etc/moodlebox-info')) {
             $moodleboxinfo = file('/etc/moodlebox-info');
-            if ( preg_match_all('/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
-                    $moodleboxinfo[0], $moodleboxinfomatch) > 0 ) {
+            if (preg_match_all(
+                '/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
+                $moodleboxinfo[0],
+                $moodleboxinfomatch
+            ) > 0) {
                 $moodleboxinfo = $moodleboxinfomatch[1][0] . ' (' . $moodleboxinfomatch[4][0] . ')';
             }
         }
@@ -439,5 +444,4 @@ class utils {
 
         return $surveydata;
     }
-
 }
