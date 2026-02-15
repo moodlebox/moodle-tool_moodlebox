@@ -458,9 +458,12 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     }
 
     // Restart-shutdown section.
-    print_collapsible_region_start('restartstop', 'restartstop',
-        get_string('restartstop', 'tool_moodlebox') .
-            $OUTPUT->help_icon('restartstop', 'tool_moodlebox'), 'moodleboxrestartstopsection');
+    print_collapsible_region_start(
+        'restartstop',
+        'restartstop',
+        get_string('restartstop', 'tool_moodlebox') . $OUTPUT->help_icon('restartstop', 'tool_moodlebox'),
+        'moodleboxrestartstopsection'
+    );
     echo $OUTPUT->box_start('generalbox');
 
     $reboottriggerfile = '.reboot-server';
