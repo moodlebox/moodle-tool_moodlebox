@@ -38,20 +38,23 @@ require_once($CFG->libdir . '/formslib.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class datetimeset_form extends moodleform {
-
     /**
      * Define the form.
      */
     public function definition() {
         $mform = $this->_form;
-        $mform->addElement('date_time_selector', 'currentdatetime', get_string('datetime', 'tool_moodlebox'),
-                            [
-                                'startyear' => date("Y") - 2,
-                                'stopyear'  => date("Y") + 2,
-                                'timezone'  => 99,
-                                'step'      => 1,
-                                'optional'  => true,
-                            ]);
+        $mform->addElement(
+            'date_time_selector',
+            'currentdatetime',
+            get_string('datetime', 'tool_moodlebox'),
+            [
+                'startyear' => date("Y") - 2,
+                'stopyear'  => date("Y") + 2,
+                'timezone'  => 99,
+                'step'      => 1,
+                'optional'  => true,
+            ]
+        );
         $mform->addHelpButton('currentdatetime', 'datetime', 'tool_moodlebox');
 
         $this->add_action_buttons(false, get_string('datetimeset', 'tool_moodlebox'));

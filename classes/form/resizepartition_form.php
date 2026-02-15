@@ -38,15 +38,17 @@ require_once($CFG->libdir . '/formslib.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class resizepartition_form extends moodleform {
-
     /**
      * Define the form.
      */
     public function definition() {
         $mform = $this->_form;
         $buttonarray = [];
-        $buttonarray[] = & $mform->createElement('submit', 'resizepartitionbutton',
-                                                  get_string('resizepartition', 'tool_moodlebox'));
+        $buttonarray[] = & $mform->createElement(
+            'submit',
+            'resizepartitionbutton',
+            get_string('resizepartition', 'tool_moodlebox')
+        );
         $mform->addGroup($buttonarray, 'buttonar', '', [' '], false);
         $mform->closeHeaderBefore('buttonar');
     }

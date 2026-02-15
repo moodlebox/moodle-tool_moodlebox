@@ -47,10 +47,10 @@ class hook_callbacks {
         // Check that logged in user has admin or manager role.
         if (has_capability('tool/moodlebox:viewbuttonsinfooter', $context)) {
             // Get throttled state and print warning if throttling is active or has occurred.
-            if ( $throttledstate = \tool_moodlebox\local\utils::get_throttled_state() ) {
-                if ( $throttledstate['undervoltagedetected'] ) {
+            if ($throttledstate = \tool_moodlebox\local\utils::get_throttled_state()) {
+                if ($throttledstate['undervoltagedetected']) {
                     \core\notification::error(get_string('undervoltagedetected', 'tool_moodlebox'));
-                } else if ( $throttledstate['undervoltageoccurred'] ) {
+                } else if ($throttledstate['undervoltageoccurred']) {
                     \core\notification::warning(get_string('undervoltageoccurred', 'tool_moodlebox'));
                 }
             }
@@ -59,9 +59,10 @@ class hook_callbacks {
         $output = '';
         $thisplugindir = $CFG->dirroot . '/admin/tool/moodlebox/';
 
-        if (has_capability('tool/moodlebox:viewbuttonsinfooter', $context) &&
-                get_config('tool_moodlebox', 'datetimebuttonsinfooter')) {
-
+        if (
+            has_capability('tool/moodlebox:viewbuttonsinfooter', $context) &&
+                get_config('tool_moodlebox', 'datetimebuttonsinfooter')
+        ) {
             // Display date and time setting buttons.
             $datetimetriggerfile = $thisplugindir . '.set-server-datetime';
             $datetimesetform = new \tool_moodlebox\form\datetimeset_form();
@@ -78,9 +79,10 @@ class hook_callbacks {
             $output .= html_writer::div($datetimesetform->render(), "", ['id' => 'datetimesetbuttons']);
         }
 
-        if (has_capability('tool/moodlebox:viewbuttonsinfooter', $context) &&
-                get_config('tool_moodlebox', 'restartshutdownbuttonsinfooter')) {
-
+        if (
+            has_capability('tool/moodlebox:viewbuttonsinfooter', $context) &&
+                get_config('tool_moodlebox', 'restartshutdownbuttonsinfooter')
+        ) {
             // Display restart and shutdown buttons.
             $reboottriggerfile = $thisplugindir . '.reboot-server';
             $shutdowntriggerfile = $thisplugindir . '.shutdown-server';
@@ -105,7 +107,6 @@ class hook_callbacks {
 
             $output .= html_writer::empty_tag("hr", ['id' => 'footerbuttonsspacer']);
             $output .= html_writer::div($restartshutdownform->render(), "", ['id' => 'footerbuttons']);
-
         }
 
         echo $output;

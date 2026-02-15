@@ -59,7 +59,6 @@ else:
 # Path of various config files.
 
 kernel_cmdline_file = "/boot/firmware/cmdline.txt"
-hosts_file = "/etc/hosts"
 nodogsplash_conf_file = "/etc/nodogsplash/nodogsplash.conf"
 dnsmasq_lease_file = "/tmp/dnsmasq.leases"
 dnsmasq_conf_file = "/etc/NetworkManager/dnsmasq-shared.d/00-dhcp.conf"
@@ -214,9 +213,6 @@ def do_ip_address():
 
     ip_regex = "(?:10(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){3}|((172\\.(1[6-9]|2[0-9]|3[01]))|192\\.168)(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{1,2}|[0-9]{1,2})){2})"
     # Set IP and range in all needed files.
-    file_replace_line(hosts_file,
-            '^' + ip_regex + '\\s+(?P<host>([a-zA-Z0-9][-a-zA-Z0-9]{0,62}\\s*)+)$',
-            new_static_ip + '\\t\\g<host>')
     file_replace_line(nodogsplash_conf_file,
             '^GatewayAddress\\s+' + ip_regex,
             'GatewayAddress ' + new_static_ip)
