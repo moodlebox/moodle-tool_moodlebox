@@ -141,13 +141,15 @@ class utils {
     public static function get_moodlebox_info($file = '/etc/moodlebox-info') {
         $moodleboxinfo = '';
         $file = '/etc/moodlebox-info';
-        if ( file_exists($file) ) {
+        if (file_exists($file)) {
             $moodleboxinfo = file($file);
-            if (preg_match_all(
-                '/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
-                $moodleboxinfo[0],
-                $moodleboxinfomatch
-            ) > 0) {
+            if (
+                preg_match_all(
+                    '/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
+                    $moodleboxinfo[0],
+                    $moodleboxinfomatch
+                ) > 0
+            ) {
                 return [
                     'version' => $moodleboxinfomatch[1][0],
                     'date' => $moodleboxinfomatch[4][0],
@@ -422,11 +424,13 @@ class utils {
         // Get MoodleBox image version.
         if (file_exists('/etc/moodlebox-info')) {
             $moodleboxinfo = file('/etc/moodlebox-info');
-            if (preg_match_all(
-                '/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
-                $moodleboxinfo[0],
-                $moodleboxinfomatch
-            ) > 0) {
+            if (
+                preg_match_all(
+                    '/^.*version ((\d+\.)+(.*|\d+)), (\d{4}-\d{2}-\d{2})$/i',
+                    $moodleboxinfo[0],
+                    $moodleboxinfomatch
+                ) > 0
+            ) {
                 $moodleboxinfo = $moodleboxinfomatch[1][0] . ' (' . $moodleboxinfomatch[4][0] . ')';
             }
         }

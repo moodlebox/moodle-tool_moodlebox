@@ -75,7 +75,8 @@ class wifisettings_form extends moodleform {
         } else {
             $wifichannelrange = range(1, 13);
         }
-        $mform->addElement('select',
+        $mform->addElement(
+            'select',
             'wifichannel',
             get_string('wifichannel', 'tool_moodlebox'),
             array_combine($wifichannelrange, $wifichannelrange)
@@ -99,10 +100,10 @@ class wifisettings_form extends moodleform {
 
         // Password protection setting.
         $mform->addElement(
-          'checkbox',
-          'wifipasswordon',
-          get_string('wifipasswordon', 'tool_moodlebox'),
-          ' ' . get_string('passwordprotected', 'tool_moodlebox')
+            'checkbox',
+            'wifipasswordon',
+            get_string('wifipasswordon', 'tool_moodlebox'),
+            ' ' . get_string('passwordprotected', 'tool_moodlebox')
         );
         $mform->setDefault('wifipasswordon', ($currentappassword == null) ? 0 : 1);
         $mform->setType('wifipasswordon', PARAM_INT);

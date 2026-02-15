@@ -30,7 +30,7 @@ if ($hassiteconfig) { // Speedup for non-admins.
 
     // Add admin external page 'dashboard' to category 'moodlebox'.
     $moodleboxadminpage = new admin_externalpage(
-    		'tool_moodlebox',
+        'tool_moodlebox',
         new lang_string('dashboard', 'tool_moodlebox'),
         new moodle_url('/admin/tool/moodlebox/index.php')
     );
@@ -38,52 +38,52 @@ if ($hassiteconfig) { // Speedup for non-admins.
 
     // Add admin setting page to category 'moodlebox'.
     $moodleboxsettingpage = new admin_settingpage(
-    		'tool_moodlebox_settings',
+        'tool_moodlebox_settings',
         new lang_string('configuration', 'tool_moodlebox')
     );
 
     if ($ADMIN->fulltree) {
         // Add info.
         $moodleboxsettingpage->add(new admin_setting_heading(
-        		'moodlebox_infoheading',
+            'moodlebox_infoheading',
             new lang_string('infoheading', 'tool_moodlebox'),
             new lang_string('projectinfo', 'tool_moodlebox')
         ));
         $moodleboxsettingpage->add(new admin_setting_description(
-        		'moodlebox_documentation',
+            'moodlebox_documentation',
             new lang_string('documentation', 'tool_moodlebox'),
             new lang_string('documentation_desc', 'tool_moodlebox')
         ));
         $moodleboxsettingpage->add(new admin_setting_description(
-        		'moodlebox_forum',
+            'moodlebox_forum',
             new lang_string('forum', 'tool_moodlebox'),
             new lang_string('forum_desc', 'tool_moodlebox')
         ));
 
         // Add settings.
         $moodleboxsettingpage->add(new admin_setting_heading(
-        		'moodlebox_settingheading',
+            'moodlebox_settingheading',
             new lang_string('configuration', 'tool_moodlebox'),
             ''
         ));
         $moodleboxsettingpage->add(new admin_setting_configcheckbox(
-        		'tool_moodlebox/datetimebuttonsinfooter',
+            'tool_moodlebox/datetimebuttonsinfooter',
             new lang_string('showdatetimebuttonsinfooter', 'tool_moodlebox'),
             new lang_string('showdatetimebuttonsinfooter_desc', 'tool_moodlebox'),
             0
         ));
         $moodleboxsettingpage->add(new admin_setting_configcheckbox(
-        		'tool_moodlebox/restartshutdownbuttonsinfooter',
+            'tool_moodlebox/restartshutdownbuttonsinfooter',
             new lang_string('showrestartshutdownbuttonsinfooter', 'tool_moodlebox'),
             new lang_string('showrestartshutdownbuttonsinfooter_desc', 'tool_moodlebox'),
             0
         ));
         $moodleboxsettingpage->add(new admin_setting_configcheckbox(
-        		'tool_moodlebox/ihavedonated',
+            'tool_moodlebox/ihavedonated',
             new lang_string('ihavedonated', 'tool_moodlebox'),
             new lang_string('ihavedonated_desc', 'tool_moodlebox'),
             0
-      	));
+        ));
     }
     $ADMIN->add('moodlebox', $moodleboxsettingpage);
 
