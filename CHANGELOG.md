@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 3.1.0, 2026-02-15
+
+__This version is not compatible with versions of Moodle prior to Moodle 4.4!__
+
+### Fixed
+- Bad routine to display wireless AP fixed IP (issue #184).
+
 ## Version 3.0.0, 2025-10-09
 
 __This version is not compatible with versions of Moodle prior to Moodle 4.4!__
