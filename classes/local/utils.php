@@ -240,7 +240,7 @@ class utils {
 
     /**
      * Convert string with hexadecimal code to unicode string.
-     * @link https://stackoverflow.com/a/12083180.
+     * @link https://stackoverflow.com/a/12083180
      *
      * @param string $string to convert
      * @return string converted
@@ -265,8 +265,8 @@ class utils {
 
     /**
      * Get Raspberry Pi throttled state
-     * @link https://github.com/raspberrypi/documentation/blob/develop/documentation/asciidoc/computers/os/graphics-utilities.adoc.
-     * @link https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=147781&start=50#p972790.
+     * @link https://github.com/raspberrypi/documentation/blob/master/documentation/asciidoc/computers/os/graphics-utilities.adoc
+     * @link https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=147781&start=50#p972790
      *
      * +----+----+----+----+----+
      * |3210|FEDC|BA98|7654|3210|
