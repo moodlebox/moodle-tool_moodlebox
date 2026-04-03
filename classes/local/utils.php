@@ -35,8 +35,8 @@ class utils {
      * Get Raspberry Pi hardware model
      *
      * Revision field in /proc/cpuinfo. The bit fields are as follows.
-     * @link https://github.com/raspberrypi/documentation/blob/develop/documentation/asciidoc/computers/raspberry-pi/revision-codes.adoc.
-     * @link https://github.com/AndrewFromMelbourne/raspberry_pi_revision/.
+     * @link https://github.com/raspberrypi/documentation/blob/master/documentation/asciidoc/computers/raspberry-pi/revision-codes.adoc
+     * @link https://github.com/AndrewFromMelbourne/raspberry_pi_revision/
      *
      * +----+----+----+----+----+----+----+----+
      * |FEDC|BA98|7654|3210|FEDC|BA98|7654|3210|
@@ -64,7 +64,7 @@ class utils {
      * | B | 04-11 | Model name    | A, B, A+, B+, 2B, Alpha, CM1, unknown, 3B, Zero,   |
      * |   |       |               | CM3, unknown, Zero W, 3B+, 3A+, internal, CM3+,    |
      * |   |       |               | 4B, Zero 2 W, 400, CM4, CM4S, internal, 5, CM5,    |
-     * |   |       |               | 500, CM5 Lite,                                     |
+     * |   |       |               | 500/500+, CM5 Lite, CM0                            |
      * | C | 12-15 | Processor     | BCM2835, BCM2836, BCM2837, BCM2711, BCM2712        |
      * | D | 16-19 | Manufacturer  | Sony UK, Egoman, Embest, Sony Japan,               |
      * |   |       |               | Embest, Stadium                                    |
@@ -93,11 +93,11 @@ class utils {
         $revisionnumber = hexdec($revisioncode);
 
         // Define arrays of various hardware parameter values.
-        $memorysizes = ['256MB', '512MB', '1GB', '2GB', '4GB', '8GB', '16GB' ];
+        $memorysizes = ['256MB', '512MB', '1GB', '2GB', '4GB', '8GB', '16GB', 'other' ];
         $models = ['A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
                 '3B', 'Zero', 'CM3', 'Unknown', 'ZeroW', '3B+', '3A+', 'Internal use',
                 'CM3+', '4B', 'Zero2W', '400', 'CM4', 'CM4S', 'Internal use', '5',
-                'CM5', '500', 'CM5 Lite', ];
+                'CM5', '500/500+', 'CM5 Lite', 'CM0', ];
         $processors = ['BCM2835', 'BCM2836', 'BCM2837', 'BCM2711', 'BCM2712'];
         $manufacturers = ['Sony UK', 'Egoman', 'Embest', 'Sony Japan',
                 'Embest', 'Stadium', ];
@@ -240,7 +240,7 @@ class utils {
 
     /**
      * Convert string with hexadecimal code to unicode string.
-     * @link https://stackoverflow.com/a/12083180.
+     * @link https://stackoverflow.com/a/12083180
      *
      * @param string $string to convert
      * @return string converted
@@ -265,8 +265,8 @@ class utils {
 
     /**
      * Get Raspberry Pi throttled state
-     * @link https://github.com/raspberrypi/documentation/blob/develop/documentation/asciidoc/computers/os/graphics-utilities.adoc.
-     * @link https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=147781&start=50#p972790.
+     * @link https://github.com/raspberrypi/documentation/blob/master/documentation/asciidoc/computers/os/graphics-utilities.adoc
+     * @link https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=147781&start=50#p972790
      *
      * +----+----+----+----+----+
      * |3210|FEDC|BA98|7654|3210|

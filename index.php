@@ -83,6 +83,9 @@ if ($hardwaredata = \tool_moodlebox\local\utils::get_hardware_model()) {
                 case '8GB':
                     $platform = 'rpi4eightgb';
                     break;
+                case 'other':
+                    $platform = 'rpi4threegb';
+                    break;
             };
             break;
         case '5':
@@ -109,6 +112,16 @@ if ($hardwaredata = \tool_moodlebox\local\utils::get_hardware_model()) {
             break;
         case '400':
             $platform = 'rpi400';
+            break;
+        case '500/500+':
+            switch ($hardwaredata['memory']) {
+                case '8GB':
+                    $platform = 'rpi500';
+                    break;
+                case '16GB':
+                    $platform = 'rpi500plus';
+                    break;
+            };
             break;
         default: // Anything else is not a supported RPi.
             $platform = 'unknownmodel';
