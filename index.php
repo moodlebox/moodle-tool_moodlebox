@@ -134,6 +134,8 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     $systemtime = usergetdate(time())[0];
     $PAGE->requires->js_call_amd('tool_moodlebox/timediff', 'init', [$systemtime]);
 
+    $thisplugindir = $CFG->dirroot . '/admin/tool/moodlebox/';
+
     // Get kernel version.
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
 
@@ -188,7 +190,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
 
     // Get PiJuice Status.
     if ($pijuicepackage) {
-        $pijuicestatusjson = exec('python3 bin/pijuicestatus.py');
+        $pijuicestatusjson = exec('python3 ' . escapeshellarg($thisplugindir . 'bin/pijuicestatus.py'));
         $pijuicestatus = json_decode($pijuicestatusjson, true);
     }
 
@@ -332,7 +334,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $datetimetriggerfile = '.set-server-datetime';
+    $datetimetriggerfile = $thisplugindir . '.set-server-datetime';
 
     if (file_exists($datetimetriggerfile)) {
         $datetimesetform = new \tool_moodlebox\form\datetimeset_form();
@@ -361,7 +363,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $passwordtriggerfile = '.newpassword';
+    $passwordtriggerfile = $thisplugindir . '.newpassword';
 
     if (file_exists($passwordtriggerfile)) {
         $changepasswordform = new \tool_moodlebox\form\changepassword_form();
@@ -389,7 +391,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $aptriggerfile = '.wifisettings';
+    $aptriggerfile = $thisplugindir . '.wifisettings';
 
     if (file_exists($aptriggerfile)) {
         $wifisettingsform = new \tool_moodlebox\form\wifisettings_form();
@@ -444,7 +446,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
         );
         echo $OUTPUT->box_start('generalbox');
 
-        $resizetriggerfile = '.resize-partition';
+        $resizetriggerfile = $thisplugindir . '.resize-partition';
 
         if (file_exists($resizetriggerfile)) {
             $resizepartitionform = new \tool_moodlebox\form\resizepartition_form(
@@ -479,8 +481,8 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $reboottriggerfile = '.reboot-server';
-    $shutdowntriggerfile = '.shutdown-server';
+    $reboottriggerfile = $thisplugindir . '.reboot-server';
+    $shutdowntriggerfile = $thisplugindir . '.shutdown-server';
 
     if (file_exists($reboottriggerfile) && file_exists($shutdowntriggerfile)) {
         $restartshutdownform = new \tool_moodlebox\form\restartshutdown_form(null, null, 'post', '', ['id' => 'formrestartstop']);
