@@ -27,10 +27,10 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
 
-    /* allows the user to view the restart/shutdown buttons in the footer */
+    /* allows the user to view admin controls buttons in the footer */
     'tool/moodlebox:viewbuttonsinfooter' => [
         'riskbitmask' => RISK_CONFIG | RISK_DATALOSS,
-        'captype' => 'read',
+        'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => [
             'manager' => CAP_ALLOW,
