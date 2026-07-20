@@ -65,6 +65,13 @@ class changepassword_form extends moodleform {
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);
 
+        // Forbid slashes and single quotes in passwords.
+        // Avoids to accidentally brick Moodle's DB connectivity.
+        if (preg_match("~['/]~", $data['newpassword1'])) {
+            $errors['newpassword1'] = get_string('changepasswordinvalid', 'tool_moodlebox');
+        }
+
+        // Check if both passwords are identical.
         if ($data['newpassword1'] <> $data['newpassword2']) {
             $errors['newpassword1'] = get_string('passwordsdiffer');
             $errors['newpassword2'] = get_string('passwordsdiffer');
