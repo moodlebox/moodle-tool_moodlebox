@@ -25,6 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['changepassworderror'] = 'The MoodleBox password was not changed. The passwords given don\'t match.';
+$string['changepasswordinvalid'] = 'The MoodleBox password is invalid. It must not contain single quotes or forward slashes.';
 $string['changepasswordmessage'] = 'The main password of the MoodleBox (Unix account) and of the database server were successfully changed.<br /><br />Warning! The password of the default Moodle user <b>was not changed</b>. To change it, please use the preferences page of this user.';
 $string['changewifisettings'] = 'Change Wi-Fi settings';
 $string['configuration'] = 'MoodleBox settings';

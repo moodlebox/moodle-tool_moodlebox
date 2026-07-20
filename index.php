@@ -134,6 +134,9 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     $systemtime = usergetdate(time())[0];
     $PAGE->requires->js_call_amd('tool_moodlebox/timediff', 'init', [$systemtime]);
 
+    $thisplugindir = $CFG->dirroot . '/admin/tool/moodlebox/';
+    $settingsdir = $CFG->dataroot . '/moodlebox/';
+
     // Get kernel version.
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
 
@@ -188,7 +191,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
 
     // Get PiJuice Status.
     if ($pijuicepackage) {
-        $pijuicestatusjson = exec('python3 bin/pijuicestatus.py');
+        $pijuicestatusjson = exec('python3 ' . escapeshellarg($thisplugindir . 'bin/pijuicestatus.py'));
         $pijuicestatus = json_decode($pijuicestatusjson, true);
     }
 
@@ -244,14 +247,14 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     // Wireless info.
     if ($wifiinfo) {
         $table->add_data([get_string('wifisettings', 'tool_moodlebox'), '']);
-        $table->add_data([get_string('wifissid', 'tool_moodlebox'), $currentssid], 'subinfo');
+        $table->add_data([get_string('wifissid', 'tool_moodlebox'), s($currentssid)], 'subinfo');
         $table->add_data([get_string('wifissidhiddenstate', 'tool_moodlebox'),
                 ($currentssidhidden) ?
                     get_string('hidden', 'tool_moodlebox') : get_string('visible', 'tool_moodlebox'), ], 'subinfo');
-        $table->add_data([get_string('wifichannel', 'tool_moodlebox'), $currentapchannel], 'subinfo');
-        $table->add_data([get_string('wificountry', 'tool_moodlebox'), $currentregcountry], 'subinfo');
-        $table->add_data([get_string('wifipassword', 'tool_moodlebox'), $currentappassword], 'subinfo');
-        $table->add_data([get_string('staticipaddress', 'tool_moodlebox'), $staticipaddress], 'subinfo');
+        $table->add_data([get_string('wifichannel', 'tool_moodlebox'), s($currentapchannel)], 'subinfo');
+        $table->add_data([get_string('wificountry', 'tool_moodlebox'), s($currentregcountry)], 'subinfo');
+        $table->add_data([get_string('wifipassword', 'tool_moodlebox'), s($currentappassword)], 'subinfo');
+        $table->add_data([get_string('staticipaddress', 'tool_moodlebox'), s($staticipaddress)], 'subinfo');
     }
 
     // DHCP client info.
@@ -260,7 +263,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
                 ' (' . get_string('dhcpclientnumber', 'tool_moodlebox') . ': ' . $dhcpclientnumber . ')', '', ]);
         foreach ($leases as $mac => $data) {
             $table->add_data([get_string('dhcpclientinfo', 'tool_moodlebox'),
-                    $data['ip'] . ' (' . $data['name'] . ', ' . $mac . ')', ], 'subinfo');
+                    s($data['ip']) . ' (' . s($data['name']) . ', ' . s($mac) . ')', ], 'subinfo');
         }
     }
     // Ethernet info.
@@ -268,8 +271,8 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
         $table->add_data([get_string('networkinterface', 'tool_moodlebox'), '']);
         $table->add_data([get_string('interfacename', 'tool_moodlebox'),
                 \tool_moodlebox\local\utils::get_ethernet_interface_name(), ], 'subinfo');
-        $table->add_data([get_string('dynamicipaddress', 'tool_moodlebox'), $ipaddress], 'subinfo');
-        $table->add_data([get_string('defaultgateway', 'tool_moodlebox'), $defaultgatewayaddress], 'subinfo');
+        $table->add_data([get_string('dynamicipaddress', 'tool_moodlebox'), s($ipaddress)], 'subinfo');
+        $table->add_data([get_string('defaultgateway', 'tool_moodlebox'), s($defaultgatewayaddress)], 'subinfo');
     } else {
         $table->add_data([get_string('networkinterface', 'tool_moodlebox'),
                 get_string('ethernetdisconnected', 'tool_moodlebox'), ]);
@@ -332,7 +335,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $datetimetriggerfile = '.set-server-datetime';
+    $datetimetriggerfile = $settingsdir . '.set-server-datetime';
 
     if (file_exists($datetimetriggerfile)) {
         $datetimesetform = new \tool_moodlebox\form\datetimeset_form();
@@ -361,7 +364,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $passwordtriggerfile = '.newpassword';
+    $passwordtriggerfile = $settingsdir . '.newpassword';
 
     if (file_exists($passwordtriggerfile)) {
         $changepasswordform = new \tool_moodlebox\form\changepassword_form();
@@ -389,7 +392,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $aptriggerfile = '.wifisettings';
+    $aptriggerfile = $settingsdir . '.wifisettings';
 
     if (file_exists($aptriggerfile)) {
         $wifisettingsform = new \tool_moodlebox\form\wifisettings_form();
@@ -444,7 +447,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
         );
         echo $OUTPUT->box_start('generalbox');
 
-        $resizetriggerfile = '.resize-partition';
+        $resizetriggerfile = $settingsdir . '.resize-partition';
 
         if (file_exists($resizetriggerfile)) {
             $resizepartitionform = new \tool_moodlebox\form\resizepartition_form(
@@ -479,8 +482,8 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $reboottriggerfile = '.reboot-server';
-    $shutdowntriggerfile = '.shutdown-server';
+    $reboottriggerfile = $settingsdir . '.reboot-server';
+    $shutdowntriggerfile = $settingsdir . '.shutdown-server';
 
     if (file_exists($reboottriggerfile) && file_exists($shutdowntriggerfile)) {
         $restartshutdownform = new \tool_moodlebox\form\restartshutdown_form(null, null, 'post', '', ['id' => 'formrestartstop']);
