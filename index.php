@@ -247,14 +247,14 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     // Wireless info.
     if ($wifiinfo) {
         $table->add_data([get_string('wifisettings', 'tool_moodlebox'), '']);
-        $table->add_data([get_string('wifissid', 'tool_moodlebox'), $currentssid], 'subinfo');
+        $table->add_data([get_string('wifissid', 'tool_moodlebox'), s($currentssid)], 'subinfo');
         $table->add_data([get_string('wifissidhiddenstate', 'tool_moodlebox'),
                 ($currentssidhidden) ?
                     get_string('hidden', 'tool_moodlebox') : get_string('visible', 'tool_moodlebox'), ], 'subinfo');
-        $table->add_data([get_string('wifichannel', 'tool_moodlebox'), $currentapchannel], 'subinfo');
-        $table->add_data([get_string('wificountry', 'tool_moodlebox'), $currentregcountry], 'subinfo');
-        $table->add_data([get_string('wifipassword', 'tool_moodlebox'), $currentappassword], 'subinfo');
-        $table->add_data([get_string('staticipaddress', 'tool_moodlebox'), $staticipaddress], 'subinfo');
+        $table->add_data([get_string('wifichannel', 'tool_moodlebox'), s($currentapchannel)], 'subinfo');
+        $table->add_data([get_string('wificountry', 'tool_moodlebox'), s($currentregcountry)], 'subinfo');
+        $table->add_data([get_string('wifipassword', 'tool_moodlebox'), s($currentappassword)], 'subinfo');
+        $table->add_data([get_string('staticipaddress', 'tool_moodlebox'), s($staticipaddress)], 'subinfo');
     }
 
     // DHCP client info.
@@ -263,7 +263,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
                 ' (' . get_string('dhcpclientnumber', 'tool_moodlebox') . ': ' . $dhcpclientnumber . ')', '', ]);
         foreach ($leases as $mac => $data) {
             $table->add_data([get_string('dhcpclientinfo', 'tool_moodlebox'),
-                    $data['ip'] . ' (' . $data['name'] . ', ' . $mac . ')', ], 'subinfo');
+                    s($data['ip']) . ' (' . s($data['name']) . ', ' . s($mac) . ')', ], 'subinfo');
         }
     }
     // Ethernet info.
@@ -271,8 +271,8 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
         $table->add_data([get_string('networkinterface', 'tool_moodlebox'), '']);
         $table->add_data([get_string('interfacename', 'tool_moodlebox'),
                 \tool_moodlebox\local\utils::get_ethernet_interface_name(), ], 'subinfo');
-        $table->add_data([get_string('dynamicipaddress', 'tool_moodlebox'), $ipaddress], 'subinfo');
-        $table->add_data([get_string('defaultgateway', 'tool_moodlebox'), $defaultgatewayaddress], 'subinfo');
+        $table->add_data([get_string('dynamicipaddress', 'tool_moodlebox'), s($ipaddress)], 'subinfo');
+        $table->add_data([get_string('defaultgateway', 'tool_moodlebox'), s($defaultgatewayaddress)], 'subinfo');
     } else {
         $table->add_data([get_string('networkinterface', 'tool_moodlebox'),
                 get_string('ethernetdisconnected', 'tool_moodlebox'), ]);
