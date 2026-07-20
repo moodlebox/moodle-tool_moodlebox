@@ -24,7 +24,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 MOODLEDIR="$( echo $DIR | sed -E 's/(\/public)?\/admin.*//g' )"
 MOODLEDATADIR="$( echo "$(dirname ${MOODLEDIR})"/moodledata )"
 # Path of file containing the new password (plain text).
-FILE=${MOODLEDATADIR%/}/moodlebox/.newpassword
+PASSWORDFILE=${MOODLEDATADIR%/}/moodlebox/.newpassword
 # Set username.
 USER="moodlebox"
 # Get oldpassword from Moodle config.php file.
@@ -33,15 +33,17 @@ OLDPASSWORD="$(grep '\$CFG->dbpass' $MOODLEDIR/config.php | cut -d\' -f2)"
 # Actions.
 # Make sure there is a matching USER, but not the root user.
 if [ -n "$(getent passwd $USER)" ] && [ $USER != "root" ]; then
-    NEWPASSWORD="$(head -n 1 $FILE | sed 's/ *$//g' | sed 's/^ *//g')"
+    NEWPASSWORD="$(head -n 1 $PASSWORDFILE | sed 's/ *$//g' | sed 's/^ *//g')"
     # Change the password if non empty.
     if [ -n "$NEWPASSWORD" ]; then
         # 1. Change password for database user "moodlebox".
-        mysql -e "SET PASSWORD FOR 'moodlebox'@'localhost' = PASSWORD('$NEWPASSWORD');"
+        ESCAPEDNEWPASSWORD=$(printf '%s' "$NEWPASSWORD" | sed 's/\\/\\\\/g; s/'\''/'\'''\''/g')
+        mysql -e "ALTER USER 'moodlebox'@'localhost' IDENTIFIED BY '$ESCAPEDNEWPASSWORD';"
         # 2. Change password for Unix account "moodlebox".
         echo $USER:$NEWPASSWORD | chpasswd
         # 3. Change password for database user "moodlebox" in Moodle config.php.
-        sed -i "/\$CFG->dbpass/c\$CFG->dbpass    = '$NEWPASSWORD';" $MOODLEDIR/config.php
+        ESCAPEDNEWPASSWORD=$(printf '%s' "$NEWPASSWORD" | sed 's/[\/&\\]/\\&/g')
+        sed -i "/\$CFG->dbpass/c\$CFG->dbpass    = '$ESCAPEDNEWPASSWORD';" ${MOODLEDIR}/config.php
     else
         echo "Empty password given"
         exit 0
@@ -50,5 +52,5 @@ fi
 # End of actions.
 #
 # Empty password file, for security.
-> $FILE
+> $PASSWORDFILE
 # The end.
