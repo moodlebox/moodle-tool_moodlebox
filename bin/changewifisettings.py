@@ -24,8 +24,13 @@ if not os.geteuid() == 0:
 
 # Get directory of this script.
 this_dir = os.path.dirname(os.path.realpath(__file__))
-# Path of file containing the new access point settings (plain text).
-settings_file = os.path.join(os.path.dirname(this_dir), '.wifisettings')
+# Path to web root containing Moodle installation
+this_dir_path_parts = this_dir.split("/")
+web_path = os.path.dirname("/".join(this_dir_path_parts[:this_dir_path_parts.index('moodle') + 1]))
+# Path to Moodle data directory
+moodledata_path = os.path.join(web_path, 'moodledata')
+# Path to file containing the new access point settings (plain text).
+settings_file = os.path.join(moodledata_path, 'moodlebox/.wifisettings')
 
 # Helper functions.
 
@@ -252,6 +257,12 @@ do_ip_address()
 # Empty lease file to clean clients list.
 try:
     open(dnsmasq_lease_file, 'w').close()
+except IOError:
+    pass
+
+# Empty settings file, for security.
+try:
+    open(settings_file, 'w').close()
 except IOError:
     pass
 

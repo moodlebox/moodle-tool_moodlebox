@@ -135,6 +135,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     $PAGE->requires->js_call_amd('tool_moodlebox/timediff', 'init', [$systemtime]);
 
     $thisplugindir = $CFG->dirroot . '/admin/tool/moodlebox/';
+    $settingsdir = $CFG->dataroot . '/moodlebox/';
 
     // Get kernel version.
     $kernelversion = php_uname('s') . ' ' . php_uname('r') . ' ' .  php_uname('m');
@@ -334,7 +335,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $datetimetriggerfile = $thisplugindir . '.set-server-datetime';
+    $datetimetriggerfile = $settingsdir . '.set-server-datetime';
 
     if (file_exists($datetimetriggerfile)) {
         $datetimesetform = new \tool_moodlebox\form\datetimeset_form();
@@ -363,7 +364,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $passwordtriggerfile = $thisplugindir . '.newpassword';
+    $passwordtriggerfile = $settingsdir . '.newpassword';
 
     if (file_exists($passwordtriggerfile)) {
         $changepasswordform = new \tool_moodlebox\form\changepassword_form();
@@ -391,7 +392,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $aptriggerfile = $thisplugindir . '.wifisettings';
+    $aptriggerfile = $settingsdir . '.wifisettings';
 
     if (file_exists($aptriggerfile)) {
         $wifisettingsform = new \tool_moodlebox\form\wifisettings_form();
@@ -446,7 +447,7 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
         );
         echo $OUTPUT->box_start('generalbox');
 
-        $resizetriggerfile = $thisplugindir . '.resize-partition';
+        $resizetriggerfile = $settingsdir . '.resize-partition';
 
         if (file_exists($resizetriggerfile)) {
             $resizepartitionform = new \tool_moodlebox\form\resizepartition_form(
@@ -481,8 +482,8 @@ if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
     );
     echo $OUTPUT->box_start('generalbox');
 
-    $reboottriggerfile = $thisplugindir . '.reboot-server';
-    $shutdowntriggerfile = $thisplugindir . '.shutdown-server';
+    $reboottriggerfile = $settingsdir . '.reboot-server';
+    $shutdowntriggerfile = $settingsdir . '.shutdown-server';
 
     if (file_exists($reboottriggerfile) && file_exists($shutdowntriggerfile)) {
         $restartshutdownform = new \tool_moodlebox\form\restartshutdown_form(null, null, 'post', '', ['id' => 'formrestartstop']);

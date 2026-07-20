@@ -19,11 +19,12 @@
 [[ $EUID -ne 0 ]] && { echo "This script must be run as root"; exit 1; }
 #
 # Configuration.
-# Get directory of this script and Moodle source directory.
+# Get directory of this script and Moodle source and data directories.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 MOODLEDIR="$( echo $DIR | sed -E 's/(\/public)?\/admin.*//g' )"
+MOODLEDATADIR="$( echo "$(dirname ${MOODLEDIR})"/moodledata )"
 # Path of file containing the new password (plain text).
-FILE=${DIR%/*}/.newpassword
+FILE=${MOODLEDATADIR%/}/moodlebox/.newpassword
 # Set username.
 USER="moodlebox"
 # Get oldpassword from Moodle config.php file.
@@ -48,6 +49,6 @@ if [ -n "$(getent passwd $USER)" ] && [ $USER != "root" ]; then
 fi
 # End of actions.
 #
-# Empty password file.
+# Empty password file, for security.
 > $FILE
 # The end.
