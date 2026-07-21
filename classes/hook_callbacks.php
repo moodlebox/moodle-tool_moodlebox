@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  *
  * @package    tool_moodlebox
  * @copyright  2024 onwards Patrick Lemaire
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace tool_moodlebox;
@@ -57,14 +57,14 @@ class hook_callbacks {
         }
 
         $output = '';
-        $thisplugindir = $CFG->dirroot . '/admin/tool/moodlebox/';
+        $settingsdir = $CFG->dataroot . '/moodlebox/';
 
         if (
             has_capability('tool/moodlebox:viewbuttonsinfooter', $context) &&
                 get_config('tool_moodlebox', 'datetimebuttonsinfooter')
         ) {
             // Display date and time setting buttons.
-            $datetimetriggerfile = $thisplugindir . '.set-server-datetime';
+            $datetimetriggerfile = $settingsdir . '.set-server-datetime';
             $datetimesetform = new \tool_moodlebox\form\datetimeset_form();
 
             if ($data = $datetimesetform->get_data()) {
@@ -84,8 +84,8 @@ class hook_callbacks {
                 get_config('tool_moodlebox', 'restartshutdownbuttonsinfooter')
         ) {
             // Display restart and shutdown buttons.
-            $reboottriggerfile = $thisplugindir . '.reboot-server';
-            $shutdowntriggerfile = $thisplugindir . '.shutdown-server';
+            $reboottriggerfile = $settingsdir . '.reboot-server';
+            $shutdowntriggerfile = $settingsdir . '.shutdown-server';
             $restartshutdownform = new \tool_moodlebox\form\restartshutdown_form(
                 null,
                 null,
