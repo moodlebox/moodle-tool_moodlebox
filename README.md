@@ -33,45 +33,45 @@ To complete the installation, you have to configure some `direvent` jobs on the 
     debug 0;
 
     watcher {
-      path /var/www/moodle/admin/tool/moodlebox/;
+      path /var/www/moodledata/moodlebox/;
       file .reboot-server;
       event CLOSE_WRITE;
       command "/sbin/shutdown -r now";
     }
 
     watcher {
-      path /var/www/moodle/admin/tool/moodlebox/;
+      path /var/www/moodledata/moodlebox/;
       file .shutdown-server;
       event CLOSE_WRITE;
       command "/sbin/shutdown -h now";
     }
 
     watcher {
-      path /var/www/moodle/admin/tool/moodlebox/;
+      path /var/www/moodledata/moodlebox/;
       file .set-server-datetime;
       event CLOSE_WRITE;
-      command "/bin/bash /var/www/moodle/admin/tool/moodlebox/.set-server-datetime";
+      command "/bin/bash /var/www/moodledata/moodlebox/.set-server-datetime";
     }
 
     watcher {
-      path /var/www/moodle/admin/tool/moodlebox/;
+      path /var/www/moodledata/moodlebox/;
       file .newpassword;
       event CLOSE_WRITE;
-      command "/bin/bash /var/www/moodle/admin/tool/moodlebox/bin/changepassword.sh";
+      command "/bin/bash /var/www/moodle/public/admin/tool/moodlebox/bin/changepassword.sh";
     }
 
     watcher {
-      path /var/www/moodle/admin/tool/moodlebox/;
+      path /var/www/moodledata/moodlebox/;
       file .wifisettings;
       event CLOSE_WRITE;
-      command "/usr/bin/python3 /var/www/moodle/admin/tool/moodlebox/bin/changewifisettings.py";
+      command "/usr/bin/python3 /var/www/moodle/public/admin/tool/moodlebox/bin/changewifisettings.py";
     }
 
     watcher {
-      path /var/www/moodle/admin/tool/moodlebox/;
+      path /var/www/moodledata/moodlebox/;
       file .resize-partition;
       event CLOSE_WRITE;
-      command "/bin/bash /var/www/moodle/admin/tool/moodlebox/bin/resizepartition.sh";
+      command "/bin/bash /var/www/moodle/public/admin/tool/moodlebox/bin/resizepartition.sh";
     }
     ```
 
