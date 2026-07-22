@@ -1,0 +1,22 @@
+# camp listing manifest — descriptive content for your plugin's page.
+# Edit freely and commit; camp ingests this file at each tagged release.
+# Schema: https://camp-registry.org/schema/listing.schema.json
+name: tool_moodlebox
+summary: A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://moodlebox.net/), a Moodle server installed on a [Raspberry Pi](https://www.raspberrypi.org/).
+description: |
+  This plugin enables a Moodle administrator to monitor some hardware settings, to set the date of the MoodleBox, to allow restart and shutdown of the MoodleBox and changing Raspberry Pi passwords using a GUI. After the installation in Moodle, some steps are required to complete on the Raspberry Pi (see README file).
+
+  ### Requirements:
+
+  - A Raspberry Pi, model 3B, 3B+, 4B or 5 recommended
+  - Raspberry Pi OS installed
+  - Package `direvent` installed
+labels:
+  - fully-free
+  - donation-supported
+screenshots:
+  - path: .camp/screenshots/dashboard.png
+    caption: MoodleBox dashboard
+links:
+  docs: https://moodlebox.net/en/help/
+  issues: https://github.com/moodlebox/moodle-tool_moodlebox/issues
