@@ -19,4 +19,4 @@ Feature: MoodleBox buttons appears in the footer
     When I set the field "Show restart and shutdown buttons in footer" to "1"
     And I press "Save changes"
     And I am on site homepage
-    And I press "Restart MoodleBox"
+    Then I should see "Restart MoodleBox"
