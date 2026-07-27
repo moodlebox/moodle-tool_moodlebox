@@ -2,9 +2,13 @@
 # Edit freely and commit; camp ingests this file at each tagged release.
 # Schema: https://camp-registry.org/schema/listing.schema.json
 name: tool_moodlebox
-summary: A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://moodlebox.net/), a Moodle server installed on a [Raspberry Pi](https://www.raspberrypi.org/).
+summary: A Moodle administration plugin providing a GUI to some settings and management of a MoodleBox (https://moodlebox.net/), a Moodle server installed on a Raspberry Pi.
 description: |
-  This plugin enables a Moodle administrator to monitor some hardware settings, to set the date of the MoodleBox, to allow restart and shutdown of the MoodleBox and changing Raspberry Pi passwords using a GUI. After the installation in Moodle, some steps are required to complete on the Raspberry Pi (see README file).
+  This plugin enables a Moodle administrator/manager to monitor some hardware data and to configure various [MoodleBox](https://moodlebox.net/) settings directly from within Moodle.
+
+  Examples of the configurable settings include device passwords, Wi-Fi hotspot configuration and date/time of the MoodleBox. The plugin allows also to restart or shutdown the [MoodleBox](https://moodlebox.net/).
+
+  After its installation in Moodle, some steps are required on the Raspberry Pi to complete the installation of the plugin (see README file).
 
   ### Requirements:
 
