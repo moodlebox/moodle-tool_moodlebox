@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 3.3.1, 2026-08-08
+
+### Added
+- Add MDL Shield badge (no issue number).
+
+### Changed
+- Update minified js build (issue #172).
+- Update camp registry listing and release workflow (no issue number).
+- Update CI script (no issue number).
+
+### Fixed
+- Wifi country and channel doesn't stick (issue #174).
+
 ## Version 3.3.0, 2026-07-22
 
 ### Added
