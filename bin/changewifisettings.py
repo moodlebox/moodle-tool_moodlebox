@@ -241,7 +241,6 @@ def fix_wrong_kernel_cmdline():
         )
 
 # Actions.
-
 fix_wrong_kernel_cmdline()
 do_regulatory_country()
 do_channel()
@@ -251,22 +250,15 @@ do_password_protected()
 if password_protected:
     do_password()
 do_ip_address()
-
 # End of actions.
-#
+
+# Restart networking and hostapd service, and wait for completion.
+subprocess.run(['systemctl', 'restart', 'NetworkManager.service'])
+
 # Empty lease file to clean clients list.
 try:
     open(dnsmasq_lease_file, 'w').close()
 except IOError:
     pass
-
-# Empty settings file, for security.
-try:
-    open(settings_file, 'w').close()
-except IOError:
-    pass
-
-# Restart networking and hostapd service.
-subprocess.call(['systemctl', 'restart', 'NetworkManager.service'])
 
 # The end.
