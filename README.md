@@ -12,7 +12,7 @@ This plugin enables a Moodle administrator to monitor some hardware settings, to
 
 Administrators and users with manager role can moreover restart and shutdown the MoodleBox with buttons in the footer of each Moodle page.
 
-The plugin is compatible with Moodle 3.6 or later. A Raspberry Pi model Zero 2 W, 3A+, 3B, 3B+, 4B or 5 is recommended.
+The plugin is compatible with Moodle 4.4 or later. A Raspberry Pi model Zero 2 W, 3A+, 3B, 3B+, 4B or 5 is recommended.
 
 ## Installation
 
@@ -51,7 +51,8 @@ To complete the installation, you have to configure some `direvent` jobs on the 
       path /var/www/moodledata/moodlebox/;
       file .set-server-datetime;
       event CLOSE_WRITE;
-      command "/bin/bash /var/www/moodledata/moodlebox/.set-server-datetime";
+      command "/usr/bin/xargs -a $file -I{} /usr/bin/date -s @{}";
+      option (stdout);
     }
 
     watcher {
