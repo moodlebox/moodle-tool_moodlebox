@@ -229,6 +229,9 @@ def do_ip_address():
     file_replace_line(dnsmasq_conf_file,
             '^dhcp-option=6,' + ip_regex + '(?P<end>.*)$',
             'dhcp-option=6,' + new_static_ip + '\\g<end>')
+    # Ensure NetworkManager gets the new dnsmasq settings.
+    subprocess.run(['nmcli', 'con', 'down', 'WifiAP'])
+    subprocess.run(['nmcli', 'con', 'up', 'WifiAP'])
 
 def fix_wrong_kernel_cmdline():
     """Fix buggy file produced by buggy script in versions 2.17.0 and 2.17.1."""
@@ -251,9 +254,6 @@ if password_protected:
     do_password()
 do_ip_address()
 # End of actions.
-
-# Restart networking and hostapd service, and wait for completion.
-subprocess.run(['systemctl', 'restart', 'NetworkManager.service'])
 
 # Empty lease file to clean clients list.
 try:
