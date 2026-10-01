@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 3.3.2, 2026-10-01
+
+### Changed
+- Don't restart NetworkManager after changing settings (no issue number, commit 46f7a92).
+- Use reusable action workflow for CAMP publishing (no issue number, commit d1df015).
+
 ## Version 3.3.1, 2026-08-08
 
 ### Added
