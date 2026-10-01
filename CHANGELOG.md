@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/) and follow pr
 ### Changed
 - Don't restart NetworkManager after changing settings (no issue number, commit 46f7a92).
 - Use reusable action workflow for CAMP publishing (no issue number, commit d1df015).
+- Test against upcoming Moodle 5.3 (issue #178).
 
 ## Version 3.3.1, 2026-08-08
 
