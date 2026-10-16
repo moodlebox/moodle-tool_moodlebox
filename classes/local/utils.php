@@ -120,7 +120,7 @@ class utils {
             $memorysize = $memorysizes[$rawmemory];
 
             // Get actual memory capacity from the `rpi-sdram-size-gbit` firmware parameter.
-            // @link {https://www.raspberrypi.com/documentation/computers/configuration.html#part4}.
+            // {@link https://www.raspberrypi.com/documentation/computers/configuration.html#part4}.
             if ($memorysize === 'Other') {
                 if ($memorysizeinfo = @file_get_contents('/proc/device-tree/chosen/rpi-sdram-size-gbit')) {
                     $memorysize = (int)hexdec(bin2hex($memorysizeinfo)) / 8 . "GB";
