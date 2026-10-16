@@ -68,7 +68,7 @@ class utils {
      * | C | 12-15 | Processor     | BCM2835, BCM2836, BCM2837, BCM2711, BCM2712        |
      * | D | 16-19 | Manufacturer  | Sony UK, Egoman, Embest, Sony Japan,               |
      * |   |       |               | Embest, Stadium                                    |
-     * | E | 20-22 | Memory size   | 256MB, 512MB, 1GB, 2GB, 4GB, 8GB, 16GB             |
+     * | E | 20-22 | Memory size   | 256MB, 512MB, 1GB, 2GB, 4GB, 8GB, 16GB, Other      |
      * | F | 23-23 | Revision flag | If set, new-style revision                         |
      * | G | 24-24 | Unused        |                                                    |
      * | H | 25-25 | Warranty bit  | If set, warranty void by overclocking (post Pi2)   |
@@ -93,7 +93,7 @@ class utils {
         $revisionnumber = hexdec($revisioncode);
 
         // Define arrays of various hardware parameter values.
-        $memorysizes = ['256MB', '512MB', '1GB', '2GB', '4GB', '8GB', '16GB', 'other' ];
+        $memorysizes = ['256MB', '512MB', '1GB', '2GB', '4GB', '8GB', '16GB', 'Other' ];
         $models = ['A', 'B', 'A+', 'B+', '2B', 'Alpha', 'CM1', 'Unknown',
                 '3B', 'Zero', 'CM3', 'Unknown', 'ZeroW', '3B+', '3A+', 'Internal use',
                 'CM3+', '4B', 'Zero2W', '400', 'CM4', 'CM4S', 'Internal use', '5',
@@ -118,6 +118,14 @@ class utils {
             $processor = $processors[$rawprocessor];
             $manufacturer = $manufacturers[$rawmanufacturer];
             $memorysize = $memorysizes[$rawmemory];
+
+            // Get actual memory capacity from the `rpi-sdram-size-gbit` firmware parameter.
+            // @link https://www.raspberrypi.com/documentation/computers/configuration.html#part4
+            if ($memorysize = 'Other') {
+                if ($memorysizeinfo = @file_get_contents('/proc/device-tree/chosen/rpi-sdram-size-gbit')) {
+                  $memorysize = (int)hexdec(bin2hex($memorysizeinfo))/8 . "GB";
+                }
+            }
 
             return [
                 'revisioncode' => $revisioncode,

@@ -77,14 +77,14 @@ if ($hardwaredata = \tool_moodlebox\local\utils::get_hardware_model()) {
                 case '2GB':
                     $platform = 'rpi4twogb';
                     break;
+                case '3GB':
+                    $platform = 'rpi4threegb';
+                    break;
                 case '4GB':
                     $platform = 'rpi4fourgb';
                     break;
                 case '8GB':
                     $platform = 'rpi4eightgb';
-                    break;
-                case 'other':
-                    $platform = 'rpi4threegb';
                     break;
             };
             break;
