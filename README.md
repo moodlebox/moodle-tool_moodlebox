@@ -5,6 +5,7 @@
 [![GitHub Release Date](https://img.shields.io/github/release-date/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/moodle-tool_moodlebox/releases/latest)
 [![GitHub last commit](https://img.shields.io/github/last-commit/moodlebox/moodle-tool_moodlebox.svg)](https://github.com/moodlebox/moodle-tool_moodlebox/commits/)
 [![MDL Shield](https://img.shields.io/endpoint?url=https%3A%2F%2Fmdlshield.com%2Fapi%2Fbadge%2Ftool_moodlebox)](https://mdlshield.com/plugins/tool_moodlebox)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17307760.svg)](https://doi.org/10.5281/zenodo.17307760)
 
 A Moodle administration plugin providing a GUI to some settings and management of a [MoodleBox](https://moodlebox.net/), a Moodle server installed on a [Raspberry Pi](https://www.raspberrypi.org/).
 

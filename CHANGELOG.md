@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](https://semver.org/) and follow pr
 
 ## Version 3.4.0, 2026-10-17
 
-__Warning! This release won't work on MoodleBox images v4.12.0 and earlier__
+__Warning! This release won't work on MoodleBox images v4.12.0 and earlier, unless the [watcher command is updated](https://github.com/moodlebox/moodle-tool_moodlebox#upgrade).__
 
 ### Changed
 - Change logic for detection of RPi 4 3GB model (issue #180).
