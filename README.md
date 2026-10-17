@@ -93,6 +93,19 @@ To complete the installation, you have to configure some `direvent` jobs on the 
     ```
    and reboot.
 
+## Upgrade
+
+When upgrading from version v3.3.2 or later, the watcher command for setting date and time MUST be replaced, to read:
+```
+    watcher {
+      path /var/www/moodledata/moodlebox/;
+      file .set-server-datetime;
+      event CLOSE_WRITE;
+      command "/usr/bin/xargs -a $file -I{} /usr/bin/date -s @{}";
+      option (stdout);
+    }
+```
+
 ## Features
 
 - Info about the MoodleBox (kernel version, Raspberry Pi OS version, free space on SD card, CPU load, CPU temperature, CPU frequency, uptime, DHCP clients and more).
