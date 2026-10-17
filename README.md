@@ -95,7 +95,7 @@ To complete the installation, you have to configure some `direvent` jobs on the 
 
 ## Upgrade
 
-When upgrading from version v3.3.2 or later, the watcher command for setting date and time MUST be replaced, to read:
+When upgrading from version v3.3.2 or earlier, the watcher command for setting date and time MUST be replaced, to read:
 ```
     watcher {
       path /var/www/moodledata/moodlebox/;
