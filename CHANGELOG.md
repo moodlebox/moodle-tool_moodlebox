@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/) and follow principles of [keep a changelog](https://keepachangelog.com).
 
+## Version 3.4.0, 2026-10-17
+
+__Warning! This release won't work on MoodleBox images v4.12.0 and earlier__
+
+### Changed
+- Fix low risk issue when setting date and time (issue #177).
+- Change logic for detection of RPi 4 3GB model (issue #180).
+- Drop support of unsupported Moodle releases (issue #182).
+
+### Fixed
+- Update action to release to Moodle Marketplace, instead of defunct plugin repository (no issue number, commit 97559e5).
+
 ## Version 3.3.2, 2026-10-01
 
 ### Changed
