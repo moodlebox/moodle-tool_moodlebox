@@ -50,6 +50,7 @@ $PAGE->set_heading($strheading);
 
 echo $OUTPUT->header();
 
+$platform = 'unknownmodel';
 if ($hardwaredata = \tool_moodlebox\local\utils::get_hardware_model()) {
     switch ($hardwaredata['model']) {
         // String $platform MUST contain 'rpi'.
@@ -77,14 +78,14 @@ if ($hardwaredata = \tool_moodlebox\local\utils::get_hardware_model()) {
                 case '2GB':
                     $platform = 'rpi4twogb';
                     break;
+                case '3GB':
+                    $platform = 'rpi4threegb';
+                    break;
                 case '4GB':
                     $platform = 'rpi4fourgb';
                     break;
                 case '8GB':
                     $platform = 'rpi4eightgb';
-                    break;
-                case 'other':
-                    $platform = 'rpi4threegb';
                     break;
             };
             break;
@@ -126,8 +127,6 @@ if ($hardwaredata = \tool_moodlebox\local\utils::get_hardware_model()) {
         default: // Anything else is not a supported RPi.
             $platform = 'unknownmodel';
     }
-} else {
-    $platform = 'unknownmodel';
 }
 
 if (strpos($platform, 'rpi') !== false) { // We are on a RPi.
