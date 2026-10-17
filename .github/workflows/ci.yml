@@ -42,7 +42,7 @@ jobs:
       #fail-fast: false
       matrix:
         php: ['8.2', '8.4']
-        moodle-branch: ['MOODLE_405_STABLE', 'MOODLE_500_STABLE', 'MOODLE_501_STABLE', 'MOODLE_502_STABLE']
+        moodle-branch: ['MOODLE_405_STABLE', 'MOODLE_501_STABLE', 'MOODLE_502_STABLE', 'MOODLE_503_STABLE']
         database: [pgsql, mariadb]
         exclude:
           - php: '8.4'
@@ -50,11 +50,11 @@ jobs:
           - database: pgsql
             moodle-branch: 'MOODLE_405_STABLE'
           - php: '8.2'
-            moodle-branch: 'MOODLE_500_STABLE'
-          - php: '8.2'
             moodle-branch: 'MOODLE_501_STABLE'
           - php: '8.2'
             moodle-branch: 'MOODLE_502_STABLE'
+          - php: '8.2'
+            moodle-branch: 'MOODLE_503_STABLE'
 
     steps:
       - name: Check out repository code
@@ -68,8 +68,8 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: ${{ matrix.extensions }}
-          ini-values: max_input_vars=5000, opcache.enable_cli=1
-          # If you are not using code coverage, keep "none". Otherwise, use "pcov" (Moodle 3.10 and up) or "xdebug".
+          ini-values: max_input_vars=5000, opcache.enable_cli=1, opcache.jit=disable
+          # If you are not using code coverage, keep "none". Otherwise, use "pcov" (Moodle 3.10 and up; note we must disable JIT if enabling Opcache) or "xdebug".
           # If you try to use code coverage with "none", it will fallback to phpdbg (which has known problems).
           coverage: none
 
